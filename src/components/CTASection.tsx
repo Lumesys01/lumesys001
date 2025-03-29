@@ -62,10 +62,10 @@ const CTASection: React.FC = () => {
               Be the first to experience Lumesys
             </div>
             
-            <h2 className="text-4xl md:text-5xl font-light mb-6">
+            <h2 className="text-4xl md:text-5xl font-light mb-6 text-black">
               Join Our <span className="gradient-text font-normal">Exclusive</span> Waitlist
             </h2>
-            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-800 mb-8 max-w-2xl mx-auto">
               Get priority access to the future of energy optimization and receive exclusive updates as we prepare for launch.
             </p>
           </div>
@@ -80,7 +80,7 @@ const CTASection: React.FC = () => {
                   type="email"
                   required
                   placeholder="Enter your email address"
-                  className="flex-1 px-6 py-4 rounded-full border border-gray-200 bg-white/80 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all"
+                  className="flex-1 px-6 py-4 rounded-full border border-gray-200 bg-white/80 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -93,12 +93,12 @@ const CTASection: React.FC = () => {
                 </Button>
               </div>
               
-              <p className="text-sm text-center text-gray-500">By joining, you agree to receive updates about Lumesys. We respect your privacy.</p>
+              <p className="text-sm text-center text-gray-700">By joining, you agree to receive updates about Lumesys. We respect your privacy.</p>
             </form>
           </div>
           
           <div className="text-center">
-            <p className="text-gray-600 mb-4">Want to learn more?</p>
+            <p className="text-gray-800 mb-4 font-medium">Want to learn more about our mission?</p>
             <div className="flex flex-wrap justify-center gap-4">
               <a 
                 href="https://linkedin.com" 
@@ -107,10 +107,10 @@ const CTASection: React.FC = () => {
                 className="inline-flex items-center gap-2 bg-white border border-gray-200 hover:border-accent py-3 px-6 rounded-full text-gray-700 hover:text-accent transition-colors"
               >
                 <Linkedin className="w-5 h-5" />
-                <span>Connect on LinkedIn</span>
+                <span>Connect with our Founder</span>
               </a>
               
-              <Button variant="outline" className="rounded-full bg-white">
+              <Button variant="outline" className="rounded-full bg-white text-gray-800">
                 Request a Demo
               </Button>
             </div>

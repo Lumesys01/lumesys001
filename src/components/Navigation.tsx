@@ -52,9 +52,6 @@ const Navigation = () => {
           <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-white">
             Learn More
           </Button>
-          <Button className="glow-button text-primary">
-            Join Waitlist
-          </Button>
         </div>
 
         {/* Mobile menu button */}
@@ -103,9 +100,6 @@ const Navigation = () => {
             <div className="pt-4 flex flex-col space-y-3">
               <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-white w-full">
                 Learn More
-              </Button>
-              <Button className="glow-button text-primary w-full">
-                Join Waitlist
               </Button>
             </div>
           </div>
