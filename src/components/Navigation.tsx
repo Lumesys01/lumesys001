@@ -29,8 +29,7 @@ const Navigation = () => {
             className="h-12 w-12 mr-2" 
           />
           <div className="text-2xl font-medium flex items-center">
-            <span className="gradient-text mr-2">LUME</span>
-            <span>SYS</span>
+            <span className="gradient-text">Lumesys</span>
           </div>
         </Link>
         
