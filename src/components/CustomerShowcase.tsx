@@ -1,11 +1,12 @@
 
 import React from 'react';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Building, Hospital, Computer, Briefcase, ShoppingBag, Building2 } from 'lucide-react';
 
 interface CustomerLogo {
   name: string;
   logo: string;
   industry: string;
+  icon: React.ReactNode;
 }
 
 interface SuccessMetric {
@@ -20,33 +21,39 @@ const CustomerShowcase: React.FC = () => {
   const customerLogos: CustomerLogo[] = [
     { 
       name: "TechGlobal", 
-      logo: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "Data Centers" 
+      logo: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      industry: "Data Centers",
+      icon: <Computer className="h-4 w-4 text-accent/80" />
     },
     { 
       name: "HealthCare Partners", 
-      logo: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "Healthcare" 
+      logo: "https://images.unsplash.com/photo-1516549655669-8f13e61b09fa?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      industry: "Healthcare",
+      icon: <Hospital className="h-4 w-4 text-accent/80" />
     },
     { 
       name: "Manufacturing Plus", 
-      logo: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "Manufacturing" 
+      logo: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      industry: "Manufacturing",
+      icon: <Building className="h-4 w-4 text-accent/80" />
     },
     { 
       name: "Edu Connect", 
       logo: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "Education" 
+      industry: "Education",
+      icon: <Briefcase className="h-4 w-4 text-accent/80" />
     },
     { 
       name: "CommMart Group", 
-      logo: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "Retail" 
+      logo: "https://images.unsplash.com/photo-1612103198005-b238154f4590?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      industry: "Retail",
+      icon: <ShoppingBag className="h-4 w-4 text-accent/80" />
     },
     { 
       name: "Real Estate One", 
-      logo: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "Commercial Real Estate" 
+      logo: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      industry: "Commercial Real Estate",
+      icon: <Building2 className="h-4 w-4 text-accent/80" />
     },
   ];
 
@@ -104,7 +111,10 @@ const CustomerShowcase: React.FC = () => {
                 />
               </div>
               <div className="text-center">
-                <p className="font-medium text-sm">{customer.name}</p>
+                <div className="flex items-center justify-center gap-1 mb-1">
+                  {customer.icon}
+                  <p className="font-medium text-sm">{customer.name}</p>
+                </div>
                 <p className="text-xs text-black/60">{customer.industry}</p>
               </div>
             </div>
