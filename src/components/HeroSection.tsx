@@ -68,6 +68,11 @@ const HeroSection: React.FC = () => {
             </div>
           </div>
           
+          <div className="mb-6 px-4 py-2 bg-green-50 rounded-full inline-flex items-center text-sm font-medium text-green-700 animate-float">
+            <span className="mr-2">🌿</span>
+            Powering Efficiency, Leading Sustainability
+          </div>
+          
           <p className="mb-4 text-lg md:text-xl font-medium bg-clip-text text-transparent bg-button-gradient animate-float" style={{ animationDelay: "0.2s" }}>
             Do, Dare; Dominate.
           </p>
