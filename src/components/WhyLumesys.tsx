@@ -22,28 +22,28 @@ const WhyLumesys: React.FC = () => {
   const comparisonData = [
     {
       feature: "Energy Analysis",
-      lumesys: "Real-time, AI-powered",
-      traditional: "Periodic manual reviews"
+      lumesys: "AI-powered, Real-time",
+      traditional: "Manual, Periodic"
     },
     {
       feature: "Anomaly Detection",
-      lumesys: "Automatic, predictive",
-      traditional: "Manual identification"
+      lumesys: "Predictive, Automated",
+      traditional: "Reactive, Manual"
     },
     {
       feature: "Optimization",
-      lumesys: "Continuous, adaptive",
-      traditional: "Static, scheduled"
+      lumesys: "Continuous, Adaptive",
+      traditional: "Static, Scheduled"
     },
     {
       feature: "Maintenance",
-      lumesys: "Predictive, proactive",
-      traditional: "Reactive, scheduled"
+      lumesys: "Proactive, Preventive",
+      traditional: "Reactive, Repairs"
     },
     {
       feature: "Data Insights",
-      lumesys: "Deep learning patterns",
-      traditional: "Basic historical data"
+      lumesys: "Deep Learning Patterns",
+      traditional: "Basic Historical Data"
     }
   ];
 
