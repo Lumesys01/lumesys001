@@ -5,7 +5,7 @@ import { PresentationControls, Environment, ContactShadows } from '@react-three/
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
-import { Box, Gift, ArrowRight } from 'lucide-react';
+import { Gift, ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import * as THREE from 'three';
 
@@ -14,11 +14,11 @@ interface GiftBoxModelProps {
   onClick?: () => void;
   hovered?: boolean;
   position?: [number, number, number];
-  [key: string]: any;
+  scale?: [number, number, number];
 }
 
 // Simple gift box model created with Three.js primitives
-function GiftBoxModel({ onClick, hovered, ...props }: GiftBoxModelProps) {
+function GiftBoxModel({ onClick, hovered, position, scale }: GiftBoxModelProps) {
   // Properly type the refs with THREE.Mesh
   const boxRef = useRef<THREE.Mesh>(null);
   const lidRef = useRef<THREE.Mesh>(null);
@@ -53,7 +53,7 @@ function GiftBoxModel({ onClick, hovered, ...props }: GiftBoxModelProps) {
   });
 
   return (
-    <group {...props} onClick={onClick}>
+    <group position={position} scale={scale} onClick={onClick}>
       {/* Box base */}
       <mesh ref={boxRef} castShadow receiveShadow>
         <boxGeometry args={[1, 0.5, 1]} />
@@ -148,9 +148,9 @@ export const GiftBox3D: React.FC = () => {
           >
             <GiftBoxModel 
               hovered={hovered} 
-              position={[0, 0, 0]} 
-              onClick={() => setOpen(true)}
+              position={[0, 0, 0]}
               scale={[0.6, 0.6, 0.6]}
+              onClick={() => setOpen(true)}
             />
           </PresentationControls>
           <ContactShadows position={[0, -1, 0]} opacity={0.4} scale={5} blur={2.4} />
