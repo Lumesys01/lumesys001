@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -21,11 +22,11 @@ const HeroSection: React.FC = () => {
   return (
     <section className="relative min-h-screen overflow-hidden flex items-center bg-white">
       {/* Background accent elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-white to-white"></div>
       
-      {/* Overlay gradient with parallax effect */}
+      {/* Overlay gradient with parallax effect - removed dark overlay */}
       <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-md"
+        className="absolute inset-0"
         style={{
           transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`,
         }}
@@ -81,7 +82,7 @@ const HeroSection: React.FC = () => {
             The Brain for <span className="gradient-text font-normal filter drop-shadow-[0_0_20px_rgba(168,235,18,0.3)]">Energy Optimization</span> & Efficiency
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/80 max-w-3xl mb-10 animate-float" style={{ animationDelay: "0.6s" }}>
+          <p className="text-xl md:text-2xl text-black/80 max-w-3xl mb-10 animate-float" style={{ animationDelay: "0.6s" }}>
             Reduce operational costs by a minimum of <span className="text-highlight font-medium">10%</span> with AI-powered solutions.
           </p>
           
@@ -90,16 +91,10 @@ const HeroSection: React.FC = () => {
               Join the Waitlist
             </Button>
             
-            <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-white px-8 py-7 rounded-full text-lg group hover:scale-105 transition-transform duration-300">
+            <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-black px-8 py-7 rounded-full text-lg group hover:scale-105 transition-transform duration-300">
               Learn More 
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </Button>
-          </div>
-          
-          {/* Scroll indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
-            <p className="text-white/60 mb-2 text-sm">Scroll Down</p>
-            <ChevronDown className="w-6 h-6 text-white/60" />
           </div>
         </div>
       </div>
@@ -129,9 +124,6 @@ const HeroSection: React.FC = () => {
           transform: `translate(${mousePosition.x * -15}px, ${mousePosition.y * -15}px)` 
         }}
       ></div>
-      
-      {/* Enhanced decorative glowing circle */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-neonpurple/20 blur-[120px] -z-0"></div>
     </section>
   );
 };
