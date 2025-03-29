@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { 
   LineChart, Line, BarChart, Bar, PieChart, Pie, AreaChart, Area,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  Cell, Sector, PieLabelRenderProps
+  Cell, Sector
 } from "recharts";
 import { 
   ChartContainer, 
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/chart";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
 
 // Sample data
 const monthlyData = [
@@ -35,6 +36,24 @@ const DemoCharts = () => {
   const [activeData, setActiveData] = useState(monthlyData);
   const [animate, setAnimate] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  // Handle window resize for responsive charts
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Determine chart height based on screen size
+  const getChartHeight = () => {
+    if (windowWidth < 640) return 300; // Mobile
+    if (windowWidth < 1024) return 350; // Tablet
+    return 400; // Desktop
+  };
 
   // Randomize data for demo purposes
   const randomizeData = () => {
@@ -124,12 +143,12 @@ const DemoCharts = () => {
         <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" strokeWidth={2} />
         <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
         
-        {/* Label text */}
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#FFFFFF" className="text-xs md:text-sm">
+        {/* Label text - improved contrast for light theme */}
+        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333333" className="text-xs md:text-sm font-medium">
           {payload.name}
         </text>
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#F0F0F0" className="text-xs">
-          {`${(percent * 100).toFixed(0)}%`}
+        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#666666" className="text-xs">
+          {`${value} clients (${(percent * 100).toFixed(0)}%)`}
         </text>
       </g>
     );
@@ -140,37 +159,59 @@ const DemoCharts = () => {
     setActiveIndex(index);
   };
 
+  // Render color legend for pie chart
+  const renderColorLegend = () => {
+    return (
+      <div className="flex flex-wrap justify-center gap-3 mt-4">
+        {pieData.map((entry, index) => (
+          <div 
+            key={`legend-${index}`} 
+            className="flex items-center gap-2 px-3 py-1 rounded-full border border-gray-200 bg-white shadow-sm"
+            onMouseEnter={() => setActiveIndex(index)}
+          >
+            <div 
+              className="w-3 h-3 rounded-full" 
+              style={{ backgroundColor: entry.color }}
+            />
+            <span className="text-sm font-medium">{entry.name}</span>
+            <span className="text-xs text-gray-500">({entry.value})</span>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 py-16">
-      <div className="mb-10 text-center">
-        <h2 className="text-3xl md:text-4xl font-light mb-4">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <div className="mb-8 sm:mb-10 text-center">
+        <h2 className="text-3xl sm:text-4xl font-light mb-3 sm:mb-4">
           <span className="gradient-text">Interactive Insights</span>
         </h2>
-        <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-8">
+        <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto mb-6 sm:mb-8">
           Visualize your data with our powerful and customizable chart components.
         </p>
         <Button 
           onClick={randomizeData} 
-          className="glow-button text-primary mb-8"
+          className="glow-button text-primary"
         >
           Refresh Data
         </Button>
       </div>
 
       <div className={`transition-all duration-800 ${animate ? 'opacity-0' : 'opacity-100'}`}>
-        <Tabs defaultValue="line" className="w-full">
-          <TabsList className="grid grid-cols-4 mb-8 bg-surface">
+        <Tabs defaultValue="pie" className="w-full">
+          <TabsList className="grid grid-cols-2 sm:grid-cols-4 mb-6 sm:mb-8 bg-surface">
             <TabsTrigger value="line">Line Chart</TabsTrigger>
             <TabsTrigger value="area">Area Chart</TabsTrigger>
             <TabsTrigger value="bar">Bar Chart</TabsTrigger>
             <TabsTrigger value="pie">Pie Chart</TabsTrigger>
           </TabsList>
           
-          <TabsContent value="line" className="glass-card p-6 rounded-lg">
-            <h3 className="text-xl mb-4">Monthly Performance Trends</h3>
-            <div className="h-[400px] w-full">
+          <TabsContent value="line" className="glass-card p-4 sm:p-6 rounded-lg">
+            <h3 className="text-lg sm:text-xl mb-3 sm:mb-4 font-medium">Monthly Performance Trends</h3>
+            <div className="h-[300px] sm:h-[350px] lg:h-[400px] w-full">
               <ChartContainer config={chartConfig}>
-                <LineChart data={activeData}>
+                <LineChart data={activeData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
@@ -200,11 +241,11 @@ const DemoCharts = () => {
             </div>
           </TabsContent>
           
-          <TabsContent value="area" className="glass-card p-6 rounded-lg">
-            <h3 className="text-xl mb-4">Growth Visualization</h3>
-            <div className="h-[400px] w-full">
+          <TabsContent value="area" className="glass-card p-4 sm:p-6 rounded-lg">
+            <h3 className="text-lg sm:text-xl mb-3 sm:mb-4 font-medium">Growth Visualization</h3>
+            <div className="h-[300px] sm:h-[350px] lg:h-[400px] w-full">
               <ChartContainer config={chartConfig}>
-                <AreaChart data={activeData}>
+                <AreaChart data={activeData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
@@ -229,11 +270,11 @@ const DemoCharts = () => {
             </div>
           </TabsContent>
           
-          <TabsContent value="bar" className="glass-card p-6 rounded-lg">
-            <h3 className="text-xl mb-4">Revenue Comparison</h3>
-            <div className="h-[400px] w-full">
+          <TabsContent value="bar" className="glass-card p-4 sm:p-6 rounded-lg">
+            <h3 className="text-lg sm:text-xl mb-3 sm:mb-4 font-medium">Revenue Comparison</h3>
+            <div className="h-[300px] sm:h-[350px] lg:h-[400px] w-full">
               <ChartContainer config={chartConfig}>
-                <BarChart data={activeData}>
+                <BarChart data={activeData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
@@ -246,19 +287,19 @@ const DemoCharts = () => {
             </div>
           </TabsContent>
           
-          <TabsContent value="pie" className="glass-card p-6 rounded-lg">
-            <h3 className="text-xl mb-4">Industry Segment Distribution</h3>
-            <div className="h-[400px] w-full">
+          <TabsContent value="pie" className="glass-card p-4 sm:p-6 rounded-lg">
+            <h3 className="text-lg sm:text-xl mb-3 sm:mb-4 font-medium">Industry Segment Distribution</h3>
+            <div className="h-[300px] sm:h-[350px] lg:h-[400px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
+                <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
                   <Pie
                     activeIndex={activeIndex}
                     activeShape={renderActiveShape}
                     data={pieData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={70}
-                    outerRadius={120}
+                    innerRadius={windowWidth < 640 ? 50 : 70}
+                    outerRadius={windowWidth < 640 ? 80 : 120}
                     fill="#8884d8"
                     dataKey="value"
                     onMouseEnter={onPieEnter}
@@ -271,10 +312,22 @@ const DemoCharts = () => {
                   </Pie>
                   <Tooltip 
                     formatter={(value, name, props) => [`${value} clients`, name]}
-                    contentStyle={{ background: 'rgba(4, 20, 52, 0.85)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)' }}
+                    contentStyle={{ 
+                      background: 'rgba(255, 255, 255, 0.95)', 
+                      borderRadius: '8px', 
+                      border: '1px solid rgba(0,0,0,0.1)',
+                      color: '#333'
+                    }}
                   />
                 </PieChart>
               </ResponsiveContainer>
+            </div>
+            
+            {/* Color legend for the pie chart */}
+            {renderColorLegend()}
+            
+            <div className="mt-4 text-center text-sm text-gray-500">
+              <p>Click or hover over segments to see details</p>
             </div>
           </TabsContent>
         </Tabs>

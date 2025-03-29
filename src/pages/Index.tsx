@@ -1,3 +1,4 @@
+
 import React from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -24,7 +25,7 @@ const Index = () => {
           <TestimonialsSection />
         </section>
         
-        <section id="charts" className="bg-white">
+        <section id="charts" className="bg-white py-4">
           <DemoCharts />
         </section>
         
