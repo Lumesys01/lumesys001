@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { 
   LineChart, Line, BarChart, Bar, PieChart, Pie, AreaChart, Area,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  Cell
+  Cell, Sector, PieLabelRenderProps
 } from "recharts";
 import { 
   ChartContainer, 
@@ -23,16 +23,18 @@ const monthlyData = [
   { name: "Jun", users: 580, revenue: 3600, growth: 36 },
 ];
 
+// Updated pie data with industry segments from highest to lowest
 const pieData = [
-  { name: "Enterprise", value: 400, color: "#0EA5E9" },
-  { name: "Small Business", value: 300, color: "#F97316" },
-  { name: "Freelancer", value: 200, color: "#8B5CF6" },
-  { name: "Personal", value: 100, color: "#D946EF" },
+  { name: "Manufacturing", value: 400, color: "#0EA5E9" },
+  { name: "Mines", value: 300, color: "#F97316" },
+  { name: "Government", value: 200, color: "#8B5CF6" },
+  { name: "Retailers", value: 100, color: "#D946EF" },
 ];
 
 const DemoCharts = () => {
   const [activeData, setActiveData] = useState(monthlyData);
   const [animate, setAnimate] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   // Randomize data for demo purposes
   const randomizeData = () => {
@@ -70,6 +72,72 @@ const DemoCharts = () => {
         dark: "#F97316"
       },
     },
+  };
+
+  // Custom active shape for pie chart with "unfolding" effect
+  const renderActiveShape = (props: any) => {
+    const RADIAN = Math.PI / 180;
+    const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
+    
+    // Calculate coordinates for the label lines
+    const sin = Math.sin(-RADIAN * midAngle);
+    const cos = Math.cos(-RADIAN * midAngle);
+    
+    // Extend the outer radius for the active segment (unfolding effect)
+    const extraRadius = 15;
+    const activeOuterRadius = outerRadius + extraRadius;
+    
+    // Calculate label position
+    const sx = cx + (outerRadius + 10) * cos;
+    const sy = cy + (outerRadius + 10) * sin;
+    const mx = cx + (outerRadius + 30) * cos;
+    const my = cy + (outerRadius + 30) * sin;
+    const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+    const ey = my;
+    const textAnchor = cos >= 0 ? 'start' : 'end';
+
+    return (
+      <g>
+        {/* Semi-transparent background sector */}
+        <Sector
+          cx={cx}
+          cy={cy}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          fill={fill}
+          opacity={0.3}
+        />
+        {/* Highlighted active sector with extended radius */}
+        <Sector
+          cx={cx}
+          cy={cy}
+          innerRadius={innerRadius}
+          outerRadius={activeOuterRadius}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          fill={fill}
+          className="drop-shadow-lg"
+        />
+        {/* Connecting lines to label */}
+        <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" strokeWidth={2} />
+        <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+        
+        {/* Label text */}
+        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#FFFFFF" className="text-xs md:text-sm">
+          {payload.name}
+        </text>
+        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#F0F0F0" className="text-xs">
+          {`${(percent * 100).toFixed(0)}%`}
+        </text>
+      </g>
+    );
+  };
+
+  // Hover handler for the pie chart segments
+  const onPieEnter = (_: any, index: number) => {
+    setActiveIndex(index);
   };
 
   return (
@@ -179,26 +247,32 @@ const DemoCharts = () => {
           </TabsContent>
           
           <TabsContent value="pie" className="glass-card p-6 rounded-lg">
-            <h3 className="text-xl mb-4">Customer Segment Distribution</h3>
+            <h3 className="text-xl mb-4">Industry Segment Distribution</h3>
             <div className="h-[400px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
+                    activeIndex={activeIndex}
+                    activeShape={renderActiveShape}
                     data={pieData}
                     cx="50%"
                     cy="50%"
-                    labelLine={false}
-                    outerRadius={150}
+                    innerRadius={70}
+                    outerRadius={120}
                     fill="#8884d8"
                     dataKey="value"
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    onMouseEnter={onPieEnter}
+                    animationBegin={0}
+                    animationDuration={1200}
                   >
                     {pieData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => [`${value} users`, 'Count']} />
-                  <Legend />
+                  <Tooltip 
+                    formatter={(value) => [`${value} clients`, entry.name]} 
+                    contentStyle={{ background: 'rgba(4, 20, 52, 0.85)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)' }}
+                  />
                 </PieChart>
               </ResponsiveContainer>
             </div>
