@@ -7,6 +7,7 @@ import FeaturesSection from "@/components/FeaturesSection";
 import WhyLumesys from "@/components/WhyLumesys";
 import CTASection from "@/components/CTASection";
 import DemoCharts from "@/components/DemoCharts";
+import TestimonialsSection from "@/components/TestimonialsSection";
 
 const Index = () => {
   return (
@@ -21,6 +22,11 @@ const Index = () => {
         {/* Features Section */}
         <section id="features">
           <FeaturesSection />
+        </section>
+        
+        {/* Testimonials Section - New */}
+        <section id="testimonials" className="bg-surface/30">
+          <TestimonialsSection />
         </section>
         
         {/* Charts Demo Section */}
@@ -45,4 +51,3 @@ const Index = () => {
 };
 
 export default Index;
-

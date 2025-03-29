@@ -45,6 +45,18 @@
   .shimmer {
     @apply relative overflow-hidden before:absolute before:inset-0 before:w-[200%] before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)] before:animate-shimmer;
   }
+  
+  .neo-card {
+    @apply bg-darkblue/80 backdrop-blur-md border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-xl;
+  }
+  
+  .luxury-gradient {
+    @apply bg-gradient-to-br from-accent/80 via-highlight/50 to-neonpurple/80;
+  }
+  
+  .frosted-glass {
+    @apply backdrop-blur-md bg-white/5 border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.2)];
+  }
 }
 
 .section-padding {
@@ -87,4 +99,34 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+/* Enhanced shimmer animation */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* New parallax perspective */
+.perspective-container {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.parallax-element {
+  transform: translateZ(0);
+  transition: transform 0.2s ease-out;
+}
+
+/* New glow effects */
+.text-glow {
+  text-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+
+.neon-glow {
+  filter: drop-shadow(0 0 8px rgba(168,235,18,0.7));
 }
