@@ -21,7 +21,7 @@ const Index = () => {
           <FeaturesSection />
         </section>
         
-        <section id="testimonials" className="bg-gray-50">
+        <section id="testimonials" className="bg-white">
           <TestimonialsSection />
         </section>
         
@@ -29,7 +29,7 @@ const Index = () => {
           <DemoCharts />
         </section>
         
-        <section id="why" className="bg-gray-50">
+        <section id="why" className="bg-white">
           <WhyLumesys />
         </section>
         
