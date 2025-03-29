@@ -14,13 +14,13 @@
   }
 
   body {
-    @apply bg-white text-black antialiased; /* Updated for white background */
+    @apply bg-white text-black antialiased; /* Light theme */
     font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv02" on;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-light tracking-tight text-black; /* Ensuring dark text for headings */
+    @apply font-light tracking-tight text-black; /* Dark text for readability */
   }
 }
 
@@ -38,15 +38,15 @@
   }
 
   .glass-card {
-    @apply bg-card-gradient backdrop-blur-md border border-opacity-20 border-white/10 shadow-lg;
+    @apply bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg; /* Updated for light theme */
   }
 
   .shimmer {
-    @apply relative overflow-hidden before:absolute before:inset-0 before:w-[200%] before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)] before:animate-shimmer;
+    @apply relative overflow-hidden before:absolute before:inset-0 before:w-[200%] before:bg-[linear-gradient(90deg,transparent,rgba(0,0,0,0.05),transparent)] before:animate-shimmer;
   }
   
   .neo-card {
-    @apply bg-white backdrop-blur-md border border-gray-200 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-xl; /* Updated for white theme */
+    @apply bg-white backdrop-blur-md border border-gray-200 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-xl; /* Light theme neo-card */
   }
   
   .luxury-gradient {
@@ -54,7 +54,7 @@
   }
   
   .frosted-glass {
-    @apply backdrop-blur-md bg-white/90 border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.1)]; /* Updated for white theme */
+    @apply backdrop-blur-md bg-white/90 border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.1)]; /* Light theme glass effect */
   }
   
   .clickable-icon {

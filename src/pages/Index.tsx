@@ -1,4 +1,3 @@
-
 import React from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -11,36 +10,29 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-white text-foreground">
       <Navigation />
       
-      {/* Main content */}
       <main>
-        {/* Hero Section */}
         <HeroSection />
         
-        {/* Features Section */}
-        <section id="features">
+        <section id="features" className="bg-white">
           <FeaturesSection />
         </section>
         
-        {/* Testimonials Section - New */}
-        <section id="testimonials" className="bg-surface/30">
+        <section id="testimonials" className="bg-gray-50">
           <TestimonialsSection />
         </section>
         
-        {/* Charts Demo Section */}
-        <section id="charts" className="bg-surface/50">
+        <section id="charts" className="bg-white">
           <DemoCharts />
         </section>
         
-        {/* Why Lumesys Section */}
-        <section id="why">
+        <section id="why" className="bg-gray-50">
           <WhyLumesys />
         </section>
         
-        {/* CTA Section with Email Capture */}
-        <section id="waitlist">
+        <section id="waitlist" className="bg-white">
           <CTASection />
         </section>
       </main>

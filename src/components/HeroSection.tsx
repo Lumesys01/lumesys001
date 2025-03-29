@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ChevronDown } from 'lucide-react';
@@ -20,7 +19,10 @@ const HeroSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden flex items-center animated-gradient-background">
+    <section className="relative min-h-screen overflow-hidden flex items-center bg-white">
+      {/* Background accent elements */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white"></div>
+      
       {/* Overlay gradient with parallax effect */}
       <div 
         className="absolute inset-0 bg-black/50 backdrop-blur-md"
