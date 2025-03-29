@@ -26,16 +26,16 @@ export default {
         highlight: "#A8EB12",
         neonpurple: "#2C065D",
         darkblue: "#010B28",
-        background: "#010B19",
+        background: "#010B19", // Ensuring a very dark background
         surface: "#041434",
         muted: "#C4C3BB",
         "muted-foreground": "#A3A299",
         border: "#143156",
         input: "#0A1D45",
-        foreground: "#FFFFFF",
+        foreground: "#FFFFFF", // Keeping white text
       },
       textColor: {
-        foreground: "#FFFFFF",
+        foreground: "#FFFFFF", // Ensuring white text
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
