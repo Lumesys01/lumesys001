@@ -71,17 +71,17 @@ const TestimonialsSection: React.FC = () => {
   };
 
   return (
-    <section className="section-padding relative bg-darkblue py-24">
+    <section className="section-padding relative bg-white py-24">
       {/* Background elements */}
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-neonpurple/5 rounded-full blur-[150px]"></div>
       <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-accent/5 rounded-full blur-[150px]"></div>
       
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-light mb-4">
+          <h2 className="text-3xl md:text-5xl font-light mb-4 text-black">
             What Our <span className="gradient-text font-normal">Clients</span> Say
           </h2>
-          <p className="text-lg text-white/70 max-w-2xl mx-auto">
+          <p className="text-lg text-black/70 max-w-2xl mx-auto">
             Discover how Lumesys is transforming energy management across industries.
           </p>
         </div>
@@ -172,20 +172,20 @@ const TestimonialsSection: React.FC = () => {
         </div>
         
         {/* Company logos */}
-        <div className="mt-20 pt-16 border-t border-white/10">
-          <p className="text-center text-white/50 text-sm mb-10">TRUSTED BY INDUSTRY LEADERS</p>
+        <div className="mt-20 pt-16 border-t border-black/10">
+          <p className="text-center text-black/50 text-sm mb-10">TRUSTED BY INDUSTRY LEADERS</p>
           <div className="flex flex-wrap justify-center gap-12 md:gap-16 items-center opacity-70">
-            {/* Placeholder company logos - replace with actual client logos */}
-            <div className="w-32 h-12 bg-white/10 rounded-md flex items-center justify-center text-white/30">
+            {/* Placeholder company logos */}
+            <div className="w-32 h-12 bg-black/5 rounded-md flex items-center justify-center text-black/30">
               Company A
             </div>
-            <div className="w-32 h-12 bg-white/10 rounded-md flex items-center justify-center text-white/30">
+            <div className="w-32 h-12 bg-black/5 rounded-md flex items-center justify-center text-black/30">
               Company B
             </div>
-            <div className="w-32 h-12 bg-white/10 rounded-md flex items-center justify-center text-white/30">
+            <div className="w-32 h-12 bg-black/5 rounded-md flex items-center justify-center text-black/30">
               Company C
             </div>
-            <div className="w-32 h-12 bg-white/10 rounded-md flex items-center justify-center text-white/30">
+            <div className="w-32 h-12 bg-black/5 rounded-md flex items-center justify-center text-black/30">
               Company D
             </div>
           </div>
