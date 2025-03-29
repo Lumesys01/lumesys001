@@ -4,6 +4,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import VideoShowcase from "@/components/VideoShowcase";
+import CustomerShowcase from "@/components/CustomerShowcase";
+import ROICalculator from "@/components/ROICalculator";
 
 // Lazy load components that are not immediately visible
 const FeaturesSection = lazy(() => import("@/components/FeaturesSection"));
@@ -34,6 +36,11 @@ const Index = () => {
           <VideoShowcase />
         </section>
         
+        {/* ROI Calculator - Added new section */}
+        <section id="roi" className="bg-white">
+          <ROICalculator />
+        </section>
+        
         <Suspense fallback={<LoadingFallback />}>
           {/* How it works section */}
           <section id="how-it-works" className="bg-white">
@@ -43,6 +50,11 @@ const Index = () => {
           {/* Features section */}
           <section id="features" className="bg-white">
             <FeaturesSection />
+          </section>
+          
+          {/* Customer Showcase - Added new section */}
+          <section id="customers" className="bg-white">
+            <CustomerShowcase />
           </section>
           
           {/* Why Lumesys section */}
