@@ -270,7 +270,7 @@ const DemoCharts = () => {
                     ))}
                   </Pie>
                   <Tooltip 
-                    formatter={(value) => [`${value} clients`, entry.name]} 
+                    formatter={(value, name, props) => [`${value} clients`, name]}
                     contentStyle={{ background: 'rgba(4, 20, 52, 0.85)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)' }}
                   />
                 </PieChart>
