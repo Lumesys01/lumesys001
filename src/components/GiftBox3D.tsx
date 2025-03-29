@@ -1,6 +1,6 @@
 
 import React, { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { PresentationControls, Environment, ContactShadows } from '@react-three/drei';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Input } from './ui/input';
@@ -18,14 +18,24 @@ interface GiftBoxModelProps {
 }
 
 // Simple gift box model created with Three.js primitives
-function GiftBoxModel({ onClick, hovered, position, scale }: GiftBoxModelProps) {
+function GiftBoxModel({ onClick, hovered, position = [0, 0, 0], scale = [1, 1, 1] }: GiftBoxModelProps) {
   // Properly type the refs with THREE.Mesh
   const boxRef = useRef<THREE.Mesh>(null);
   const lidRef = useRef<THREE.Mesh>(null);
   const ribbonRef = useRef<THREE.Group>(null);
   
   // Animate on hover and continuously
-  useFrame((state) => {
+  React.useLayoutEffect(() => {
+    // Apply initial positions
+    if (boxRef.current) {
+      boxRef.current.position.set(0, 0, 0);
+    }
+    if (lidRef.current) {
+      lidRef.current.position.set(0, 0.25, 0);
+    }
+  }, []);
+  
+  React.useFrame((state) => {
     if (boxRef.current && lidRef.current && ribbonRef.current) {
       // Floating animation
       const t = state.clock.getElapsedTime();
@@ -67,7 +77,7 @@ function GiftBoxModel({ onClick, hovered, position, scale }: GiftBoxModelProps) 
       </mesh>
       
       {/* Box lid */}
-      <mesh ref={lidRef} position={[0, 0.25, 0]} castShadow>
+      <mesh position={[0, 0.25, 0]} ref={lidRef} castShadow>
         <boxGeometry args={[1.1, 0.1, 1.1]} />
         <meshStandardMaterial 
           color="#004d7a" 
