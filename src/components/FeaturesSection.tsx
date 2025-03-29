@@ -38,10 +38,10 @@ const FeaturesSection: React.FC = () => {
   ];
 
   return (
-    <section className="section-padding relative bg-darkblue">
-      {/* Background elements */}
-      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-accent/5 rounded-full blur-[100px]"></div>
-      <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-neonpurple/10 rounded-full blur-[100px]"></div>
+    <section className="section-padding relative bg-darkblue overflow-hidden">
+      {/* Background elements with parallax effect */}
+      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-accent/5 rounded-full blur-[100px] animate-float" style={{ animationDuration: '15s' }}></div>
+      <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-neonpurple/10 rounded-full blur-[100px] animate-float" style={{ animationDuration: '12s', animationDelay: '2s' }}></div>
       
       <div className="container mx-auto">
         <div className="text-center mb-16">
@@ -65,6 +65,22 @@ const FeaturesSection: React.FC = () => {
           ))}
         </div>
       </div>
+      
+      {/* Additional energy particles */}
+      {[...Array(10)].map((_, index) => (
+        <div 
+          key={index}
+          className="absolute rounded-full bg-highlight/30 animate-float"
+          style={{
+            width: `${Math.random() * 6 + 3}px`,
+            height: `${Math.random() * 6 + 3}px`,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDuration: `${5 + Math.random() * 10}s`,
+            animationDelay: `${Math.random() * 5}s`
+          }}
+        ></div>
+      ))}
     </section>
   );
 };

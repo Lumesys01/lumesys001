@@ -47,6 +47,9 @@ export default {
         "pulse-glow": "pulse-glow 2s infinite",
         "gradient-flow": "gradient-flow 8s ease infinite",
         "shimmer": "shimmer 2s linear infinite",
+        "bounce": "bounce 1s ease-in-out",
+        "spin-slow": "spin 3s linear infinite",
+        "ping": "ping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
       },
       keyframes: {
         float: {
@@ -72,6 +75,22 @@ export default {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        bounce: {
+          '0%, 100%': { 
+            transform: 'translateY(0)',
+            animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)'
+          },
+          '50%': { 
+            transform: 'translateY(-25%)',
+            animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)'
+          },
+        },
+        ping: {
+          '75%, 100%': {
+            transform: 'scale(1.2)',
+            opacity: '0',
+          },
+        },
       },
       backdropBlur: {
         xs: "2px",
@@ -86,4 +105,3 @@ export default {
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
-

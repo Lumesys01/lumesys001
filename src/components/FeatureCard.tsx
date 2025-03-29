@@ -11,6 +11,13 @@ interface FeatureCardProps {
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, icon: Icon, popupContent }) => {
   const [showPopup, setShowPopup] = useState(false);
+  const [isIconAnimating, setIsIconAnimating] = useState(false);
+
+  const handleIconClick = () => {
+    setIsIconAnimating(true);
+    // Reset animation after it completes
+    setTimeout(() => setIsIconAnimating(false), 1000);
+  };
 
   return (
     <div 
@@ -18,8 +25,24 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, icon: Ico
       onMouseEnter={() => setShowPopup(true)}
       onMouseLeave={() => setShowPopup(false)}
     >
-      <div className="mb-6 p-3 rounded-lg bg-primary inline-block">
-        <Icon className="w-8 h-8 text-highlight" />
+      <div 
+        className={`mb-6 p-3 rounded-lg inline-block transition-all duration-300 cursor-pointer
+          ${isIconAnimating ? 'animate-pulse' : 'hover:scale-110 hover:shadow-lg hover:shadow-highlight/20'} 
+          bg-primary group-hover:bg-highlight/10`}
+        onClick={handleIconClick}
+        role="button"
+        tabIndex={0}
+        aria-label={`${title} icon`}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            handleIconClick();
+          }
+        }}
+      >
+        <Icon 
+          className={`w-8 h-8 text-highlight transition-all duration-300 
+            ${isIconAnimating ? 'animate-bounce' : 'group-hover:text-white'}`} 
+        />
       </div>
       
       <h3 className="text-xl sm:text-2xl font-medium mb-3">{title}</h3>
