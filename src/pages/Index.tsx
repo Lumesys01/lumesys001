@@ -21,6 +21,10 @@ const Index = () => {
           <FeaturesSection />
         </section>
         
+        <section id="waitlist" className="bg-white">
+          <CTASection />
+        </section>
+        
         <section id="testimonials" className="bg-white">
           <TestimonialsSection />
         </section>
@@ -31,10 +35,6 @@ const Index = () => {
         
         <section id="why" className="bg-white">
           <WhyLumesys />
-        </section>
-        
-        <section id="waitlist" className="bg-white">
-          <CTASection />
         </section>
       </main>
 
