@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Check, X } from 'lucide-react';
 import { Button } from './ui/button';
+import { Card, CardHeader, CardContent } from './ui/card';
 
 const WhyLumesys: React.FC = () => {
   const [savingsPercent, setSavingsPercent] = useState(0);
@@ -23,27 +24,32 @@ const WhyLumesys: React.FC = () => {
     {
       feature: "Energy Analysis",
       lumesys: "AI-powered, Real-time",
-      traditional: "Manual, Periodic"
+      traditional: "Manual, Periodic",
+      benefit: "Immediate insights to prevent waste"
     },
     {
       feature: "Anomaly Detection",
       lumesys: "Predictive, Automated",
-      traditional: "Reactive, Manual"
+      traditional: "Reactive, Manual",
+      benefit: "Prevent issues before they occur"
     },
     {
       feature: "Optimization",
       lumesys: "Continuous, Adaptive",
-      traditional: "Static, Scheduled"
+      traditional: "Static, Scheduled",
+      benefit: "24/7 optimization for maximum savings"
     },
     {
       feature: "Maintenance",
       lumesys: "Proactive, Preventive",
-      traditional: "Reactive, Repairs"
+      traditional: "Reactive, Repairs",
+      benefit: "Reduce downtime and extend equipment life"
     },
     {
       feature: "Data Insights",
       lumesys: "Deep Learning Patterns",
-      traditional: "Basic Historical Data"
+      traditional: "Basic Historical Data",
+      benefit: "Discover hidden opportunities for savings"
     }
   ];
 
@@ -77,30 +83,47 @@ const WhyLumesys: React.FC = () => {
             <p className="text-black/70">
               Real-time savings across our client facilities, constantly optimized by our AI engine.
             </p>
+            <div className="mt-6">
+              <Button className="glow-border bg-surface backdrop-blur-sm px-6 py-5 rounded-full text-black group">
+                <span>See Client Results</span>
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
           </div>
           
-          {/* Comparison table */}
-          <div className="glass-card rounded-xl overflow-hidden">
-            <div className="grid grid-cols-3 text-center p-4 bg-white">
-              <div className="font-medium text-black">Feature</div>
-              <div className="font-medium text-highlight">Lumesys</div>
-              <div className="font-medium text-black/70">Traditional</div>
-            </div>
-            
-            {comparisonData.map((item, index) => (
-              <div key={index} className="grid grid-cols-3 text-center p-4 border-t border-border">
-                <div className="text-black px-2">{item.feature}</div>
-                <div className="flex items-center justify-center px-2">
-                  <Check className="w-5 h-5 text-highlight mr-1 flex-shrink-0" />
-                  <span className="text-sm text-black">{item.lumesys}</span>
-                </div>
-                <div className="flex items-center justify-center px-2">
-                  <X className="w-5 h-5 text-black/40 mr-1 flex-shrink-0" />
-                  <span className="text-sm text-black/70">{item.traditional}</span>
-                </div>
+          {/* Enhanced comparison table with better spacing and organization */}
+          <Card className="shadow-lg border-highlight/20">
+            <CardHeader className="bg-gray-50 rounded-t-xl border-b border-gray-100">
+              <div className="grid grid-cols-3 text-center">
+                <div className="font-semibold text-black">Feature</div>
+                <div className="font-semibold text-highlight">Lumesys</div>
+                <div className="font-semibold text-black/70">Traditional</div>
               </div>
-            ))}
-          </div>
+            </CardHeader>
+            <CardContent className="p-0">
+              {comparisonData.map((item, index) => (
+                <div 
+                  key={index} 
+                  className={`grid grid-cols-3 p-5 ${index !== comparisonData.length - 1 ? 'border-b border-gray-100' : ''}`}
+                >
+                  <div className="text-black font-medium px-2">{item.feature}</div>
+                  <div className="px-2">
+                    <div className="flex items-center mb-1">
+                      <Check className="w-4 h-4 text-highlight mr-2 flex-shrink-0" />
+                      <span className="text-sm text-black">{item.lumesys}</span>
+                    </div>
+                    <p className="text-xs text-highlight/80 pl-6 italic">{item.benefit}</p>
+                  </div>
+                  <div className="px-2">
+                    <div className="flex items-center">
+                      <X className="w-4 h-4 text-black/40 mr-2 flex-shrink-0" />
+                      <span className="text-sm text-black/70">{item.traditional}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
         </div>
         
         {/* Case study teaser */}

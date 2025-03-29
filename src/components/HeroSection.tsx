@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowDown } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -18,6 +18,14 @@ const HeroSection: React.FC = () => {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  // Smooth scroll to demo video section
+  const scrollToDemo = () => {
+    const demoSection = document.getElementById('demo-video');
+    if (demoSection) {
+      demoSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section className="relative min-h-screen overflow-hidden flex items-center bg-white">
@@ -86,15 +94,28 @@ const HeroSection: React.FC = () => {
             Reduce operational costs by a minimum of <span className="text-highlight font-medium">10%</span> with AI-powered solutions.
           </p>
           
+          {/* Enhanced CTA section */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 animate-float" style={{ animationDelay: "0.8s" }}>
             <Button className="glow-button text-primary font-medium px-8 py-7 rounded-full text-lg hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(0,191,114,0.4)]">
-              Join the Waitlist
+              Request Demo & ROI Assessment
             </Button>
             
             <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-black px-8 py-7 rounded-full text-lg group hover:scale-105 transition-transform duration-300">
               Learn More 
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </Button>
+          </div>
+          
+          {/* Added "Watch Demo" button */}
+          <div className="mt-16 animate-bounce">
+            <button 
+              onClick={scrollToDemo}
+              className="flex flex-col items-center text-black/60 hover:text-highlight transition-colors"
+              aria-label="Watch demo video"
+            >
+              <span className="text-sm mb-2">Watch Demo</span>
+              <ArrowDown className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </div>

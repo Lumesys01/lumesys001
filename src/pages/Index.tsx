@@ -11,6 +11,8 @@ const WhyLumesys = lazy(() => import("@/components/WhyLumesys"));
 const CTASection = lazy(() => import("@/components/CTASection"));
 const DemoCharts = lazy(() => import("@/components/DemoCharts"));
 const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
+const HowItWorksSection = lazy(() => import("@/components/HowItWorksSection"));
+const FAQSection = lazy(() => import("@/components/FAQSection"));
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -27,30 +29,45 @@ const Index = () => {
       <main>
         <HeroSection />
         
-        {/* Add the VideoShowcase component right after the hero section */}
+        {/* Video showcase section */}
         <section id="demo-video" className="bg-white">
           <VideoShowcase />
         </section>
         
         <Suspense fallback={<LoadingFallback />}>
+          {/* How it works section */}
+          <section id="how-it-works" className="bg-white">
+            <HowItWorksSection />
+          </section>
+          
+          {/* Features section */}
           <section id="features" className="bg-white">
             <FeaturesSection />
           </section>
           
-          <section id="waitlist" className="bg-white">
-            <CTASection />
+          {/* Why Lumesys section */}
+          <section id="why" className="bg-white">
+            <WhyLumesys />
           </section>
           
+          {/* Testimonials section */}
           <section id="testimonials" className="bg-white">
             <TestimonialsSection />
           </section>
           
+          {/* Charts demo section */}
           <section id="charts" className="bg-white py-4">
             <DemoCharts />
           </section>
           
-          <section id="why" className="bg-white">
-            <WhyLumesys />
+          {/* FAQ section */}
+          <section id="faq" className="bg-white">
+            <FAQSection />
+          </section>
+          
+          {/* CTA section */}
+          <section id="waitlist" className="bg-white">
+            <CTASection />
           </section>
         </Suspense>
       </main>
