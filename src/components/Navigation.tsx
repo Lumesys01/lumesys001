@@ -37,6 +37,9 @@ const Navigation = () => {
           <Link to="#features" className="text-white/80 hover:text-white transition-colors">
             Features
           </Link>
+          <Link to="#charts" className="text-white/80 hover:text-white transition-colors">
+            Charts
+          </Link>
           <Link to="#why" className="text-white/80 hover:text-white transition-colors">
             Why Lumesys
           </Link>
@@ -75,6 +78,13 @@ const Navigation = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Features
+            </Link>
+            <Link 
+              to="#charts" 
+              className="text-white/80 hover:text-white py-2 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Charts
             </Link>
             <Link 
               to="#why" 
