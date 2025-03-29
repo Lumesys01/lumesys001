@@ -89,14 +89,14 @@ const WhyLumesys: React.FC = () => {
             
             {comparisonData.map((item, index) => (
               <div key={index} className="grid grid-cols-3 text-center p-4 border-t border-border">
-                <div className="text-black">{item.feature}</div>
-                <div className="flex items-center justify-center">
-                  <Check className="w-5 h-5 text-highlight mr-1" />
+                <div className="text-black px-2">{item.feature}</div>
+                <div className="flex items-center justify-center px-2">
+                  <Check className="w-5 h-5 text-highlight mr-1 flex-shrink-0" />
                   <span className="text-sm text-black">{item.lumesys}</span>
                 </div>
-                <div className="flex items-center justify-center text-black/70">
-                  <X className="w-5 h-5 text-black/40 mr-1" />
-                  <span className="text-sm">{item.traditional}</span>
+                <div className="flex items-center justify-center px-2">
+                  <X className="w-5 h-5 text-black/40 mr-1 flex-shrink-0" />
+                  <span className="text-sm text-black/70">{item.traditional}</span>
                 </div>
               </div>
             ))}
