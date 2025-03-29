@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
-import { calculator, barChart3, arrowRight } from 'lucide-react';
+import { Calculator, BarChart3, ArrowRight } from 'lucide-react';
 
 const ROICalculator: React.FC = () => {
   const [annualEnergyCost, setAnnualEnergyCost] = useState<number>(500000);
@@ -58,7 +58,7 @@ const ROICalculator: React.FC = () => {
             {/* Calculator Input Side */}
             <div className="md:col-span-6 p-6 neo-card">
               <h3 className="text-xl font-medium mb-6 flex items-center gap-2">
-                <calculator className="w-5 h-5 text-accent" /> 
+                <Calculator className="w-5 h-5 text-accent" /> 
                 Input Your Facility Details
               </h3>
               
@@ -146,7 +146,7 @@ const ROICalculator: React.FC = () => {
             {/* Results Side */}
             <div className="md:col-span-6 p-6 neo-card bg-gradient-to-br from-accent/5 to-highlight/5">
               <h3 className="text-xl font-medium mb-6 flex items-center gap-2">
-                <barChart3 className="w-5 h-5 text-accent" />
+                <BarChart3 className="w-5 h-5 text-accent" />
                 Your Potential Savings
               </h3>
               
@@ -180,7 +180,7 @@ const ROICalculator: React.FC = () => {
                 </div>
                 
                 <Button className="w-full mt-4 glow-button font-medium py-6">
-                  Get Your Detailed Savings Report <arrowRight className="ml-2 h-4 w-4" />
+                  Get Your Detailed Savings Report <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             </div>
