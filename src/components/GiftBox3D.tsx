@@ -9,11 +9,20 @@ import { Box, Gift, ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import * as THREE from 'three';
 
+// Define proper types for the GiftBoxModel props
+interface GiftBoxModelProps {
+  onClick?: () => void;
+  hovered?: boolean;
+  position?: [number, number, number];
+  [key: string]: any;
+}
+
 // Simple gift box model created with Three.js primitives
-function GiftBoxModel({ onClick, hovered, ...props }) {
-  const boxRef = useRef();
-  const lidRef = useRef();
-  const ribbonRef = useRef();
+function GiftBoxModel({ onClick, hovered, ...props }: GiftBoxModelProps) {
+  // Properly type the refs with THREE.Mesh
+  const boxRef = useRef<THREE.Mesh>(null);
+  const lidRef = useRef<THREE.Mesh>(null);
+  const ribbonRef = useRef<THREE.Group>(null);
   
   // Animate on hover and continuously
   useFrame((state) => {
@@ -137,7 +146,11 @@ export const GiftBox3D: React.FC = () => {
             config={{ mass: 2, tension: 500 }}
             snap={{ mass: 4, tension: 1500 }}
           >
-            <GiftBoxModel hovered={hovered} position={[0, 0, 0]} />
+            <GiftBoxModel 
+              hovered={hovered} 
+              position={[0, 0, 0]} 
+              onClick={() => setOpen(true)}
+            />
           </PresentationControls>
           <ContactShadows position={[0, -1, 0]} opacity={0.4} scale={5} blur={2.4} />
           <Environment preset="city" />
