@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -26,16 +25,16 @@ export default {
         highlight: "#A8EB12",
         neonpurple: "#2C065D",
         darkblue: "#010B28",
-        background: "#000000", // Changed to pure black
-        surface: "#041434",
+        background: "#FFFFFF", // Changed to pure white
+        surface: "#F5F5F5", // Slightly off-white for surface elements
         muted: "#C4C3BB",
         "muted-foreground": "#A3A299",
-        border: "#143156",
-        input: "#0A1D45",
-        foreground: "#FFFFFF", // Keeping white text
+        border: "#E0E0E0",
+        input: "#F0F0F0",
+        foreground: "#000000", // Changed to black for better readability on white background
       },
       textColor: {
-        foreground: "#FFFFFF", // Ensuring white text
+        foreground: "#000000", // Ensuring black text for readability
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
