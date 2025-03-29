@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { Button } from './ui/button';
 
@@ -47,7 +46,18 @@ const TestimonialsSection: React.FC = () => {
     }
   ];
   
-  // Auto-advance testimonials
+  const nextTestimonial = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+    setIsPaused(true);
+    setTimeout(() => setIsPaused(false), 10000);
+  }, [testimonials.length]);
+  
+  const prevTestimonial = useCallback(() => {
+    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setIsPaused(true);
+    setTimeout(() => setIsPaused(false), 10000);
+  }, [testimonials.length]);
+
   useEffect(() => {
     if (isPaused) return;
     
@@ -57,54 +67,32 @@ const TestimonialsSection: React.FC = () => {
     
     return () => clearInterval(interval);
   }, [isPaused, testimonials.length]);
-  
-  const nextTestimonial = () => {
-    setActiveIndex((prev) => (prev + 1) % testimonials.length);
-    setIsPaused(true);
-    setTimeout(() => setIsPaused(false), 10000); // Resume auto-advance after 10 seconds
-  };
-  
-  const prevTestimonial = () => {
-    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    setIsPaused(true);
-    setTimeout(() => setIsPaused(false), 10000); // Resume auto-advance after 10 seconds
-  };
 
   return (
     <section className="section-padding relative bg-white py-24">
-      {/* Background elements */}
-      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-neonpurple/5 rounded-full blur-[150px]"></div>
-      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-accent/5 rounded-full blur-[150px]"></div>
-      
       <div className="container mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-light mb-4 text-black">
-            What Our <span className="gradient-text font-normal">Clients</span> Say
-          </h2>
-          <p className="text-lg text-black/70 max-w-2xl mx-auto">
-            Discover how Lumesys is transforming energy management across industries.
-          </p>
-        </div>
+        <h2 className="text-3xl md:text-5xl font-light mb-4 text-black">
+          What Our <span className="gradient-text font-normal">Clients</span> Say
+        </h2>
+        <p className="text-lg text-black/70 max-w-2xl mx-auto mb-16">
+          Discover how Lumesys is transforming energy management across industries.
+        </p>
         
         <div className="max-w-4xl mx-auto relative">
-          {/* Testimonial card with parallax effect */}
           <div 
-            className="glass-card rounded-2xl p-8 md:p-12 relative overflow-hidden group"
+            className="glass-card rounded-2xl p-8 md:p-12 relative overflow-hidden group bg-white shadow-lg"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
-            <div className="absolute inset-0 bg-glow-gradient opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
-            
-            {/* Quote design element */}
             <div className="absolute top-6 left-6 text-9xl text-accent/10 font-serif">"</div>
             
             <div className="flex flex-col md:flex-row gap-8 items-center relative z-10">
-              {/* Profile image */}
-              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-highlight/30 glow-border">
+              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-highlight/30">
                 <img 
                   src={testimonials[activeIndex].image} 
-                  alt={testimonials[activeIndex].name} 
+                  alt={testimonials[activeIndex].name}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
               
@@ -113,18 +101,15 @@ const TestimonialsSection: React.FC = () => {
                   {[...Array(testimonials[activeIndex].rating)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 text-highlight fill-highlight" />
                   ))}
-                  {[...Array(5 - testimonials[activeIndex].rating)].map((_, i) => (
-                    <Star key={i + testimonials[activeIndex].rating} className="w-5 h-5 text-white/20" />
-                  ))}
                 </div>
-                <p className="text-lg md:text-xl text-white/90 italic mb-6">
+                <p className="text-lg md:text-xl text-black mb-6">
                   "{testimonials[activeIndex].quote}"
                 </p>
                 <div>
-                  <h4 className="text-xl font-medium gradient-text">
+                  <h4 className="text-xl font-medium text-black">
                     {testimonials[activeIndex].name}
                   </h4>
-                  <p className="text-white/70">
+                  <p className="text-black/70">
                     {testimonials[activeIndex].position}, {testimonials[activeIndex].company}
                   </p>
                 </div>
@@ -132,30 +117,30 @@ const TestimonialsSection: React.FC = () => {
             </div>
           </div>
           
-          {/* Navigation controls */}
           <div className="flex justify-center mt-8 gap-4">
             <Button 
               variant="outline" 
               size="icon" 
-              className="rounded-full bg-surface/20 backdrop-blur-sm hover:bg-surface/40"
+              className="rounded-full bg-white hover:bg-gray-50"
               onClick={prevTestimonial}
+              aria-label="Previous testimonial"
             >
               <ChevronLeft className="h-5 w-5" />
             </Button>
             
-            {/* Indicators */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2" role="navigation" aria-label="Testimonial navigation">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
                   className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                    index === activeIndex ? 'bg-highlight scale-125' : 'bg-white/30'
+                    index === activeIndex ? 'bg-highlight scale-125' : 'bg-gray-300'
                   }`}
                   onClick={() => {
                     setActiveIndex(index);
                     setIsPaused(true);
                     setTimeout(() => setIsPaused(false), 10000);
                   }}
+                  aria-label={`Go to testimonial ${index + 1}`}
                 />
               ))}
             </div>
@@ -163,31 +148,28 @@ const TestimonialsSection: React.FC = () => {
             <Button 
               variant="outline" 
               size="icon" 
-              className="rounded-full bg-surface/20 backdrop-blur-sm hover:bg-surface/40"
+              className="rounded-full bg-white hover:bg-gray-50"
               onClick={nextTestimonial}
+              aria-label="Next testimonial"
             >
               <ChevronRight className="h-5 w-5" />
             </Button>
           </div>
         </div>
         
-        {/* Company logos */}
         <div className="mt-20 pt-16 border-t border-black/10">
-          <p className="text-center text-black/50 text-sm mb-10">TRUSTED BY INDUSTRY LEADERS</p>
-          <div className="flex flex-wrap justify-center gap-12 md:gap-16 items-center opacity-70">
-            {/* Placeholder company logos */}
-            <div className="w-32 h-12 bg-black/5 rounded-md flex items-center justify-center text-black/30">
-              Company A
-            </div>
-            <div className="w-32 h-12 bg-black/5 rounded-md flex items-center justify-center text-black/30">
-              Company B
-            </div>
-            <div className="w-32 h-12 bg-black/5 rounded-md flex items-center justify-center text-black/30">
-              Company C
-            </div>
-            <div className="w-32 h-12 bg-black/5 rounded-md flex items-center justify-center text-black/30">
-              Company D
-            </div>
+          <p className="text-center text-black/70 text-sm mb-10 uppercase tracking-wider font-medium">
+            Trusted by Industry Leaders
+          </p>
+          <div className="flex flex-wrap justify-center gap-12 md:gap-16 items-center">
+            {['Company A', 'Company B', 'Company C', 'Company D'].map((company, index) => (
+              <div 
+                key={index}
+                className="w-32 h-12 bg-gray-50 rounded-md flex items-center justify-center text-black/70 border border-gray-200"
+              >
+                {company}
+              </div>
+            ))}
           </div>
         </div>
       </div>
