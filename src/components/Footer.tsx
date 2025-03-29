@@ -1,6 +1,5 @@
-
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Linkedin, Mail, GitHub } from "lucide-react";
+import { Facebook, Twitter, Linkedin, Mail, Github } from "lucide-react";
 
 const Footer = () => {
   const footerSections = [
@@ -26,7 +25,7 @@ const Footer = () => {
     { name: "Twitter", icon: Twitter, url: "#" },
     { name: "LinkedIn", icon: Linkedin, url: "#" },
     { name: "Facebook", icon: Facebook, url: "#" },
-    { name: "GitHub", icon: GitHub, url: "#" },
+    { name: "GitHub", icon: Github, url: "#" },
     { name: "Email", icon: Mail, url: "mailto:info@lumesys.ai" },
   ];
 
