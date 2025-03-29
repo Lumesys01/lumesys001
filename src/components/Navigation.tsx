@@ -34,17 +34,17 @@ const Navigation = () => {
           <Link to="#why" className="text-white/80 hover:text-white transition-colors">
             Why Lumesys
           </Link>
-          <Link to="#case-studies" className="text-white/80 hover:text-white transition-colors">
-            Case Studies
+          <Link to="#waitlist" className="text-white/80 hover:text-white transition-colors">
+            Join Waitlist
           </Link>
         </div>
 
         <div className="hidden md:flex items-center space-x-4">
           <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-white">
-            Sign In
+            Learn More
           </Button>
           <Button className="glow-button text-primary">
-            Get Started
+            Join Waitlist
           </Button>
         </div>
 
@@ -78,18 +78,18 @@ const Navigation = () => {
               Why Lumesys
             </Link>
             <Link 
-              to="#case-studies" 
+              to="#waitlist" 
               className="text-white/80 hover:text-white py-2 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              Case Studies
+              Join Waitlist
             </Link>
             <div className="pt-4 flex flex-col space-y-3">
               <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-white w-full">
-                Sign In
+                Learn More
               </Button>
               <Button className="glow-button text-primary w-full">
-                Get Started
+                Join Waitlist
               </Button>
             </div>
           </div>

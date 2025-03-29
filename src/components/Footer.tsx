@@ -1,5 +1,6 @@
 
 import { Link } from "react-router-dom";
+import { Facebook, Twitter, Linkedin, Mail, GitHub } from "lucide-react";
 
 const Footer = () => {
   const footerSections = [
@@ -17,8 +18,16 @@ const Footer = () => {
     },
     {
       title: "Legal",
-      links: ["Privacy", "Terms", "Security", "Cookies"],
+      links: ["Privacy Policy", "Terms of Service", "Security", "Cookies"],
     },
+  ];
+
+  const socialLinks = [
+    { name: "Twitter", icon: Twitter, url: "#" },
+    { name: "LinkedIn", icon: Linkedin, url: "#" },
+    { name: "Facebook", icon: Facebook, url: "#" },
+    { name: "GitHub", icon: GitHub, url: "#" },
+    { name: "Email", icon: Mail, url: "mailto:info@lumesys.ai" },
   ];
 
   return (
@@ -33,6 +42,24 @@ const Footer = () => {
             <p className="text-white/60 max-w-xs">
               AI-powered energy management solutions for the modern enterprise.
             </p>
+
+            <div className="flex mt-6 space-x-4">
+              {socialLinks.map((link) => {
+                const IconComponent = link.icon;
+                return (
+                  <a 
+                    key={link.name}
+                    href={link.url}
+                    className="text-white/60 hover:text-white transition-colors"
+                    aria-label={link.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <IconComponent className="w-5 h-5" />
+                  </a>
+                );
+              })}
+            </div>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -43,7 +70,7 @@ const Footer = () => {
                   {section.links.map((link) => (
                     <li key={link}>
                       <Link
-                        to={`/${link.toLowerCase()}`}
+                        to={`/${link.toLowerCase().replace(/\s+/g, '-')}`}
                         className="text-white/60 hover:text-white transition-colors"
                       >
                         {link}
@@ -61,14 +88,14 @@ const Footer = () => {
             © 2024 Lumesys AI. All rights reserved.
           </p>
           <div className="flex items-center space-x-6">
-            <Link to="#" className="text-white/60 hover:text-white transition-colors">
-              Twitter
+            <a href="mailto:contact@lumesys.ai" className="text-white/60 hover:text-white transition-colors">
+              contact@lumesys.ai
+            </a>
+            <Link to="/privacy-policy" className="text-white/60 hover:text-white transition-colors">
+              Privacy Policy
             </Link>
-            <Link to="#" className="text-white/60 hover:text-white transition-colors">
-              LinkedIn
-            </Link>
-            <Link to="#" className="text-white/60 hover:text-white transition-colors">
-              GitHub
+            <Link to="/terms" className="text-white/60 hover:text-white transition-colors">
+              Terms of Use
             </Link>
           </div>
         </div>

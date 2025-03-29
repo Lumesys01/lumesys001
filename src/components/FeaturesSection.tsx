@@ -1,39 +1,39 @@
 
 import React from 'react';
 import FeatureCard from './FeatureCard';
-import { Activity, AlertTriangle, BarChart3, FileSpreadsheet, Radio } from 'lucide-react';
+import { Activity, AlertTriangle, BarChart3, FileSpreadsheet, Brain, Radio } from 'lucide-react';
 
 const FeaturesSection: React.FC = () => {
   const features = [
     {
-      title: "Real-time Data Analytics",
-      description: "AI-powered analytics for immediate insights into energy consumption patterns and optimization opportunities.",
-      icon: BarChart3,
-      popupContent: "Our advanced AI continuously analyzes your energy data to identify patterns, predict usage, and recommend optimizations in real-time."
+      title: "AI-Powered Energy Optimization",
+      description: "Lumesys acts as the brain for energy management, optimizing consumption and reducing operational costs by at least 10%. Harness cutting-edge AI to improve energy efficiency and operational performance.",
+      icon: Brain,
+      popupContent: "Our AI continuously learns from your energy usage patterns to provide optimizations that lead to significant cost savings."
     },
     {
-      title: "Anomaly Detection",
-      description: "Identify unusual energy consumption patterns and potential equipment failures before they become critical.",
+      title: "Anomaly Detection & Proactive Monitoring",
+      description: "Advanced anomaly detection algorithms and centralized, multi-site remote monitoring and control ensure proactive maintenance and risk mitigation.",
       icon: AlertTriangle,
-      popupContent: "Machine learning algorithms detect deviations from normal energy usage, alerting you to potential issues before they lead to equipment damage or energy waste."
+      popupContent: "Machine learning algorithms detect unusual patterns before they become critical issues, preventing equipment damage and energy waste."
     },
     {
-      title: "Centralized Monitoring",
-      description: "Monitor and control multiple sites remotely from a single, intuitive dashboard interface.",
+      title: "Centralized Multi-Site Monitoring",
+      description: "Monitor and control multiple sites remotely from a single, intuitive dashboard interface with real-time updates.",
       icon: Radio,
       popupContent: "Access all your facilities from one unified platform, enabling seamless management and comparative analytics across your entire operation."
     },
     {
-      title: "Proactive Maintenance",
-      description: "Predictive insights for maintenance scheduling to prevent downtime and extend equipment life.",
-      icon: Activity,
-      popupContent: "AI predicts when equipment needs maintenance based on performance data, helping you schedule maintenance before failures occur and optimize resource allocation."
-    },
-    {
-      title: "Compliance Tracking",
-      description: "Comprehensive reporting tools for regulatory compliance with exportable formats.",
+      title: "Comprehensive Compliance Tracking",
+      description: "Stay ahead of industry standards with automated compliance tracking and detailed reporting in both PDF and CSV formats.",
       icon: FileSpreadsheet,
       popupContent: "Generate custom reports for regulatory compliance in seconds, with PDF and CSV export options to streamline your reporting workflow."
+    },
+    {
+      title: "AI-Powered Real-Time Data Analytics",
+      description: "Gain deep insights with real-time analytics that help you make informed decisions to enhance operational efficiency and sustainability.",
+      icon: BarChart3,
+      popupContent: "Our advanced AI continuously analyzes your energy data to identify patterns, predict usage, and recommend optimizations in real-time."
     }
   ];
 

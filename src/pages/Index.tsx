@@ -27,7 +27,7 @@ const Index = () => {
           <WhyLumesys />
         </section>
         
-        {/* CTA Section */}
+        {/* CTA Section with Email Capture */}
         <section id="waitlist">
           <CTASection />
         </section>

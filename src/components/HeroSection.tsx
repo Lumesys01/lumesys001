@@ -27,6 +27,14 @@ const HeroSection: React.FC = () => {
 
       <div className="container mx-auto z-10 px-4 md:px-6 lg:px-8 py-12 md:py-20">
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
+          {/* Logo */}
+          <div className="mb-8">
+            <div className="text-3xl md:text-4xl font-medium flex items-center justify-center">
+              <span className="gradient-text mr-2">LUME</span>
+              <span>SYS</span>
+            </div>
+          </div>
+          
           <p className="mb-4 text-lg md:text-xl font-medium bg-clip-text text-transparent bg-button-gradient">
             Do, Dare; Dominate.
           </p>
@@ -36,7 +44,7 @@ const HeroSection: React.FC = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-white/80 max-w-3xl mb-10">
-            Reduce operational costs by a minimum of 10% with AI-driven energy intelligence.
+            Reduce operational costs by a minimum of 10% with AI-powered solutions.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">

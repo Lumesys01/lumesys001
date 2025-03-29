@@ -23,6 +23,9 @@ const CTASection: React.FC = () => {
         description: "We'll be in touch soon with exclusive updates.",
         variant: "default",
       });
+      
+      // Redirect to LinkedIn profile
+      window.open("https://linkedin.com", "_blank");
     }, 1500);
   };
 
@@ -53,14 +56,14 @@ const CTASection: React.FC = () => {
             Ready to <span className="gradient-text font-normal">Transform</span> Your Energy Management?
           </h2>
           <p className="text-lg text-white/80 mb-8">
-            Join our exclusive waitlist to be among the first to experience the future of energy optimization.
+            Stay ahead of the curve with Lumesys. Enter your email to join the waitlist and receive exclusive updates.
           </p>
           
           <form onSubmit={handleSubmit} className="glass-card rounded-full p-2 flex flex-col sm:flex-row gap-4 mb-8 max-w-xl mx-auto">
             <input
               type="email"
               required
-              placeholder="Enter your email"
+              placeholder="Enter your email address here"
               className="flex-1 bg-transparent border-none pl-6 py-3 text-white placeholder:text-white/50 focus:outline-none"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -70,7 +73,7 @@ const CTASection: React.FC = () => {
               disabled={isSubmitting}
               className="glow-button text-primary font-medium px-6 py-3 rounded-full whitespace-nowrap"
             >
-              {isSubmitting ? "Processing..." : "Join the Waitlist"}
+              {isSubmitting ? "Processing..." : "Submit"}
             </Button>
           </form>
           
