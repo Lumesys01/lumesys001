@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Check } from 'lucide-react';
+import { Check, Plug, Brain, RefreshCw } from 'lucide-react';
 
 const HowItWorksSection: React.FC = () => {
   const steps = [
@@ -8,19 +8,22 @@ const HowItWorksSection: React.FC = () => {
       number: "01",
       title: "Connect Your Systems",
       description: "Our platform seamlessly integrates with your existing energy infrastructure with minimal disruption to your operations.",
-      icon: "/lovable-uploads/44afb2a2-5b6d-4a11-8690-39da443709f4.png"
+      icon: Plug,
+      iconColor: "#00bf72"
     },
     {
       number: "02",
       title: "AI Analysis & Learning",
       description: "Our advanced AI algorithms analyze your energy usage patterns and learn how your facilities operate over time.",
-      icon: "/lovable-uploads/b9fc5626-de7f-4404-afcf-fcb031f058c0.png"
+      icon: Brain,
+      iconColor: "#A8EB12"
     },
     {
       number: "03",
       title: "Continuous Optimization",
       description: "The system automatically implements optimization strategies that adapt to changing conditions in real-time.",
-      icon: "/lovable-uploads/9f0aac31-e231-48e8-925e-2ad8c7249407.png"
+      icon: RefreshCw,
+      iconColor: "#0089A7"
     }
   ];
 
@@ -34,6 +37,7 @@ const HowItWorksSection: React.FC = () => {
 
   // State to track which step is active for enhanced interaction
   const [activeStep, setActiveStep] = useState<number | null>(null);
+  const [hoveredIcon, setHoveredIcon] = useState<number | null>(null);
 
   return (
     <section className="section-padding relative bg-white">
@@ -50,60 +54,72 @@ const HowItWorksSection: React.FC = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {steps.map((step, index) => (
-            <div 
-              key={index} 
-              className={`glass-card rounded-xl p-8 text-center relative overflow-hidden group hover:shadow-xl transition-all duration-500 
-                ${activeStep === index ? 'ring-2 ring-accent shadow-lg shadow-accent/10 transform scale-[1.02]' : 'hover:scale-[1.01]'}`}
-              onMouseEnter={() => setActiveStep(index)}
-              onMouseLeave={() => setActiveStep(null)}
-              onClick={() => setActiveStep(activeStep === index ? null : index)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  setActiveStep(activeStep === index ? null : index);
-                }
-              }}
-            >
-              <span className={`absolute -top-6 -right-6 text-8xl font-bold text-accent/5 transition-all duration-500 
-                ${activeStep === index ? 'text-accent/10' : ''}`}>
-                {step.number}
-              </span>
-              
-              <div className="mb-6 flex justify-center">
-                <div className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-500
-                  ${activeStep === index 
-                    ? 'bg-gradient-to-br from-accent to-highlight scale-110 shadow-lg shadow-accent/20' 
-                    : 'bg-accent/5 group-hover:bg-accent/10'}`}>
-                  <img 
-                    src={step.icon} 
-                    alt={step.title} 
-                    className={`w-10 h-10 object-contain transition-all duration-500
-                      ${activeStep === index ? 'scale-125 filter brightness-0 invert' : 'group-hover:scale-110'}`} 
-                  />
+          {steps.map((step, index) => {
+            const IconComponent = step.icon;
+            return (
+              <div 
+                key={index} 
+                className={`glass-card rounded-xl p-8 text-center relative overflow-hidden group hover:shadow-xl transition-all duration-500 
+                  ${activeStep === index ? 'ring-2 ring-accent shadow-lg shadow-accent/10 transform scale-[1.02]' : 'hover:scale-[1.01]'}`}
+                onMouseEnter={() => setActiveStep(index)}
+                onMouseLeave={() => setActiveStep(null)}
+                onClick={() => setActiveStep(activeStep === index ? null : index)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    setActiveStep(activeStep === index ? null : index);
+                  }
+                }}
+              >
+                <span className={`absolute -top-6 -right-6 text-8xl font-bold text-accent/5 transition-all duration-500 
+                  ${activeStep === index ? 'text-accent/10' : ''}`}>
+                  {step.number}
+                </span>
+                
+                <div className="mb-6 flex justify-center">
+                  <div 
+                    className={`clickable-icon relative inline-flex items-center justify-center p-3 rounded-lg cursor-pointer
+                      ${activeStep === index 
+                        ? 'bg-gradient-to-br from-accent to-highlight scale-110 shadow-lg shadow-accent/20' 
+                        : 'bg-gradient-to-br from-accent/20 to-highlight/20 hover:from-accent hover:to-highlight hover:scale-110 hover:shadow-lg hover:shadow-accent/20'}`}
+                    onMouseEnter={() => setHoveredIcon(index)}
+                    onMouseLeave={() => setHoveredIcon(null)}
+                  >
+                    <IconComponent 
+                      className={`w-10 h-10 transition-all duration-500 z-10 
+                        ${activeStep === index || hoveredIcon === index
+                          ? 'text-white scale-125 filter drop-shadow-[0_0_8px_rgba(168,235,18,0.7)]' 
+                          : 'text-accent/90 group-hover:scale-110'}`} 
+                    />
+                    <div className={`absolute inset-0 rounded-lg bg-gradient-to-br transition-opacity duration-500
+                      ${activeStep === index || hoveredIcon === index
+                        ? 'opacity-100 animate-pulse-glow' 
+                        : 'opacity-0'}`}
+                    ></div>
+                  </div>
                 </div>
+                
+                <h3 className={`text-xl font-medium mb-3 relative z-10 transition-all duration-300
+                  ${activeStep === index ? 'text-accent' : 'text-black group-hover:text-accent/80'}`}>
+                  {step.title}
+                </h3>
+                
+                <p className={`relative z-10 transition-all duration-300
+                  ${activeStep === index ? 'text-black' : 'text-black/70'}`}>
+                  {step.description}
+                </p>
+                
+                {index < steps.length - 1 && (
+                  <div className={`hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 w-8 h-8 rotate-45 border-t-2 border-r-2 transition-all duration-300
+                    ${activeStep === index || activeStep === index + 1 
+                      ? 'border-accent' 
+                      : 'border-gray-200'}`}>
+                  </div>
+                )}
               </div>
-              
-              <h3 className={`text-xl font-medium mb-3 relative z-10 transition-all duration-300
-                ${activeStep === index ? 'text-accent' : 'text-black group-hover:text-accent/80'}`}>
-                {step.title}
-              </h3>
-              
-              <p className={`relative z-10 transition-all duration-300
-                ${activeStep === index ? 'text-black' : 'text-black/70'}`}>
-                {step.description}
-              </p>
-              
-              {index < steps.length - 1 && (
-                <div className={`hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 w-8 h-8 rotate-45 border-t-2 border-r-2 transition-all duration-300
-                  ${activeStep === index || activeStep === index + 1 
-                    ? 'border-accent' 
-                    : 'border-gray-200'}`}>
-                </div>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
         
         <div className="max-w-4xl mx-auto glass-card rounded-xl p-8 md:p-10">
