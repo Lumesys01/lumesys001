@@ -7,13 +7,13 @@ const FeaturesSection: React.FC = () => {
   const features = [
     {
       title: "AI-Powered Energy Optimization",
-      description: "Lumesys acts as the brain for energy management, optimizing consumption and reducing operational costs by at least 10%. Harness cutting-edge AI to improve energy efficiency and operational performance.",
+      description: "Lumesys acts as the brain for energy management, optimizing consumption and reducing operational costs by at least 10%.",
       icon: Brain,
       popupContent: "Our AI continuously learns from your energy usage patterns to provide optimizations that lead to significant cost savings."
     },
     {
       title: "Anomaly Detection & Proactive Monitoring",
-      description: "Advanced anomaly detection algorithms and centralized, multi-site remote monitoring and control ensure proactive maintenance and risk mitigation.",
+      description: "Advanced anomaly detection algorithms and centralized, multi-site remote monitoring ensure proactive maintenance.",
       icon: AlertTriangle,
       popupContent: "Machine learning algorithms detect unusual patterns before they become critical issues, preventing equipment damage and energy waste."
     },
@@ -31,25 +31,26 @@ const FeaturesSection: React.FC = () => {
     },
     {
       title: "AI-Powered Real-Time Data Analytics",
-      description: "Gain deep insights with real-time analytics that help you make informed decisions to enhance operational efficiency and sustainability.",
+      description: "Gain deep insights with real-time analytics that help you make informed decisions to enhance operational efficiency.",
       icon: BarChart3,
       popupContent: "Our advanced AI continuously analyzes your energy data to identify patterns, predict usage, and recommend optimizations in real-time."
     }
   ];
 
   return (
-    <section className="section-padding relative bg-darkblue overflow-hidden">
-      {/* Background elements with parallax effect */}
-      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-accent/5 rounded-full blur-[100px] animate-float" style={{ animationDuration: '15s' }}></div>
-      <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-neonpurple/10 rounded-full blur-[100px] animate-float" style={{ animationDuration: '12s', animationDelay: '2s' }}></div>
+    <section className="section-padding relative bg-white overflow-hidden">
+      {/* Background subtle accent elements */}
+      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-accent/5 rounded-full blur-[100px]" style={{ animationDuration: '15s' }}></div>
+      <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-highlight/5 rounded-full blur-[100px]" style={{ animationDuration: '12s', animationDelay: '2s' }}></div>
       
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-light mb-4">
             Features <span className="gradient-text font-normal">Designed</span> for You
           </h2>
-          <p className="text-lg text-white/70 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Our AI-powered platform provides comprehensive tools to transform your energy management strategy.
+            <span className="block mt-2 text-sm text-accent font-medium">Click on icons to learn more!</span>
           </p>
         </div>
         
@@ -66,21 +67,8 @@ const FeaturesSection: React.FC = () => {
         </div>
       </div>
       
-      {/* Additional energy particles */}
-      {[...Array(10)].map((_, index) => (
-        <div 
-          key={index}
-          className="absolute rounded-full bg-highlight/30 animate-float"
-          style={{
-            width: `${Math.random() * 6 + 3}px`,
-            height: `${Math.random() * 6 + 3}px`,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDuration: `${5 + Math.random() * 10}s`,
-            animationDelay: `${Math.random() * 5}s`
-          }}
-        ></div>
-      ))}
+      {/* Add a subtle decoration at the bottom */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent mt-16"></div>
     </section>
   );
 };
