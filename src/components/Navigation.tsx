@@ -1,35 +1,100 @@
+
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const Navigation = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="text-xl font-semibold">
-          BankApp
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled ? 'bg-primary/90 backdrop-blur-lg shadow-lg' : 'bg-transparent'
+    }`}>
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <Link to="/" className="text-2xl font-medium flex items-center">
+          <span className="gradient-text mr-2">LUME</span>
+          <span>SYS</span>
         </Link>
         
         <div className="hidden md:flex items-center space-x-8">
-          <Link to="/features" className="text-secondary hover:text-primary transition-colors">
+          <Link to="#features" className="text-white/80 hover:text-white transition-colors">
             Features
           </Link>
-          <Link to="/pricing" className="text-secondary hover:text-primary transition-colors">
-            Pricing
+          <Link to="#why" className="text-white/80 hover:text-white transition-colors">
+            Why Lumesys
           </Link>
-          <Link to="/about" className="text-secondary hover:text-primary transition-colors">
-            About
+          <Link to="#case-studies" className="text-white/80 hover:text-white transition-colors">
+            Case Studies
           </Link>
         </div>
 
-        <div className="flex items-center space-x-4">
-          <Button variant="ghost" className="hidden md:inline-flex">
+        <div className="hidden md:flex items-center space-x-4">
+          <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-white">
             Sign In
           </Button>
-          <Button className="text-white">
+          <Button className="glow-button text-primary">
             Get Started
           </Button>
         </div>
+
+        {/* Mobile menu button */}
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="md:hidden text-white"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? <X /> : <Menu />}
+        </Button>
       </div>
+
+      {/* Mobile menu */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-primary/95 backdrop-blur-lg">
+          <div className="flex flex-col space-y-4 px-6 py-8">
+            <Link 
+              to="#features" 
+              className="text-white/80 hover:text-white py-2 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Features
+            </Link>
+            <Link 
+              to="#why" 
+              className="text-white/80 hover:text-white py-2 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Why Lumesys
+            </Link>
+            <Link 
+              to="#case-studies" 
+              className="text-white/80 hover:text-white py-2 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Case Studies
+            </Link>
+            <div className="pt-4 flex flex-col space-y-3">
+              <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-white w-full">
+                Sign In
+              </Button>
+              <Button className="glow-button text-primary w-full">
+                Get Started
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
