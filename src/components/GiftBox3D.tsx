@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, PresentationControls, Environment, ContactShadows } from '@react-three/drei';
+import { PresentationControls, Environment, ContactShadows } from '@react-three/drei';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
@@ -53,7 +53,7 @@ function GiftBoxModel({ onClick, hovered, ...props }: GiftBoxModelProps) {
   });
 
   return (
-    <group {...props} onClick={onClick} scale={[0.6, 0.6, 0.6]}>
+    <group {...props} onClick={onClick}>
       {/* Box base */}
       <mesh ref={boxRef} castShadow receiveShadow>
         <boxGeometry args={[1, 0.5, 1]} />
@@ -150,6 +150,7 @@ export const GiftBox3D: React.FC = () => {
               hovered={hovered} 
               position={[0, 0, 0]} 
               onClick={() => setOpen(true)}
+              scale={[0.6, 0.6, 0.6]}
             />
           </PresentationControls>
           <ContactShadows position={[0, -1, 0]} opacity={0.4} scale={5} blur={2.4} />
