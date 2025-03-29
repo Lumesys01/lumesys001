@@ -26,7 +26,7 @@ export default {
         highlight: "#A8EB12",
         neonpurple: "#2C065D",
         darkblue: "#010B28",
-        background: "#010B19", // Ensuring a very dark background
+        background: "#000000", // Changed to pure black
         surface: "#041434",
         muted: "#C4C3BB",
         "muted-foreground": "#A3A299",
@@ -86,3 +86,4 @@ export default {
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+
