@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { Button } from './ui/button';
@@ -155,22 +154,6 @@ const TestimonialsSection: React.FC = () => {
             >
               <ChevronRight className="h-5 w-5" />
             </Button>
-          </div>
-        </div>
-        
-        <div className="mt-20 pt-16 border-t border-black/10">
-          <p className="text-center text-black/70 text-sm mb-10 uppercase tracking-wider font-medium">
-            Trusted by Industry Leaders
-          </p>
-          <div className="flex flex-wrap justify-center gap-12 md:gap-16 items-center">
-            {['Company A', 'Company B', 'Company C', 'Company D'].map((company, index) => (
-              <div 
-                key={index}
-                className="w-32 h-12 bg-gray-50 rounded-md flex items-center justify-center text-black/70 border border-gray-200"
-              >
-                {company}
-              </div>
-            ))}
           </div>
         </div>
       </div>
