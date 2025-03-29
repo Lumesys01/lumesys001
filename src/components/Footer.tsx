@@ -34,9 +34,16 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row justify-between mb-12">
           <div className="mb-10 lg:mb-0">
-            <Link to="/" className="text-2xl font-medium flex items-center mb-4">
-              <span className="gradient-text mr-2">LUME</span>
-              <span>SYS</span>
+            <Link to="/" className="flex items-center mb-4">
+              <img 
+                src="/lovable-uploads/27f5da26-b388-4950-8f4b-3cc7bbf89a05.png" 
+                alt="Lumesys Logo" 
+                className="h-10 w-10 mr-2" 
+              />
+              <div className="text-2xl font-medium flex items-center">
+                <span className="gradient-text mr-2">LUME</span>
+                <span>SYS</span>
+              </div>
             </Link>
             <p className="text-white/60 max-w-xs">
               AI-powered energy management solutions for the modern enterprise.

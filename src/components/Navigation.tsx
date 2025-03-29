@@ -22,9 +22,16 @@ const Navigation = () => {
       scrolled ? 'bg-primary/90 backdrop-blur-lg shadow-lg' : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <Link to="/" className="text-2xl font-medium flex items-center">
-          <span className="gradient-text mr-2">LUME</span>
-          <span>SYS</span>
+        <Link to="/" className="flex items-center">
+          <img 
+            src="/lovable-uploads/27f5da26-b388-4950-8f4b-3cc7bbf89a05.png" 
+            alt="Lumesys Logo" 
+            className="h-12 w-12 mr-2" 
+          />
+          <div className="text-2xl font-medium flex items-center">
+            <span className="gradient-text mr-2">LUME</span>
+            <span>SYS</span>
+          </div>
         </Link>
         
         <div className="hidden md:flex items-center space-x-8">

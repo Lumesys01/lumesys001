@@ -29,9 +29,16 @@ const HeroSection: React.FC = () => {
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
           {/* Logo */}
           <div className="mb-8">
-            <div className="text-3xl md:text-4xl font-medium flex items-center justify-center">
-              <span className="gradient-text mr-2">LUME</span>
-              <span>SYS</span>
+            <div className="flex items-center justify-center">
+              <img 
+                src="/lovable-uploads/27f5da26-b388-4950-8f4b-3cc7bbf89a05.png" 
+                alt="Lumesys Logo" 
+                className="h-16 w-16 mr-3" 
+              />
+              <div className="text-3xl md:text-4xl font-medium flex items-center">
+                <span className="gradient-text mr-2">LUME</span>
+                <span>SYS</span>
+              </div>
             </div>
           </div>
           
