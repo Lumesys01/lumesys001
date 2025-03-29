@@ -3,6 +3,7 @@ import React, { Suspense, lazy } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
+import VideoShowcase from "@/components/VideoShowcase";
 
 // Lazy load components that are not immediately visible
 const FeaturesSection = lazy(() => import("@/components/FeaturesSection"));
@@ -25,6 +26,11 @@ const Index = () => {
       
       <main>
         <HeroSection />
+        
+        {/* Add the VideoShowcase component right after the hero section */}
+        <section id="demo-video" className="bg-white">
+          <VideoShowcase />
+        </section>
         
         <Suspense fallback={<LoadingFallback />}>
           <section id="features" className="bg-white">

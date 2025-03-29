@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { Button } from './ui/button';
@@ -102,7 +103,7 @@ const TestimonialsSection: React.FC = () => {
                     <Star key={i} className="w-5 h-5 text-highlight fill-highlight" />
                   ))}
                 </div>
-                <p className="text-lg md:text-xl text-black mb-6">
+                <p className="text-lg md:text-xl text-black mb-6 font-medium">
                   "{testimonials[activeIndex].quote}"
                 </p>
                 <div>
