@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Facebook, Twitter, Linkedin, Mail, Github } from "lucide-react";
 
@@ -26,7 +27,7 @@ const Footer = () => {
     { name: "LinkedIn", icon: Linkedin, url: "#" },
     { name: "Facebook", icon: Facebook, url: "#" },
     { name: "GitHub", icon: Github, url: "#" },
-    { name: "Email", icon: Mail, url: "mailto:info@lumesys.ai" },
+    { name: "Email", icon: Mail, url: "mailto:info@golumesys.com" },
   ];
 
   return (
@@ -94,8 +95,8 @@ const Footer = () => {
             © 2024 Lumesys AI. All rights reserved.
           </p>
           <div className="flex items-center space-x-6">
-            <a href="mailto:contact@lumesys.ai" className="text-white/60 hover:text-white transition-colors">
-              contact@lumesys.ai
+            <a href="mailto:info@golumesys.com" className="text-white/60 hover:text-white transition-colors">
+              info@golumesys.com
             </a>
             <Link to="/privacy-policy" className="text-white/60 hover:text-white transition-colors">
               Privacy Policy
