@@ -14,13 +14,13 @@
   }
 
   body {
-    @apply bg-white text-black antialiased; // Updated for white background
+    @apply bg-white text-black antialiased; /* Updated for white background */
     font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv02" on;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-light tracking-tight text-black; // Ensuring dark text for headings
+    @apply font-light tracking-tight text-black; /* Ensuring dark text for headings */
   }
 }
 
