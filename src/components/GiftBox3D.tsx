@@ -1,6 +1,5 @@
-
 import React, { useRef, useState } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { PresentationControls, Environment, ContactShadows } from '@react-three/drei';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Input } from './ui/input';
@@ -35,7 +34,7 @@ function GiftBoxModel({ onClick, hovered, position = [0, 0, 0], scale = [1, 1, 1
     }
   }, []);
   
-  React.useFrame((state) => {
+  useFrame((state) => {
     if (boxRef.current && lidRef.current && ribbonRef.current) {
       // Floating animation
       const t = state.clock.getElapsedTime();
