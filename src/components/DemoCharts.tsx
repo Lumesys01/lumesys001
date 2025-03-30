@@ -14,7 +14,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDownIcon, ArrowUpIcon, BarChart3, LineChart as LineChartIcon, PieChartIcon } from "lucide-react";
 
-// Updated monthly data without revenue
 const monthlyData = [
   { name: "Jan", users: 400, growth: 24 },
   { name: "Feb", users: 300, growth: 13 },
@@ -24,7 +23,6 @@ const monthlyData = [
   { name: "Jun", users: 580, growth: 36 },
 ];
 
-// Existing pie data remains unchanged
 const pieData = [
   { name: "Manufacturing", value: 400, color: "#0EA5E9" },
   { name: "Mines", value: 300, color: "#8B5CF6" },
@@ -40,7 +38,6 @@ const DemoCharts = () => {
   const [activeTab, setActiveTab] = useState("pie");
   const [showDescription, setShowDescription] = useState(false);
 
-  // Handle window resize for responsive charts
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -50,7 +47,6 @@ const DemoCharts = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Randomize data for demo purposes
   const randomizeData = () => {
     setAnimate(true);
     const newData = monthlyData.map(item => ({
@@ -63,7 +59,6 @@ const DemoCharts = () => {
     setTimeout(() => setAnimate(false), 800);
   };
 
-  // Update chartConfig to remove revenue
   const chartConfig = {
     users: {
       label: "Users",
@@ -81,20 +76,16 @@ const DemoCharts = () => {
     },
   };
 
-  // Custom active shape for pie chart with "unfolding" effect
   const renderActiveShape = (props: any) => {
     const RADIAN = Math.PI / 180;
     const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
     
-    // Calculate coordinates for the label lines
     const sin = Math.sin(-RADIAN * midAngle);
     const cos = Math.cos(-RADIAN * midAngle);
     
-    // Extend the outer radius for the active segment (unfolding effect)
     const extraRadius = 15;
     const activeOuterRadius = outerRadius + extraRadius;
     
-    // Calculate label position
     const sx = cx + (outerRadius + 10) * cos;
     const sy = cy + (outerRadius + 10) * sin;
     const mx = cx + (outerRadius + 30) * cos;
@@ -105,7 +96,6 @@ const DemoCharts = () => {
 
     return (
       <g>
-        {/* Semi-transparent background sector */}
         <Sector
           cx={cx}
           cy={cy}
@@ -116,7 +106,6 @@ const DemoCharts = () => {
           fill={fill}
           opacity={0.3}
         />
-        {/* Highlighted active sector with extended radius */}
         <Sector
           cx={cx}
           cy={cy}
@@ -127,11 +116,9 @@ const DemoCharts = () => {
           fill={fill}
           className="drop-shadow-lg"
         />
-        {/* Connecting lines to label */}
         <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" strokeWidth={2} />
         <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
         
-        {/* Label text - improved contrast for light theme */}
         <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333333" className="text-xs md:text-sm font-medium">
           {payload.name}
         </text>
@@ -142,12 +129,10 @@ const DemoCharts = () => {
     );
   };
 
-  // Hover handler for the pie chart segments
   const onPieEnter = (_: any, index: number) => {
     setActiveIndex(index);
   };
 
-  // Get trend indicator based on previous month
   const getTrendIndicator = (dataKey: string, index: number) => {
     if (index === 0) return null;
     
@@ -162,7 +147,6 @@ const DemoCharts = () => {
     return null;
   };
 
-  // Tab descriptions
   const tabDescriptions = {
     pie: "Industry segment distribution shows which sectors are adopting Lumesys technology.",
     line: "Track monthly performance trends to identify growth patterns over time.",
@@ -239,7 +223,7 @@ const DemoCharts = () => {
           
           <TabsContent value="line" className="neo-card p-6 rounded-xl border-0">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
-              <h3 className="text-xl font-medium text-gray-800">Monthly Performance Trends</h3>
+              <h3 className="text-xl font-medium text-gray-800">Assumptions</h3>
               <div className="flex gap-2 mt-2 sm:mt-0">
                 {Object.entries(chartConfig).map(([key, config]) => (
                   <Badge 
@@ -280,7 +264,6 @@ const DemoCharts = () => {
               </ChartContainer>
             </div>
             
-            {/* Updated monthly metrics table without revenue */}
             <div className="mt-6 overflow-auto max-h-40 rounded-lg border">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
@@ -311,7 +294,6 @@ const DemoCharts = () => {
             </div>
           </TabsContent>
           
-          {/* Area and Bar tabs will also need similar revenue removal */}
           <TabsContent value="area" className="neo-card p-6 rounded-xl border-0">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
               <h3 className="text-xl font-medium text-gray-800">Growth Visualization</h3>
@@ -367,7 +349,6 @@ const DemoCharts = () => {
               </ChartContainer>
             </div>
             
-            {/* Updated key insights without revenue */}
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="bg-gray-50 p-4 rounded-lg">
                 <h4 className="font-medium mb-2">Users Analysis</h4>
@@ -431,7 +412,6 @@ const DemoCharts = () => {
               </ChartContainer>
             </div>
             
-            {/* User growth highlights */}
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="bg-white p-4 rounded-lg border shadow-sm">
                 <h4 className="font-medium mb-3 text-lg">User Highlights</h4>
