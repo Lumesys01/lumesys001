@@ -26,6 +26,16 @@ const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ slides, buildingD
     setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+  // Preload images to avoid flickering
+  React.useEffect(() => {
+    slides.forEach(slide => {
+      if (slide.src) {
+        const img = new Image();
+        img.src = slide.src;
+      }
+    });
+  }, [slides]);
+
   return (
     <>
       <div className="relative aspect-[16/9] bg-black">
@@ -36,17 +46,26 @@ const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ slides, buildingD
           >
             {slide.isInteractive ? (
               <BuildingDashboard buildingData={buildingData} />
-            ) : (
+            ) : slide.src ? (
               <>
                 <img 
                   src={slide.src} 
                   alt={slide.alt || slide.caption} 
                   className="w-full h-full object-cover"
+                  loading="eager"
+                  onError={(e) => {
+                    console.error(`Failed to load image: ${slide.src}`);
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800";
+                  }}
                 />
                 <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
                   <p className="text-white text-sm md:text-base">{slide.caption}</p>
                 </div>
               </>
+            ) : (
+              <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+                <p className="text-white">No image available</p>
+              </div>
             )}
           </div>
         ))}
