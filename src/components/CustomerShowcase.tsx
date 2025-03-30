@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { CheckCircle, HardHat, Factory, Building, Store, Gauge } from 'lucide-react';
 
@@ -20,7 +21,7 @@ const CustomerShowcase: React.FC = () => {
   const customerLogos: CustomerLogo[] = [
     { 
       name: "Mines", 
-      logo: "https://images.unsplash.com/photo-1553445295-5e0a5a673a4d?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      logo: "https://images.unsplash.com/photo-1578319439584-104c94d37305?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
       industry: "Mining",
       icon: <HardHat className="h-4 w-4 text-accent/80" />
     },
@@ -50,8 +51,8 @@ const CustomerShowcase: React.FC = () => {
     },
     { 
       name: "ProcessTech Industries", 
-      logo: "https://images.unsplash.com/photo-1565715731448-558db9315362?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "Industrial Processing",
+      logo: "https://images.unsplash.com/photo-1581092160607-ee22731c9c2c?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      industry: "C&I Industries",
       icon: <Factory className="h-4 w-4 text-accent/80" />
     },
   ];
