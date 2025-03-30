@@ -1,12 +1,12 @@
 
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Linkedin, Mail, Github } from "lucide-react";
+import { Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   const footerSections = [
     {
       title: "Product",
-      links: ["Features", "Pricing", "Security", "Updates"],
+      links: ["Features", "Security", "Updates"],
     },
     {
       title: "Company",
@@ -23,10 +23,7 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { name: "Twitter", icon: Twitter, url: "#" },
     { name: "LinkedIn", icon: Linkedin, url: "#" },
-    { name: "Facebook", icon: Facebook, url: "#" },
-    { name: "GitHub", icon: Github, url: "#" },
     { name: "Email", icon: Mail, url: "mailto:info@golumesys.com" },
   ];
 
