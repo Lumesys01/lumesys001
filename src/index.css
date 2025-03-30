@@ -17,6 +17,7 @@
     @apply bg-white dark:bg-background-dark text-black dark:text-foreground-dark antialiased;
     font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv02" on, "cv03" on;
     overflow-x: hidden;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -31,6 +32,7 @@
 @layer components {
   .glow-border {
     @apply relative overflow-hidden before:absolute before:inset-0 before:p-[1px] before:rounded-[inherit] before:bg-glow-gradient before:animate-gradient-flow;
+    isolation: isolate;
   }
 
   .glow-text {
@@ -43,14 +45,17 @@
 
   .glass-card {
     @apply bg-white/90 dark:bg-background-dark/80 backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-lg;
+    will-change: transform, opacity;
   }
 
   .shimmer {
     @apply relative overflow-hidden before:absolute before:inset-0 before:w-[200%] before:bg-[linear-gradient(90deg,transparent,rgba(0,0,0,0.05),transparent)] dark:before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.05),transparent)] before:animate-shimmer;
+    isolation: isolate;
   }
   
   .neo-card {
     @apply bg-white dark:bg-background-dark backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] rounded-xl;
+    will-change: transform, opacity;
   }
   
   .luxury-gradient {
@@ -59,6 +64,7 @@
   
   .frosted-glass {
     @apply backdrop-blur-md bg-white/90 dark:bg-background-dark/70 border border-gray-100 dark:border-gray-800 shadow-[0_4px_24px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)];
+    will-change: transform, opacity;
   }
   
   .clickable-icon {
@@ -73,10 +79,12 @@
   
   .hover-float {
     @apply transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg;
+    will-change: transform;
   }
   
   .micro-interaction {
     @apply transition-all duration-200 hover:scale-105;
+    will-change: transform;
   }
   
   .pulsing-dot {
@@ -85,6 +93,7 @@
   
   .animate-fade-in {
     animation: fadeIn 0.3s ease-out forwards;
+    will-change: opacity, transform;
   }
 }
 

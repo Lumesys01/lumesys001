@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Sparkles, MousePointerClick, CalendarClock } from 'lucide-react';
 
@@ -7,57 +7,86 @@ const HeroSection: React.FC = () => {
   const [hoverCTA, setHoverCTA] = useState(false);
   const [hoverDemo, setHoverDemo] = useState(false);
   
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    requestAnimationFrame(() => {
       setMousePosition({
         x: e.clientX / window.innerWidth - 0.5,
         y: e.clientY / window.innerHeight - 0.5
       });
+    });
+  }, []);
+  
+  useEffect(() => {
+    let frameId: number | null = null;
+    const throttledHandleMouseMove = (e: MouseEvent) => {
+      if (frameId === null) {
+        frameId = requestAnimationFrame(() => {
+          handleMouseMove(e);
+          frameId = null;
+        });
+      }
     };
     
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    window.addEventListener('mousemove', throttledHandleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', throttledHandleMouseMove);
+      if (frameId !== null) {
+        cancelAnimationFrame(frameId);
+      }
+    };
+  }, [handleMouseMove]);
 
   const scrollToDashboard = () => {
     const dashboardSection = document.getElementById('dashboard-preview');
     if (dashboardSection) {
-      dashboardSection.scrollIntoView({ behavior: 'smooth' });
+      dashboardSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
+
+  const particles = useMemo(() => {
+    return Array.from({ length: 30 }).map((_, index) => ({
+      id: index,
+      size: Math.random() * 4 + 1,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      blur: Math.random() * 2,
+      delay: Math.random() * 5,
+      duration: 4 + Math.random() * 6
+    }));
+  }, []);
 
   return (
     <section className="relative min-h-screen overflow-hidden flex items-center bg-white">
       <div className="absolute inset-0 bg-gradient-to-b from-white to-white"></div>
       
       <div 
-        className="absolute inset-0"
+        className="absolute inset-0 will-change-transform"
         style={{
-          transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`,
+          transform: `translate3d(${mousePosition.x * 10}px, ${mousePosition.y * 10}px, 0)`,
         }}
       ></div>
       
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(30)].map((_, index) => (
+        {particles.map((particle) => (
           <div 
-            key={index}
-            className="absolute rounded-full bg-highlight opacity-70 animate-pulse-glow"
+            key={particle.id}
+            className="absolute rounded-full bg-highlight opacity-70 animate-pulse-glow will-change-transform"
             style={{
-              width: `${Math.random() * 4 + 1}px`,
-              height: `${Math.random() * 4 + 1}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              filter: `blur(${Math.random() * 2}px)`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${4 + Math.random() * 6}s`,
-              transform: `translateZ(${Math.random() * 50}px) translate(${mousePosition.x * -10 * Math.random()}px, ${mousePosition.y * -10 * Math.random()}px)`
+              width: `${particle.size}px`,
+              height: `${particle.size}px`,
+              left: particle.left,
+              top: particle.top,
+              filter: `blur(${particle.blur}px)`,
+              animationDelay: `${particle.delay}s`,
+              animationDuration: `${particle.duration}s`,
+              transform: `translate3d(${mousePosition.x * -10 * Math.random()}px, ${mousePosition.y * -10 * Math.random()}px, 0)`
             }}
           ></div>
         ))}
@@ -114,7 +143,7 @@ const HeroSection: React.FC = () => {
                 <span className={`absolute inset-0 bg-gradient-to-r from-accent to-accent/60 transform transition-transform duration-500 ${hoverCTA ? 'translate-x-0' : '-translate-x-full'}`}></span>
               </Button>
               
-              <div className={`absolute inset-0 rounded-full transition-opacity duration-300 ${hoverCTA ? 'opacity-100' : 'opacity-0'} blur-xl bg-accent`}></div>
+              <div className={`absolute inset-0 rounded-full transition-opacity duration-300 ${hoverCTA ? 'opacity-100' : 'opacity-0'}`}></div>
             </div>
             
             <div 
@@ -149,27 +178,27 @@ const HeroSection: React.FC = () => {
       </div>
       
       <div 
-        className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-accent/10 blur-3xl animate-float" 
+        className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-accent/10 blur-3xl animate-float will-change-transform" 
         style={{ 
           animationDelay: "1.5s", 
           animationDuration: "8s",
-          transform: `translate(${mousePosition.x * -20}px, ${mousePosition.y * -20}px)` 
+          transform: `translate3d(${mousePosition.x * -20}px, ${mousePosition.y * -20}px, 0)` 
         }}
       ></div>
       <div 
-        className="absolute top-1/4 -right-20 w-80 h-80 rounded-full bg-highlight/5 blur-3xl animate-float" 
+        className="absolute top-1/4 -right-20 w-80 h-80 rounded-full bg-highlight/5 blur-3xl animate-float will-change-transform" 
         style={{ 
           animationDelay: "2s", 
           animationDuration: "10s",
-          transform: `translate(${mousePosition.x * 30}px, ${mousePosition.y * 30}px)` 
+          transform: `translate3d(${mousePosition.x * 30}px, ${mousePosition.y * 30}px, 0)` 
         }}
       ></div>
       <div 
-        className="absolute bottom-1/3 -left-10 w-48 h-48 rounded-full bg-secondary/10 blur-3xl animate-float" 
+        className="absolute bottom-1/3 -left-10 w-48 h-48 rounded-full bg-secondary/10 blur-3xl animate-float will-change-transform" 
         style={{ 
           animationDelay: "0.5s", 
           animationDuration: "9s",
-          transform: `translate(${mousePosition.x * -15}px, ${mousePosition.y * -15}px)` 
+          transform: `translate3d(${mousePosition.x * -15}px, ${mousePosition.y * -15}px, 0)` 
         }}
       ></div>
     </section>

@@ -1,0 +1,104 @@
+
+import React, { useEffect, useRef } from 'react';
+
+type PageTransitionProps = {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number; // Add delay option for staggered animations
+  direction?: 'up' | 'down' | 'left' | 'right'; // Add direction options
+};
+
+const PageTransition = ({ 
+  children, 
+  className = '',
+  delay = 0,
+  direction = 'up'
+}: PageTransitionProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    // Create intersection observer with options for better performance
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Use requestAnimationFrame to optimize animation performance
+            requestAnimationFrame(() => {
+              setTimeout(() => {
+                if (ref.current) {
+                  ref.current.classList.add('animate-in-view');
+                  ref.current.style.opacity = '1';
+                  
+                  // Apply direction-based transform with hardware acceleration
+                  switch (direction) {
+                    case 'up':
+                      ref.current.style.transform = 'translateY(0) translateZ(0)';
+                      break;
+                    case 'down':
+                      ref.current.style.transform = 'translateY(0) translateZ(0)';
+                      break;
+                    case 'left':
+                      ref.current.style.transform = 'translateX(0) translateZ(0)';
+                      break;
+                    case 'right':
+                      ref.current.style.transform = 'translateX(0) translateZ(0)';
+                      break;
+                  }
+                }
+              }, delay);
+            });
+            
+            // Once animation is triggered, unobserve the element for performance
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15, // Start animation when 15% of element is visible
+        rootMargin: '20px 0px', // Start animation slightly before element enters viewport
+      }
+    );
+    
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+    
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [delay, direction]);
+  
+  // Set initial styles based on direction with hardware acceleration
+  let initialStyles = {};
+  switch (direction) {
+    case 'up':
+      initialStyles = { opacity: 0, transform: 'translateY(30px) translateZ(0)' };
+      break;
+    case 'down':
+      initialStyles = { opacity: 0, transform: 'translateY(-30px) translateZ(0)' };
+      break;
+    case 'left':
+      initialStyles = { opacity: 0, transform: 'translateX(30px) translateZ(0)' };
+      break;
+    case 'right':
+      initialStyles = { opacity: 0, transform: 'translateX(-30px) translateZ(0)' };
+      break;
+  }
+  
+  return (
+    <div 
+      ref={ref} 
+      className={`transform transition-all duration-700 ease-out will-change-transform ${className}`}
+      style={{
+        ...initialStyles,
+        transitionDelay: `${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+export default PageTransition;
