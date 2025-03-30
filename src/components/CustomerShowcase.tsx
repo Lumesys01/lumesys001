@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { CheckCircle, HardHat, Factory, Building, Store, Gauge } from 'lucide-react';
 
@@ -59,25 +58,25 @@ const CustomerShowcase: React.FC = () => {
 
   const successMetrics: SuccessMetric[] = [
     { 
-      customer: "Mines", 
+      customer: "Projected: Mining Sector", 
       savingsPercentage: 24, 
-      annualSavings: "$920,000", 
-      paybackPeriod: "8 months", 
-      co2Reduction: "580 tons" 
+      annualSavings: "Up to $920,000", 
+      paybackPeriod: "Estimated 8-10 months", 
+      co2Reduction: "Potential 580 tons" 
     },
     { 
-      customer: "GovInfra Systems", 
+      customer: "Projected: Government Infrastructure", 
       savingsPercentage: 19, 
-      annualSavings: "$650,000", 
-      paybackPeriod: "10 months", 
-      co2Reduction: "420 tons" 
+      annualSavings: "Up to $650,000", 
+      paybackPeriod: "Estimated 9-12 months", 
+      co2Reduction: "Potential 420 tons" 
     },
     { 
-      customer: "EnergySphere", 
+      customer: "Projected: High Energy Industry", 
       savingsPercentage: 27, 
-      annualSavings: "$1,200,000", 
-      paybackPeriod: "6 months", 
-      co2Reduction: "750 tons" 
+      annualSavings: "Up to $1,200,000", 
+      paybackPeriod: "Estimated 6-9 months", 
+      co2Reduction: "Potential 750 tons" 
     }
   ];
 
@@ -88,17 +87,16 @@ const CustomerShowcase: React.FC = () => {
       <div className="container mx-auto">
         <div className="text-center mb-12">
           <span className="inline-block px-4 py-2 mb-4 rounded-full bg-accent/10 text-accent/90 text-sm font-medium">
-            Target Markets
+            Projected Market Impact
           </span>
           <h2 className="text-3xl md:text-5xl font-light mb-4 text-black">
-            Transforming <span className="gradient-text font-normal">Energy Management</span>
+            Potential <span className="gradient-text font-normal">Energy Management</span> Outcomes
           </h2>
           <p className="text-lg text-black/70 max-w-2xl mx-auto">
-            See how high-energy-consuming industries are achieving significant cost savings and sustainability goals with Lumesys.
+            Explore our data-driven assumptions about potential energy optimization across high-consumption industries.
           </p>
         </div>
         
-        {/* Customer Logos */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
           {customerLogos.map((customer, index) => (
             <div 
@@ -123,15 +121,14 @@ const CustomerShowcase: React.FC = () => {
           ))}
         </div>
         
-        {/* Success Metrics - Redesigned for more responsiveness and visual appeal */}
         <div className="max-w-5xl mx-auto">
           <div className="mb-12 text-center">
             <h3 className="text-2xl md:text-3xl font-medium mb-4 relative inline-block">
-              <span className="gradient-text font-bold">Real Results</span>, Measurable Impact
+              <span className="gradient-text font-bold">Potential Results</span>, Backed by Assumptions
               <div className="absolute -bottom-2 left-0 right-0 h-1 bg-button-gradient rounded-full"></div>
             </h3>
             <p className="text-lg text-black/70 max-w-2xl mx-auto mt-4">
-              Our clients achieve remarkable energy savings and sustainability outcomes
+              Our projections demonstrate the potential savings and sustainability improvements across different sectors.
             </p>
           </div>
           
@@ -151,13 +148,11 @@ const CustomerShowcase: React.FC = () => {
                     : 'shadow-lg hover:shadow-[0_10px_30px_-10px_rgba(0,191,114,0.3)]'
                   }
                 `}>
-                  {/* Top accent band with percentage */}
                   <div className={`
                     h-2 w-full bg-button-gradient transition-all duration-300
                     ${activeMetric === index ? 'h-3' : ''}
                   `}></div>
                   
-                  {/* Percentage badge */}
                   <div className={`
                     absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 
                     flex items-center justify-center rounded-full p-1
@@ -180,7 +175,6 @@ const CustomerShowcase: React.FC = () => {
                     </div>
                   </div>
                   
-                  {/* Card content */}
                   <div className="pt-10 pb-6 px-6 bg-white">
                     <h4 className={`
                       text-center text-xl font-medium mb-6 transition-all duration-300
@@ -235,7 +229,6 @@ const CustomerShowcase: React.FC = () => {
                   </div>
                 </div>
                 
-                {/* Bottom glow effect */}
                 <div className={`
                   absolute -bottom-4 left-1/2 -translate-x-1/2 h-4 w-3/4 
                   bg-accent blur-xl opacity-0 transition-opacity duration-300
