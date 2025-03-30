@@ -15,7 +15,7 @@ const CTASection: React.FC = () => {
     
     // Prepare email data for waitlist submission
     const emailData = {
-      to: "info@golumesys.com",
+      to: "info@golumesys.com", // Explicitly set to info@golumesys.com
       subject: "New Waitlist Signup",
       text: `New signup for the waitlist: ${email}`,
       replyTo: email,
