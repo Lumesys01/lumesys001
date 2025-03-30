@@ -1,8 +1,9 @@
+
 import { useEffect, useState } from "react";
 import { 
   BarChart, Bar, PieChart, Pie,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  Cell, Sector
+  Cell, Sector, Line, LineChart
 } from "recharts";
 import { 
   ChartContainer, 
@@ -401,7 +402,7 @@ const DemoCharts = () => {
             </div>
             <div className="h-[350px] lg:h-[400px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart
+                <LineChart
                   data={globalForecast}
                   margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
                 >
@@ -431,27 +432,25 @@ const DemoCharts = () => {
                     }}
                   />
                   <Legend />
-                  <Area 
+                  <Line 
                     type="monotone" 
                     dataKey="adoption" 
                     name="Adoption" 
                     stroke="#8B5CF6" 
                     strokeWidth={3}
-                    fillOpacity={1} 
-                    fill="url(#colorAdoption)" 
+                    dot={{ r: 6, strokeWidth: 2, fill: 'white' }}
                     activeDot={{ r: 8, strokeWidth: 2, fill: 'white' }}
                   />
-                  <Area 
+                  <Line 
                     type="monotone" 
                     dataKey="growth" 
                     name="Year Growth" 
                     stroke="#00bf72" 
                     strokeWidth={3}
-                    fillOpacity={1} 
-                    fill="url(#colorGrowth)"
+                    dot={{ r: 6, strokeWidth: 2, fill: 'white' }}
                     activeDot={{ r: 8, strokeWidth: 2, fill: 'white' }}
                   />
-                </AreaChart>
+                </LineChart>
               </ResponsiveContainer>
             </div>
             <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
