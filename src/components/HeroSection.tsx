@@ -1,10 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ArrowDown } from 'lucide-react';
+import { ArrowRight, ArrowDown, Leaf } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [showTagline, setShowTagline] = useState(false);
   
   // Handle mouse movement for parallax effect
   useEffect(() => {
@@ -17,6 +18,15 @@ const HeroSection: React.FC = () => {
     
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // Show tagline with animation after a delay
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowTagline(true);
+    }, 1000);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   // Smooth scroll to demo video section
@@ -77,9 +87,36 @@ const HeroSection: React.FC = () => {
             </div>
           </div>
           
-          <div className="mb-6 px-4 py-2 bg-green-50 rounded-full inline-flex items-center text-sm font-medium text-green-700 animate-float">
+          {/* Animated tagline with slide-in and leaf fall effect */}
+          <div 
+            className={`relative mb-6 px-4 py-2 bg-green-50 rounded-full inline-flex items-center text-sm font-medium text-green-700 ${
+              showTagline ? 'animate-slide-in' : 'opacity-0 -translate-x-full'
+            } transition-all duration-1000 ease-out`}
+          >
+            {/* Animated falling leaves */}
+            {showTagline && [...Array(5)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute animate-leaf-fall"
+                style={{
+                  left: `${20 + i * 15}%`,
+                  animationDelay: `${0.2 * i}s`,
+                  animationDuration: `${1.5 + Math.random()}s`
+                }}
+              >
+                <Leaf
+                  className="text-green-500 opacity-70"
+                  size={12}
+                  style={{
+                    transform: `rotate(${Math.random() * 360}deg)`,
+                  }}
+                />
+              </div>
+            ))}
             <span className="mr-2">🌿</span>
-            Powering Efficiency, Leading Sustainability
+            <span className="relative z-10">
+              Powering Efficiency, Leading Sustainability
+            </span>
           </div>
           
           <p className="mb-4 text-lg md:text-xl font-medium bg-clip-text text-transparent bg-button-gradient animate-float" style={{ animationDelay: "0.2s" }}>

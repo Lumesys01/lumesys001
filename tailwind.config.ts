@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -49,6 +50,8 @@ export default {
         "bounce": "bounce 1s ease-in-out",
         "spin-slow": "spin 3s linear infinite",
         "ping": "ping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
+        "slide-in": "slideIn 1s ease-out forwards",
+        "leaf-fall": "leafFall 3s ease-out forwards",
       },
       keyframes: {
         float: {
@@ -88,6 +91,29 @@ export default {
           '75%, 100%': {
             transform: 'scale(1.2)',
             opacity: '0',
+          },
+        },
+        slideIn: {
+          '0%': { 
+            transform: 'translateX(-100%)',
+            opacity: '0'
+          },
+          '100%': { 
+            transform: 'translateX(0)',
+            opacity: '1'
+          },
+        },
+        leafFall: {
+          '0%': { 
+            transform: 'translateY(-20px) rotate(0deg)',
+            opacity: '0'
+          },
+          '10%': { 
+            opacity: '1'
+          },
+          '100%': { 
+            transform: 'translateY(80px) rotate(360deg)',
+            opacity: '0'
           },
         },
       },
