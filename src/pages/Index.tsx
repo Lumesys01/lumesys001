@@ -13,7 +13,7 @@ const FeaturesSection = lazy(() => import("@/components/FeaturesSection"));
 const WhyLumesys = lazy(() => import("@/components/WhyLumesys"));
 const CTASection = lazy(() => import("@/components/CTASection"));
 const DemoCharts = lazy(() => import("@/components/DemoCharts"));
-const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
+// Removed lazy import for TestimonialsSection
 const HowItWorksSection = lazy(() => import("@/components/HowItWorksSection"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
 
@@ -63,10 +63,7 @@ const Index = () => {
             <WhyLumesys />
           </section>
           
-          {/* Testimonials section */}
-          <section id="testimonials" className="bg-white">
-            <TestimonialsSection />
-          </section>
+          {/* Removed Testimonials section */}
           
           {/* Charts demo section */}
           <section id="charts" className="bg-white py-4">
