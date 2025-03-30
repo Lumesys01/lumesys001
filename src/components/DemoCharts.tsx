@@ -1,7 +1,6 @@
-
 import { useEffect, useState } from "react";
 import { 
-  LineChart, Line, BarChart, Bar, PieChart, Pie, AreaChart, Area,
+  BarChart, Bar, PieChart, Pie, AreaChart, Area,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   Cell, Sector
 } from "recharts";
@@ -13,9 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { ArrowUpIcon, BarChart3, LineChartIcon, PieChartIcon, TrendingUpIcon } from "lucide-react";
+import { ArrowUpIcon, BarChart3, TrendingUpIcon, PieChartIcon } from "lucide-react";
 
-// Updated data showing consistently increasing growth trends across months
 const monthlyData = [
   { name: "Jan", users: 400, growth: 24 },
   { name: "Feb", users: 450, growth: 26 },
@@ -25,7 +23,6 @@ const monthlyData = [
   { name: "Jun", users: 850, growth: 42 },
 ];
 
-// Updated pie data to represent market size percentages for SA and globally
 const pieData = [
   { name: "Manufacturing", value: 40, color: "#0EA5E9", sa: 38, global: 42 },
   { name: "Mining", value: 30, color: "#8B5CF6", sa: 35, global: 25 },
@@ -33,7 +30,6 @@ const pieData = [
   { name: "Retail", value: 10, color: "#A8EB12", sa: 9, global: 11 },
 ];
 
-// New SADC region adoption data
 const sadcData = [
   { 
     name: "South Africa", 
@@ -62,7 +58,6 @@ const sadcData = [
   },
 ];
 
-// Global adoption forecast over 5 years
 const globalForecast = [
   { year: "Year 1", adoption: 15, growth: 15, color: "#0EA5E9" },
   { year: "Year 2", adoption: 32, growth: 17, color: "#8B5CF6" },
@@ -78,8 +73,8 @@ const DemoCharts = () => {
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   const [activeTab, setActiveTab] = useState("pie");
   const [showDescription, setShowDescription] = useState(false);
-  const [marketView, setMarketView] = useState("global"); // "global" or "sa" (South Africa)
-  const [sadcQuarter, setSadcQuarter] = useState("q4"); // Default to Q4 for SADC view
+  const [marketView, setMarketView] = useState("global");
+  const [sadcQuarter, setSadcQuarter] = useState("q4");
 
   useEffect(() => {
     const handleResize = () => {
@@ -92,17 +87,14 @@ const DemoCharts = () => {
 
   const randomizeData = () => {
     setAnimate(true);
-    // Generate new data with consistently increasing growth trends
     const newData = [];
-    let baseUsers = 380 + Math.floor(Math.random() * 50); // Start point
-    let baseGrowth = 22 + Math.floor(Math.random() * 5); // Start growth rate
+    let baseUsers = 380 + Math.floor(Math.random() * 50);
+    let baseGrowth = 22 + Math.floor(Math.random() * 5);
     
     for (let i = 0; i < monthlyData.length; i++) {
-      // Each month shows increases from the previous month
-      const growthIncrement = Math.floor(Math.random() * 6) + 2; // 2-7% additional growth each month
+      const growthIncrement = Math.floor(Math.random() * 6) + 2;
       baseGrowth += growthIncrement;
       
-      // Users increase based on the growth percentage
       const userIncrement = Math.floor(baseUsers * (baseGrowth / 100));
       baseUsers += userIncrement;
       
@@ -159,7 +151,6 @@ const DemoCharts = () => {
     const ey = my;
     const textAnchor = cos >= 0 ? 'start' : 'end';
 
-    // Get the appropriate value based on the current market view
     const marketSpecificValue = marketView === "global" ? payload.global : payload.sa;
 
     return (
@@ -207,20 +198,17 @@ const DemoCharts = () => {
     const current = activeData[index][dataKey as keyof typeof activeData[0]] as number;
     const previous = activeData[index - 1][dataKey as keyof typeof activeData[0]] as number;
     
-    // Since we're focusing on showing growth, we'll primarily show up arrows
     return <ArrowUpIcon className="w-4 h-4 text-accent" />;
   };
 
   const tabDescriptions = {
-    pie: "Market size distribution across major industry segments.",
-    line: "Track assumptions about market adoption and growth patterns over time.",
+    sadc: "Regional adoption across SADC countries over quarterly periods.",
+    global: "Global adoption forecast showing steady incremental growth.",
     area: "Visualize accelerating growth patterns with layered area charts.",
     bar: "Compare user metrics showing month-over-month improvements.",
-    sadc: "Regional adoption across SADC countries over quarterly periods.",
-    global: "Global adoption forecast showing steady incremental growth."
+    pie: "Market size distribution across major industry segments."
   };
 
-  // Function to get values for the current market view
   const getPieDataForCurrentMarket = () => {
     return pieData.map(item => ({
       ...item,
@@ -228,7 +216,6 @@ const DemoCharts = () => {
     }));
   };
 
-  // Function to get current SADC data for selected quarter
   const getSadcDataForQuarter = () => {
     return sadcData.map(country => ({
       name: country.name,
@@ -271,7 +258,7 @@ const DemoCharts = () => {
                 value="sadc" 
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-accent/20 data-[state=active]:to-highlight/20 rounded-full data-[state=active]:text-accent"
               >
-                <LineChartIcon className="h-4 w-4 mr-2" />
+                <TrendingUpIcon className="h-4 w-4 mr-2" />
                 SADC
               </TabsTrigger>
               <TabsTrigger 
@@ -280,13 +267,6 @@ const DemoCharts = () => {
               >
                 <TrendingUpIcon className="h-4 w-4 mr-2" />
                 Global
-              </TabsTrigger>
-              <TabsTrigger 
-                value="line" 
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-accent/20 data-[state=active]:to-highlight/20 rounded-full data-[state=active]:text-accent"
-              >
-                <LineChartIcon className="h-4 w-4 mr-2" />
-                Line
               </TabsTrigger>
               <TabsTrigger 
                 value="area"
@@ -318,7 +298,6 @@ const DemoCharts = () => {
             </div>
           </div>
 
-          {/* New SADC Region Adoption Tab */}
           <TabsContent value="sadc" className="neo-card p-6 rounded-xl border-0">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
               <h3 className="text-xl font-medium text-gray-800">SADC Region Adoption</h3>
@@ -419,7 +398,6 @@ const DemoCharts = () => {
             </div>
           </TabsContent>
 
-          {/* New Global Growth Forecast Tab */}
           <TabsContent value="global" className="neo-card p-6 rounded-xl border-0">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
               <h3 className="text-xl font-medium text-gray-800">Global Growth Forecast</h3>
@@ -528,79 +506,6 @@ const DemoCharts = () => {
                   <p className="text-sm"><span className="font-medium">Market Maturity:</span> By Year 5, projections show significant market share with continued growth potential.</p>
                 </div>
               </div>
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="line" className="neo-card p-6 rounded-xl border-0">
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
-              <h3 className="text-xl font-medium text-gray-800">Assumptions</h3>
-              <div className="flex gap-2 mt-2 sm:mt-0">
-                {Object.entries(chartConfig).map(([key, config]) => (
-                  <Badge 
-                    key={key} 
-                    className="bg-white border shadow-sm"
-                    style={{ color: config.theme.light }}
-                  >
-                    {config.label}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-            <div className="h-[350px] lg:h-[400px] w-full">
-              <ChartContainer config={chartConfig}>
-                <LineChart data={activeData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Legend />
-                  <Line 
-                    type="monotone" 
-                    dataKey="users" 
-                    stroke="var(--color-users)" 
-                    strokeWidth={3} 
-                    activeDot={{ r: 8, stroke: 'var(--color-users)', strokeWidth: 2, fill: 'white' }} 
-                    dot={{ stroke: 'var(--color-users)', strokeWidth: 2, fill: 'white', r: 4 }}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="growth" 
-                    stroke="var(--color-growth)" 
-                    strokeWidth={3}
-                    activeDot={{ r: 8, stroke: 'var(--color-growth)', strokeWidth: 2, fill: 'white' }}
-                    dot={{ stroke: 'var(--color-growth)', strokeWidth: 2, fill: 'white', r: 4 }}
-                  />
-                </LineChart>
-              </ChartContainer>
-            </div>
-            
-            <div className="mt-6 overflow-auto max-h-40 rounded-lg border">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Month</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Users</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Growth %</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {activeData.map((item, index) => (
-                    <tr key={item.name} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                      <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.name}</td>
-                      <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                        <div className="flex items-center">
-                          {item.users} {getTrendIndicator('users', index)}
-                        </div>
-                      </td>
-                      <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                        <div className="flex items-center">
-                          {item.growth}% {getTrendIndicator('growth', index)}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
             </div>
           </TabsContent>
           
@@ -812,7 +717,6 @@ const DemoCharts = () => {
                     </Pie>
                     <Tooltip 
                       formatter={(value, name, entry) => {
-                        // @ts-ignore - entry has payload
                         const payload = entry?.payload;
                         return [`${value}% market share`, payload?.name];
                       }}
