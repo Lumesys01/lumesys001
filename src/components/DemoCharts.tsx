@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { 
   LineChart, Line, BarChart, Bar, PieChart, Pie, AreaChart, Area,
@@ -15,17 +14,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDownIcon, ArrowUpIcon, BarChart3, LineChart as LineChartIcon, PieChartIcon } from "lucide-react";
 
-// Sample data
+// Updated monthly data without revenue
 const monthlyData = [
-  { name: "Jan", users: 400, revenue: 2400, growth: 24 },
-  { name: "Feb", users: 300, revenue: 1398, growth: 13 },
-  { name: "Mar", users: 520, revenue: 3200, growth: 32 },
-  { name: "Apr", users: 480, revenue: 2800, growth: 28 },
-  { name: "May", users: 600, revenue: 3800, growth: 38 },
-  { name: "Jun", users: 580, revenue: 3600, growth: 36 },
+  { name: "Jan", users: 400, growth: 24 },
+  { name: "Feb", users: 300, growth: 13 },
+  { name: "Mar", users: 520, growth: 32 },
+  { name: "Apr", users: 480, growth: 28 },
+  { name: "May", users: 600, growth: 38 },
+  { name: "Jun", users: 580, growth: 36 },
 ];
 
-// Updated pie data with industry segments from highest to lowest
+// Existing pie data remains unchanged
 const pieData = [
   { name: "Manufacturing", value: 400, color: "#0EA5E9" },
   { name: "Mines", value: 300, color: "#8B5CF6" },
@@ -57,7 +56,6 @@ const DemoCharts = () => {
     const newData = monthlyData.map(item => ({
       ...item,
       users: Math.floor(Math.random() * 1000),
-      revenue: Math.floor(Math.random() * 5000),
       growth: Math.floor(Math.random() * 50)
     }));
     setActiveData(newData);
@@ -65,19 +63,13 @@ const DemoCharts = () => {
     setTimeout(() => setAnimate(false), 800);
   };
 
+  // Update chartConfig to remove revenue
   const chartConfig = {
     users: {
       label: "Users",
       theme: {
         light: "#0EA5E9",
         dark: "#0EA5E9"
-      },
-    },
-    revenue: {
-      label: "Revenue",
-      theme: {
-        light: "#8B5CF6",
-        dark: "#8B5CF6"
       },
     },
     growth: {
@@ -175,7 +167,7 @@ const DemoCharts = () => {
     pie: "Industry segment distribution shows which sectors are adopting Lumesys technology.",
     line: "Track monthly performance trends to identify growth patterns over time.",
     area: "Visualize growth patterns with layered area charts showing data accumulation.",
-    bar: "Compare revenue metrics side-by-side to identify top performing months."
+    bar: "Compare user metrics side-by-side to identify top performing months."
   };
 
   return (
@@ -278,14 +270,6 @@ const DemoCharts = () => {
                   />
                   <Line 
                     type="monotone" 
-                    dataKey="revenue" 
-                    stroke="var(--color-revenue)" 
-                    strokeWidth={3}
-                    activeDot={{ r: 8, stroke: 'var(--color-revenue)', strokeWidth: 2, fill: 'white' }}
-                    dot={{ stroke: 'var(--color-revenue)', strokeWidth: 2, fill: 'white', r: 4 }}
-                  />
-                  <Line 
-                    type="monotone" 
                     dataKey="growth" 
                     stroke="var(--color-growth)" 
                     strokeWidth={3}
@@ -296,14 +280,13 @@ const DemoCharts = () => {
               </ChartContainer>
             </div>
             
-            {/* Monthly metrics table */}
+            {/* Updated monthly metrics table without revenue */}
             <div className="mt-6 overflow-auto max-h-40 rounded-lg border">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Month</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Users</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Growth %</th>
                   </tr>
                 </thead>
@@ -318,11 +301,6 @@ const DemoCharts = () => {
                       </td>
                       <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                         <div className="flex items-center">
-                          ${item.revenue} {getTrendIndicator('revenue', index)}
-                        </div>
-                      </td>
-                      <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                        <div className="flex items-center">
                           {item.growth}% {getTrendIndicator('growth', index)}
                         </div>
                       </td>
@@ -333,11 +311,12 @@ const DemoCharts = () => {
             </div>
           </TabsContent>
           
+          {/* Area and Bar tabs will also need similar revenue removal */}
           <TabsContent value="area" className="neo-card p-6 rounded-xl border-0">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
               <h3 className="text-xl font-medium text-gray-800">Growth Visualization</h3>
               <div className="flex gap-2 mt-2 sm:mt-0">
-                {Object.entries(chartConfig).slice(0, 2).map(([key, config]) => (
+                {Object.entries(chartConfig).map(([key, config]) => (
                   <Badge 
                     key={key} 
                     className="bg-white border shadow-sm"
@@ -356,9 +335,9 @@ const DemoCharts = () => {
                       <stop offset="5%" stopColor="var(--color-users)" stopOpacity={0.8}/>
                       <stop offset="95%" stopColor="var(--color-users)" stopOpacity={0.1}/>
                     </linearGradient>
-                    <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--color-revenue)" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="var(--color-revenue)" stopOpacity={0.1}/>
+                    <linearGradient id="colorGrowth" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="var(--color-growth)" stopOpacity={0.8}/>
+                      <stop offset="95%" stopColor="var(--color-growth)" stopOpacity={0.1}/>
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
@@ -377,41 +356,32 @@ const DemoCharts = () => {
                   />
                   <Area 
                     type="monotone" 
-                    dataKey="revenue" 
-                    stroke="var(--color-revenue)" 
+                    dataKey="growth" 
+                    stroke="var(--color-growth)" 
                     strokeWidth={2} 
                     fillOpacity={1}
-                    fill="url(#colorRevenue)" 
+                    fill="url(#colorGrowth)" 
                     activeDot={{ r: 6, strokeWidth: 2 }}
                   />
                 </AreaChart>
               </ChartContainer>
             </div>
             
-            {/* Key insights */}
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {['Users', 'Revenue'].map((metric) => {
-                const key = metric.toLowerCase();
-                const total = activeData.reduce((sum, item) => sum + (item as any)[key], 0);
-                const avg = Math.round(total / activeData.length);
-                const max = Math.max(...activeData.map(item => (item as any)[key]));
-                
-                return (
-                  <div key={key} className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-medium mb-2">{metric} Analysis</h4>
-                    <div className="grid grid-cols-2 gap-2 text-sm">
-                      <div>
-                        <p className="text-gray-600">Average</p>
-                        <p className="font-bold">{key === 'revenue' ? '$' : ''}{avg}</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-600">Maximum</p>
-                        <p className="font-bold">{key === 'revenue' ? '$' : ''}{max}</p>
-                      </div>
-                    </div>
+            {/* Updated key insights without revenue */}
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <h4 className="font-medium mb-2">Users Analysis</h4>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div>
+                    <p className="text-gray-600">Average</p>
+                    <p className="font-bold">{Math.round(activeData.reduce((sum, item) => sum + item.users, 0) / activeData.length)}</p>
                   </div>
-                );
-              })}
+                  <div>
+                    <p className="text-gray-600">Maximum</p>
+                    <p className="font-bold">{Math.max(...activeData.map(item => item.users))}</p>
+                  </div>
+                </div>
+              </div>
               
               <div className="bg-gradient-to-br from-accent/20 to-highlight/20 p-4 rounded-lg">
                 <h4 className="font-medium mb-2">Growth Trend</h4>
@@ -422,9 +392,9 @@ const DemoCharts = () => {
           
           <TabsContent value="bar" className="neo-card p-6 rounded-xl border-0">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
-              <h3 className="text-xl font-medium text-gray-800">Revenue Comparison</h3>
+              <h3 className="text-xl font-medium text-gray-800">User Comparison</h3>
               <div className="flex gap-2 mt-2 sm:mt-0">
-                {Object.entries(chartConfig).slice(0, 2).map(([key, config]) => (
+                {Object.entries(chartConfig).map(([key, config]) => (
                   <Badge 
                     key={key} 
                     className="bg-white border shadow-sm"
@@ -451,8 +421,8 @@ const DemoCharts = () => {
                     animationDuration={1500}
                   />
                   <Bar 
-                    dataKey="revenue" 
-                    fill="var(--color-revenue)" 
+                    dataKey="growth" 
+                    fill="var(--color-growth)" 
                     radius={[4, 4, 0, 0]}
                     barSize={30}
                     animationDuration={1500}
@@ -461,25 +431,25 @@ const DemoCharts = () => {
               </ChartContainer>
             </div>
             
-            {/* Revenue highlights */}
+            {/* User growth highlights */}
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="bg-white p-4 rounded-lg border shadow-sm">
-                <h4 className="font-medium mb-3 text-lg">Revenue Highlights</h4>
-                {activeData.reduce((max, item) => max.revenue > item.revenue ? max : item, activeData[0]).name === activeData[activeData.length - 1].name ? (
+                <h4 className="font-medium mb-3 text-lg">User Highlights</h4>
+                {activeData.reduce((max, item) => max.users > item.users ? max : item, activeData[0]).name === activeData[activeData.length - 1].name ? (
                   <div className="flex gap-2 items-center text-accent">
                     <ArrowUpIcon className="w-5 h-5" />
-                    <span>Highest revenue in latest month!</span>
+                    <span>Highest user count in latest month!</span>
                   </div>
                 ) : (
                   <div className="flex gap-2 items-center">
-                    <span>Top month: {activeData.reduce((max, item) => max.revenue > item.revenue ? max : item, activeData[0]).name}</span>
+                    <span>Top month: {activeData.reduce((max, item) => max.users > item.users ? max : item, activeData[0]).name}</span>
                   </div>
                 )}
                 <div className="mt-2 h-2 bg-gray-100 rounded-full">
                   <div 
                     className="h-2 bg-gradient-to-r from-accent to-highlight rounded-full"
                     style={{ 
-                      width: `${(activeData[activeData.length - 1].revenue / activeData.reduce((max, item) => Math.max(max, item.revenue), 0)) * 100}%` 
+                      width: `${(activeData[activeData.length - 1].users / activeData.reduce((max, item) => Math.max(max, item.users), 0)) * 100}%` 
                     }}
                   ></div>
                 </div>
