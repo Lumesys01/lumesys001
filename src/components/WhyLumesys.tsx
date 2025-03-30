@@ -77,9 +77,9 @@ const WhyLumesys: React.FC = () => {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Energy savings counter */}
+          {/* Energy savings counter - Modified to clarify industry benchmark */}
           <div className="glass-card rounded-xl p-8 md:p-10 text-center">
-            <h3 className="text-xl font-medium mb-2 text-black">Average Energy Savings</h3>
+            <h3 className="text-xl font-medium mb-2 text-black">Industry Benchmark Energy Savings</h3>
             <div className="relative mb-6">
               <div className="text-7xl md:text-8xl font-light gradient-text">
                 {savingsPercent}
@@ -88,11 +88,11 @@ const WhyLumesys: React.FC = () => {
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-highlight/20 rounded-full blur-[30px]"></div>
             </div>
             <p className="text-black/70">
-              Real-time savings across our client facilities, constantly optimized by our AI engine.
+              Potential savings based on industry benchmarks for similar AI-driven energy management solutions.
             </p>
             <div className="mt-6">
               <Button className="glow-border bg-surface backdrop-blur-sm px-6 py-5 rounded-full text-black group">
-                <span>See Client Results</span>
+                <span>Learn About Our Approach</span>
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
@@ -162,7 +162,7 @@ const WhyLumesys: React.FC = () => {
           </Card>
         </div>
         
-        {/* Case study teaser */}
+        {/* Case study teaser - Updated to mention "projected" benefits instead of actual case study */}
         <div className="mt-16 glass-card rounded-xl p-8 relative overflow-hidden group">
           <div className="absolute inset-0 bg-glow-gradient opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
           
@@ -172,12 +172,12 @@ const WhyLumesys: React.FC = () => {
                 Discover how <span className="gradient-text font-normal">AI-driven optimization</span> is transforming high-energy industries
               </h3>
               <p className="text-black/70">
-                Read our latest case study on how a manufacturing facility reduced energy costs by 31%.
+                Learn about the projected benefits of implementing our solution in manufacturing facilities.
               </p>
             </div>
             
             <Button className="glow-border bg-surface backdrop-blur-sm px-6 py-5 rounded-full text-black group">
-              <span>View Case Study</span>
+              <span>View Projection Model</span>
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
