@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -10,17 +11,17 @@
   }
 
   * {
-    @apply border-border;
+    @apply border-border dark:border-border-dark;
   }
 
   body {
-    @apply bg-white text-black antialiased; /* Light theme */
+    @apply bg-white dark:bg-background-dark text-black dark:text-foreground-dark antialiased; /* Light/Dark theme */
     font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv02" on, "cv03" on;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-light tracking-tight text-black; /* Dark text for readability */
+    @apply font-light tracking-tight text-black dark:text-foreground-dark; /* Light/Dark text */
   }
 }
 
@@ -38,15 +39,15 @@
   }
 
   .glass-card {
-    @apply bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg; /* Updated for light theme */
+    @apply bg-white/90 dark:bg-background-dark/80 backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-lg;
   }
 
   .shimmer {
-    @apply relative overflow-hidden before:absolute before:inset-0 before:w-[200%] before:bg-[linear-gradient(90deg,transparent,rgba(0,0,0,0.05),transparent)] before:animate-shimmer;
+    @apply relative overflow-hidden before:absolute before:inset-0 before:w-[200%] before:bg-[linear-gradient(90deg,transparent,rgba(0,0,0,0.05),transparent)] dark:before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.05),transparent)] before:animate-shimmer;
   }
   
   .neo-card {
-    @apply bg-white backdrop-blur-md border border-gray-200 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-xl; /* Light theme neo-card */
+    @apply bg-white dark:bg-background-dark backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] rounded-xl;
   }
   
   .luxury-gradient {
@@ -54,7 +55,7 @@
   }
   
   .frosted-glass {
-    @apply backdrop-blur-md bg-white/90 border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.1)]; /* Light theme glass effect */
+    @apply backdrop-blur-md bg-white/90 dark:bg-background-dark/70 border border-gray-100 dark:border-gray-800 shadow-[0_4px_24px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)];
   }
   
   .clickable-icon {
@@ -229,4 +230,17 @@ a, button, input, select, textarea {
 
 :focus-visible {
   @apply outline-2 outline-offset-2 outline-accent;
+}
+
+/* Dark mode specific styles */
+.dark .glass-card {
+  @apply bg-background-dark/50 border-gray-700;
+}
+
+.dark .gradient-text {
+  @apply text-glow;
+}
+
+.dark .neo-card {
+  @apply shadow-[0_8px_32px_rgba(0,0,0,0.3)];
 }

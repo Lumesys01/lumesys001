@@ -26,16 +26,40 @@ export default {
         highlight: "#A8EB12",
         neonpurple: "#2C065D",
         darkblue: "#010B28",
-        background: "#FFFFFF", // Changed to pure white
-        surface: "#F5F5F5", // Slightly off-white for surface elements
-        muted: "#C4C3BB",
-        "muted-foreground": "#A3A299",
-        border: "#E0E0E0",
-        input: "#F0F0F0",
-        foreground: "#000000", // Changed to black for better readability on white background
+        background: {
+          DEFAULT: "#FFFFFF", 
+          dark: "#1A1F2C",
+        },
+        surface: {
+          DEFAULT: "#F5F5F5",
+          dark: "#221F26",
+        },
+        muted: {
+          DEFAULT: "#C4C3BB",
+          dark: "#88888B",
+        },
+        "muted-foreground": {
+          DEFAULT: "#A3A299",
+          dark: "#C8C8C9",
+        },
+        border: {
+          DEFAULT: "#E0E0E0",
+          dark: "#333340",
+        },
+        input: {
+          DEFAULT: "#F0F0F0",
+          dark: "#2D2D36",
+        },
+        foreground: {
+          DEFAULT: "#000000",
+          dark: "#F6F6F7", 
+        },
       },
       textColor: {
-        foreground: "#000000", // Ensuring black text for readability
+        foreground: {
+          DEFAULT: "#000000",
+          dark: "#F6F6F7",
+        },
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
