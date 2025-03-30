@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Check, Plug, Brain, RefreshCw } from 'lucide-react';
 
@@ -35,7 +34,6 @@ const HowItWorksSection: React.FC = () => {
     "Real-time monitoring & alerts"
   ];
 
-  // State to track which step is active for enhanced interaction
   const [activeStep, setActiveStep] = useState<number | null>(null);
   const [hoveredIcon, setHoveredIcon] = useState<number | null>(null);
 
@@ -139,14 +137,6 @@ const HowItWorksSection: React.FC = () => {
                   </li>
                 ))}
               </ul>
-            </div>
-            
-            <div className="w-full md:w-1/2 rounded-xl overflow-hidden shadow-lg transition-transform duration-500 hover:scale-[1.02]">
-              <img 
-                src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&auto=format&fit=crop&q=60" 
-                alt="Lumesys in action" 
-                className="w-full h-64 object-cover hover:scale-105 transition-all duration-700" 
-              />
             </div>
           </div>
         </div>
