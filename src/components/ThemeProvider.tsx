@@ -12,14 +12,12 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  // Initialize theme from localStorage or system preference, default to light
+  // Initialize theme from localStorage, but default to 'light' for first-time visitors
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
       const storedTheme = window.localStorage.getItem('theme') as Theme;
-      if (storedTheme) return storedTheme;
-      
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      return prefersDark ? 'dark' : 'light';
+      // Only use stored theme if it exists, otherwise default to light
+      return storedTheme ? storedTheme : 'light';
     }
     return 'light';
   });
