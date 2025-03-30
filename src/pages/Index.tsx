@@ -6,6 +6,7 @@ import HeroSection from "@/components/HeroSection";
 import VideoShowcase from "@/components/VideoShowcase";
 import CustomerShowcase from "@/components/CustomerShowcase";
 import ROICalculator from "@/components/ROICalculator";
+import ClientContactForm from "@/components/ClientContactForm";
 
 // Lazy load components that are not immediately visible
 const FeaturesSection = lazy(() => import("@/components/FeaturesSection"));
@@ -70,6 +71,11 @@ const Index = () => {
           {/* Charts demo section */}
           <section id="charts" className="bg-white py-4">
             <DemoCharts />
+          </section>
+          
+          {/* Client Contact Form - New section */}
+          <section id="contact" className="bg-white">
+            <ClientContactForm />
           </section>
           
           {/* FAQ section */}

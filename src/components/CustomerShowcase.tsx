@@ -27,7 +27,8 @@ const CustomerShowcase: React.FC = () => {
     },
     { 
       name: "HealthCare Partners", 
-      logo: "https://images.unsplash.com/photo-1516549655669-8f13e61b09fa?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      // Updated healthcare image with a more professional medical-themed image
+      logo: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
       industry: "Healthcare",
       icon: <Hospital className="h-4 w-4 text-accent/80" />
     },
@@ -51,7 +52,8 @@ const CustomerShowcase: React.FC = () => {
     },
     { 
       name: "Real Estate One", 
-      logo: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      // Updated real estate image with a modern luxury real estate image
+      logo: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
       industry: "Commercial Real Estate",
       icon: <Building2 className="h-4 w-4 text-accent/80" />
     },
