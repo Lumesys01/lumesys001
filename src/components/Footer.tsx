@@ -33,6 +33,13 @@ const Footer = () => {
   return (
     <footer className="bg-white py-16 px-6">
       <div className="max-w-7xl mx-auto">
+        {/* Tagline banner - Added at the top of footer */}
+        <div className="mb-12 py-4 text-center">
+          <div className="inline-block px-6 py-3 bg-green-50 rounded-full text-green-700 font-medium">
+            Powering Efficiency, Leading Sustainability
+          </div>
+        </div>
+
         <div className="flex flex-col lg:flex-row justify-between mb-12">
           <div className="mb-10 lg:mb-0">
             <Link to="/" className="flex items-center mb-4">
