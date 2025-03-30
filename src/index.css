@@ -67,6 +67,19 @@
     after:border-2 after:border-dashed after:border-accent/40 
     after:animate-pulse-glow after:opacity-70;
   }
+  
+  /* New utility classes for improved UX */
+  .hover-float {
+    @apply transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+  
+  .micro-interaction {
+    @apply transition-all duration-200 hover:scale-105;
+  }
+  
+  .pulsing-dot {
+    @apply w-2 h-2 rounded-full bg-accent animate-ping;
+  }
 }
 
 .section-padding {
@@ -160,6 +173,27 @@
   }
 }
 
+/* New animations for improved UX */
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
 .perspective-container {
   perspective: 1000px;
   transform-style: preserve-3d;
@@ -177,3 +211,14 @@
 .neon-glow {
   filter: drop-shadow(0 0 8px rgba(168,235,18,0.7));
 }
+
+/* Smooth transition effect for all interactive elements */
+a, button, input, select, textarea {
+  @apply transition-all duration-300;
+}
+
+/* Improve focus styles for accessibility */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-accent;
+}
+
