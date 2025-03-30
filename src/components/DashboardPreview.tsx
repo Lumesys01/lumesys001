@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -37,8 +36,7 @@ const DashboardPreview: React.FC = () => {
     {
       src: "/lovable-uploads/9f0aac31-e231-48e8-925e-2ad8c7249407.png",
       alt: "Lumesys Dashboard - Management Overview",
-      caption: "Energy Management Overview (Blurred Version)",
-      blurred: true
+      caption: "Energy Management Overview",
     }
   ];
 
@@ -240,16 +238,10 @@ const DashboardPreview: React.FC = () => {
                       <img 
                         src={slide.src} 
                         alt={slide.alt} 
-                        className={`w-full h-full object-cover ${slide.blurred ? 'blur-[2px]' : ''}`}
+                        className="w-full h-full object-cover"
                       />
                       <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
                         <p className="text-white text-sm md:text-base">{slide.caption}</p>
-                        {slide.blurred && (
-                          <p className="text-white/80 text-xs mt-1">
-                            <AlertCircle className="inline-block w-3 h-3 mr-1" />
-                            Blurred for client confidentiality
-                          </p>
-                        )}
                       </div>
                     </>
                   )}
@@ -274,29 +266,6 @@ const DashboardPreview: React.FC = () => {
               </button>
             </div>
             
-            {/* Dashboard overlay with highlighted features */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent flex items-center justify-center pointer-events-none">
-              <div className="text-center p-6 max-w-lg bg-white/10 backdrop-blur-sm rounded-xl">
-                <h3 className="text-white text-xl md:text-2xl font-medium mb-3">
-                  Unlock Your Energy Potential
-                </h3>
-                <p className="text-white/80 mb-4 text-sm md:text-base">
-                  See real-time insights that drive efficiency, reduce costs, and accelerate your sustainability goals.
-                </p>
-                <Button 
-                  className="glow-button text-primary font-medium px-6 py-3 rounded-full text-base hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(0,191,114,0.4)] pointer-events-auto"
-                  onClick={() => {
-                    const contactSection = document.getElementById('contact');
-                    if (contactSection) {
-                      contactSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  Get Personalized Demo
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </div>
-            </div>
           </div>
           
           {/* Enhanced features indicators */}
