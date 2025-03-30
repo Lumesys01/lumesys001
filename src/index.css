@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -16,7 +15,7 @@
 
   body {
     @apply bg-white text-black antialiased; /* Light theme */
-    font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv02" on;
+    font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv02" on, "cv03" on;
     overflow-x: hidden;
   }
 
@@ -68,7 +67,6 @@
     after:animate-pulse-glow after:opacity-70;
   }
   
-  /* New utility classes for improved UX */
   .hover-float {
     @apply transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg;
   }
@@ -79,6 +77,10 @@
   
   .pulsing-dot {
     @apply w-2 h-2 rounded-full bg-accent animate-ping;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
   }
 }
 
@@ -104,7 +106,6 @@
   animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-/* Added new animation */
 .animate-slide-in {
   animation: slideIn 1s ease-out forwards;
 }
@@ -113,6 +114,17 @@
   animation: leafFall 3s ease-out forwards;
   position: absolute;
   z-index: 1;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideIn {
@@ -173,7 +185,6 @@
   }
 }
 
-/* New animations for improved UX */
 @keyframes appear {
   from {
     opacity: 0;
@@ -212,13 +223,10 @@
   filter: drop-shadow(0 0 8px rgba(168,235,18,0.7));
 }
 
-/* Smooth transition effect for all interactive elements */
 a, button, input, select, textarea {
   @apply transition-all duration-300;
 }
 
-/* Improve focus styles for accessibility */
 :focus-visible {
   @apply outline-2 outline-offset-2 outline-accent;
 }
-
