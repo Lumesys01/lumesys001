@@ -1,9 +1,9 @@
-
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-import { Menu, X, Home, ChevronUp, Search } from "lucide-react";
+import { Menu, X, Home, ChevronUp } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "./ui/ThemeToggle";
+import { SearchDialog } from "./SearchDialog";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,7 +17,6 @@ const Navigation = () => {
       setScrolled(scrollY > 20);
       setShowScrollTop(scrollY > 300);
       
-      // Calculate scroll progress
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
@@ -40,7 +39,6 @@ const Navigation = () => {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-white/90 dark:bg-background-dark/90 backdrop-blur-lg shadow-lg' : 'bg-white dark:bg-background-dark'
       }`}>
-        {/* Scroll progress indicator */}
         <div 
           className="h-0.5 bg-gradient-to-r from-accent to-highlight absolute bottom-0 left-0 transition-all" 
           style={{ width: `${scrollProgress}%` }}
@@ -82,17 +80,9 @@ const Navigation = () => {
             <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-black dark:text-white">
               Learn More
             </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 rounded-full"
-              aria-label="Search"
-            >
-              <Search size={20} />
-            </Button>
+            <SearchDialog />
           </div>
 
-          {/* Mobile menu button */}
           <div className="md:hidden flex items-center gap-4">
             <ThemeToggle />
             <Button 
@@ -106,7 +96,6 @@ const Navigation = () => {
           </div>
         </div>
 
-        {/* Mobile menu with improved animation */}
         {isMenuOpen && (
           <div className="md:hidden bg-white/95 dark:bg-background-dark/95 backdrop-blur-lg animate-fade-in">
             <div className="flex flex-col space-y-4 px-6 py-8">
@@ -164,7 +153,6 @@ const Navigation = () => {
         )}
       </nav>
 
-      {/* Back to top button */}
       <Button
         variant="outline"
         size="icon"
