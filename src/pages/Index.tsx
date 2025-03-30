@@ -1,4 +1,3 @@
-
 import React, { Suspense, useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -13,13 +12,13 @@ import OurWhy from "@/components/OurWhy";
 import TeamSection from "@/components/TeamSection";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
+import HowItWorksSection from "@/components/HowItWorksSection";
 import PageTransition from "@/components/ui/PageTransition";
 import ScrollIndicator from "@/components/ScrollIndicator";
 import { Separator } from "@/components/ui/separator";
 
 // Only lazy load heavy components that aren't immediately visible
 const FeaturesSection = React.lazy(() => import("@/components/FeaturesSection"));
-const HowItWorksSection = React.lazy(() => import("@/components/HowItWorksSection"));
 
 const LoadingFallback = () => (
   <div className="w-full h-64 flex flex-col items-center justify-center">
@@ -94,9 +93,7 @@ const Index = () => {
         
         <PageTransition direction="right" delay={100}>
           <section id="how-it-works" className="bg-white dark:bg-background-dark py-16">
-            <Suspense fallback={<LoadingFallback />}>
-              <HowItWorksSection />
-            </Suspense>
+            <HowItWorksSection />
           </section>
         </PageTransition>
         
