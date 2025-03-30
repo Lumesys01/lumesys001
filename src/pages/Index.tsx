@@ -3,7 +3,7 @@ import React, { Suspense, lazy } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
-import VideoShowcase from "@/components/VideoShowcase";
+import DashboardPreview from "@/components/DashboardPreview";
 import CustomerShowcase from "@/components/CustomerShowcase";
 import ROICalculator from "@/components/ROICalculator";
 import ClientContactForm from "@/components/ClientContactForm";
@@ -13,7 +13,6 @@ const FeaturesSection = lazy(() => import("@/components/FeaturesSection"));
 const WhyLumesys = lazy(() => import("@/components/WhyLumesys"));
 const CTASection = lazy(() => import("@/components/CTASection"));
 const DemoCharts = lazy(() => import("@/components/DemoCharts"));
-// Removed lazy import for TestimonialsSection
 const HowItWorksSection = lazy(() => import("@/components/HowItWorksSection"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
 
@@ -32,9 +31,9 @@ const Index = () => {
       <main>
         <HeroSection />
         
-        {/* Video showcase section */}
-        <section id="demo-video" className="bg-white">
-          <VideoShowcase />
+        {/* Dashboard Preview section - replacing Video showcase */}
+        <section id="dashboard-preview" className="bg-white">
+          <DashboardPreview />
         </section>
         
         {/* ROI Calculator - Added new section */}
@@ -62,8 +61,6 @@ const Index = () => {
           <section id="why" className="bg-white">
             <WhyLumesys />
           </section>
-          
-          {/* Removed Testimonials section */}
           
           {/* Charts demo section */}
           <section id="charts" className="bg-white py-4">

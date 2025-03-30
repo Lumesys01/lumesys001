@@ -19,11 +19,11 @@ const HeroSection: React.FC = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Smooth scroll to demo video section
-  const scrollToDemo = () => {
-    const demoSection = document.getElementById('demo-video');
-    if (demoSection) {
-      demoSection.scrollIntoView({ behavior: 'smooth' });
+  // Smooth scroll to dashboard preview section
+  const scrollToDashboard = () => {
+    const dashboardSection = document.getElementById('dashboard-preview');
+    if (dashboardSection) {
+      dashboardSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -101,14 +101,14 @@ const HeroSection: React.FC = () => {
             </Button>
           </div>
           
-          {/* Added "Watch Demo" button */}
+          {/* View Dashboard button */}
           <div className="mt-16 animate-bounce">
             <button 
-              onClick={scrollToDemo}
+              onClick={scrollToDashboard}
               className="flex flex-col items-center text-black/60 hover:text-highlight transition-colors"
-              aria-label="Watch demo video"
+              aria-label="View dashboard preview"
             >
-              <span className="text-sm mb-2">Watch Demo</span>
+              <span className="text-sm mb-2">View Dashboard</span>
               <ArrowDown className="w-5 h-5" />
             </button>
           </div>
