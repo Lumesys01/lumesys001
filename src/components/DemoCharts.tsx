@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { 
-  BarChart, Bar, PieChart, Pie, AreaChart, Area,
+  BarChart, Bar, PieChart, Pie,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   Cell, Sector
 } from "recharts";
@@ -12,15 +12,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { ArrowUpIcon, BarChart3, TrendingUpIcon, PieChartIcon } from "lucide-react";
+import { ArrowUpIcon, BarChart3, PieChartIcon } from "lucide-react";
 
 const monthlyData = [
-  { name: "Jan", users: 400, growth: 24 },
-  { name: "Feb", users: 450, growth: 26 },
-  { name: "Mar", users: 520, growth: 29 },
-  { name: "Apr", users: 610, growth: 32 },
-  { name: "May", users: 720, growth: 36 },
-  { name: "Jun", users: 850, growth: 42 },
+  { name: "Jan", users: 500, growth: 24 },
+  { name: "Feb", users: 650, growth: 26 },
+  { name: "Mar", users: 820, growth: 29 },
+  { name: "Apr", users: 1050, growth: 32 },
+  { name: "May", users: 1300, growth: 36 },
+  { name: "Jun", users: 1500, growth: 42 },
 ];
 
 const pieData = [
@@ -88,7 +88,7 @@ const DemoCharts = () => {
   const randomizeData = () => {
     setAnimate(true);
     const newData = [];
-    let baseUsers = 380 + Math.floor(Math.random() * 50);
+    let baseUsers = 480 + Math.floor(Math.random() * 100);
     let baseGrowth = 22 + Math.floor(Math.random() * 5);
     
     for (let i = 0; i < monthlyData.length; i++) {
@@ -204,7 +204,6 @@ const DemoCharts = () => {
   const tabDescriptions = {
     sadc: "Regional adoption across SADC countries over quarterly periods.",
     global: "Global adoption forecast showing steady incremental growth.",
-    area: "Visualize accelerating growth patterns with layered area charts.",
     bar: "Compare user metrics showing month-over-month improvements.",
     pie: "Market size distribution across major industry segments."
   };
@@ -258,22 +257,15 @@ const DemoCharts = () => {
                 value="sadc" 
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-accent/20 data-[state=active]:to-highlight/20 rounded-full data-[state=active]:text-accent"
               >
-                <TrendingUpIcon className="h-4 w-4 mr-2" />
+                <ArrowUpIcon className="h-4 w-4 mr-2" />
                 SADC
               </TabsTrigger>
               <TabsTrigger 
                 value="global"
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-accent/20 data-[state=active]:to-highlight/20 rounded-full data-[state=active]:text-accent"
               >
-                <TrendingUpIcon className="h-4 w-4 mr-2" />
+                <ArrowUpIcon className="h-4 w-4 mr-2" />
                 Global
-              </TabsTrigger>
-              <TabsTrigger 
-                value="area"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-accent/20 data-[state=active]:to-highlight/20 rounded-full data-[state=active]:text-accent"
-              >
-                <TrendingUpIcon className="h-4 w-4 mr-2" />
-                Area
               </TabsTrigger>
               <TabsTrigger 
                 value="bar"
@@ -505,85 +497,6 @@ const DemoCharts = () => {
                   <p className="text-sm mb-1"><span className="font-medium">Global Expansion:</span> International markets follow adoption patterns observed in SADC regions.</p>
                   <p className="text-sm"><span className="font-medium">Market Maturity:</span> By Year 5, projections show significant market share with continued growth potential.</p>
                 </div>
-              </div>
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="area" className="neo-card p-6 rounded-xl border-0">
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
-              <h3 className="text-xl font-medium text-gray-800">Growth Visualization</h3>
-              <div className="flex gap-2 mt-2 sm:mt-0">
-                {Object.entries(chartConfig).map(([key, config]) => (
-                  <Badge 
-                    key={key} 
-                    className="bg-white border shadow-sm"
-                    style={{ color: config.theme.light }}
-                  >
-                    {config.label}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-            <div className="h-[350px] lg:h-[400px] w-full">
-              <ChartContainer config={chartConfig}>
-                <AreaChart data={activeData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                  <defs>
-                    <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--color-users)" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="var(--color-users)" stopOpacity={0.1}/>
-                    </linearGradient>
-                    <linearGradient id="colorGrowth" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--color-growth)" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="var(--color-growth)" stopOpacity={0.1}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Legend />
-                  <Area 
-                    type="monotone" 
-                    dataKey="users" 
-                    stroke="var(--color-users)" 
-                    strokeWidth={2} 
-                    fillOpacity={1}
-                    fill="url(#colorUsers)" 
-                    activeDot={{ r: 6, strokeWidth: 2 }}
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="growth" 
-                    stroke="var(--color-growth)" 
-                    strokeWidth={2} 
-                    fillOpacity={1}
-                    fill="url(#colorGrowth)" 
-                    activeDot={{ r: 6, strokeWidth: 2 }}
-                  />
-                </AreaChart>
-              </ChartContainer>
-            </div>
-            
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-medium mb-2">Users Analysis</h4>
-                <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div>
-                    <p className="text-gray-600">Average</p>
-                    <p className="font-bold">{Math.round(activeData.reduce((sum, item) => sum + item.users, 0) / activeData.length)}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Month-over-Month</p>
-                    <p className="font-bold text-accent flex items-center">
-                      <ArrowUpIcon className="w-4 h-4 mr-1" /> Increasing
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-gradient-to-br from-accent/20 to-highlight/20 p-4 rounded-lg">
-                <h4 className="font-medium mb-2">Growth Trend</h4>
-                <p className="text-sm">Accelerating growth over the last {activeData.length} months</p>
               </div>
             </div>
           </TabsContent>
