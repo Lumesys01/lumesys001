@@ -294,59 +294,77 @@ const WhyLumesys: React.FC = () => {
             <div className="h-80 w-full">
               <ChartContainer 
                 config={{
-                  current: { theme: { light: "#004d7a", dark: "#004d7a" } },
-                  projected: { theme: { light: "#00bf72", dark: "#00bf72" } }
+                  lumesys: { theme: { light: "#00bf72", dark: "#00bf72" } },
+                  traditional: { theme: { light: "#9b87f5", dark: "#9b87f5" } }
                 }}
               >
                 <AreaChart
                   data={roiData}
-                  margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                   <XAxis 
                     dataKey="month" 
                     label={{ value: 'Months After Implementation', position: 'insideBottom', offset: -5 }}
+                    tick={{ fill: '#403E43', fontSize: 12 }}
+                    stroke="#8E9196"
                   />
                   <YAxis 
-                    label={{ value: 'ROI (%)', angle: -90, position: 'insideLeft' }} 
+                    label={{ value: 'ROI (%)', angle: -90, position: 'insideLeft', offset: 10 }} 
+                    tick={{ fill: '#403E43', fontSize: 12 }}
+                    stroke="#8E9196"
                   />
-                  <Tooltip content={<ChartTooltipContent />} />
-                  <Legend />
+                  <Tooltip 
+                    content={<ChartTooltipContent />}
+                    wrapperStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #E5DEFF', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+                  />
+                  <Legend 
+                    verticalAlign="top" 
+                    height={36}
+                    wrapperStyle={{ paddingTop: '10px' }}
+                  />
                   <Area 
                     type="monotone" 
-                    dataKey="current" 
-                    name="Current ROI" 
-                    stroke="#004d7a" 
-                    fill="url(#colorCurrentROI)" 
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="projected" 
-                    name="Projected ROI" 
+                    dataKey="lumesys" 
+                    name="Lumesys ROI" 
                     stroke="#00bf72" 
-                    fill="url(#colorProjectedROI)" 
+                    strokeWidth={2}
+                    fill="url(#colorLumesys)" 
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="traditional" 
+                    name="Traditional Systems" 
+                    stroke="#9b87f5" 
+                    strokeWidth={2}
+                    fill="url(#colorTraditional)" 
                   />
                   <defs>
-                    <linearGradient id="colorCurrentROI" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#004d7a" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#004d7a" stopOpacity={0.2}/>
-                    </linearGradient>
-                    <linearGradient id="colorProjectedROI" x1="0" y1="0" x2="0" y2="1">
+                    <linearGradient id="colorLumesys" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#00bf72" stopOpacity={0.8}/>
                       <stop offset="95%" stopColor="#00bf72" stopOpacity={0.2}/>
+                    </linearGradient>
+                    <linearGradient id="colorTraditional" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#9b87f5" stopOpacity={0.8}/>
+                      <stop offset="95%" stopColor="#9b87f5" stopOpacity={0.2}/>
                     </linearGradient>
                   </defs>
                 </AreaChart>
               </ChartContainer>
             </div>
             
-            <div className="mt-6 p-4 bg-accent/10 rounded-lg">
-              <h4 className="font-medium text-lg mb-2">Key Takeaway</h4>
-              <p>Lumesys clients typically see positive ROI within the first 6 months of implementation, compared to 12+ months for traditional systems.</p>
-              <div className="mt-4 flex justify-end">
-                <Button className="bg-accent text-white hover:bg-accent/90">
-                  Calculate Your Potential ROI
-                </Button>
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 bg-white rounded-lg border border-accent/20 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-black/80">Break-even Point</span>
+                  <span className="text-lg font-bold text-accent">~6 months</span>
+                </div>
+              </div>
+              <div className="p-4 bg-white rounded-lg border border-purple-300/20 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-black/80">12-month ROI</span>
+                  <span className="text-lg font-bold text-accent">42%</span>
+                </div>
               </div>
             </div>
           </div>
