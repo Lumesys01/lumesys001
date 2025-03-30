@@ -70,7 +70,9 @@ const TeamSection = () => {
                 </div>
                 
                 <h3 className="text-xl font-semibold mb-1 text-center">{member.name}</h3>
-                <p className="text-sm text-gray-500 mb-3 text-center">{member.role}</p>
+                <p className="text-sm text-highlight/80 font-medium mb-3 text-center">
+                  {member.role}
+                </p>
                 <p className="text-gray-600 text-center">{member.bio}</p>
               </CardContent>
             </Card>
