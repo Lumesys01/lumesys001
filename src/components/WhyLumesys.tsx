@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Check, X, Zap, BarChart, LineChart } from 'lucide-react';
 import { Button } from './ui/button';
@@ -29,35 +30,35 @@ const WhyLumesys: React.FC = () => {
       lumesys: "AI-powered, Real-time",
       traditional: "Manual, Periodic",
       benefit: "Immediate insights to prevent waste",
-      icon: <Zap className="w-4 h-4" />
+      icon: <Zap className="w-5 h-5" /> // Increased from w-4 h-4 to w-5 h-5
     },
     {
       feature: "Anomaly Detection",
       lumesys: "Predictive, Automated",
       traditional: "Reactive, Manual",
       benefit: "Prevent issues before they occur",
-      icon: <Zap className="w-4 h-4" />
+      icon: <Zap className="w-5 h-5" />
     },
     {
       feature: "Optimization",
       lumesys: "Continuous, Adaptive",
       traditional: "Static, Scheduled",
       benefit: "24/7 optimization for maximum savings",
-      icon: <Zap className="w-4 h-4" />
+      icon: <Zap className="w-5 h-5" />
     },
     {
       feature: "Maintenance",
       lumesys: "Proactive, Preventive",
       traditional: "Reactive, Repairs",
       benefit: "Reduce downtime and extend equipment life",
-      icon: <Zap className="w-4 h-4" />
+      icon: <Zap className="w-5 h-5" />
     },
     {
       feature: "Data Insights",
       lumesys: "Deep Learning Patterns",
       traditional: "Basic Historical Data",
       benefit: "Discover hidden opportunities for savings",
-      icon: <Zap className="w-4 h-4" />
+      icon: <Zap className="w-5 h-5" />
     }
   ];
 
