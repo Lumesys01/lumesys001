@@ -55,7 +55,7 @@ const TeamSection = () => {
           <PageTransition key={index} delay={index * 100} direction={index % 2 === 0 ? 'left' : 'right'}>
             <Card className="overflow-hidden border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 group">
               <CardContent className="p-4 relative">
-                <Badge className="absolute top-0 right-4 -translate-y-1/2 bg-accent text-white border-0 text-xs">
+                <Badge className="absolute top-0 left-4 -translate-y-1/2 bg-accent text-white border-0 text-xs">
                   {member.role.split(" ")[0]}
                 </Badge>
                 

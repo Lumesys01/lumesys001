@@ -1,10 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ArrowDown, Sparkles, MousePointerClick } from 'lucide-react';
+import { ArrowRight, ArrowDown, Sparkles, MousePointerClick, CalendarClock } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoverCTA, setHoverCTA] = useState(false);
+  const [hoverDemo, setHoverDemo] = useState(false);
   
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -113,6 +115,22 @@ const HeroSection: React.FC = () => {
               </Button>
               
               <div className={`absolute inset-0 rounded-full transition-opacity duration-300 ${hoverCTA ? 'opacity-100' : 'opacity-0'} blur-xl bg-accent`}></div>
+            </div>
+            
+            <div 
+              className="relative group"
+              onMouseEnter={() => setHoverDemo(true)}
+              onMouseLeave={() => setHoverDemo(false)}
+            >
+              <Button 
+                onClick={scrollToContact}
+                className="text-white font-medium px-8 py-7 rounded-full text-lg hover:scale-105 transition-transform duration-300 bg-primary/90 hover:bg-primary relative z-10 overflow-hidden"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  Request Demo
+                  <CalendarClock className={`w-4 h-4 transition-opacity duration-300 ${hoverDemo ? 'opacity-100' : 'opacity-0'}`} />
+                </span>
+              </Button>
             </div>
           </div>
           
