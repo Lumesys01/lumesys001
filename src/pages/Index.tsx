@@ -1,5 +1,5 @@
 
-import React, { Suspense, lazy, useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
@@ -11,15 +11,15 @@ import DemoCharts from "@/components/DemoCharts";
 import WhyLumesys from "@/components/WhyLumesys";
 import OurWhy from "@/components/OurWhy";
 import TeamSection from "@/components/TeamSection";
+import FAQSection from "@/components/FAQSection"; // Changed from lazy loading to direct import
 import PageTransition from "@/components/ui/PageTransition";
 import ScrollIndicator from "@/components/ScrollIndicator";
 import { Separator } from "@/components/ui/separator";
 
-// Lazy load components that are not immediately visible
-const FeaturesSection = lazy(() => import("@/components/FeaturesSection"));
-const CTASection = lazy(() => import("@/components/CTASection"));
-const HowItWorksSection = lazy(() => import("@/components/HowItWorksSection"));
-const FAQSection = lazy(() => import("@/components/FAQSection"));
+// Lazy load some components that are not immediately visible
+const FeaturesSection = React.lazy(() => import("@/components/FeaturesSection"));
+const CTASection = React.lazy(() => import("@/components/CTASection"));
+const HowItWorksSection = React.lazy(() => import("@/components/HowItWorksSection"));
 
 // Loading fallback component with improved UI
 const LoadingFallback = () => (
@@ -153,39 +153,39 @@ const Index = () => {
           </section>
         </PageTransition>
         
-        <Suspense fallback={<LoadingFallback />}>
-          <SectionDivider />
-          
-          <PageTransition direction="up">
-            <section id="customers" className="bg-white dark:bg-background-dark py-16">
-              <CustomerShowcase />
-            </section>
-          </PageTransition>
-          
-          <SectionDivider label="SUPPORT" />
-          
-          <PageTransition direction="right" delay={150}>
-            <section id="faq" className="bg-white dark:bg-background-dark py-16">
-              <FAQSection />
-            </section>
-          </PageTransition>
-          
-          <SectionDivider />
-          
-          <PageTransition direction="left" delay={150}>
-            <section id="contact" className="bg-white dark:bg-background-dark py-16">
-              <ClientContactForm />
-            </section>
-          </PageTransition>
-          
-          <SectionDivider label="JOIN US" />
-          
-          <PageTransition direction="up" delay={200}>
-            <section id="waitlist" className="bg-white dark:bg-background-dark py-16">
+        <SectionDivider />
+        
+        <PageTransition direction="up">
+          <section id="customers" className="bg-white dark:bg-background-dark py-16">
+            <CustomerShowcase />
+          </section>
+        </PageTransition>
+        
+        <SectionDivider label="SUPPORT" />
+        
+        <PageTransition direction="right" delay={150}>
+          <section id="faq" className="bg-white dark:bg-background-dark py-16">
+            <FAQSection />
+          </section>
+        </PageTransition>
+        
+        <SectionDivider />
+        
+        <PageTransition direction="left" delay={150}>
+          <section id="contact" className="bg-white dark:bg-background-dark py-16">
+            <ClientContactForm />
+          </section>
+        </PageTransition>
+        
+        <SectionDivider label="JOIN US" />
+        
+        <PageTransition direction="up" delay={200}>
+          <section id="waitlist" className="bg-white dark:bg-background-dark py-16">
+            <Suspense fallback={<LoadingFallback />}>
               <CTASection />
-            </section>
-          </PageTransition>
-        </Suspense>
+            </Suspense>
+          </section>
+        </PageTransition>
       </main>
 
       {/* Back to top button */}

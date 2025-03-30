@@ -32,12 +32,12 @@ const FAQSection: React.FC = () => {
   ];
 
   return (
-    <section id="faq" className="section-padding relative bg-white">
-      <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-accent/5 rounded-full blur-[150px]"></div>
+    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative">
+      <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-accent/5 rounded-full blur-[150px] -z-10"></div>
       
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-light mb-4 text-black">
+          <h2 className="text-3xl md:text-5xl font-light mb-4">
             Frequently Asked <span className="gradient-text font-normal">Questions</span>
           </h2>
           <p className="text-lg text-black/70 max-w-2xl mx-auto">
