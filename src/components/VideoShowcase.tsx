@@ -1,25 +1,66 @@
 
-import React from 'react';
-import { Play } from 'lucide-react';
+import React, { useState } from 'react';
+import { Play, Pause, X, Maximize, Volume2, VolumeX } from 'lucide-react';
 import { Button } from './ui/button';
+import { cn } from '@/lib/utils';
 
 const VideoShowcase: React.FC = () => {
   // State to track if the video is playing in the modal
   const [isVideoPlaying, setIsVideoPlaying] = React.useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const videoRef = React.useRef<HTMLVideoElement>(null);
 
   // Function to handle opening the video modal
   const openVideoModal = () => {
     setIsVideoPlaying(true);
+    // Auto-play when modal opens
+    setTimeout(() => {
+      setIsPlaying(true);
+      if (videoRef.current) {
+        videoRef.current.play();
+      }
+    }, 300);
   };
 
   // Function to handle closing the video modal
   const closeVideoModal = () => {
     setIsVideoPlaying(false);
+    setIsPlaying(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
+  // Toggle play/pause
+  const togglePlayPause = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        videoRef.current.play();
+        setIsPlaying(true);
+      }
+    }
+  };
+
+  // Toggle mute
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
   };
 
   return (
     <div className="relative py-16 md:py-24 bg-white">
-      <div className="container mx-auto px-4">
+      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-accent/5 rounded-full blur-[150px] z-0"></div>
+      <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-highlight/5 rounded-full blur-[150px] z-0"></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-light mb-4 text-black">
             See <span className="gradient-text font-normal">Lumesys</span> in Action
@@ -77,6 +118,11 @@ const VideoShowcase: React.FC = () => {
                 >
                   <Play className="h-8 w-8 ml-1" fill="currentColor" />
                 </Button>
+                <div className="absolute inset-x-0 bottom-12 flex items-center justify-center">
+                  <div className="bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full text-white animate-bounce shadow-lg">
+                    Click to Watch Demo
+                  </div>
+                </div>
               </div>
             </div>
             
@@ -104,29 +150,93 @@ const VideoShowcase: React.FC = () => {
         </div>
       </div>
       
-      {/* Video Modal */}
+      {/* Enhanced Video Modal */}
       {isVideoPlaying && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80" onClick={closeVideoModal}>
-          <div className="relative w-full max-w-6xl p-4">
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 animate-fade-in" 
+          onClick={closeVideoModal}
+        >
+          <div 
+            className={cn(
+              "relative w-full max-w-6xl p-4 transform transition-all duration-500",
+              isVideoPlaying ? "scale-100 opacity-100" : "scale-95 opacity-0"
+            )}
+            onClick={(e) => e.stopPropagation()}
+          >
             <button 
               onClick={closeVideoModal}
-              className="absolute -top-12 right-0 text-white hover:text-highlight"
+              className="absolute -top-12 right-0 text-white hover:text-highlight bg-black/50 rounded-full p-2 transition-all duration-300 hover:bg-black/70 z-20"
               aria-label="Close video"
             >
-              Close ✕
+              <X className="w-6 h-6" />
             </button>
-            <div className="relative aspect-video bg-black">
-              {/* This is where the actual video would be embedded */}
-              <div className="absolute inset-0 flex items-center justify-center bg-black text-white">
-                <iframe 
-                  className="w-full h-full"
-                  src="https://www.youtube.com/embed/placeholder?autoplay=1" 
-                  title="Lumesys Platform Demo"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+            
+            <div className="relative aspect-video bg-black rounded-xl overflow-hidden shadow-2xl">
+              {/* Actual video player */}
+              <video
+                ref={videoRef}
+                className="w-full h-full object-cover"
+                poster="/lovable-uploads/9f0aac31-e231-48e8-925e-2ad8c7249407.png"
+                onClick={togglePlayPause}
+              >
+                {/* Add your video source - for demonstration we'll use a placeholder */}
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              
+              {/* Video controls overlay */}
+              <div className="absolute inset-0 flex flex-col justify-between p-4 text-white bg-gradient-to-b from-black/50 via-transparent to-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-lg md:text-xl font-medium drop-shadow-lg">Lumesys Energy Management Platform</h3>
+                  <Button 
+                    variant="ghost" 
+                    size="icon"
+                    className="text-white hover:text-highlight hover:bg-black/30"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (videoRef.current) {
+                        if (document.fullscreenElement) {
+                          document.exitFullscreen();
+                        } else {
+                          videoRef.current.requestFullscreen();
+                        }
+                      }
+                    }}
+                  >
+                    <Maximize className="w-5 h-5" />
+                  </Button>
+                </div>
+                
+                <div className="flex items-center gap-4">
+                  <Button 
+                    variant="ghost" 
+                    size="icon"
+                    className="text-white hover:text-highlight hover:bg-black/30"
+                    onClick={togglePlayPause}
+                  >
+                    {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+                  </Button>
+                  
+                  <Button 
+                    variant="ghost" 
+                    size="icon"
+                    className="text-white hover:text-highlight hover:bg-black/30"
+                    onClick={toggleMute}
+                  >
+                    {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                  </Button>
+                  
+                  <div className="flex-grow h-1 bg-white/30 rounded-full overflow-hidden">
+                    <div className="h-full bg-highlight w-1/3 rounded-full"></div>
+                  </div>
+                </div>
               </div>
+            </div>
+            
+            {/* Video details */}
+            <div className="mt-4 text-white">
+              <h3 className="text-xl font-medium">Lumesys Energy Management Platform Demo</h3>
+              <p className="text-white/70 mt-1">See how our AI-powered platform can help you reduce energy costs by at least 10% while improving operational efficiency and sustainability.</p>
             </div>
           </div>
         </div>
