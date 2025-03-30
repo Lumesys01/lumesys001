@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Check, X, Zap, BarChart, LineChart } from 'lucide-react';
+import { ArrowRight, Check, X, Zap, BarChart, LineChart, TrendingUp, Rocket } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
@@ -10,6 +11,8 @@ const WhyLumesys: React.FC = () => {
   const [savingsPercent, setSavingsPercent] = useState(0);
   const [activeFeature, setActiveFeature] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('features');
+  const [animate, setAnimate] = useState(false);
+  const [animationStep, setAnimationStep] = useState(0);
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -22,6 +25,34 @@ const WhyLumesys: React.FC = () => {
     
     return () => clearInterval(interval);
   }, []);
+
+  // Animation effects for ROI tab
+  useEffect(() => {
+    if (activeTab === 'roi') {
+      // Start animation sequence
+      setAnimate(true);
+      const animSequence = setTimeout(() => {
+        setAnimationStep(1);
+        
+        const step2 = setTimeout(() => {
+          setAnimationStep(2);
+          
+          const step3 = setTimeout(() => {
+            setAnimationStep(3);
+          }, 500);
+          
+          return () => clearTimeout(step3);
+        }, 500);
+        
+        return () => clearTimeout(step2);
+      }, 300);
+      
+      return () => clearTimeout(animSequence);
+    } else {
+      setAnimate(false);
+      setAnimationStep(0);
+    }
+  }, [activeTab]);
 
   const comparisonData = [
     {
@@ -111,8 +142,8 @@ const WhyLumesys: React.FC = () => {
             </button>
             <button 
               onClick={() => setActiveTab('roi')}
-              className={`px-4 py-2 text-lg transition-colors ${activeTab === 'roi' 
-                ? 'text-accent border-b-2 border-accent' 
+              className={`px-4 py-2 text-lg transition-all ${activeTab === 'roi' 
+                ? 'text-accent border-b-2 border-accent scale-110 font-medium' 
                 : 'text-black/60 hover:text-black/80'}`}
             >
               ROI Timeframe
@@ -279,13 +310,48 @@ const WhyLumesys: React.FC = () => {
         )}
         
         {activeTab === 'roi' && (
-          <div className="glass-card rounded-xl p-8 shadow-lg overflow-hidden">
-            <h3 className="font-medium text-xl mb-4">ROI Comparison Over Time</h3>
-            <p className="text-black/70 mb-6">
-              Lumesys delivers faster returns on investment compared to traditional energy management systems.
-            </p>
+          <div className={`glass-card rounded-xl p-8 shadow-2xl overflow-hidden transition-all duration-700 ${animate ? 'scale-105' : ''}`}>
+            <div className="relative">
+              {/* Animated heading */}
+              <h3 className={`font-bold text-3xl mb-8 text-center transition-all duration-700 ${animate ? 'text-accent scale-110' : 'text-black'}`}>
+                <span className={`transition-all inline-flex items-center duration-700 ${animate ? 'text-accent' : 'text-black'}`}>
+                  <Rocket className={`mr-2 transition-all duration-1000 transform ${animate && animationStep > 0 ? 'rotate-12 text-accent' : ''}`} />
+                  <span className="relative">
+                    ROI Comparison Over Time
+                    <span className={`absolute -bottom-2 left-0 w-full h-1 bg-accent scale-x-0 transition-transform duration-700 ${animate && animationStep > 1 ? 'scale-x-100' : ''}`}></span>
+                  </span>
+                </span>
+              </h3>
+              
+              {/* Animation elements */}
+              <div className={`absolute -top-16 -right-16 w-32 h-32 bg-highlight/30 rounded-full blur-3xl transition-opacity duration-700 ${animate && animationStep > 0 ? 'opacity-100' : 'opacity-0'}`}></div>
+              <div className={`absolute -bottom-16 -left-16 w-32 h-32 bg-accent/30 rounded-full blur-3xl transition-opacity duration-700 ${animate && animationStep > 1 ? 'opacity-100' : 'opacity-0'}`}></div>
+              
+              {/* Floating particles */}
+              {animate && animationStep > 1 && (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  {[...Array(10)].map((_, index) => (
+                    <div 
+                      key={index}
+                      className="absolute w-2 h-2 rounded-full bg-accent animate-ping opacity-70"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        animationDelay: `${Math.random() * 2}s`,
+                        animationDuration: `${1 + Math.random() * 3}s`,
+                      }}
+                    ></div>
+                  ))}
+                </div>
+              )}
+              
+              <p className={`text-black/70 mb-6 transition-all duration-700 ${animate && animationStep > 0 ? 'text-lg' : 'text-base'}`}>
+                <strong className={animate && animationStep > 1 ? 'text-accent' : ''}>Lumesys delivers <span className="text-accent">42% ROI in just 12 months</span>,</strong> compared to 
+                traditional systems that take years to see meaningful returns.
+              </p>
+            </div>
             
-            <div className="h-80 w-full">
+            <div className={`h-96 w-full transition-all duration-1000 ${animate ? 'transform-gpu' : ''}`}>
               <ChartContainer 
                 config={{
                   lumesys: { theme: { light: "#00bf72", dark: "#00bf72" } },
@@ -347,17 +413,27 @@ const WhyLumesys: React.FC = () => {
               </ChartContainer>
             </div>
             
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-4 bg-white rounded-lg border border-accent/20 shadow-sm">
+            <div className={`mt-12 grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-700 ${animate && animationStep > 2 ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+              <div className={`p-5 bg-white rounded-lg border shadow-lg transition-all duration-700 ${animate ? 'border-accent/50 shadow-accent/20' : 'border-gray-200'}`}>
                 <div className="flex items-center justify-between">
-                  <span className="font-medium text-black/80">Break-even Point</span>
-                  <span className="text-lg font-bold text-accent">~6 months</span>
+                  <div className="flex items-center">
+                    <div className={`p-2 rounded-full mr-3 transition-colors duration-700 ${animate ? 'bg-accent/10' : 'bg-gray-100'}`}>
+                      <TrendingUp className={`w-6 h-6 transition-colors duration-700 ${animate ? 'text-accent' : 'text-gray-500'}`} />
+                    </div>
+                    <span className="font-medium text-black/80">Break-even Point</span>
+                  </div>
+                  <span className={`text-2xl font-bold transition-all duration-700 ${animate ? 'text-accent scale-110' : 'text-black'}`}>~6 months</span>
                 </div>
               </div>
-              <div className="p-4 bg-white rounded-lg border border-purple-300/20 shadow-sm">
+              <div className={`p-5 bg-white rounded-lg border shadow-lg transition-all duration-700 delay-100 ${animate ? 'border-accent/50 shadow-accent/20' : 'border-gray-200'}`}>
                 <div className="flex items-center justify-between">
-                  <span className="font-medium text-black/80">12-month ROI</span>
-                  <span className="text-lg font-bold text-accent">42%</span>
+                  <div className="flex items-center">
+                    <div className={`p-2 rounded-full mr-3 transition-colors duration-700 ${animate ? 'bg-accent/10' : 'bg-gray-100'}`}>
+                      <Rocket className={`w-6 h-6 transition-colors duration-700 ${animate ? 'text-accent' : 'text-gray-500'}`} />
+                    </div>
+                    <span className="font-medium text-black/80">12-month ROI</span>
+                  </div>
+                  <span className={`text-2xl font-bold transition-all duration-700 ${animate ? 'text-accent scale-110' : 'text-black'}`}>42%</span>
                 </div>
               </div>
             </div>

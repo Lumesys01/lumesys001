@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Linkedin } from 'lucide-react';
@@ -70,7 +71,7 @@ const CTASection: React.FC = () => {
           </div>
           
           <div className="glass-card rounded-2xl p-8 shadow-xl relative overflow-hidden mb-10">
-            <div className="absolute inset-0 bg-white/60 backdrop-blur-sm"></div>
+            <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
             <div className="absolute inset-0 border border-highlight/20 rounded-2xl glow-border"></div>
             
             <form onSubmit={handleSubmit} className="relative z-10 flex flex-col space-y-6">
@@ -79,7 +80,7 @@ const CTASection: React.FC = () => {
                   type="email"
                   required
                   placeholder="Enter your email address"
-                  className="flex-1 px-6 py-4 rounded-full border border-gray-200 bg-white/80 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
+                  className="flex-1 px-6 py-4 rounded-full border border-gray-200 bg-white/90 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -92,7 +93,7 @@ const CTASection: React.FC = () => {
                 </Button>
               </div>
               
-              <p className="text-sm text-center text-gray-700">By joining, you agree to receive updates about Lumesys. We respect your privacy.</p>
+              <p className="text-sm text-center text-black font-medium">By joining, you agree to receive updates about Lumesys. We respect your privacy.</p>
             </form>
           </div>
           
