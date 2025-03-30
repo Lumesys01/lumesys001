@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -7,7 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { CheckCircle, Linkedin, Send } from "lucide-react";
+import { CheckCircle, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
@@ -39,15 +38,12 @@ const ClientContactForm: React.FC = () => {
   });
 
   function onSubmit(data: FormValues) {
-    // In a real app, this would send the data to your backend
     setIsSubmitting(true);
     
-    // Simulate API call
     setTimeout(() => {
       console.log(data);
       setIsSubmitting(false);
       
-      // Show success message
       toast({
         title: "Contact request submitted!",
         description: "Thank you for your interest. We'll be in touch soon.",
@@ -56,11 +52,6 @@ const ClientContactForm: React.FC = () => {
       setIsSubmitted(true);
     }, 1500);
   }
-
-  const handleLinkedInConnect = () => {
-    // Replace with your actual LinkedIn profile URL
-    window.open("https://www.linkedin.com/in/yourprofile/", "_blank");
-  };
 
   return (
     <section id="client-contact" className="section-padding bg-white">
@@ -78,20 +69,18 @@ const ClientContactForm: React.FC = () => {
         </div>
         
         <div className="max-w-md mx-auto relative">
-          {/* Add decorative elements */}
           <div className="absolute -top-6 -left-10 w-20 h-20 bg-accent/10 rounded-full blur-xl"></div>
           <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-highlight/10 rounded-full blur-xl"></div>
           
           <Card className="neo-card border-t-4 border-accent shadow-lg relative z-10 overflow-hidden">
-            {/* Subtle gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50/30 to-accent/5 pointer-events-none"></div>
             
             <CardHeader>
-              <CardTitle className="text-2xl flex items-center gap-2">
+              <CardTitle className="text-2xl flex items-center gap-2 text-black">
                 <span>Request Information</span>
                 <div className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse"></div>
               </CardTitle>
-              <CardDescription className="text-black/70">
+              <CardDescription className="text-black text-base">
                 Fill out this form to learn more about our solutions.
               </CardDescription>
             </CardHeader>
@@ -104,15 +93,15 @@ const ClientContactForm: React.FC = () => {
                       name="fullName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Full Name</FormLabel>
+                          <FormLabel className="text-black font-medium">Full Name</FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="Jane Doe" 
                               {...field} 
-                              className="transition-all duration-300 focus:border-accent focus:ring focus:ring-accent/20"
+                              className="transition-all duration-300 focus:border-accent focus:ring focus:ring-accent/20 text-black"
                             />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="text-red-600" />
                         </FormItem>
                       )}
                     />
@@ -121,15 +110,15 @@ const ClientContactForm: React.FC = () => {
                       name="companyName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Company Name</FormLabel>
+                          <FormLabel className="text-black font-medium">Company Name</FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="Acme Corp" 
                               {...field} 
-                              className="transition-all duration-300 focus:border-accent focus:ring focus:ring-accent/20"
+                              className="transition-all duration-300 focus:border-accent focus:ring focus:ring-accent/20 text-black"
                             />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="text-red-600" />
                         </FormItem>
                       )}
                     />
@@ -138,16 +127,16 @@ const ClientContactForm: React.FC = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email Address</FormLabel>
+                          <FormLabel className="text-black font-medium">Email Address</FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="jane@example.com" 
                               type="email" 
                               {...field} 
-                              className="transition-all duration-300 focus:border-accent focus:ring focus:ring-accent/20"
+                              className="transition-all duration-300 focus:border-accent focus:ring focus:ring-accent/20 text-black"
                             />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="text-red-600" />
                         </FormItem>
                       )}
                     />
@@ -180,8 +169,8 @@ const ClientContactForm: React.FC = () => {
                       <div className="absolute inset-0 bg-green-400 rounded-full opacity-20 animate-ping"></div>
                     </div>
                   </div>
-                  <h3 className="text-xl font-medium mb-2 animate-fade-in">Thank You!</h3>
-                  <p className="text-black/70 mb-4 animate-fade-in" style={{ animationDelay: '200ms' }}>
+                  <h3 className="text-xl font-medium mb-2 animate-fade-in text-black">Thank You!</h3>
+                  <p className="text-black mb-4 animate-fade-in" style={{ animationDelay: '200ms' }}>
                     Your information has been submitted successfully. Our team will contact you shortly.
                   </p>
                 </div>
@@ -190,11 +179,9 @@ const ClientContactForm: React.FC = () => {
             <CardFooter className="flex justify-center border-t pt-4">
               <Button 
                 variant="outline" 
-                className="glow-border text-black/80 flex items-center gap-2 hover:bg-accent/5 transition-all duration-300 group"
-                onClick={handleLinkedInConnect}
+                className="text-black font-medium hover:bg-accent/5 transition-all duration-300"
               >
-                <Linkedin className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
-                Connect with our Founder
+                Contact Support
               </Button>
             </CardFooter>
           </Card>
