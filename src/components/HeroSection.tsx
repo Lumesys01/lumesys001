@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ArrowDown, Sparkles, MousePointerClick } from 'lucide-react';
+import { ArrowRight, Sparkles, MousePointerClick } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -102,7 +101,7 @@ const HeroSection: React.FC = () => {
             Reduce operational costs by a minimum of <span className="text-highlight font-medium">10%</span> with our AI-powered solutions.
           </p>
           
-          {/* Enhanced CTA section with interactive hover effects */}
+          {/* Enhanced CTA section */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 animate-float" style={{ animationDelay: "0.8s" }}>
             <div 
               className="relative group"
@@ -125,15 +124,6 @@ const HeroSection: React.FC = () => {
               {/* Animated glow effect */}
               <div className={`absolute inset-0 rounded-full transition-opacity duration-300 ${hoverCTA ? 'opacity-100' : 'opacity-0'} blur-xl bg-accent`}></div>
             </div>
-            
-            <Button 
-              variant="outline" 
-              className="glow-border bg-transparent backdrop-blur-sm text-black px-8 py-7 rounded-full text-lg group hover:scale-105 transition-transform duration-300"
-              onClick={scrollToContact}
-            >
-              Request Demo
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </Button>
           </div>
           
           {/* View Dashboard button - enhanced with animation */}
