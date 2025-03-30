@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles, MousePointerClick } from 'lucide-react';
+import { ArrowRight, ArrowDown, Sparkles, MousePointerClick } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoverCTA, setHoverCTA] = useState(false);
   
-  // Handle mouse movement for parallax effect
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
@@ -19,7 +18,6 @@ const HeroSection: React.FC = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Smooth scroll to dashboard preview section
   const scrollToDashboard = () => {
     const dashboardSection = document.getElementById('dashboard-preview');
     if (dashboardSection) {
@@ -27,7 +25,6 @@ const HeroSection: React.FC = () => {
     }
   };
 
-  // Scroll to contact section
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
@@ -37,10 +34,8 @@ const HeroSection: React.FC = () => {
 
   return (
     <section className="relative min-h-screen overflow-hidden flex items-center bg-white">
-      {/* Background accent elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-white to-white"></div>
       
-      {/* Overlay gradient with parallax effect */}
       <div 
         className="absolute inset-0"
         style={{
@@ -48,7 +43,6 @@ const HeroSection: React.FC = () => {
         }}
       ></div>
       
-      {/* Enhanced energy particles with more depth and interactivity */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(30)].map((_, index) => (
           <div 
@@ -70,7 +64,6 @@ const HeroSection: React.FC = () => {
 
       <div className="container mx-auto z-10 px-4 md:px-6 lg:px-8 py-16 md:py-24">
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
-          {/* Logo with enhanced animation */}
           <div className="mb-8 animate-float" style={{ animationDelay: "0s" }}>
             <div className="flex items-center justify-center">
               <div className="relative">
@@ -101,7 +94,6 @@ const HeroSection: React.FC = () => {
             Reduce operational costs by a minimum of <span className="text-highlight font-medium">10%</span> with our AI-powered solutions.
           </p>
           
-          {/* Enhanced CTA section */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 animate-float" style={{ animationDelay: "0.8s" }}>
             <div 
               className="relative group"
@@ -117,16 +109,13 @@ const HeroSection: React.FC = () => {
                   <MousePointerClick className={`w-4 h-4 transition-opacity duration-300 ${hoverCTA ? 'opacity-100' : 'opacity-0'}`} />
                 </span>
                 
-                {/* Animated background effect on hover */}
                 <span className={`absolute inset-0 bg-gradient-to-r from-accent to-accent/60 transform transition-transform duration-500 ${hoverCTA ? 'translate-x-0' : '-translate-x-full'}`}></span>
               </Button>
               
-              {/* Animated glow effect */}
               <div className={`absolute inset-0 rounded-full transition-opacity duration-300 ${hoverCTA ? 'opacity-100' : 'opacity-0'} blur-xl bg-accent`}></div>
             </div>
           </div>
           
-          {/* View Dashboard button - enhanced with animation */}
           <div className="mt-16 animate-bounce">
             <button 
               onClick={scrollToDashboard}
@@ -140,7 +129,6 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
       
-      {/* Enhanced floating decorative elements with parallax effect */}
       <div 
         className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-accent/10 blur-3xl animate-float" 
         style={{ 
