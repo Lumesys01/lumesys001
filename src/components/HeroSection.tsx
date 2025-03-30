@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Sparkles, MousePointerClick, CalendarClock } from 'lucide-react';
@@ -125,7 +124,7 @@ const HeroSection: React.FC = () => {
             >
               <Button 
                 onClick={scrollToContact}
-                className="bg-primary text-white font-medium px-8 py-6 rounded-full text-lg hover:scale-105 transition-all duration-300 hover:bg-primary/90 hover:shadow-lg relative z-10"
+                className="bg-gradient-to-r from-accent to-highlight text-white font-medium px-8 py-6 rounded-full text-lg hover:scale-105 transition-all duration-300 hover:brightness-110 shadow-lg relative z-10 overflow-hidden"
                 aria-label="Request a product demo"
               >
                 <span className="relative z-10 flex items-center gap-2">
