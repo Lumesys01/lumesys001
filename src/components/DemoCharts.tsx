@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { 
   BarChart, Bar, PieChart, Pie,
@@ -13,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { ArrowUpIcon, BarChart3, PieChartIcon } from "lucide-react";
+import { ArrowUpIcon, PieChartIcon } from "lucide-react";
 
 const monthlyData = [
   { name: "Jan", users: 500, growth: 24 },
@@ -205,7 +204,6 @@ const DemoCharts = () => {
   const tabDescriptions = {
     sadc: "Regional adoption across SADC countries over quarterly periods.",
     global: "Global adoption forecast showing steady incremental growth.",
-    bar: "Compare user metrics showing month-over-month improvements.",
     pie: "Market size distribution across major industry segments."
   };
 
@@ -267,13 +265,6 @@ const DemoCharts = () => {
               >
                 <ArrowUpIcon className="h-4 w-4 mr-2" />
                 Global
-              </TabsTrigger>
-              <TabsTrigger 
-                value="bar"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-accent/20 data-[state=active]:to-highlight/20 rounded-full data-[state=active]:text-accent"
-              >
-                <BarChart3 className="h-4 w-4 mr-2" />
-                Bar
               </TabsTrigger>
               <TabsTrigger 
                 value="pie"
@@ -496,83 +487,6 @@ const DemoCharts = () => {
                   <p className="text-sm mb-1"><span className="font-medium">Global Expansion:</span> International markets follow adoption patterns observed in SADC regions.</p>
                   <p className="text-sm"><span className="font-medium">Market Maturity:</span> By Year 5, projections show significant market share with continued growth potential.</p>
                 </div>
-              </div>
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="bar" className="neo-card p-6 rounded-xl border-0">
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
-              <h3 className="text-xl font-medium text-gray-800">User Comparison</h3>
-              <div className="flex gap-2 mt-2 sm:mt-0">
-                {Object.entries(chartConfig).map(([key, config]) => (
-                  <Badge 
-                    key={key} 
-                    className="bg-white border shadow-sm"
-                    style={{ color: config.theme.light }}
-                  >
-                    {config.label}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-            <div className="h-[350px] lg:h-[400px] w-full">
-              <ChartContainer config={chartConfig}>
-                <BarChart data={activeData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" opacity={0.3} vertical={false} />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Legend />
-                  <Bar 
-                    dataKey="users" 
-                    fill="var(--color-users)" 
-                    radius={[4, 4, 0, 0]}
-                    barSize={30}
-                    animationDuration={1500}
-                  />
-                  <Bar 
-                    dataKey="growth" 
-                    fill="var(--color-growth)" 
-                    radius={[4, 4, 0, 0]}
-                    barSize={30}
-                    animationDuration={1500}
-                  />
-                </BarChart>
-              </ChartContainer>
-            </div>
-            
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="bg-white p-4 rounded-lg border shadow-sm">
-                <h4 className="font-medium mb-3 text-lg">User Highlights</h4>
-                <div className="flex gap-2 items-center text-accent">
-                  <ArrowUpIcon className="w-5 h-5" />
-                  <span>Consistent growth every month!</span>
-                </div>
-                <div className="mt-2 h-2 bg-gray-100 rounded-full">
-                  <div 
-                    className="h-2 bg-gradient-to-r from-accent to-highlight rounded-full"
-                    style={{ 
-                      width: `${(activeData[activeData.length - 1].users / activeData.reduce((max, item) => Math.max(max, item.users), 0)) * 100}%` 
-                    }}
-                  ></div>
-                </div>
-              </div>
-              
-              <div className="bg-white p-4 rounded-lg border shadow-sm">
-                <h4 className="font-medium mb-3 text-lg">User Growth</h4>
-                <div className="flex justify-between">
-                  <span>First month: {activeData[0].users} users</span>
-                  <span>Latest month: {activeData[activeData.length - 1].users} users</span>
-                </div>
-                <div className="mt-2 h-2 bg-gray-100 rounded-full">
-                  <div 
-                    className="h-2 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"
-                    style={{ 
-                      width: `${(activeData[activeData.length - 1].users / activeData.reduce((max, item) => Math.max(max, item.users), 0)) * 100}%` 
-                    }}
-                  ></div>
-                </div>
-                <p className="mt-3 text-sm text-accent font-medium">Monthly increase: {Math.round((activeData[activeData.length - 1].users - activeData[0].users) / 6)}+ users/month</p>
               </div>
             </div>
           </TabsContent>
