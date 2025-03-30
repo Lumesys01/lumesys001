@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { 
   LineChart, Line, BarChart, Bar, PieChart, Pie, AreaChart, Area,
@@ -12,15 +13,16 @@ import {
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { ArrowDownIcon, ArrowUpIcon, BarChart3, LineChart as LineChartIcon, PieChartIcon } from "lucide-react";
+import { ArrowUpIcon, BarChart3, LineChartIcon, PieChartIcon, TrendingUpIcon } from "lucide-react";
 
+// Updated data showing consistently increasing growth trends
 const monthlyData = [
   { name: "Jan", users: 400, growth: 24 },
-  { name: "Feb", users: 300, growth: 13 },
-  { name: "Mar", users: 520, growth: 32 },
-  { name: "Apr", users: 480, growth: 28 },
-  { name: "May", users: 600, growth: 38 },
-  { name: "Jun", users: 580, growth: 36 },
+  { name: "Feb", users: 450, growth: 26 },
+  { name: "Mar", users: 520, growth: 29 },
+  { name: "Apr", users: 610, growth: 32 },
+  { name: "May", users: 720, growth: 36 },
+  { name: "Jun", users: 850, growth: 42 },
 ];
 
 const pieData = [
@@ -49,13 +51,28 @@ const DemoCharts = () => {
 
   const randomizeData = () => {
     setAnimate(true);
-    const newData = monthlyData.map(item => ({
-      ...item,
-      users: Math.floor(Math.random() * 1000),
-      growth: Math.floor(Math.random() * 50)
-    }));
-    setActiveData(newData);
+    // Generate new data with consistently increasing growth trends
+    const newData = [];
+    let baseUsers = 380 + Math.floor(Math.random() * 50); // Start point
+    let baseGrowth = 22 + Math.floor(Math.random() * 5); // Start growth rate
     
+    for (let i = 0; i < monthlyData.length; i++) {
+      // Each month shows increases from the previous month
+      const growthIncrement = Math.floor(Math.random() * 6) + 2; // 2-7% additional growth each month
+      baseGrowth += growthIncrement;
+      
+      // Users increase based on the growth percentage
+      const userIncrement = Math.floor(baseUsers * (baseGrowth / 100));
+      baseUsers += userIncrement;
+      
+      newData.push({
+        name: monthlyData[i].name,
+        users: baseUsers,
+        growth: baseGrowth
+      });
+    }
+    
+    setActiveData(newData);
     setTimeout(() => setAnimate(false), 800);
   };
 
@@ -139,19 +156,15 @@ const DemoCharts = () => {
     const current = activeData[index][dataKey as keyof typeof activeData[0]] as number;
     const previous = activeData[index - 1][dataKey as keyof typeof activeData[0]] as number;
     
-    if (current > previous) {
-      return <ArrowUpIcon className="w-4 h-4 text-accent" />;
-    } else if (current < previous) {
-      return <ArrowDownIcon className="w-4 h-4 text-red-500" />;
-    }
-    return null;
+    // Since we're focusing on showing growth, we'll primarily show up arrows
+    return <ArrowUpIcon className="w-4 h-4 text-accent" />;
   };
 
   const tabDescriptions = {
     pie: "Industry segment distribution shows which sectors are adopting Lumesys technology.",
-    line: "Track monthly performance trends to identify growth patterns over time.",
-    area: "Visualize growth patterns with layered area charts showing data accumulation.",
-    bar: "Compare user metrics side-by-side to identify top performing months."
+    line: "Track assumptions about market adoption and growth patterns over time.",
+    area: "Visualize accelerating growth patterns with layered area charts.",
+    bar: "Compare user metrics showing month-over-month improvements."
   };
 
   return (
@@ -161,7 +174,7 @@ const DemoCharts = () => {
           <span className="gradient-text">Interactive Insights</span>
         </h2>
         <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto mb-6 sm:mb-8">
-          Explore real-time analytics through our dynamic visualization tools
+          Explore market dynamics through our visualization tools
         </p>
         <Button 
           onClick={randomizeData} 
@@ -195,7 +208,7 @@ const DemoCharts = () => {
                 value="area"
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-accent/20 data-[state=active]:to-highlight/20 rounded-full data-[state=active]:text-accent"
               >
-                <LineChartIcon className="h-4 w-4 mr-2" />
+                <TrendingUpIcon className="h-4 w-4 mr-2" />
                 Area
               </TabsTrigger>
               <TabsTrigger 
@@ -358,15 +371,17 @@ const DemoCharts = () => {
                     <p className="font-bold">{Math.round(activeData.reduce((sum, item) => sum + item.users, 0) / activeData.length)}</p>
                   </div>
                   <div>
-                    <p className="text-gray-600">Maximum</p>
-                    <p className="font-bold">{Math.max(...activeData.map(item => item.users))}</p>
+                    <p className="text-gray-600">Month-over-Month</p>
+                    <p className="font-bold text-accent flex items-center">
+                      <ArrowUpIcon className="w-4 h-4 mr-1" /> Increasing
+                    </p>
                   </div>
                 </div>
               </div>
               
               <div className="bg-gradient-to-br from-accent/20 to-highlight/20 p-4 rounded-lg">
                 <h4 className="font-medium mb-2">Growth Trend</h4>
-                <p className="text-sm">Positive growth trend over the last {activeData.length} months</p>
+                <p className="text-sm">Accelerating growth over the last {activeData.length} months</p>
               </div>
             </div>
           </TabsContent>
@@ -415,16 +430,10 @@ const DemoCharts = () => {
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="bg-white p-4 rounded-lg border shadow-sm">
                 <h4 className="font-medium mb-3 text-lg">User Highlights</h4>
-                {activeData.reduce((max, item) => max.users > item.users ? max : item, activeData[0]).name === activeData[activeData.length - 1].name ? (
-                  <div className="flex gap-2 items-center text-accent">
-                    <ArrowUpIcon className="w-5 h-5" />
-                    <span>Highest user count in latest month!</span>
-                  </div>
-                ) : (
-                  <div className="flex gap-2 items-center">
-                    <span>Top month: {activeData.reduce((max, item) => max.users > item.users ? max : item, activeData[0]).name}</span>
-                  </div>
-                )}
+                <div className="flex gap-2 items-center text-accent">
+                  <ArrowUpIcon className="w-5 h-5" />
+                  <span>Consistent growth every month!</span>
+                </div>
                 <div className="mt-2 h-2 bg-gray-100 rounded-full">
                   <div 
                     className="h-2 bg-gradient-to-r from-accent to-highlight rounded-full"
@@ -449,6 +458,7 @@ const DemoCharts = () => {
                     }}
                   ></div>
                 </div>
+                <p className="mt-3 text-sm text-accent font-medium">Monthly increase: {Math.round((activeData[activeData.length - 1].users - activeData[0].users) / 6)}+ users/month</p>
               </div>
             </div>
           </TabsContent>
@@ -526,10 +536,10 @@ const DemoCharts = () => {
                         </div>
                         {activeIndex === index && (
                           <p className="text-sm text-gray-600 mt-2 animate-fade-in">
-                            {item.name === 'Manufacturing' && 'Manufacturing sector leads adoption with 40% market share'}
-                            {item.name === 'Mines' && 'Mining operations see 30% energy savings on average'}
-                            {item.name === 'Government' && 'Government facilities focusing on sustainability targets'}
-                            {item.name === 'Retailers' && 'Retail chains implementing smart energy solutions'}
+                            {item.name === 'Manufacturing' && 'Manufacturing sector leads adoption with strong growth potential'}
+                            {item.name === 'Mines' && 'Mining operations seeing accelerating implementation rates'}
+                            {item.name === 'Government' && 'Government facilities with increasing sustainability targets'}
+                            {item.name === 'Retailers' && 'Retail chains rapidly adopting smart energy solutions'}
                           </p>
                         )}
                       </div>
