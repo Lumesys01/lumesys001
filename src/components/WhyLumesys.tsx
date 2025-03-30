@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Check, X, Zap, BarChart, LineChart } from 'lucide-react';
 import { Button } from './ui/button';
@@ -222,8 +221,8 @@ const WhyLumesys: React.FC = () => {
             <div className="h-80 w-full">
               <ChartContainer 
                 config={{
-                  lumesys: { theme: { light: "#00bf72" } },
-                  marketAverage: { theme: { light: "#dddddd" } }
+                  lumesys: { theme: { light: "#00bf72", dark: "#00bf72" } },
+                  marketAverage: { theme: { light: "#dddddd", dark: "#dddddd" } }
                 }}
               >
                 <AreaChart
@@ -295,8 +294,8 @@ const WhyLumesys: React.FC = () => {
             <div className="h-80 w-full">
               <ChartContainer 
                 config={{
-                  lumesys: { theme: { light: "#00bf72" } },
-                  traditional: { theme: { light: "#bbbbbb" } }
+                  current: { theme: { light: "#004d7a", dark: "#004d7a" } },
+                  projected: { theme: { light: "#00bf72", dark: "#00bf72" } }
                 }}
               >
                 <AreaChart
@@ -315,26 +314,26 @@ const WhyLumesys: React.FC = () => {
                   <Legend />
                   <Area 
                     type="monotone" 
-                    dataKey="lumesys" 
-                    name="Lumesys" 
-                    stroke="#00bf72" 
-                    fill="url(#colorLumesysROI)" 
+                    dataKey="current" 
+                    name="Current ROI" 
+                    stroke="#004d7a" 
+                    fill="url(#colorCurrentROI)" 
                   />
                   <Area 
                     type="monotone" 
-                    dataKey="traditional" 
-                    name="Traditional Systems" 
-                    stroke="#bbbbbb" 
-                    fill="url(#colorTraditionalROI)" 
+                    dataKey="projected" 
+                    name="Projected ROI" 
+                    stroke="#00bf72" 
+                    fill="url(#colorProjectedROI)" 
                   />
                   <defs>
-                    <linearGradient id="colorLumesysROI" x1="0" y1="0" x2="0" y2="1">
+                    <linearGradient id="colorCurrentROI" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#004d7a" stopOpacity={0.8}/>
+                      <stop offset="95%" stopColor="#004d7a" stopOpacity={0.2}/>
+                    </linearGradient>
+                    <linearGradient id="colorProjectedROI" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#00bf72" stopOpacity={0.8}/>
                       <stop offset="95%" stopColor="#00bf72" stopOpacity={0.2}/>
-                    </linearGradient>
-                    <linearGradient id="colorTraditionalROI" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#bbbbbb" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#bbbbbb" stopOpacity={0.2}/>
                     </linearGradient>
                   </defs>
                 </AreaChart>

@@ -31,54 +31,57 @@ const Index = () => {
       <main>
         <HeroSection />
         
-        {/* Dashboard Preview section - replacing Video showcase */}
-        <section id="dashboard-preview" className="bg-white">
+        {/* Dashboard Preview section - moved to top priority and not lazy loaded */}
+        <section id="dashboard-preview" className="bg-white py-4">
           <DashboardPreview />
         </section>
         
-        {/* ROI Calculator - Added new section */}
-        <section id="roi" className="bg-white">
+        {/* Reorganized content flow for better user experience */}
+        <section id="how-it-works" className="bg-white py-4">
+          <Suspense fallback={<LoadingFallback />}>
+            <HowItWorksSection />
+          </Suspense>
+        </section>
+        
+        <section id="features" className="bg-white py-4">
+          <Suspense fallback={<LoadingFallback />}>
+            <FeaturesSection />
+          </Suspense>
+        </section>
+        
+        {/* ROI Calculator - highlighting business value */}
+        <section id="roi" className="bg-white py-4">
           <ROICalculator />
         </section>
         
         <Suspense fallback={<LoadingFallback />}>
-          {/* How it works section */}
-          <section id="how-it-works" className="bg-white">
-            <HowItWorksSection />
-          </section>
-          
-          {/* Features section */}
-          <section id="features" className="bg-white">
-            <FeaturesSection />
-          </section>
-          
-          {/* Customer Showcase - Added new section */}
-          <section id="customers" className="bg-white">
-            <CustomerShowcase />
-          </section>
-          
-          {/* Why Lumesys section */}
-          <section id="why" className="bg-white">
-            <WhyLumesys />
-          </section>
-          
-          {/* Charts demo section */}
+          {/* Charts demo section - showing data visualization capabilities */}
           <section id="charts" className="bg-white py-4">
             <DemoCharts />
           </section>
           
-          {/* Client Contact Form - New section */}
-          <section id="contact" className="bg-white">
-            <ClientContactForm />
+          {/* Why Lumesys section - enhanced competitive advantage */}
+          <section id="why" className="bg-white py-4">
+            <WhyLumesys />
+          </section>
+          
+          {/* Customer Showcase - social proof */}
+          <section id="customers" className="bg-white py-4">
+            <CustomerShowcase />
           </section>
           
           {/* FAQ section */}
-          <section id="faq" className="bg-white">
+          <section id="faq" className="bg-white py-4">
             <FAQSection />
           </section>
           
-          {/* CTA section */}
-          <section id="waitlist" className="bg-white">
+          {/* Client Contact Form - conversion point */}
+          <section id="contact" className="bg-white py-4">
+            <ClientContactForm />
+          </section>
+          
+          {/* CTA section - final conversion opportunity */}
+          <section id="waitlist" className="bg-white py-4">
             <CTASection />
           </section>
         </Suspense>

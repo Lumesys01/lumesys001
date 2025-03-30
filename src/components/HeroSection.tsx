@@ -86,29 +86,41 @@ const HeroSection: React.FC = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-black/80 max-w-3xl mb-10 animate-float" style={{ animationDelay: "0.6s" }}>
-            Reduce operational costs by a minimum of <span className="text-highlight font-medium">10%</span> with AI-powered solutions.
+            Reduce operational costs by a minimum of <span className="text-highlight font-medium">10%</span> with our AI-powered solutions.
           </p>
           
           {/* Enhanced CTA section */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 animate-float" style={{ animationDelay: "0.8s" }}>
-            <Button className="glow-button text-primary font-medium px-8 py-7 rounded-full text-lg hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(0,191,114,0.4)]">
-              Request Demo & ROI Assessment
+            <Button 
+              onClick={scrollToDashboard}
+              className="glow-button text-primary font-medium px-8 py-7 rounded-full text-lg hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(0,191,114,0.4)]"
+            >
+              View Live Dashboard
             </Button>
             
-            <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-black px-8 py-7 rounded-full text-lg group hover:scale-105 transition-transform duration-300">
-              Learn More 
+            <Button 
+              variant="outline" 
+              className="glow-border bg-transparent backdrop-blur-sm text-black px-8 py-7 rounded-full text-lg group hover:scale-105 transition-transform duration-300"
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
+              Request Demo
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </Button>
           </div>
           
-          {/* View Dashboard button */}
+          {/* View Dashboard button - enhanced with animation */}
           <div className="mt-16 animate-bounce">
             <button 
               onClick={scrollToDashboard}
               className="flex flex-col items-center text-black/60 hover:text-highlight transition-colors"
               aria-label="View dashboard preview"
             >
-              <span className="text-sm mb-2">View Dashboard</span>
+              <span className="text-sm mb-2 font-medium">Scroll to Dashboard</span>
               <ArrowDown className="w-5 h-5" />
             </button>
           </div>
