@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Linkedin } from 'lucide-react';
@@ -63,7 +62,7 @@ const CTASection: React.FC = () => {
             </div>
             
             <h2 className="text-4xl md:text-5xl font-light mb-6 text-black">
-              Join Our <span className="gradient-text font-normal">Exclusive</span> Waitlist
+              Join Our <span className="gradient-text font-normal">Exclusive</span> Pilot Program
             </h2>
             <p className="text-lg text-gray-800 mb-8 max-w-2xl mx-auto">
               Get priority access to the future of energy optimization and receive exclusive updates as we prepare for launch.

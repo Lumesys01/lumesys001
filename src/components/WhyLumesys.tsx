@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Check, X, Zap } from 'lucide-react';
 import { Button } from './ui/button';
@@ -10,7 +9,6 @@ const WhyLumesys: React.FC = () => {
   const [activeFeature, setActiveFeature] = useState<string | null>(null);
   
   useEffect(() => {
-    // Animate counter from 0 to 23 over 2 seconds
     const interval = setInterval(() => {
       setSavingsPercent(prev => {
         if (prev < 23) return prev + 1;
@@ -62,7 +60,6 @@ const WhyLumesys: React.FC = () => {
 
   return (
     <section className="section-padding relative bg-white">
-      {/* Background gradient accents */}
       <div className="absolute top-1/3 right-0 w-1/2 h-1/2 bg-accent/5 rounded-full blur-[120px]"></div>
       <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-neonpurple/5 rounded-full blur-[150px]"></div>
       
@@ -77,7 +74,6 @@ const WhyLumesys: React.FC = () => {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Energy savings counter - Modified to clarify industry benchmark */}
           <div className="glass-card rounded-xl p-8 md:p-10 text-center">
             <h3 className="text-xl font-medium mb-2 text-black">Industry Benchmark Energy Savings</h3>
             <div className="relative mb-6">
@@ -98,7 +94,6 @@ const WhyLumesys: React.FC = () => {
             </div>
           </div>
           
-          {/* Updated compact, interactive comparison table */}
           <Card className="shadow-lg border-highlight/20 overflow-hidden">
             <div className="bg-gray-50 py-3 px-4 border-b border-gray-100">
               <h3 className="font-medium text-lg text-black">Feature Comparison</h3>
@@ -145,7 +140,6 @@ const WhyLumesys: React.FC = () => {
               </Table>
             </div>
             
-            {/* Benefit tooltip - shows when a row is clicked */}
             {activeFeature && (
               <div className="bg-accent/10 border-t border-accent/20 p-3 text-sm transition-all animate-fade-in">
                 <div className="flex items-start gap-2">
@@ -162,7 +156,6 @@ const WhyLumesys: React.FC = () => {
           </Card>
         </div>
         
-        {/* Case study teaser - Updated to mention "projected" benefits instead of actual case study */}
         <div className="mt-16 glass-card rounded-xl p-8 relative overflow-hidden group">
           <div className="absolute inset-0 bg-glow-gradient opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
           
