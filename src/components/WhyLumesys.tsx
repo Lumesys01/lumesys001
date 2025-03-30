@@ -1,11 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Check, X } from 'lucide-react';
+import { ArrowRight, Check, X, Zap } from 'lucide-react';
 import { Button } from './ui/button';
-import { Card, CardHeader, CardContent } from './ui/card';
+import { Card, CardContent } from './ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 
 const WhyLumesys: React.FC = () => {
   const [savingsPercent, setSavingsPercent] = useState(0);
+  const [activeFeature, setActiveFeature] = useState<string | null>(null);
   
   useEffect(() => {
     // Animate counter from 0 to 23 over 2 seconds
@@ -25,31 +27,36 @@ const WhyLumesys: React.FC = () => {
       feature: "Energy Analysis",
       lumesys: "AI-powered, Real-time",
       traditional: "Manual, Periodic",
-      benefit: "Immediate insights to prevent waste"
+      benefit: "Immediate insights to prevent waste",
+      icon: <Zap className="w-4 h-4" />
     },
     {
       feature: "Anomaly Detection",
       lumesys: "Predictive, Automated",
       traditional: "Reactive, Manual",
-      benefit: "Prevent issues before they occur"
+      benefit: "Prevent issues before they occur",
+      icon: <Zap className="w-4 h-4" />
     },
     {
       feature: "Optimization",
       lumesys: "Continuous, Adaptive",
       traditional: "Static, Scheduled",
-      benefit: "24/7 optimization for maximum savings"
+      benefit: "24/7 optimization for maximum savings",
+      icon: <Zap className="w-4 h-4" />
     },
     {
       feature: "Maintenance",
       lumesys: "Proactive, Preventive",
       traditional: "Reactive, Repairs",
-      benefit: "Reduce downtime and extend equipment life"
+      benefit: "Reduce downtime and extend equipment life",
+      icon: <Zap className="w-4 h-4" />
     },
     {
       feature: "Data Insights",
       lumesys: "Deep Learning Patterns",
       traditional: "Basic Historical Data",
-      benefit: "Discover hidden opportunities for savings"
+      benefit: "Discover hidden opportunities for savings",
+      icon: <Zap className="w-4 h-4" />
     }
   ];
 
@@ -60,7 +67,7 @@ const WhyLumesys: React.FC = () => {
       <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-neonpurple/5 rounded-full blur-[150px]"></div>
       
       <div className="container mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-light mb-4 text-black">
             Why <span className="gradient-text font-normal">Lumesys</span>?
           </h2>
@@ -71,12 +78,12 @@ const WhyLumesys: React.FC = () => {
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Energy savings counter */}
-          <div className="glass-card rounded-xl p-8 md:p-12 text-center">
+          <div className="glass-card rounded-xl p-8 md:p-10 text-center">
             <h3 className="text-xl font-medium mb-2 text-black">Average Energy Savings</h3>
             <div className="relative mb-6">
-              <div className="text-7xl md:text-9xl font-light gradient-text">
+              <div className="text-7xl md:text-8xl font-light gradient-text">
                 {savingsPercent}
-                <span className="text-4xl md:text-6xl">%</span>
+                <span className="text-4xl md:text-5xl">%</span>
               </div>
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-highlight/20 rounded-full blur-[30px]"></div>
             </div>
@@ -91,38 +98,67 @@ const WhyLumesys: React.FC = () => {
             </div>
           </div>
           
-          {/* Enhanced comparison table with better spacing and organization */}
-          <Card className="shadow-lg border-highlight/20">
-            <CardHeader className="bg-gray-50 rounded-t-xl border-b border-gray-100">
-              <div className="grid grid-cols-3 text-center">
-                <div className="font-semibold text-black">Feature</div>
-                <div className="font-semibold text-highlight">Lumesys</div>
-                <div className="font-semibold text-black/70">Traditional</div>
-              </div>
-            </CardHeader>
-            <CardContent className="p-0">
-              {comparisonData.map((item, index) => (
-                <div 
-                  key={index} 
-                  className={`grid grid-cols-3 p-5 ${index !== comparisonData.length - 1 ? 'border-b border-gray-100' : ''}`}
-                >
-                  <div className="text-black font-medium px-2">{item.feature}</div>
-                  <div className="px-2">
-                    <div className="flex items-center mb-1">
-                      <Check className="w-4 h-4 text-highlight mr-2 flex-shrink-0" />
-                      <span className="text-sm text-black">{item.lumesys}</span>
-                    </div>
-                    <p className="text-xs text-highlight/80 pl-6 italic">{item.benefit}</p>
+          {/* Updated compact, interactive comparison table */}
+          <Card className="shadow-lg border-highlight/20 overflow-hidden">
+            <div className="bg-gray-50 py-3 px-4 border-b border-gray-100">
+              <h3 className="font-medium text-lg text-black">Feature Comparison</h3>
+              <p className="text-sm text-black/60">See how Lumesys outperforms traditional systems</p>
+            </div>
+            
+            <div className="p-0">
+              <Table className="w-full">
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent">
+                    <TableHead className="w-1/3 py-2">Feature</TableHead>
+                    <TableHead className="w-1/3 py-2 text-highlight font-medium">Lumesys</TableHead>
+                    <TableHead className="w-1/3 py-2 text-black/70">Traditional</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {comparisonData.map((item, index) => (
+                    <TableRow 
+                      key={index} 
+                      className={`cursor-pointer transition-colors ${activeFeature === item.feature ? 'bg-accent/5' : 'hover:bg-gray-50'}`}
+                      onClick={() => setActiveFeature(activeFeature === item.feature ? null : item.feature)}
+                    >
+                      <TableCell className="py-2.5 font-medium">
+                        <div className="flex items-center gap-1.5">
+                          {item.icon}
+                          {item.feature}
+                        </div>
+                      </TableCell>
+                      <TableCell className="py-2.5">
+                        <div className="flex items-center gap-1.5">
+                          <Check className="w-4 h-4 text-accent" />
+                          <span className="text-sm">{item.lumesys}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="py-2.5">
+                        <div className="flex items-center gap-1.5">
+                          <X className="w-4 h-4 text-black/40" />
+                          <span className="text-sm text-black/70">{item.traditional}</span>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+            
+            {/* Benefit tooltip - shows when a row is clicked */}
+            {activeFeature && (
+              <div className="bg-accent/10 border-t border-accent/20 p-3 text-sm transition-all animate-fade-in">
+                <div className="flex items-start gap-2">
+                  <div className="bg-accent/20 p-1.5 rounded-full">
+                    <Zap className="w-3.5 h-3.5 text-accent" />
                   </div>
-                  <div className="px-2">
-                    <div className="flex items-center">
-                      <X className="w-4 h-4 text-black/40 mr-2 flex-shrink-0" />
-                      <span className="text-sm text-black/70">{item.traditional}</span>
-                    </div>
+                  <div>
+                    <p className="font-medium text-accent">Lumesys Advantage:</p>
+                    <p>{comparisonData.find(item => item.feature === activeFeature)?.benefit}</p>
                   </div>
                 </div>
-              ))}
-            </CardContent>
+              </div>
+            )}
           </Card>
         </div>
         
