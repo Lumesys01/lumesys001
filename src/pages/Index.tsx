@@ -1,4 +1,3 @@
-
 import React, { Suspense, useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -11,17 +10,15 @@ import DemoCharts from "@/components/DemoCharts";
 import WhyLumesys from "@/components/WhyLumesys";
 import OurWhy from "@/components/OurWhy";
 import TeamSection from "@/components/TeamSection";
-import FAQSection from "@/components/FAQSection"; // Changed from lazy loading to direct import
+import FAQSection from "@/components/FAQSection";
+import CTASection from "@/components/CTASection";
 import PageTransition from "@/components/ui/PageTransition";
 import ScrollIndicator from "@/components/ScrollIndicator";
 import { Separator } from "@/components/ui/separator";
 
-// Lazy load some components that are not immediately visible
 const FeaturesSection = React.lazy(() => import("@/components/FeaturesSection"));
-const CTASection = React.lazy(() => import("@/components/CTASection"));
 const HowItWorksSection = React.lazy(() => import("@/components/HowItWorksSection"));
 
-// Loading fallback component with improved UI
 const LoadingFallback = () => (
   <div className="w-full h-64 flex flex-col items-center justify-center">
     <div className="relative w-16 h-16">
@@ -49,7 +46,6 @@ const Index = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Back to top function
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -57,7 +53,6 @@ const Index = () => {
     });
   };
 
-  // Custom section divider component
   const SectionDivider = ({ label, className = "" }: { label?: string, className?: string }) => (
     <div className={`relative py-8 ${className}`}>
       <Separator className="absolute left-0 right-0 bg-gradient-to-r from-transparent via-accent/30 dark:via-accent/50 to-transparent h-[2px]" />
@@ -73,7 +68,6 @@ const Index = () => {
     <div className="min-h-screen bg-white dark:bg-background-dark text-black dark:text-foreground-dark">
       <Navigation />
       
-      {/* Progress indicator */}
       <div className="fixed top-0 left-0 right-0 h-1 z-50 bg-white dark:bg-background-dark">
         <div 
           className="bg-gradient-to-r from-accent to-highlight h-full"
@@ -181,14 +175,11 @@ const Index = () => {
         
         <PageTransition direction="up" delay={200}>
           <section id="waitlist" className="bg-white dark:bg-background-dark py-16">
-            <Suspense fallback={<LoadingFallback />}>
-              <CTASection />
-            </Suspense>
+            <CTASection />
           </section>
         </PageTransition>
       </main>
 
-      {/* Back to top button */}
       <button 
         onClick={scrollToTop}
         className={`fixed right-6 bottom-6 bg-accent/90 hover:bg-accent text-white p-3 rounded-full shadow-lg transition-all duration-300 z-40 ${
