@@ -1,6 +1,7 @@
+
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-import { Menu, X, Home, ChevronUp } from "lucide-react";
+import { Menu, X, Home, ChevronUp, Search } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "./ui/ThemeToggle";
 import { SearchDialog } from "./SearchDialog";
