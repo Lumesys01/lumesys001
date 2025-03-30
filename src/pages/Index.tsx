@@ -7,12 +7,12 @@ import DashboardPreview from "@/components/DashboardPreview";
 import CustomerShowcase from "@/components/CustomerShowcase";
 import ROICalculator from "@/components/ROICalculator";
 import ClientContactForm from "@/components/ClientContactForm";
+import DemoCharts from "@/components/DemoCharts"; // Import DemoCharts directly instead of lazy loading
 
 // Lazy load components that are not immediately visible
 const FeaturesSection = lazy(() => import("@/components/FeaturesSection"));
 const WhyLumesys = lazy(() => import("@/components/WhyLumesys"));
 const CTASection = lazy(() => import("@/components/CTASection"));
-const DemoCharts = lazy(() => import("@/components/DemoCharts"));
 const HowItWorksSection = lazy(() => import("@/components/HowItWorksSection"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
 
@@ -54,12 +54,12 @@ const Index = () => {
           <ROICalculator />
         </section>
         
+        {/* Charts demo section - now directly imported, not lazy loaded */}
+        <section id="charts" className="bg-white py-4">
+          <DemoCharts />
+        </section>
+        
         <Suspense fallback={<LoadingFallback />}>
-          {/* Charts demo section - showing data visualization capabilities */}
-          <section id="charts" className="bg-white py-4">
-            <DemoCharts />
-          </section>
-          
           {/* Why Lumesys section - enhanced competitive advantage */}
           <section id="why" className="bg-white py-4">
             <WhyLumesys />
