@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -9,7 +10,10 @@ import {
   Fan,
   ChevronLeft,
   ChevronRight,
-  AlertCircle,
+  CloudLightning,
+  Leaf,
+  Gauge,
+  AirVent,
 } from 'lucide-react';
 import {
   Carousel,
@@ -40,25 +44,109 @@ const DashboardPreview: React.FC = () => {
     }
   ];
 
-  // Building data for interactive dashboard
+  // Building data for interactive dashboard with enhanced HVAC and carbon emissions data
   const buildingData = {
     "Building A": {
-      hvac: { status: "Running", efficiency: 87, temperature: 72.4 },
-      lighting: { status: "Optimal", efficiency: 92, savings: "18%" },
-      occupancy: { current: 87, capacity: 120, peakHours: "9AM-2PM" },
-      energy: { current: 128.5, target: 140, savings: "8.2%" }
+      hvac: { 
+        status: "Running", 
+        efficiency: 87, 
+        temperature: 72.4,
+        carbonImpact: "Low",
+        maintenanceStatus: "Optimal",
+        energyConsumption: 128.5
+      },
+      lighting: { 
+        status: "Optimal", 
+        efficiency: 92, 
+        savings: "18%",
+        carbonReduction: "14%" 
+      },
+      occupancy: { 
+        current: 87, 
+        capacity: 120, 
+        peakHours: "9AM-2PM",
+        energyImpact: "Medium"
+      },
+      energy: { 
+        current: 128.5, 
+        target: 140, 
+        savings: "8.2%",
+        co2Reduction: "7.5 tons" 
+      },
+      carbon: {
+        current: 42.8,
+        target: 50,
+        reduction: "14.4%",
+        trend: "Decreasing"
+      }
     },
     "Building B": {
-      hvac: { status: "Maintenance", efficiency: 64, temperature: 75.8 },
-      lighting: { status: "Reduced", efficiency: 88, savings: "12%" },
-      occupancy: { current: 42, capacity: 80, peakHours: "10AM-12PM" },
-      energy: { current: 78.2, target: 95, savings: "17.7%" }
+      hvac: { 
+        status: "Maintenance", 
+        efficiency: 64, 
+        temperature: 75.8,
+        carbonImpact: "High",
+        maintenanceStatus: "Needs Service",
+        energyConsumption: 156.2
+      },
+      lighting: { 
+        status: "Reduced", 
+        efficiency: 88, 
+        savings: "12%",
+        carbonReduction: "9%" 
+      },
+      occupancy: { 
+        current: 42, 
+        capacity: 80, 
+        peakHours: "10AM-12PM",
+        energyImpact: "Low"
+      },
+      energy: { 
+        current: 78.2, 
+        target: 95, 
+        savings: "17.7%",
+        co2Reduction: "5.2 tons"
+      },
+      carbon: {
+        current: 28.5,
+        target: 30,
+        reduction: "5.0%",
+        trend: "Stable"
+      }
     },
     "Building C": {
-      hvac: { status: "Eco Mode", efficiency: 94, temperature: 73.1 },
-      lighting: { status: "Optimal", efficiency: 96, savings: "24%" },
-      occupancy: { current: 114, capacity: 150, peakHours: "11AM-4PM" },
-      energy: { current: 156.3, target: 165, savings: "5.3%" }
+      hvac: { 
+        status: "Eco Mode", 
+        efficiency: 94, 
+        temperature: 73.1,
+        carbonImpact: "Minimal",
+        maintenanceStatus: "Recently Serviced",
+        energyConsumption: 102.3
+      },
+      lighting: { 
+        status: "Optimal", 
+        efficiency: 96, 
+        savings: "24%",
+        carbonReduction: "21%" 
+      },
+      occupancy: { 
+        current: 114, 
+        capacity: 150, 
+        peakHours: "11AM-4PM",
+        energyImpact: "High"
+      },
+      energy: { 
+        current: 156.3, 
+        target: 165, 
+        savings: "5.3%",
+        co2Reduction: "9.8 tons"
+      },
+      carbon: {
+        current: 52.1,
+        target: 60,
+        reduction: "13.2%",
+        trend: "Decreasing"
+      }
     }
   };
 
@@ -120,13 +208,13 @@ const DashboardPreview: React.FC = () => {
                         ))}
                       </div>
                       
-                      {/* Building stats dashboard */}
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {/* HVAC Status */}
+                      {/* Building stats dashboard - Enhanced with HVAC and Carbon details */}
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {/* HVAC Status - Enhanced */}
                         <Card className="bg-black/50 border-white/20 backdrop-blur-sm overflow-hidden relative">
                           <CardHeader className="pb-2">
                             <div className="flex items-center text-sm font-medium text-white">
-                              <Thermometer className="w-4 h-4 mr-2 text-highlight" />
+                              <AirVent className="w-4 h-4 mr-2 text-highlight" />
                               HVAC Systems
                             </div>
                           </CardHeader>
@@ -146,6 +234,24 @@ const DashboardPreview: React.FC = () => {
                               </div>
                               <div className="text-xs text-white/70">
                                 {buildingData[activeBuilding as keyof typeof buildingData].hvac.efficiency}% efficient
+                              </div>
+                            </div>
+                            <div className="mt-2 text-xs">
+                              <div className="flex justify-between">
+                                <span className="text-white/70">Maintenance:</span>
+                                <span className={`${
+                                  buildingData[activeBuilding as keyof typeof buildingData].hvac.maintenanceStatus === "Optimal" 
+                                    ? "text-green-400"
+                                    : buildingData[activeBuilding as keyof typeof buildingData].hvac.maintenanceStatus === "Needs Service"
+                                    ? "text-amber-400"
+                                    : "text-blue-400"
+                                }`}>
+                                  {buildingData[activeBuilding as keyof typeof buildingData].hvac.maintenanceStatus}
+                                </span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="text-white/70">Energy:</span>
+                                <span>{buildingData[activeBuilding as keyof typeof buildingData].hvac.energyConsumption} kWh</span>
                               </div>
                             </div>
                             <div className="absolute top-1 right-1">
@@ -176,6 +282,59 @@ const DashboardPreview: React.FC = () => {
                                 {buildingData[activeBuilding as keyof typeof buildingData].lighting.status}
                               </div>
                             </div>
+                            <div className="mt-2 text-xs">
+                              <div className="flex justify-between">
+                                <span className="text-white/70">Carbon Reduction:</span>
+                                <span className="text-green-400">{buildingData[activeBuilding as keyof typeof buildingData].lighting.carbonReduction}</span>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                        
+                        {/* Carbon Emissions - NEW */}
+                        <Card className="bg-black/50 border-white/20 backdrop-blur-sm">
+                          <CardHeader className="pb-2">
+                            <div className="flex items-center text-sm font-medium text-white">
+                              <Leaf className="w-4 h-4 mr-2 text-green-400" />
+                              Carbon Emissions
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="flex items-end gap-1">
+                              <span className="text-3xl font-semibold">
+                                {buildingData[activeBuilding as keyof typeof buildingData].carbon.current}
+                              </span>
+                              <span className="text-xs text-white/70 mb-1">tons CO₂e</span>
+                            </div>
+                            <div className="mt-2 text-xs">
+                              <div className="flex justify-between">
+                                <span className="text-white/70">Target:</span>
+                                <span>{buildingData[activeBuilding as keyof typeof buildingData].carbon.target} tons</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="text-white/70">Reduction:</span>
+                                <span className="text-green-400">{buildingData[activeBuilding as keyof typeof buildingData].carbon.reduction}</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="text-white/70">Trend:</span>
+                                <span className={`${
+                                  buildingData[activeBuilding as keyof typeof buildingData].carbon.trend === "Decreasing" 
+                                    ? "text-green-400" 
+                                    : buildingData[activeBuilding as keyof typeof buildingData].carbon.trend === "Increasing" 
+                                    ? "text-red-400" 
+                                    : "text-blue-400"
+                                }`}>
+                                  {buildingData[activeBuilding as keyof typeof buildingData].carbon.trend}
+                                </span>
+                              </div>
+                            </div>
+                            {/* Carbon reduction progress bar */}
+                            <div className="w-full h-1.5 bg-white/10 rounded-full mt-2">
+                              <div 
+                                className="h-full bg-green-400 rounded-full"
+                                style={{ width: `${(buildingData[activeBuilding as keyof typeof buildingData].carbon.current / buildingData[activeBuilding as keyof typeof buildingData].carbon.target) * 100}%` }}
+                              ></div>
+                            </div>
                           </CardContent>
                         </Card>
 
@@ -194,6 +353,20 @@ const DashboardPreview: React.FC = () => {
                             <div className="mt-2 text-xs text-white/70">
                               Peak hours: {buildingData[activeBuilding as keyof typeof buildingData].occupancy.peakHours}
                             </div>
+                            <div className="mt-2 text-xs">
+                              <div className="flex justify-between">
+                                <span className="text-white/70">Energy Impact:</span>
+                                <span className={`${
+                                  buildingData[activeBuilding as keyof typeof buildingData].occupancy.energyImpact === "Low" 
+                                    ? "text-green-400" 
+                                    : buildingData[activeBuilding as keyof typeof buildingData].occupancy.energyImpact === "Medium" 
+                                    ? "text-blue-400" 
+                                    : "text-amber-400"
+                                }`}>
+                                  {buildingData[activeBuilding as keyof typeof buildingData].occupancy.energyImpact}
+                                </span>
+                              </div>
+                            </div>
                             {/* Occupancy bar */}
                             <div className="w-full h-1.5 bg-white/10 rounded-full mt-2">
                               <div 
@@ -204,11 +377,11 @@ const DashboardPreview: React.FC = () => {
                           </CardContent>
                         </Card>
 
-                        {/* Energy Usage */}
+                        {/* Energy Usage - Enhanced */}
                         <Card className="bg-black/50 border-white/20 backdrop-blur-sm">
                           <CardHeader className="pb-2">
                             <div className="flex items-center text-sm font-medium text-white">
-                              <PieChart className="w-4 h-4 mr-2 text-highlight" />
+                              <Gauge className="w-4 h-4 mr-2 text-highlight" />
                               Energy Usage
                             </div>
                           </CardHeader>
@@ -222,6 +395,41 @@ const DashboardPreview: React.FC = () => {
                               </div>
                               <div className="text-xs text-white/70">
                                 Target: {buildingData[activeBuilding as keyof typeof buildingData].energy.target} kWh
+                              </div>
+                            </div>
+                            <div className="mt-2 text-xs">
+                              <div className="flex justify-between">
+                                <span className="text-white/70">CO₂ Reduction:</span>
+                                <span className="text-green-400">{buildingData[activeBuilding as keyof typeof buildingData].energy.co2Reduction}</span>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                        
+                        {/* Weather Impact - NEW */}
+                        <Card className="bg-black/50 border-white/20 backdrop-blur-sm">
+                          <CardHeader className="pb-2">
+                            <div className="flex items-center text-sm font-medium text-white">
+                              <CloudLightning className="w-4 h-4 mr-2 text-blue-400" />
+                              Weather Impact
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="text-3xl font-semibold">
+                              73°F <span className="text-sm text-white/50">Sunny</span>
+                            </div>
+                            <div className="mt-2 text-xs">
+                              <div className="flex justify-between">
+                                <span className="text-white/70">HVAC Load:</span>
+                                <span className="text-amber-400">+12%</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="text-white/70">Forecast:</span>
+                                <span className="text-blue-400">Stable</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="text-white/70">Humidity:</span>
+                                <span>42%</span>
                               </div>
                             </div>
                           </CardContent>
