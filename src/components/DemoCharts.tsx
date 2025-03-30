@@ -25,11 +25,12 @@ const monthlyData = [
   { name: "Jun", users: 850, growth: 42 },
 ];
 
+// Updated pie data to represent market size percentages for SA and globally
 const pieData = [
-  { name: "Manufacturing", value: 400, color: "#0EA5E9" },
-  { name: "Mines", value: 300, color: "#8B5CF6" },
-  { name: "Government", value: 200, color: "#00bf72" },
-  { name: "Retailers", value: 100, color: "#A8EB12" },
+  { name: "Manufacturing", value: 40, color: "#0EA5E9", sa: 38, global: 42 },
+  { name: "Mining", value: 30, color: "#8B5CF6", sa: 35, global: 25 },
+  { name: "Government", value: 20, color: "#00bf72", sa: 18, global: 22 },
+  { name: "Retail", value: 10, color: "#A8EB12", sa: 9, global: 11 },
 ];
 
 const DemoCharts = () => {
@@ -39,6 +40,7 @@ const DemoCharts = () => {
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   const [activeTab, setActiveTab] = useState("pie");
   const [showDescription, setShowDescription] = useState(false);
+  const [marketView, setMarketView] = useState("global"); // "global" or "sa" (South Africa)
 
   useEffect(() => {
     const handleResize = () => {
@@ -111,6 +113,9 @@ const DemoCharts = () => {
     const ey = my;
     const textAnchor = cos >= 0 ? 'start' : 'end';
 
+    // Get the appropriate value based on the current market view
+    const marketSpecificValue = marketView === "global" ? payload.global : payload.sa;
+
     return (
       <g>
         <Sector
@@ -140,7 +145,7 @@ const DemoCharts = () => {
           {payload.name}
         </text>
         <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#666666" className="text-xs">
-          {`${value} clients (${(percent * 100).toFixed(0)}%)`}
+          {`${marketSpecificValue}% market share`}
         </text>
       </g>
     );
@@ -161,10 +166,18 @@ const DemoCharts = () => {
   };
 
   const tabDescriptions = {
-    pie: "Industry segment distribution shows which sectors are adopting Lumesys technology.",
+    pie: "Market size distribution across major industry segments.",
     line: "Track assumptions about market adoption and growth patterns over time.",
     area: "Visualize accelerating growth patterns with layered area charts.",
     bar: "Compare user metrics showing month-over-month improvements."
+  };
+
+  // Function to get values for the current market view
+  const getPieDataForCurrentMarket = () => {
+    return pieData.map(item => ({
+      ...item,
+      value: marketView === "global" ? item.global : item.sa
+    }));
   };
 
   return (
@@ -464,7 +477,28 @@ const DemoCharts = () => {
           </TabsContent>
           
           <TabsContent value="pie" className="neo-card p-6 rounded-xl border-0">
-            <h3 className="text-xl font-medium text-gray-800 mb-4">Industry Segment Distribution</h3>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-medium text-gray-800">Market Size Distribution</h3>
+              <div className="flex items-center gap-2">
+                <Button 
+                  size="sm" 
+                  variant={marketView === "global" ? "default" : "outline"} 
+                  onClick={() => setMarketView("global")}
+                  className={marketView === "global" ? "bg-accent hover:bg-accent/90" : ""}
+                >
+                  Global
+                </Button>
+                <Button 
+                  size="sm" 
+                  variant={marketView === "sa" ? "default" : "outline"} 
+                  onClick={() => setMarketView("sa")}
+                  className={marketView === "sa" ? "bg-accent hover:bg-accent/90" : ""}
+                >
+                  South Africa
+                </Button>
+              </div>
+            </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div className="h-[350px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
@@ -472,7 +506,7 @@ const DemoCharts = () => {
                     <Pie
                       activeIndex={activeIndex}
                       activeShape={renderActiveShape}
-                      data={pieData}
+                      data={getPieDataForCurrentMarket()}
                       cx="50%"
                       cy="50%"
                       innerRadius={windowWidth < 640 ? 50 : 70}
@@ -493,7 +527,11 @@ const DemoCharts = () => {
                       ))}
                     </Pie>
                     <Tooltip 
-                      formatter={(value, name) => [`${value} clients`, name]}
+                      formatter={(value, name, entry) => {
+                        // @ts-ignore - entry has payload
+                        const payload = entry?.payload;
+                        return [`${value}% market share`, payload?.name];
+                      }}
                       contentStyle={{ 
                         background: 'rgba(255, 255, 255, 0.95)', 
                         borderRadius: '8px', 
@@ -507,7 +545,7 @@ const DemoCharts = () => {
               </div>
               
               <div>
-                <h4 className="text-lg font-medium mb-3">Segment Breakdown</h4>
+                <h4 className="text-lg font-medium mb-3">Market Breakdown</h4>
                 <div className="space-y-3">
                   {pieData.map((item, index) => (
                     <div 
@@ -523,23 +561,23 @@ const DemoCharts = () => {
                       <div className="flex-1">
                         <div className="flex justify-between">
                           <span className="font-medium">{item.name}</span>
-                          <span>{item.value} clients</span>
+                          <span>{marketView === "global" ? item.global : item.sa}% market share</span>
                         </div>
                         <div className="w-full h-1.5 bg-gray-100 rounded-full mt-1.5">
                           <div 
                             className="h-1.5 rounded-full"
                             style={{ 
-                              width: `${(item.value / pieData.reduce((sum, i) => sum + i.value, 0)) * 100}%`,
+                              width: `${marketView === "global" ? item.global : item.sa}%`,
                               backgroundColor: item.color
                             }}
                           ></div>
                         </div>
                         {activeIndex === index && (
                           <p className="text-sm text-gray-600 mt-2 animate-fade-in">
-                            {item.name === 'Manufacturing' && 'Manufacturing sector leads adoption with strong growth potential'}
-                            {item.name === 'Mines' && 'Mining operations seeing accelerating implementation rates'}
-                            {item.name === 'Government' && 'Government facilities with increasing sustainability targets'}
-                            {item.name === 'Retailers' && 'Retail chains rapidly adopting smart energy solutions'}
+                            {item.name === 'Manufacturing' && 'Manufacturing sector represents the largest market opportunity'}
+                            {item.name === 'Mining' && 'Mining operations have higher market share in South Africa than globally'}
+                            {item.name === 'Government' && 'Government facilities represent significant market potential'}
+                            {item.name === 'Retail' && 'Retail segment has consistent market share globally and locally'}
                           </p>
                         )}
                       </div>
@@ -549,7 +587,7 @@ const DemoCharts = () => {
                 
                 <div className="mt-6 p-3 bg-gradient-to-r from-accent/10 to-highlight/10 rounded-lg">
                   <p className="text-sm">
-                    <span className="font-medium">Pro tip:</span> Click or hover over segments to see detailed insights
+                    <span className="font-medium">Pro tip:</span> Toggle between global and South African market data
                   </p>
                 </div>
               </div>
