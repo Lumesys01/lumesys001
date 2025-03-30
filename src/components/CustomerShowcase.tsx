@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { CheckCircle, HardHat, Factory, Building, Store, Gauge } from 'lucide-react';
 
 interface CustomerLogo {
@@ -81,6 +81,8 @@ const CustomerShowcase: React.FC = () => {
     }
   ];
 
+  const [activeMetric, setActiveMetric] = useState<number | null>(null);
+
   return (
     <section id="customer-showcase" className="section-padding bg-white">
       <div className="container mx-auto">
@@ -121,49 +123,135 @@ const CustomerShowcase: React.FC = () => {
           ))}
         </div>
         
-        {/* Success Metrics */}
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-2xl font-medium mb-8 text-center">
-            Real Results, Measurable Impact
-          </h3>
+        {/* Success Metrics - Redesigned for more responsiveness and visual appeal */}
+        <div className="max-w-5xl mx-auto">
+          <div className="mb-12 text-center">
+            <h3 className="text-2xl md:text-3xl font-medium mb-4 relative inline-block">
+              <span className="gradient-text font-bold">Real Results</span>, Measurable Impact
+              <div className="absolute -bottom-2 left-0 right-0 h-1 bg-button-gradient rounded-full"></div>
+            </h3>
+            <p className="text-lg text-black/70 max-w-2xl mx-auto mt-4">
+              Our clients achieve remarkable energy savings and sustainability outcomes
+            </p>
+          </div>
           
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
             {successMetrics.map((metric, index) => (
               <div 
                 key={index} 
-                className="neo-card p-6 relative border-t-4 border-accent hover:shadow-lg transition-shadow"
+                className={`relative perspective-container transition-all duration-300 cursor-pointer
+                  ${activeMetric === index ? 'scale-[1.03]' : 'hover:scale-[1.02]'}`}
+                onMouseEnter={() => setActiveMetric(index)}
+                onMouseLeave={() => setActiveMetric(null)}
               >
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-sm font-medium">
-                  {metric.savingsPercentage}% Energy Savings
-                </div>
-                
-                <h4 className="text-xl font-medium mb-4 mt-2 text-center">{metric.customer}</h4>
-                
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    <span><strong>Annual Savings:</strong> {metric.annualSavings}</span>
+                <div className={`
+                  relative z-10 rounded-xl overflow-hidden transition-all duration-500
+                  ${activeMetric === index 
+                    ? 'shadow-[0_10px_40px_-10px_rgba(0,191,114,0.5)]' 
+                    : 'shadow-lg hover:shadow-[0_10px_30px_-10px_rgba(0,191,114,0.3)]'
+                  }
+                `}>
+                  {/* Top accent band with percentage */}
+                  <div className={`
+                    h-2 w-full bg-button-gradient transition-all duration-300
+                    ${activeMetric === index ? 'h-3' : ''}
+                  `}></div>
+                  
+                  {/* Percentage badge */}
+                  <div className={`
+                    absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 
+                    flex items-center justify-center rounded-full p-1
+                    transition-all duration-300 z-20
+                    ${activeMetric === index 
+                      ? 'bg-gradient-to-r from-accent to-highlight shadow-[0_0_20px_rgba(168,235,18,0.5)] scale-110' 
+                      : 'bg-gradient-to-r from-accent/90 to-highlight/90'
+                    }
+                  `}>
+                    <div className="bg-white rounded-full h-14 w-14 flex items-center justify-center">
+                      <div className="flex flex-col items-center justify-center">
+                        <span className={`
+                          text-xl font-bold leading-none bg-clip-text text-transparent bg-button-gradient transition-all duration-300
+                          ${activeMetric === index ? 'text-2xl' : ''}
+                        `}>
+                          {metric.savingsPercentage}%
+                        </span>
+                        <span className="text-[10px] text-black/60 leading-tight">SAVINGS</span>
+                      </div>
+                    </div>
                   </div>
                   
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    <span><strong>Payback Period:</strong> {metric.paybackPeriod}</span>
-                  </div>
-                  
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    <span><strong>CO2 Reduction:</strong> {metric.co2Reduction}/year</span>
+                  {/* Card content */}
+                  <div className="pt-10 pb-6 px-6 bg-white">
+                    <h4 className={`
+                      text-center text-xl font-medium mb-6 transition-all duration-300
+                      ${activeMetric === index ? 'text-accent' : 'text-black'}
+                    `}>
+                      {metric.customer}
+                    </h4>
+                    
+                    <div className="space-y-4">
+                      <div className={`
+                        flex items-center gap-3 p-3 rounded-lg transition-all duration-300
+                        ${activeMetric === index ? 'bg-accent/5' : 'bg-gray-50'}
+                      `}>
+                        <CheckCircle className={`
+                          h-5 w-5 flex-shrink-0 transition-colors duration-300
+                          ${activeMetric === index ? 'text-accent' : 'text-green-500'}
+                        `} />
+                        <div>
+                          <p className="text-sm text-black/60">Annual Savings</p>
+                          <p className="font-bold text-black">{metric.annualSavings}</p>
+                        </div>
+                      </div>
+                      
+                      <div className={`
+                        flex items-center gap-3 p-3 rounded-lg transition-all duration-300
+                        ${activeMetric === index ? 'bg-accent/5' : 'bg-gray-50'}
+                      `}>
+                        <CheckCircle className={`
+                          h-5 w-5 flex-shrink-0 transition-colors duration-300
+                          ${activeMetric === index ? 'text-accent' : 'text-green-500'}
+                        `} />
+                        <div>
+                          <p className="text-sm text-black/60">Payback Period</p>
+                          <p className="font-bold text-black">{metric.paybackPeriod}</p>
+                        </div>
+                      </div>
+                      
+                      <div className={`
+                        flex items-center gap-3 p-3 rounded-lg transition-all duration-300
+                        ${activeMetric === index ? 'bg-accent/5' : 'bg-gray-50'}
+                      `}>
+                        <CheckCircle className={`
+                          h-5 w-5 flex-shrink-0 transition-colors duration-300
+                          ${activeMetric === index ? 'text-accent' : 'text-green-500'}
+                        `} />
+                        <div>
+                          <p className="text-sm text-black/60">CO₂ Reduction</p>
+                          <p className="font-bold text-black">{metric.co2Reduction}/year</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+                
+                {/* Bottom glow effect */}
+                <div className={`
+                  absolute -bottom-4 left-1/2 -translate-x-1/2 h-4 w-3/4 
+                  bg-accent blur-xl opacity-0 transition-opacity duration-300
+                  ${activeMetric === index ? 'opacity-30' : ''}
+                `}></div>
               </div>
             ))}
           </div>
           
-          <div className="mt-10 text-center">
-            <p className="text-lg font-medium mb-4">Ready to achieve similar results for your industry?</p>
+          <div className="mt-14 text-center">
+            <p className="text-lg font-medium mb-6 text-black/80">
+              Ready to achieve similar results for your industry?
+            </p>
             <a 
               href="#roi" 
-              className="glow-button inline-block px-8 py-3 rounded-full text-primary font-medium shadow-lg"
+              className="glow-button inline-block px-8 py-3 rounded-full text-primary font-medium shadow-[0_4px_20px_rgba(0,191,114,0.3)] hover:shadow-[0_4px_25px_rgba(0,191,114,0.5)] transition-all duration-300"
             >
               Calculate Your Potential Savings
             </a>
