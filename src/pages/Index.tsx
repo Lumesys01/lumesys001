@@ -1,3 +1,4 @@
+
 import React, { Suspense, lazy } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -7,10 +8,10 @@ import CustomerShowcase from "@/components/CustomerShowcase";
 import ROICalculator from "@/components/ROICalculator";
 import ClientContactForm from "@/components/ClientContactForm";
 import DemoCharts from "@/components/DemoCharts";
+import WhyLumesys from "@/components/WhyLumesys";
 
 // Lazy load components that are not immediately visible
 const FeaturesSection = lazy(() => import("@/components/FeaturesSection"));
-const WhyLumesys = lazy(() => import("@/components/WhyLumesys"));
 const CTASection = lazy(() => import("@/components/CTASection"));
 const HowItWorksSection = lazy(() => import("@/components/HowItWorksSection"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
@@ -54,11 +55,11 @@ const Index = () => {
           <DemoCharts />
         </section>
         
+        <section id="why" className="bg-white py-4">
+          <WhyLumesys />
+        </section>
+        
         <Suspense fallback={<LoadingFallback />}>
-          <section id="why" className="bg-white py-4">
-            <WhyLumesys />
-          </section>
-          
           <section id="customers" className="bg-white py-4">
             <CustomerShowcase />
           </section>
