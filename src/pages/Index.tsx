@@ -8,7 +8,6 @@ import CustomerShowcase from "@/components/CustomerShowcase";
 import ROICalculator from "@/components/ROICalculator";
 import ClientContactForm from "@/components/ClientContactForm";
 import DemoCharts from "@/components/DemoCharts";
-import VideoShowcase from "@/components/VideoShowcase";
 
 // Lazy load components that are not immediately visible
 const FeaturesSection = lazy(() => import("@/components/FeaturesSection"));
@@ -35,11 +34,6 @@ const Index = () => {
         {/* Dashboard Preview section - moved to top priority and not lazy loaded */}
         <section id="dashboard-preview" className="bg-white py-4">
           <DashboardPreview />
-        </section>
-        
-        {/* Video showcase section */}
-        <section id="video-showcase" className="bg-white py-4">
-          <VideoShowcase />
         </section>
         
         {/* Reorganized content flow for better user experience */}
