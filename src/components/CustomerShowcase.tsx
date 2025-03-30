@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { CheckCircle, HardHat, Factory, Building, Store, Gauge } from 'lucide-react';
 
@@ -20,7 +19,7 @@ interface SuccessMetric {
 const CustomerShowcase: React.FC = () => {
   const customerLogos: CustomerLogo[] = [
     { 
-      name: "GoldCore Mines", 
+      name: "Mines", 
       logo: "https://images.unsplash.com/photo-1553445295-5e0a5a673a4d?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
       industry: "Mining",
       icon: <HardHat className="h-4 w-4 text-accent/80" />
@@ -59,7 +58,7 @@ const CustomerShowcase: React.FC = () => {
 
   const successMetrics: SuccessMetric[] = [
     { 
-      customer: "GoldCore Mines", 
+      customer: "Mines", 
       savingsPercentage: 24, 
       annualSavings: "$920,000", 
       paybackPeriod: "8 months", 
