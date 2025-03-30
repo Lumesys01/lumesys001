@@ -15,6 +15,12 @@ const DashboardPreview: React.FC = () => {
       src: "/lovable-uploads/9eaa2efd-f9fc-4c99-bb4e-2f4151ed5d84.png",
       alt: "Lumesys Dashboard - System Stable",
       caption: "Real-time System Status Monitor"
+    },
+    {
+      src: "/lovable-uploads/9f0aac31-e231-48e8-925e-2ad8c7249407.png",
+      alt: "Lumesys Dashboard - Management Overview",
+      caption: "Energy Management Overview (Blurred Version)",
+      blurred: true
     }
   ];
 
@@ -54,10 +60,16 @@ const DashboardPreview: React.FC = () => {
                   <img 
                     src={image.src} 
                     alt={image.alt} 
-                    className="w-full h-full object-cover"
+                    className={`w-full h-full object-cover ${image.blurred ? 'blur-[2px]' : ''}`}
                   />
                   <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
                     <p className="text-white text-sm md:text-base">{image.caption}</p>
+                    {image.blurred && (
+                      <p className="text-white/80 text-xs mt-1">
+                        <AlertCircle className="inline-block w-3 h-3 mr-1" />
+                        Blurred for client confidentiality
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}
