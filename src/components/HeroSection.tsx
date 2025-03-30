@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ArrowDown, Sparkles, MousePointerClick, CalendarClock } from 'lucide-react';
+import { ArrowDown, Sparkles, MousePointerClick, CalendarClock } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -88,11 +88,11 @@ const HeroSection: React.FC = () => {
             Do, Dare; Dominate.
           </p>
           
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extralight mb-6 leading-tight animate-float" style={{ animationDelay: "0.4s" }}>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight mb-6 leading-tight animate-float" style={{ animationDelay: "0.4s" }}>
             The Brain for <span className="gradient-text font-normal filter drop-shadow-[0_0_20px_rgba(168,235,18,0.3)]">Energy Optimization</span> & Efficiency
           </h1>
           
-          <p className="text-xl md:text-2xl text-black/80 max-w-3xl mb-10 animate-float" style={{ animationDelay: "0.6s" }}>
+          <p className="text-lg md:text-xl text-black/80 max-w-3xl mb-10 animate-float" style={{ animationDelay: "0.6s" }}>
             Reduce operational costs by a minimum of <span className="text-highlight font-medium">10%</span> with our AI-powered solutions.
           </p>
           
@@ -104,7 +104,8 @@ const HeroSection: React.FC = () => {
             >
               <Button 
                 onClick={scrollToDashboard}
-                className="glow-button text-primary font-medium px-8 py-7 rounded-full text-lg hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(0,191,114,0.4)] relative z-10 overflow-hidden"
+                className="glow-button text-primary font-medium px-8 py-6 rounded-full text-lg hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(0,191,114,0.4)] relative z-10 overflow-hidden"
+                aria-label="View our live dashboard"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   View Live Dashboard
@@ -124,7 +125,8 @@ const HeroSection: React.FC = () => {
             >
               <Button 
                 onClick={scrollToContact}
-                className="text-white font-medium px-8 py-7 rounded-full text-lg hover:scale-105 transition-transform duration-300 bg-primary/90 hover:bg-primary relative z-10 overflow-hidden"
+                className="bg-primary text-white font-medium px-8 py-6 rounded-full text-lg hover:scale-105 transition-all duration-300 hover:bg-primary/90 hover:shadow-lg relative z-10"
+                aria-label="Request a product demo"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Request Demo

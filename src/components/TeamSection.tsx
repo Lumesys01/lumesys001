@@ -59,8 +59,8 @@ const TeamSection = () => {
                   {member.role.split(" ")[0]}
                 </Badge>
                 
-                <div className="mb-3 mt-1 flex justify-center">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent/20 to-highlight/20 
+                <div className="mb-3 mt-3 flex justify-center">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent/20 to-highlight/20 
                     flex items-center justify-center transform transition-all duration-500 
                     group-hover:from-accent group-hover:to-highlight group-hover:scale-110 group-hover:rotate-6">
                     <span className="text-accent group-hover:text-white transition-colors duration-300">
@@ -70,10 +70,10 @@ const TeamSection = () => {
                 </div>
                 
                 <h3 className="text-lg font-semibold mb-1 text-center">{member.name}</h3>
-                <p className="text-xs text-highlight/80 font-medium mb-2 text-center">
+                <p className="text-sm text-highlight/80 font-medium mb-3 text-center">
                   {member.role}
                 </p>
-                <p className="text-gray-600 text-center text-xs">{member.bio}</p>
+                <p className="text-gray-600 text-center text-sm">{member.bio}</p>
               </CardContent>
             </Card>
           </PageTransition>
