@@ -45,14 +45,14 @@ const PageTransition = ({
               }
             }, delay);
             
-            // Once animation is complete, stop observing
+            // Once animation is triggered, unobserve the element for performance
             observer.unobserve(entry.target);
           }
         });
       },
       {
-        threshold: 0.15, // Increased threshold for better timing
-        rootMargin: '20px', // Added margin to start animations a bit earlier
+        threshold: 0.15, // Start animation when 15% of element is visible
+        rootMargin: '20px 0px', // Start animation slightly before element enters viewport
       }
     );
     
@@ -87,7 +87,7 @@ const PageTransition = ({
   return (
     <div 
       ref={ref} 
-      className={`transform transition-all duration-700 ease-out ${className}`}
+      className={`transform transition-all duration-700 ease-out will-change-transform ${className}`}
       style={{
         ...initialStyles,
         transitionDelay: `${delay}ms`,

@@ -13,6 +13,11 @@ interface EnergyUsageCardProps {
 }
 
 const EnergyUsageCard: React.FC<EnergyUsageCardProps> = ({ energyData }) => {
+  // Calculate percentage savings for display
+  const percentageSavings = energyData.savings.includes('%') 
+    ? energyData.savings
+    : `${Math.round((1 - (energyData.current / energyData.target)) * 100)}%`;
+  
   return (
     <DashboardMetricCard title="Energy Usage" icon={<Gauge />}>
       <div className="text-3xl font-semibold">
@@ -20,7 +25,7 @@ const EnergyUsageCard: React.FC<EnergyUsageCardProps> = ({ energyData }) => {
       </div>
       <div className="flex justify-between mt-2">
         <div className="text-xs text-green-400">
-          {energyData.savings} below target
+          {percentageSavings} below target
         </div>
         <div className="text-xs text-white/70">
           Target: {energyData.target} kWh

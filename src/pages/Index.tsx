@@ -1,3 +1,4 @@
+
 import React, { Suspense, useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -16,6 +17,7 @@ import PageTransition from "@/components/ui/PageTransition";
 import ScrollIndicator from "@/components/ScrollIndicator";
 import { Separator } from "@/components/ui/separator";
 
+// Only lazy load heavy components that aren't immediately visible
 const FeaturesSection = React.lazy(() => import("@/components/FeaturesSection"));
 const HowItWorksSection = React.lazy(() => import("@/components/HowItWorksSection"));
 
@@ -38,11 +40,12 @@ const Index = () => {
 
     const handleScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (window.scrollY / totalHeight) * 100;
+      const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
       setScrollProgress(progress);
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initialize scroll position on load
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -70,7 +73,7 @@ const Index = () => {
       
       <div className="fixed top-0 left-0 right-0 h-1 z-50 bg-white dark:bg-background-dark">
         <div 
-          className="bg-gradient-to-r from-accent to-highlight h-full"
+          className="bg-gradient-to-r from-accent to-highlight h-full transition-all duration-300 ease-out"
           style={{ width: `${scrollProgress}%` }}
         ></div>
       </div>
@@ -107,7 +110,7 @@ const Index = () => {
         
         <SectionDivider label="FEATURES" />
         
-        <PageTransition direction="left" delay={200}>
+        <PageTransition direction="left" delay={100}>
           <section id="features" className="bg-white dark:bg-background-dark py-16">
             <Suspense fallback={<LoadingFallback />}>
               <FeaturesSection />
@@ -173,7 +176,7 @@ const Index = () => {
         
         <SectionDivider label="JOIN US" />
         
-        <PageTransition direction="up" delay={200}>
+        <PageTransition direction="up" delay={100}>
           <section id="waitlist" className="bg-white dark:bg-background-dark py-16">
             <CTASection />
           </section>

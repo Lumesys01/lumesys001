@@ -20,7 +20,7 @@ const Navigation = () => {
       
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
       setScrollProgress(scrolled);
     };
 
@@ -35,6 +35,24 @@ const Navigation = () => {
     });
   };
 
+  const scrollToSection = (id: string) => {
+    setIsMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      const yOffset = -80; // Header height offset
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
+  const navigationLinks = [
+    { name: "Home", id: "", icon: <Home size={18} /> },
+    { name: "Features", id: "features" },
+    { name: "Charts", id: "charts" },
+    { name: "Why Lumesys", id: "why" },
+    { name: "Join Waitlist", id: "waitlist" },
+  ];
+
   return (
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -46,7 +64,7 @@ const Navigation = () => {
         />
         
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center" onClick={() => scrollToTop()}>
             <img 
               src="/lovable-uploads/27f5da26-b388-4950-8f4b-3cc7bbf89a05.png" 
               alt="Lumesys Logo" 
@@ -58,27 +76,25 @@ const Navigation = () => {
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors flex items-center gap-2">
-              <Home size={18} />
-              Home
-            </Link>
-            <Link to="#features" className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors">
-              Features
-            </Link>
-            <Link to="#charts" className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors">
-              Charts
-            </Link>
-            <Link to="#why" className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors">
-              Why Lumesys
-            </Link>
-            <Link to="#waitlist" className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors">
-              Join Waitlist
-            </Link>
+            {navigationLinks.map((link) => (
+              <button
+                key={link.name}
+                onClick={() => link.id ? scrollToSection(link.id) : scrollToTop()}
+                className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors flex items-center gap-2"
+              >
+                {link.icon}
+                {link.name}
+              </button>
+            ))}
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle variant="switch" />
-            <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-black dark:text-white">
+            <Button 
+              variant="outline" 
+              className="glow-border bg-transparent backdrop-blur-sm text-black dark:text-white"
+              onClick={() => scrollToSection("contact")}
+            >
               Learn More
             </Button>
             <SearchDialog />
@@ -100,54 +116,25 @@ const Navigation = () => {
         {isMenuOpen && (
           <div className="md:hidden bg-white/95 dark:bg-background-dark/95 backdrop-blur-lg animate-fade-in">
             <div className="flex flex-col space-y-4 px-6 py-8">
-              <Link 
-                to="/" 
-                className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white py-2 transition-colors flex items-center gap-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Home size={18} />
-                Home
-              </Link>
-              <Link 
-                to="#features" 
-                className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white py-2 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Features
-              </Link>
-              <Link 
-                to="#charts" 
-                className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white py-2 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Charts
-              </Link>
-              <Link 
-                to="#why" 
-                className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white py-2 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Why Lumesys
-              </Link>
-              <Link 
-                to="#waitlist" 
-                className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white py-2 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Join Waitlist
-              </Link>
+              {navigationLinks.map((link) => (
+                <button
+                  key={link.name}
+                  onClick={() => link.id ? scrollToSection(link.id) : scrollToTop()}
+                  className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white py-2 transition-colors flex items-center gap-2 text-left"
+                >
+                  {link.icon}
+                  {link.name}
+                </button>
+              ))}
               <div className="pt-4 flex items-center">
-                <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-black dark:text-white w-full">
+                <Button 
+                  variant="outline" 
+                  className="glow-border bg-transparent backdrop-blur-sm text-black dark:text-white w-full"
+                  onClick={() => scrollToSection("contact")}
+                >
                   Learn More
                 </Button>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 rounded-full ml-2"
-                  aria-label="Search"
-                >
-                  <Search size={20} />
-                </Button>
+                <SearchDialog />
               </div>
             </div>
           </div>
