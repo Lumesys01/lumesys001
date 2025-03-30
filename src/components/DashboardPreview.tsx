@@ -17,11 +17,6 @@ const DashboardPreview: React.FC = () => {
     {
       isInteractive: true,
       caption: "Interactive Building Management System"
-    },
-    {
-      src: "/lovable-uploads/9f0aac31-e231-48e8-925e-2ad8c7249407.png",
-      alt: "Lumesys Dashboard - Management Overview",
-      caption: "Energy Management Overview",
     }
   ];
 

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Check, X, Zap, BarChart, LineChart } from 'lucide-react';
 import { Button } from './ui/button';
@@ -30,7 +29,7 @@ const WhyLumesys: React.FC = () => {
       lumesys: "AI-powered, Real-time",
       traditional: "Manual, Periodic",
       benefit: "Immediate insights to prevent waste",
-      icon: <Zap className="w-5 h-5" /> // Increased from w-4 h-4 to w-5 h-5
+      icon: <Zap className="w-5 h-5" />
     },
     {
       feature: "Anomaly Detection",
@@ -62,7 +61,6 @@ const WhyLumesys: React.FC = () => {
     }
   ];
 
-  // Market growth projection data
   const marketGrowthData = [
     { year: '2024', lumesys: 10, marketAverage: 5 },
     { year: '2025', lumesys: 28, marketAverage: 12 },
@@ -71,7 +69,6 @@ const WhyLumesys: React.FC = () => {
     { year: '2028', lumesys: 95, marketAverage: 32 }
   ];
 
-  // ROI comparison data
   const roiData = [
     { month: 3, lumesys: 5, traditional: 0 },
     { month: 6, lumesys: 15, traditional: 2 },
@@ -95,7 +92,6 @@ const WhyLumesys: React.FC = () => {
             See how our AI-driven approach delivers superior results compared to traditional energy management systems.
           </p>
           
-          {/* Tab navigation */}
           <div className="flex justify-center gap-4 mt-8 mb-8 border-b border-gray-200">
             <button 
               onClick={() => setActiveTab('features')}
@@ -124,7 +120,6 @@ const WhyLumesys: React.FC = () => {
           </div>
         </div>
         
-        {/* Features comparison tab */}
         {activeTab === 'features' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="glass-card rounded-xl p-8 md:p-10 text-center">
@@ -140,9 +135,9 @@ const WhyLumesys: React.FC = () => {
                 Potential savings based on industry benchmarks for similar AI-driven energy management solutions.
               </p>
               <div className="mt-6">
-                <Button className="glow-border bg-surface backdrop-blur-sm px-6 py-5 rounded-full text-black group">
+                <Button className="glow-border bg-surface backdrop-blur-sm px-4 py-2 rounded-md text-sm text-black">
                   <span>Learn About Our Approach</span>
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </div>
             </div>
@@ -210,7 +205,6 @@ const WhyLumesys: React.FC = () => {
           </div>
         )}
         
-        {/* Market growth tab */}
         {activeTab === 'growth' && (
           <div className="glass-card rounded-xl p-8 shadow-lg overflow-hidden">
             <h3 className="font-medium text-xl mb-4">Projected Market Share Growth</h3>
@@ -284,7 +278,6 @@ const WhyLumesys: React.FC = () => {
           </div>
         )}
         
-        {/* ROI comparison tab */}
         {activeTab === 'roi' && (
           <div className="glass-card rounded-xl p-8 shadow-lg overflow-hidden">
             <h3 className="font-medium text-xl mb-4">ROI Comparison Over Time</h3>
@@ -384,9 +377,9 @@ const WhyLumesys: React.FC = () => {
               </p>
             </div>
             
-            <Button className="glow-border bg-surface backdrop-blur-sm px-6 py-5 rounded-full text-black group">
+            <Button className="whitespace-nowrap glow-border bg-surface backdrop-blur-sm px-4 py-2 rounded-md text-sm text-black">
               <span>View Projection Model</span>
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>
