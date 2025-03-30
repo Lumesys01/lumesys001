@@ -118,12 +118,6 @@ const WhyLumesys: React.FC = () => {
               <p className="text-black/70">
                 Potential savings based on industry benchmarks for similar AI-driven energy management solutions.
               </p>
-              <div className="mt-6">
-                <Button className="glow-border bg-surface backdrop-blur-sm px-4 py-2 rounded-md text-sm text-black">
-                  <span>Learn About Our Approach</span>
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </div>
             </div>
             
             <Card className="shadow-lg border-highlight/20 overflow-hidden">
@@ -326,8 +320,8 @@ const WhyLumesys: React.FC = () => {
               </p>
             </div>
             
-            <Button className="whitespace-nowrap glow-border bg-surface backdrop-blur-sm px-4 py-2 rounded-md text-sm text-black">
-              <span>View Projection Model</span>
+            <Button className="whitespace-nowrap">
+              View Projection Model
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
