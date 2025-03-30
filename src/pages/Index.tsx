@@ -13,6 +13,7 @@ import OurWhy from "@/components/OurWhy";
 import TeamSection from "@/components/TeamSection";
 import PageTransition from "@/components/ui/PageTransition";
 import ScrollIndicator from "@/components/ScrollIndicator";
+import { Separator } from "@/components/ui/separator";
 
 // Lazy load components that are not immediately visible
 const FeaturesSection = lazy(() => import("@/components/FeaturesSection"));
@@ -56,6 +57,18 @@ const Index = () => {
     });
   };
 
+  // Custom section divider component
+  const SectionDivider = ({ label, className = "" }: { label?: string, className?: string }) => (
+    <div className={`relative py-8 ${className}`}>
+      <Separator className="absolute left-0 right-0 bg-gradient-to-r from-transparent via-accent/30 dark:via-accent/50 to-transparent h-[2px]" />
+      {label && (
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-background-dark px-4 text-sm text-accent/80 dark:text-accent/90 font-medium">
+          {label}
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-white dark:bg-background-dark text-black dark:text-foreground-dark">
       <Navigation />
@@ -80,13 +93,25 @@ const Index = () => {
           </section>
         </PageTransition>
         
-        <PageTransition direction="right" delay={200}>
+        <SectionDivider label="HOW IT WORKS" />
+        
+        <PageTransition direction="right" delay={100}>
           <section id="how-it-works" className="bg-white dark:bg-background-dark py-16">
             <Suspense fallback={<LoadingFallback />}>
               <HowItWorksSection />
             </Suspense>
           </section>
         </PageTransition>
+        
+        <SectionDivider />
+        
+        <PageTransition direction="left" delay={100}>
+          <section id="why" className="bg-white dark:bg-background-dark py-16">
+            <WhyLumesys />
+          </section>
+        </PageTransition>
+        
+        <SectionDivider label="FEATURES" />
         
         <PageTransition direction="left" delay={200}>
           <section id="features" className="bg-white dark:bg-background-dark py-16">
@@ -96,11 +121,23 @@ const Index = () => {
           </section>
         </PageTransition>
         
+        <SectionDivider />
+        
+        <PageTransition direction="right" delay={150}>
+          <section id="our-why" className="bg-white dark:bg-background-dark py-16">
+            <OurWhy />
+          </section>
+        </PageTransition>
+        
+        <SectionDivider label="ROI & DATA" />
+        
         <PageTransition direction="up">
           <section id="roi" className="bg-white dark:bg-background-dark py-16">
             <ROICalculator />
           </section>
         </PageTransition>
+        
+        <SectionDivider />
         
         <PageTransition direction="right" delay={100}>
           <section id="charts" className="bg-white dark:bg-background-dark py-16">
@@ -108,17 +145,7 @@ const Index = () => {
           </section>
         </PageTransition>
         
-        <PageTransition direction="left" delay={100}>
-          <section id="why" className="bg-white dark:bg-background-dark py-16">
-            <WhyLumesys />
-          </section>
-        </PageTransition>
-        
-        <PageTransition direction="right" delay={150}>
-          <section id="our-why" className="bg-white dark:bg-background-dark py-16">
-            <OurWhy />
-          </section>
-        </PageTransition>
+        <SectionDivider label="ABOUT US" />
         
         <PageTransition direction="left" delay={150}>
           <section id="team" className="bg-white dark:bg-background-dark py-16">
@@ -127,11 +154,15 @@ const Index = () => {
         </PageTransition>
         
         <Suspense fallback={<LoadingFallback />}>
+          <SectionDivider />
+          
           <PageTransition direction="up">
             <section id="customers" className="bg-white dark:bg-background-dark py-16">
               <CustomerShowcase />
             </section>
           </PageTransition>
+          
+          <SectionDivider label="SUPPORT" />
           
           <PageTransition direction="right" delay={150}>
             <section id="faq" className="bg-white dark:bg-background-dark py-16">
@@ -139,11 +170,15 @@ const Index = () => {
             </section>
           </PageTransition>
           
+          <SectionDivider />
+          
           <PageTransition direction="left" delay={150}>
             <section id="contact" className="bg-white dark:bg-background-dark py-16">
               <ClientContactForm />
             </section>
           </PageTransition>
+          
+          <SectionDivider label="JOIN US" />
           
           <PageTransition direction="up" delay={200}>
             <section id="waitlist" className="bg-white dark:bg-background-dark py-16">
