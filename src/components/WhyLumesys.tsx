@@ -319,34 +319,34 @@ const WhyLumesys: React.FC = () => {
                 </div>
 
                 <p className="text-sm text-black/60 mt-6">
-                  Early adopters are experiencing immediate benefits, with our user base expanding 
-                  rapidly as word spreads about our energy optimization capabilities.
+                  Early adopters are experiencing significant benefits, with our user base growing 
+                  steadily as the market recognizes our energy optimization capabilities.
                 </p>
               </div>
               
               <div className="relative h-80 perspective-container">
-                {/* Replace the chart with animated growth visualization */}
+                {/* Enhanced animated growth visualization */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className={`transition-all duration-1000 ease-out transform ${animateMetric ? 'scale-100 opacity-100' : 'scale-75 opacity-0'}`}>
                     <div className="relative h-64 w-full">
-                      {/* Rocket Animation */}
+                      {/* Improved Rocket Animation with smoother movement */}
                       <div className="absolute h-full w-full flex items-center justify-center">
-                        <div className={`transition-all duration-2000 ease-out delay-300 transform ${animateMetric ? 'translate-y-[-80px]' : 'translate-y-[150px]'}`}>
+                        <div className={`transition-all duration-3000 ease-in-out transform ${animateMetric ? 'translate-y-[-120px]' : 'translate-y-[150px]'}`}>
                           <div className="relative">
                             <Rocket 
                               size={64} 
-                              className="text-accent rotate-[-20deg] filter drop-shadow-lg" 
+                              className="text-accent rotate-[-20deg] filter drop-shadow-lg animate-pulse" 
                             />
-                            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-[90%] w-4 h-20 bg-gradient-to-t from-transparent to-accent/40 rounded-full blur-md"></div>
+                            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-[90%] w-4 h-32 bg-gradient-to-t from-transparent to-accent/40 rounded-full blur-md animate-pulse"></div>
                           </div>
                         </div>
                       </div>
                       
-                      {/* Year by Year Metrics */}
+                      {/* Enhanced Year by Year Metrics with smoother animations */}
                       <div className="absolute w-full h-full">
                         {marketGrowthData.map((data, index) => {
                           const isLast = index === marketGrowthData.length - 1;
-                          const delay = 500 + (index * 200);
+                          const delay = 300 + (index * 150);
                           const heightPercent = (data.lumesys / 4800) * 100;
                           
                           return (
@@ -359,7 +359,7 @@ const WhyLumesys: React.FC = () => {
                               }}
                             >
                               <div 
-                                className={`transition-all duration-1000 ease-out transform flex flex-col items-center`} 
+                                className={`transition-all duration-1200 ease-out transform flex flex-col items-center`} 
                                 style={{
                                   transitionDelay: `${delay}ms`,
                                   opacity: animateMetric ? 1 : 0,
@@ -372,15 +372,15 @@ const WhyLumesys: React.FC = () => {
                                   </span>
                                 </div>
                                 <div 
-                                  className={`w-8 relative rounded-t-md bg-gradient-to-t ${isLast ? 'from-accent to-highlight' : 'from-accent/60 to-accent/90'} transition-all duration-1000 ease-out filter drop-shadow-md`}
+                                  className={`w-8 relative rounded-t-md bg-gradient-to-t ${isLast ? 'from-accent to-highlight' : 'from-accent/60 to-accent/90'} transition-all duration-1500 ease-out filter drop-shadow-md`}
                                   style={{
                                     height: animateMetric ? `${heightPercent}px` : '0px',
-                                    transitionDelay: `${delay + 300}ms`,
+                                    transitionDelay: `${delay + 200}ms`,
                                   }}
                                 >
                                   {isLast && (
                                     <>
-                                      <Star className="absolute -top-3 -right-3 w-6 h-6 text-yellow-400 animate-pulse-glow" />
+                                      <Star className="absolute -top-3 -right-3 w-6 h-6 text-yellow-400 animate-pulse" />
                                       <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-300 rounded-full animate-ping"></div>
                                     </>
                                   )}
@@ -396,46 +396,47 @@ const WhyLumesys: React.FC = () => {
                         })}
                       </div>
                       
-                      {/* Floating Metrics Icons */}
+                      {/* Enhanced Floating Metrics Icons with staggered animations */}
                       <div className="absolute inset-0">
                         {/* Users Icon */}
                         <div 
-                          className={`absolute top-[30%] right-[10%] transition-all duration-700 delay-1000 transform ${animateMetric ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+                          className={`absolute top-[30%] right-[10%] transition-all duration-1000 delay-1000 transform ${animateMetric ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-8 opacity-0 scale-95'}`}
                         >
-                          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-md">
+                          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-md hover:shadow-lg hover:bg-white transition-all duration-300 cursor-pointer">
                             <CircleUserRound className="w-5 h-5 text-accent" />
-                            <span className="font-medium">5000+</span>
+                            <span className="font-medium">5000+ users</span>
                           </div>
                         </div>
                         
                         {/* Revenue Icon */}
                         <div 
-                          className={`absolute top-[20%] left-[20%] transition-all duration-700 delay-1200 transform ${animateMetric ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+                          className={`absolute top-[20%] left-[20%] transition-all duration-1000 delay-1200 transform ${animateMetric ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-8 opacity-0 scale-95'}`}
                         >
-                          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-md">
+                          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-md hover:shadow-lg hover:bg-white transition-all duration-300 cursor-pointer">
                             <CircleDollarSign className="w-5 h-5 text-accent" />
-                            <span className="font-medium">4800K</span>
+                            <span className="font-medium">4800K revenue</span>
                           </div>
                         </div>
                         
                         {/* Growth Icon */}
                         <div 
-                          className={`absolute top-[50%] left-[10%] transition-all duration-700 delay-1400 transform ${animateMetric ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+                          className={`absolute top-[50%] left-[10%] transition-all duration-1000 delay-1400 transform ${animateMetric ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-8 opacity-0 scale-95'}`}
                         >
-                          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-md">
+                          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-md hover:shadow-lg hover:bg-white transition-all duration-300 cursor-pointer">
                             <TrendingUp className="w-5 h-5 text-accent" />
-                            <span className="font-medium">+4700%</span>
+                            <span className="font-medium">+4700% growth</span>
                           </div>
                         </div>
                       </div>
                       
-                      {/* Particles */}
+                      {/* Enhanced Particles with varied animations */}
                       <div className="absolute inset-0 pointer-events-none">
-                        {[...Array(10)].map((_, i) => {
-                          const size = 3 + Math.random() * 5;
+                        {[...Array(15)].map((_, i) => {
+                          const size = 2 + Math.random() * 4;
                           const left = Math.random() * 100;
                           const animDelay = Math.random() * 4;
-                          const duration = 3 + Math.random() * 3;
+                          const duration = 2 + Math.random() * 4;
+                          const opacity = 0.4 + Math.random() * 0.4;
                           
                           return (
                             <div
@@ -445,8 +446,9 @@ const WhyLumesys: React.FC = () => {
                                 width: `${size}px`,
                                 height: `${size}px`,
                                 left: `${left}%`,
-                                bottom: '30%',
-                                opacity: 0.7,
+                                bottom: '20%',
+                                opacity: animateMetric ? opacity : 0,
+                                transition: 'opacity 1s ease-out',
                                 animationDelay: `${animDelay}s`,
                                 animationDuration: `${duration}s`,
                               }}
@@ -467,8 +469,8 @@ const WhyLumesys: React.FC = () => {
                   <p className="text-sm text-black/60">Users can deploy Lumesys in under 48 hours with minimal setup</p>
                 </div>
                 <div className="flex-1 border-l-4 border-accent pl-3">
-                  <h4 className="font-medium">Immediate Results</h4>
-                  <p className="text-sm text-black/60">First energy savings appear within 2 weeks of implementation</p>
+                  <h4 className="font-medium">Tangible Results</h4>
+                  <p className="text-sm text-black/60">First energy savings appear within 30 days of implementation</p>
                 </div>
                 <div className="flex-1 border-l-4 border-accent pl-3">
                   <h4 className="font-medium">Referral Growth</h4>
