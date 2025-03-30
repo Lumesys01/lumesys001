@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Check, X, Zap, Users } from 'lucide-react';
+import { ArrowRight, Check, X, Zap, Users, Award, Shield, LineChart, BatteryCharging, Lightbulb } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from './ui/chart';
+import { ChartContainer, ChartTooltipContent } from './ui/chart';
 import { Progress } from './ui/progress';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
 
 const WhyLumesys: React.FC = () => {
   const [savingsPercent, setSavingsPercent] = useState(0);
@@ -40,35 +40,45 @@ const WhyLumesys: React.FC = () => {
       lumesys: "AI-powered, Real-time",
       traditional: "Manual, Periodic",
       benefit: "Immediate insights to prevent waste",
-      icon: <Zap className="w-5 h-5" />
+      icon: <LineChart className="w-5 h-5 text-accent" />,
+      lumesysRating: 95,
+      traditionalRating: 40,
     },
     {
       feature: "Anomaly Detection",
       lumesys: "Predictive, Automated",
       traditional: "Reactive, Manual",
       benefit: "Prevent issues before they occur",
-      icon: <Zap className="w-5 h-5" />
+      icon: <Shield className="w-5 h-5 text-accent" />,
+      lumesysRating: 90,
+      traditionalRating: 30,
     },
     {
       feature: "Optimization",
       lumesys: "Continuous, Adaptive",
       traditional: "Static, Scheduled",
       benefit: "24/7 optimization for maximum savings",
-      icon: <Zap className="w-5 h-5" />
+      icon: <BatteryCharging className="w-5 h-5 text-accent" />,
+      lumesysRating: 98,
+      traditionalRating: 45,
     },
     {
       feature: "Maintenance",
       lumesys: "Proactive, Preventive",
       traditional: "Reactive, Repairs",
       benefit: "Reduce downtime and extend equipment life",
-      icon: <Zap className="w-5 h-5" />
+      icon: <Award className="w-5 h-5 text-accent" />,
+      lumesysRating: 92,
+      traditionalRating: 38,
     },
     {
       feature: "Data Insights",
       lumesys: "Deep Learning Patterns",
       traditional: "Basic Historical Data",
       benefit: "Discover hidden opportunities for savings",
-      icon: <Zap className="w-5 h-5" />
+      icon: <Lightbulb className="w-5 h-5 text-accent" />,
+      lumesysRating: 96,
+      traditionalRating: 35,
     }
   ];
 
@@ -79,6 +89,23 @@ const WhyLumesys: React.FC = () => {
     { year: '2027', lumesys: 3200, marketAverage: 1200, users: 3000 },
     { year: '2028', lumesys: 4800, marketAverage: 2000, users: 5000 }
   ];
+
+  // Helper function to render rating stars
+  const renderRatingDots = (rating: number, maxRating: number = 100, maxDots: number = 5) => {
+    const filledDots = Math.round((rating / maxRating) * maxDots);
+    
+    return (
+      <div className="flex items-center gap-0.5">
+        {Array.from({ length: maxDots }).map((_, i) => (
+          <div 
+            key={i} 
+            className={`w-2 h-2 rounded-full ${i < filledDots ? 'bg-accent' : 'bg-gray-300'}`}
+          />
+        ))}
+        <span className="ml-2 text-xs font-medium">{rating}%</span>
+      </div>
+    );
+  };
 
   return (
     <section className="section-padding relative bg-white">
@@ -133,65 +160,109 @@ const WhyLumesys: React.FC = () => {
               </p>
             </div>
             
-            <Card className="shadow-lg border-highlight/20 overflow-hidden">
+            <Card className="shadow-lg border-highlight/20 overflow-hidden transition-all">
               <div className="bg-gray-50 py-3 px-4 border-b border-gray-100">
                 <h3 className="font-medium text-lg text-black">Feature Comparison</h3>
                 <p className="text-sm text-black/60">See how Lumesys outperforms traditional systems</p>
               </div>
               
-              <div className="p-0">
-                <Table className="w-full">
-                  <TableHeader>
-                    <TableRow className="hover:bg-transparent">
-                      <TableHead className="w-1/3 py-2">Feature</TableHead>
-                      <TableHead className="w-1/3 py-2 text-highlight font-medium">Lumesys</TableHead>
-                      <TableHead className="w-1/3 py-2 text-black/70">Traditional</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {comparisonData.map((item, index) => (
-                      <TableRow 
-                        key={index} 
-                        className={`cursor-pointer transition-colors ${activeFeature === item.feature ? 'bg-accent/5' : 'hover:bg-gray-50'}`}
-                        onClick={() => setActiveFeature(activeFeature === item.feature ? null : item.feature)}
-                      >
-                        <TableCell className="py-2.5 font-medium">
-                          <div className="flex items-center gap-1.5">
-                            {item.icon}
-                            {item.feature}
-                          </div>
-                        </TableCell>
-                        <TableCell className="py-2.5">
-                          <div className="flex items-center gap-1.5">
+              <div className="divide-y divide-gray-100">
+                {comparisonData.map((item, index) => (
+                  <div 
+                    key={index}
+                    className={`cursor-pointer transition-all duration-300 hover:bg-gray-50 
+                      ${activeFeature === item.feature ? 'bg-accent/5' : ''}`}
+                    onClick={() => setActiveFeature(activeFeature === item.feature ? null : item.feature)}
+                  >
+                    <div className="p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          {item.icon}
+                          <h4 className="font-medium">{item.feature}</h4>
+                        </div>
+                        <button 
+                          className="text-xs text-accent hover:underline"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveFeature(item.feature);
+                          }}
+                        >
+                          {activeFeature === item.feature ? 'Hide details' : 'View details'}
+                        </button>
+                      </div>
+                      
+                      <div className="grid grid-cols-2 gap-4 mt-2">
+                        <div className="bg-accent/5 p-2 rounded-md">
+                          <div className="flex items-center gap-1.5 mb-1">
                             <Check className="w-4 h-4 text-accent" />
-                            <span className="text-sm">{item.lumesys}</span>
+                            <span className="text-sm font-medium">Lumesys</span>
                           </div>
-                        </TableCell>
-                        <TableCell className="py-2.5">
-                          <div className="flex items-center gap-1.5">
+                          <p className="text-xs mb-2">{item.lumesys}</p>
+                          {renderRatingDots(item.lumesysRating)}
+                        </div>
+                        <div className="bg-gray-100 p-2 rounded-md">
+                          <div className="flex items-center gap-1.5 mb-1">
                             <X className="w-4 h-4 text-black/40" />
-                            <span className="text-sm text-black/70">{item.traditional}</span>
+                            <span className="text-sm font-medium text-black/70">Traditional</span>
                           </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-              
-              {activeFeature && (
-                <div className="bg-accent/10 border-t border-accent/20 p-3 text-sm transition-all animate-fade-in">
-                  <div className="flex items-start gap-2">
-                    <div className="bg-accent/20 p-1.5 rounded-full">
-                      <Zap className="w-3.5 h-3.5 text-accent" />
+                          <p className="text-xs mb-2">{item.traditional}</p>
+                          {renderRatingDots(item.traditionalRating)}
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium text-accent">Lumesys Advantage:</p>
-                      <p>{comparisonData.find(item => item.feature === activeFeature)?.benefit}</p>
-                    </div>
+
+                    {activeFeature === item.feature && (
+                      <div className="bg-accent/10 p-4 border-t border-accent/20 animate-fade-in">
+                        <div className="flex items-start gap-3">
+                          <div className="bg-accent/20 p-1.5 rounded-full mt-0.5">
+                            <Zap className="w-4 h-4 text-accent" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-accent mb-1">Lumesys Advantage:</p>
+                            <p className="text-sm">{item.benefit}</p>
+                            
+                            <div className="mt-3 bg-white/60 rounded-lg p-3 border border-accent/20">
+                              <h5 className="font-medium text-sm mb-2">Performance Comparison</h5>
+                              <div className="relative pt-1">
+                                <div className="flex items-center justify-between mb-1">
+                                  <span className="text-xs font-semibold inline-block text-accent">
+                                    Lumesys
+                                  </span>
+                                  <span className="text-xs font-semibold inline-block text-accent">
+                                    {item.lumesysRating}%
+                                  </span>
+                                </div>
+                                <div className="overflow-hidden h-2 text-xs flex rounded bg-gray-200">
+                                  <div 
+                                    style={{ width: `${item.lumesysRating}%` }} 
+                                    className="animate-slide-in shadow-none flex flex-col text-center whitespace-nowrap justify-center bg-accent"
+                                  />
+                                </div>
+                              </div>
+                              <div className="relative pt-3">
+                                <div className="flex items-center justify-between mb-1">
+                                  <span className="text-xs font-semibold inline-block text-gray-600">
+                                    Traditional
+                                  </span>
+                                  <span className="text-xs font-semibold inline-block text-gray-600">
+                                    {item.traditionalRating}%
+                                  </span>
+                                </div>
+                                <div className="overflow-hidden h-2 text-xs flex rounded bg-gray-200">
+                                  <div 
+                                    style={{ width: `${item.traditionalRating}%` }} 
+                                    className="animate-slide-in shadow-none flex flex-col text-center whitespace-nowrap justify-center bg-gray-400"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </div>
-              )}
+                ))}
+              </div>
             </Card>
           </div>
         )}
