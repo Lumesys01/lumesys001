@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { CheckCircle, Linkedin } from "lucide-react";
+import { CheckCircle, Linkedin, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
@@ -26,6 +26,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 const ClientContactForm: React.FC = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [isSubmitted, setIsSubmitted] = React.useState(false);
 
   const form = useForm<FormValues>({
@@ -39,15 +40,21 @@ const ClientContactForm: React.FC = () => {
 
   function onSubmit(data: FormValues) {
     // In a real app, this would send the data to your backend
-    console.log(data);
+    setIsSubmitting(true);
     
-    // Show success message
-    toast({
-      title: "Contact request submitted!",
-      description: "Thank you for your interest. We'll be in touch soon.",
-    });
+    // Simulate API call
+    setTimeout(() => {
+      console.log(data);
+      setIsSubmitting(false);
+      
+      // Show success message
+      toast({
+        title: "Contact request submitted!",
+        description: "Thank you for your interest. We'll be in touch soon.",
+      });
 
-    setIsSubmitted(true);
+      setIsSubmitted(true);
+    }, 1500);
   }
 
   const handleLinkedInConnect = () => {
@@ -70,15 +77,25 @@ const ClientContactForm: React.FC = () => {
           </p>
         </div>
         
-        <div className="max-w-md mx-auto">
-          <Card className="neo-card border-t-4 border-accent shadow-lg">
+        <div className="max-w-md mx-auto relative">
+          {/* Add decorative elements */}
+          <div className="absolute -top-6 -left-10 w-20 h-20 bg-accent/10 rounded-full blur-xl"></div>
+          <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-highlight/10 rounded-full blur-xl"></div>
+          
+          <Card className="neo-card border-t-4 border-accent shadow-lg relative z-10 overflow-hidden">
+            {/* Subtle gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50/30 to-accent/5 pointer-events-none"></div>
+            
             <CardHeader>
-              <CardTitle>Request Information</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-2xl flex items-center gap-2">
+                <span>Request Information</span>
+                <div className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse"></div>
+              </CardTitle>
+              <CardDescription className="text-black/70">
                 Fill out this form to learn more about our solutions.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="relative z-10">
               {!isSubmitted ? (
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -89,7 +106,11 @@ const ClientContactForm: React.FC = () => {
                         <FormItem>
                           <FormLabel>Full Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Jane Doe" {...field} />
+                            <Input 
+                              placeholder="Jane Doe" 
+                              {...field} 
+                              className="transition-all duration-300 focus:border-accent focus:ring focus:ring-accent/20"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -102,7 +123,11 @@ const ClientContactForm: React.FC = () => {
                         <FormItem>
                           <FormLabel>Company Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Acme Corp" {...field} />
+                            <Input 
+                              placeholder="Acme Corp" 
+                              {...field} 
+                              className="transition-all duration-300 focus:border-accent focus:ring focus:ring-accent/20"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -115,7 +140,12 @@ const ClientContactForm: React.FC = () => {
                         <FormItem>
                           <FormLabel>Email Address</FormLabel>
                           <FormControl>
-                            <Input placeholder="jane@example.com" type="email" {...field} />
+                            <Input 
+                              placeholder="jane@example.com" 
+                              type="email" 
+                              {...field} 
+                              className="transition-all duration-300 focus:border-accent focus:ring focus:ring-accent/20"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -123,19 +153,35 @@ const ClientContactForm: React.FC = () => {
                     />
                     <Button 
                       type="submit" 
-                      className="w-full glow-button text-primary font-medium"
+                      disabled={isSubmitting}
+                      className="w-full glow-button text-primary font-medium mt-2 relative group overflow-hidden"
                     >
-                      Submit Request
+                      <span className="flex items-center justify-center gap-2 group-hover:gap-3 transition-all duration-300">
+                        {isSubmitting ? (
+                          <>
+                            <span className="animate-pulse">Processing</span>
+                            <div className="w-5 h-5 rounded-full border-2 border-t-transparent border-white animate-spin"></div>
+                          </>
+                        ) : (
+                          <>
+                            Submit Request
+                            <Send className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                          </>
+                        )}
+                      </span>
                     </Button>
                   </form>
                 </Form>
               ) : (
                 <div className="py-6 text-center">
                   <div className="flex justify-center mb-4">
-                    <CheckCircle className="h-16 w-16 text-green-500" />
+                    <div className="relative">
+                      <CheckCircle className="h-16 w-16 text-green-500 animate-scale-in" />
+                      <div className="absolute inset-0 bg-green-400 rounded-full opacity-20 animate-ping"></div>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-medium mb-2">Thank You!</h3>
-                  <p className="text-black/70 mb-4">
+                  <h3 className="text-xl font-medium mb-2 animate-fade-in">Thank You!</h3>
+                  <p className="text-black/70 mb-4 animate-fade-in" style={{ animationDelay: '200ms' }}>
                     Your information has been submitted successfully. Our team will contact you shortly.
                   </p>
                 </div>
@@ -144,10 +190,10 @@ const ClientContactForm: React.FC = () => {
             <CardFooter className="flex justify-center border-t pt-4">
               <Button 
                 variant="outline" 
-                className="glow-border text-black/80 flex items-center gap-2 hover:bg-accent/5"
+                className="glow-border text-black/80 flex items-center gap-2 hover:bg-accent/5 transition-all duration-300 group"
                 onClick={handleLinkedInConnect}
               >
-                <Linkedin className="h-5 w-5" />
+                <Linkedin className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
                 Connect with our Founder
               </Button>
             </CardFooter>

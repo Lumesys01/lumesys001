@@ -1,10 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ArrowDown } from 'lucide-react';
+import { ArrowRight, ArrowDown, Sparkles, MousePointerClick } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoverCTA, setHoverCTA] = useState(false);
   
   // Handle mouse movement for parallax effect
   useEffect(() => {
@@ -27,12 +28,20 @@ const HeroSection: React.FC = () => {
     }
   };
 
+  // Scroll to contact section
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative min-h-screen overflow-hidden flex items-center bg-white">
       {/* Background accent elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-white to-white"></div>
       
-      {/* Overlay gradient with parallax effect - removed dark overlay */}
+      {/* Overlay gradient with parallax effect */}
       <div 
         className="absolute inset-0"
         style={{
@@ -40,7 +49,7 @@ const HeroSection: React.FC = () => {
         }}
       ></div>
       
-      {/* Enhanced energy particles with more depth */}
+      {/* Enhanced energy particles with more depth and interactivity */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(30)].map((_, index) => (
           <div 
@@ -54,7 +63,7 @@ const HeroSection: React.FC = () => {
               filter: `blur(${Math.random() * 2}px)`,
               animationDelay: `${Math.random() * 5}s`,
               animationDuration: `${4 + Math.random() * 6}s`,
-              transform: `translateZ(${Math.random() * 50}px)`
+              transform: `translateZ(${Math.random() * 50}px) translate(${mousePosition.x * -10 * Math.random()}px, ${mousePosition.y * -10 * Math.random()}px)`
             }}
           ></div>
         ))}
@@ -65,11 +74,15 @@ const HeroSection: React.FC = () => {
           {/* Logo with enhanced animation */}
           <div className="mb-8 animate-float" style={{ animationDelay: "0s" }}>
             <div className="flex items-center justify-center">
-              <img 
-                src="/lovable-uploads/27f5da26-b388-4950-8f4b-3cc7bbf89a05.png" 
-                alt="Lumesys Logo" 
-                className="h-16 w-16 mr-3 filter drop-shadow-[0_0_8px_rgba(168,235,18,0.6)]" 
-              />
+              <div className="relative">
+                <img 
+                  src="/lovable-uploads/27f5da26-b388-4950-8f4b-3cc7bbf89a05.png" 
+                  alt="Lumesys Logo" 
+                  className="h-16 w-16 mr-3 filter drop-shadow-[0_0_8px_rgba(168,235,18,0.6)] transition-transform duration-300 hover:scale-110" 
+                />
+                <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-highlight animate-pulse" />
+              </div>
+              
               <div className="text-3xl md:text-4xl font-medium flex items-center">
                 <span className="gradient-text mr-2 filter drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]">LUME</span>
                 <span className="filter drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">SYS</span>
@@ -89,24 +102,34 @@ const HeroSection: React.FC = () => {
             Reduce operational costs by a minimum of <span className="text-highlight font-medium">10%</span> with our AI-powered solutions.
           </p>
           
-          {/* Enhanced CTA section */}
+          {/* Enhanced CTA section with interactive hover effects */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 animate-float" style={{ animationDelay: "0.8s" }}>
-            <Button 
-              onClick={scrollToDashboard}
-              className="glow-button text-primary font-medium px-8 py-7 rounded-full text-lg hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(0,191,114,0.4)]"
+            <div 
+              className="relative group"
+              onMouseEnter={() => setHoverCTA(true)}
+              onMouseLeave={() => setHoverCTA(false)}
             >
-              View Live Dashboard
-            </Button>
+              <Button 
+                onClick={scrollToDashboard}
+                className="glow-button text-primary font-medium px-8 py-7 rounded-full text-lg hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(0,191,114,0.4)] relative z-10 overflow-hidden"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  View Live Dashboard
+                  <MousePointerClick className={`w-4 h-4 transition-opacity duration-300 ${hoverCTA ? 'opacity-100' : 'opacity-0'}`} />
+                </span>
+                
+                {/* Animated background effect on hover */}
+                <span className={`absolute inset-0 bg-gradient-to-r from-accent to-accent/60 transform transition-transform duration-500 ${hoverCTA ? 'translate-x-0' : '-translate-x-full'}`}></span>
+              </Button>
+              
+              {/* Animated glow effect */}
+              <div className={`absolute inset-0 rounded-full transition-opacity duration-300 ${hoverCTA ? 'opacity-100' : 'opacity-0'} blur-xl bg-accent`}></div>
+            </div>
             
             <Button 
               variant="outline" 
               className="glow-border bg-transparent backdrop-blur-sm text-black px-8 py-7 rounded-full text-lg group hover:scale-105 transition-transform duration-300"
-              onClick={() => {
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
+              onClick={scrollToContact}
             >
               Request Demo
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
