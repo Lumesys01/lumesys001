@@ -5,6 +5,7 @@ import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from './ui/chart';
+import { Progress } from './ui/progress';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 const WhyLumesys: React.FC = () => {
@@ -13,13 +14,22 @@ const WhyLumesys: React.FC = () => {
   const [activeTab, setActiveTab] = useState('features');
   
   useEffect(() => {
+    // Start with 0% and animate to 23%
+    const targetValue = 23;
+    const duration = 2000; // 2 seconds
+    const step = 10; // Update every 10ms for smooth animation
+    const increment = (targetValue / (duration / step));
+    let currentValue = 0;
+    
     const interval = setInterval(() => {
-      setSavingsPercent(prev => {
-        if (prev < 23) return prev + 1;
+      currentValue += increment;
+      if (currentValue >= targetValue) {
+        setSavingsPercent(targetValue);
         clearInterval(interval);
-        return 23;
-      });
-    }, 100);
+      } else {
+        setSavingsPercent(parseFloat(currentValue.toFixed(1)));
+      }
+    }, step);
     
     return () => clearInterval(interval);
   }, []);
@@ -109,11 +119,14 @@ const WhyLumesys: React.FC = () => {
             <div className="glass-card rounded-xl p-8 md:p-10 text-center">
               <h3 className="text-xl font-medium mb-2 text-black">Industry Benchmark Energy Savings</h3>
               <div className="relative mb-6">
-                <div className="text-7xl md:text-8xl font-light gradient-text">
-                  {savingsPercent}
+                <div className="text-7xl md:text-8xl font-light gradient-text transition-all duration-300">
+                  {savingsPercent.toFixed(1)}
                   <span className="text-4xl md:text-5xl">%</span>
                 </div>
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-highlight/20 rounded-full blur-[30px]"></div>
+              </div>
+              <div className="w-full mb-4">
+                <Progress value={(savingsPercent / 23) * 100} className="h-2 bg-gray-200" />
               </div>
               <p className="text-black/70">
                 Potential savings based on industry benchmarks for similar AI-driven energy management solutions.
@@ -320,7 +333,7 @@ const WhyLumesys: React.FC = () => {
               </p>
             </div>
             
-            <Button className="whitespace-nowrap">
+            <Button variant="outline" className="whitespace-nowrap border-accent/20 hover:border-accent hover:bg-accent/5">
               View Projection Model
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
