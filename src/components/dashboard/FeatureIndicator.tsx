@@ -1,24 +1,38 @@
 
 import React from 'react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface FeatureIndicatorProps {
   color: string;
   label: string;
   icon?: React.ReactNode;
+  description?: string;
 }
 
-const FeatureIndicator: React.FC<FeatureIndicatorProps> = ({ color, label, icon }) => {
+const FeatureIndicator: React.FC<FeatureIndicatorProps> = ({ color, label, icon, description }) => {
   return (
-    <div className="flex flex-col items-center p-3 rounded-lg hover:bg-accent/5 transition-all">
-      <div className="flex items-center justify-center mb-2">
-        {icon ? (
-          icon
-        ) : (
-          <span className={`w-3 h-3 inline-block rounded-full ${color}`}></span>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className="flex flex-col items-center p-4 rounded-lg hover:bg-accent/10 transition-all cursor-pointer relative group">
+            <div className="flex items-center justify-center mb-3 relative">
+              <div className={`absolute w-8 h-8 rounded-full ${color} opacity-20 animate-pulse blur-md`}></div>
+              {icon ? (
+                <div className="z-10">{icon}</div>
+              ) : (
+                <span className={`w-4 h-4 z-10 inline-block rounded-full ${color} shadow-lg`}></span>
+              )}
+            </div>
+            <span className="font-medium text-center group-hover:text-accent transition-colors">{label}</span>
+          </div>
+        </TooltipTrigger>
+        {description && (
+          <TooltipContent side="bottom" className="bg-black/90 text-white border-highlight/30">
+            <p className="text-sm">{description}</p>
+          </TooltipContent>
         )}
-      </div>
-      <span className="font-medium text-center">{label}</span>
-    </div>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
 

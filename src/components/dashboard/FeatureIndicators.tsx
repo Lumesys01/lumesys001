@@ -10,16 +10,19 @@ const FeatureIndicators: React.FC = () => {
         color="bg-accent" 
         label="Real-time Monitoring" 
         icon={<BarChart3 className="w-5 h-5 text-accent" />}
+        description="View live building performance metrics as they happen"
       />
       <FeatureIndicator 
         color="bg-highlight" 
         label="Energy Analytics" 
         icon={<Lightbulb className="w-5 h-5 text-highlight" />}
+        description="Analyze energy consumption patterns and identify optimization opportunities"
       />
       <FeatureIndicator 
         color="bg-secondary" 
         label="Cost Optimization" 
         icon={<BadgePercent className="w-5 h-5 text-secondary" />}
+        description="Track savings and reduce operational expenses through smart recommendations"
       />
     </div>
   );

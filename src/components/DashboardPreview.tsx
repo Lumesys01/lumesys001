@@ -3,6 +3,8 @@ import React from 'react';
 import { Card } from '@/components/ui/card';
 import DashboardCarousel from './dashboard/DashboardCarousel';
 import FeatureIndicators from './dashboard/FeatureIndicators';
+import { ChevronRight, Info } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const DashboardPreview: React.FC = () => {
   // Dashboard slide data
@@ -14,7 +16,7 @@ const DashboardPreview: React.FC = () => {
     },
     {
       isInteractive: true,
-      caption: "Real-time Building Management System"
+      caption: "Interactive Building Management System"
     },
     {
       src: "/lovable-uploads/9f0aac31-e231-48e8-925e-2ad8c7249407.png",
@@ -142,10 +144,32 @@ const DashboardPreview: React.FC = () => {
           <p className="text-lg text-black/70 max-w-2xl mx-auto">
             Get a glimpse into our powerful energy management platform and discover how it can transform your operations.
           </p>
+          
+          <div className="flex items-center justify-center mt-4 mb-8 text-sm">
+            <div className="flex items-center bg-accent/5 rounded-full px-4 py-1.5">
+              <span className="animate-pulse inline-block w-2 h-2 rounded-full bg-accent mr-2"></span>
+              <span>Browse through the slides to see different dashboard views</span>
+              <ChevronRight className="w-4 h-4 ml-1 text-accent" />
+            </div>
+          </div>
         </div>
 
         <div className="max-w-6xl mx-auto">
           <div className="relative rounded-xl overflow-hidden shadow-2xl border-2 border-highlight/20">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="absolute top-4 right-4 z-20 bg-black/20 backdrop-blur-sm p-1.5 rounded-full cursor-help">
+                    <Info className="w-4 h-4 text-white" />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="left" className="bg-black/90 text-white border-highlight/30 max-w-xs">
+                  <p className="text-sm">
+                    The second slide features an interactive dashboard where you can select different buildings to view their real-time metrics.
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <DashboardCarousel slides={dashboardImages} buildingData={buildingData} />
           </div>
           
