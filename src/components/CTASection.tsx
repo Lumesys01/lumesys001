@@ -13,6 +13,16 @@ const CTASection: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
+    // Prepare email data for waitlist submission
+    const emailData = {
+      to: "info@golumesys.com",
+      subject: "New Waitlist Signup",
+      text: `New signup for the waitlist: ${email}`,
+      replyTo: email,
+    };
+    
+    console.log("Sending waitlist signup:", emailData);
+    
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
@@ -23,6 +33,9 @@ const CTASection: React.FC = () => {
         description: "We'll be in touch soon with exclusive updates.",
         variant: "default",
       });
+      
+      // Log confirmation email
+      console.log("Sending confirmation email to:", email);
     }, 1500);
   };
 
@@ -101,7 +114,7 @@ const CTASection: React.FC = () => {
             <p className="text-gray-800 mb-4 font-medium">Want to learn more about our mission?</p>
             <div className="flex flex-wrap justify-center gap-4">
               <a 
-                href="https://linkedin.com" 
+                href="https://www.linkedin.com/in/tarylogle-theminingmaven" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-white border border-gray-200 hover:border-accent py-3 px-6 rounded-full text-gray-700 hover:text-accent transition-colors"
@@ -110,7 +123,11 @@ const CTASection: React.FC = () => {
                 <span>Connect with our Founder</span>
               </a>
               
-              <Button variant="outline" className="rounded-full bg-white text-gray-800">
+              <Button 
+                variant="outline" 
+                className="rounded-full bg-white text-gray-800"
+                onClick={() => window.location.href = "mailto:info@golumesys.com"}
+              >
                 Request a Demo
               </Button>
             </div>

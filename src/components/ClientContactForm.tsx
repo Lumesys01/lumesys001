@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -8,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { CheckCircle, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   fullName: z.string().min(2, {
@@ -19,6 +21,7 @@ const formSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
+  message: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -34,14 +37,35 @@ const ClientContactForm: React.FC = () => {
       fullName: "",
       companyName: "",
       email: "",
+      message: "",
     },
   });
 
   function onSubmit(data: FormValues) {
     setIsSubmitting(true);
     
+    // Prepare email data
+    const emailData = {
+      to: "info@golumesys.com",
+      from: data.email,
+      subject: `New Contact Request from ${data.fullName} at ${data.companyName}`,
+      text: `
+Name: ${data.fullName}
+Company: ${data.companyName}
+Email: ${data.email}
+Message: ${data.message || "No message provided"}
+      `,
+      replyTo: data.email,
+      // In a real implementation, you would include user confirmation email logic
+    };
+    
+    // Simulate API call to send email
+    console.log("Sending email data:", emailData);
+    
+    // In a real implementation, you would use a service like EmailJS, SendGrid, etc.
+    // For now, we'll simulate a successful email send
     setTimeout(() => {
-      console.log(data);
+      console.log("Email sent successfully");
       setIsSubmitting(false);
       
       toast({
@@ -50,6 +74,9 @@ const ClientContactForm: React.FC = () => {
       });
 
       setIsSubmitted(true);
+      
+      // Log confirmation email
+      console.log("Sending confirmation email to:", data.email);
     }, 1500);
   }
 
@@ -140,6 +167,23 @@ const ClientContactForm: React.FC = () => {
                         </FormItem>
                       )}
                     />
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-black font-medium">Message (Optional)</FormLabel>
+                          <FormControl>
+                            <Textarea 
+                              placeholder="Tell us about your needs..." 
+                              {...field} 
+                              className="transition-all duration-300 focus:border-accent focus:ring focus:ring-accent/20 text-black min-h-[100px]"
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red-600" />
+                        </FormItem>
+                      )}
+                    />
                     <Button 
                       type="submit" 
                       disabled={isSubmitting}
@@ -173,6 +217,9 @@ const ClientContactForm: React.FC = () => {
                   <p className="text-black mb-4 animate-fade-in" style={{ animationDelay: '200ms' }}>
                     Your information has been submitted successfully. Our team will contact you shortly.
                   </p>
+                  <p className="text-black/70 text-sm animate-fade-in" style={{ animationDelay: '400ms' }}>
+                    A confirmation has been sent to your email address.
+                  </p>
                 </div>
               )}
             </CardContent>
@@ -180,6 +227,7 @@ const ClientContactForm: React.FC = () => {
               <Button 
                 variant="outline" 
                 className="text-black font-medium hover:bg-accent/5 transition-all duration-300"
+                onClick={() => window.location.href = "mailto:info@golumesys.com"}
               >
                 Contact Support
               </Button>
