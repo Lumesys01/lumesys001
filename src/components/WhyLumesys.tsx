@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Check, X, Zap, Users, Award, Shield, LineChart, BatteryCharging, Lightbulb } from 'lucide-react';
+import { ArrowRight, Check, X, Zap, Users, Award, Shield, LineChart, BatteryCharging, Lightbulb, Rocket, TrendingUp, Star, CircleDollarSign, CircleUserRound } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
@@ -12,6 +12,7 @@ const WhyLumesys: React.FC = () => {
   const [savingsPercent, setSavingsPercent] = useState(0);
   const [activeFeature, setActiveFeature] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('features');
+  const [animateMetric, setAnimateMetric] = useState(false);
   
   useEffect(() => {
     // Start with 0% and animate to 23%
@@ -33,6 +34,17 @@ const WhyLumesys: React.FC = () => {
     
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    // Trigger growth metrics animation when tab changes to 'growth'
+    if (activeTab === 'growth') {
+      setTimeout(() => {
+        setAnimateMetric(true);
+      }, 300);
+    } else {
+      setAnimateMetric(false);
+    }
+  }, [activeTab]);
 
   const comparisonData = [
     {
@@ -312,63 +324,139 @@ const WhyLumesys: React.FC = () => {
                 </p>
               </div>
               
-              <div className="h-80">
-                <ChartContainer 
-                  config={{
-                    lumesys: { theme: { light: "#00bf72", dark: "#00bf72" } },
-                    marketAverage: { theme: { light: "#dddddd", dark: "#dddddd" } },
-                    users: { theme: { light: "#9b87f5", dark: "#9b87f5" } }
-                  }}
-                >
-                  <AreaChart
-                    data={marketGrowthData}
-                    margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                    <XAxis dataKey="year" />
-                    <YAxis label={{ value: 'Growth Metrics', angle: -90, position: 'insideLeft' }} />
-                    <Tooltip content={<ChartTooltipContent />} />
-                    <Legend />
-                    <Area 
-                      type="monotone" 
-                      dataKey="lumesys" 
-                      name="Revenue ($K)" 
-                      stackId="1" 
-                      stroke="#00bf72" 
-                      fill="url(#colorLumesys)" 
-                    />
-                    <Area 
-                      type="monotone" 
-                      dataKey="marketAverage" 
-                      name="Market Avg ($K)" 
-                      stackId="2" 
-                      stroke="#bbbbbb" 
-                      fill="url(#colorMarket)" 
-                    />
-                    <Area 
-                      type="monotone" 
-                      dataKey="users" 
-                      name="Users" 
-                      stackId="3" 
-                      stroke="#9b87f5" 
-                      fill="url(#colorUsers)" 
-                    />
-                    <defs>
-                      <linearGradient id="colorLumesys" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#00bf72" stopOpacity={0.8}/>
-                        <stop offset="95%" stopColor="#00bf72" stopOpacity={0.2}/>
-                      </linearGradient>
-                      <linearGradient id="colorMarket" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#dddddd" stopOpacity={0.8}/>
-                        <stop offset="95%" stopColor="#dddddd" stopOpacity={0.2}/>
-                      </linearGradient>
-                      <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#9b87f5" stopOpacity={0.8}/>
-                        <stop offset="95%" stopColor="#9b87f5" stopOpacity={0.2}/>
-                      </linearGradient>
-                    </defs>
-                  </AreaChart>
-                </ChartContainer>
+              <div className="relative h-80 perspective-container">
+                {/* Replace the chart with animated growth visualization */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className={`transition-all duration-1000 ease-out transform ${animateMetric ? 'scale-100 opacity-100' : 'scale-75 opacity-0'}`}>
+                    <div className="relative h-64 w-full">
+                      {/* Rocket Animation */}
+                      <div className="absolute h-full w-full flex items-center justify-center">
+                        <div className={`transition-all duration-2000 ease-out delay-300 transform ${animateMetric ? 'translate-y-[-80px]' : 'translate-y-[150px]'}`}>
+                          <div className="relative">
+                            <Rocket 
+                              size={64} 
+                              className="text-accent rotate-[-20deg] filter drop-shadow-lg" 
+                            />
+                            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-[90%] w-4 h-20 bg-gradient-to-t from-transparent to-accent/40 rounded-full blur-md"></div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Year by Year Metrics */}
+                      <div className="absolute w-full h-full">
+                        {marketGrowthData.map((data, index) => {
+                          const isLast = index === marketGrowthData.length - 1;
+                          const delay = 500 + (index * 200);
+                          const heightPercent = (data.lumesys / 4800) * 100;
+                          
+                          return (
+                            <div 
+                              key={data.year}
+                              className="absolute flex flex-col items-center" 
+                              style={{
+                                left: `${20 + (index * 15)}%`,
+                                bottom: '10%',
+                              }}
+                            >
+                              <div 
+                                className={`transition-all duration-1000 ease-out transform flex flex-col items-center`} 
+                                style={{
+                                  transitionDelay: `${delay}ms`,
+                                  opacity: animateMetric ? 1 : 0,
+                                  transform: animateMetric ? 'translateY(0)' : 'translateY(40px)'
+                                }}
+                              >
+                                <div className="mb-1">
+                                  <span className={`font-bold ${isLast ? 'text-accent text-lg' : 'text-gray-700 text-sm'}`}>
+                                    {data.lumesys}K
+                                  </span>
+                                </div>
+                                <div 
+                                  className={`w-8 relative rounded-t-md bg-gradient-to-t ${isLast ? 'from-accent to-highlight' : 'from-accent/60 to-accent/90'} transition-all duration-1000 ease-out filter drop-shadow-md`}
+                                  style={{
+                                    height: animateMetric ? `${heightPercent}px` : '0px',
+                                    transitionDelay: `${delay + 300}ms`,
+                                  }}
+                                >
+                                  {isLast && (
+                                    <>
+                                      <Star className="absolute -top-3 -right-3 w-6 h-6 text-yellow-400 animate-pulse-glow" />
+                                      <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-300 rounded-full animate-ping"></div>
+                                    </>
+                                  )}
+                                </div>
+                                <div 
+                                  className={`text-xs font-medium mt-1 ${isLast ? 'text-accent' : 'text-gray-600'}`}
+                                >
+                                  {data.year}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      
+                      {/* Floating Metrics Icons */}
+                      <div className="absolute inset-0">
+                        {/* Users Icon */}
+                        <div 
+                          className={`absolute top-[30%] right-[10%] transition-all duration-700 delay-1000 transform ${animateMetric ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+                        >
+                          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-md">
+                            <CircleUserRound className="w-5 h-5 text-accent" />
+                            <span className="font-medium">5000+</span>
+                          </div>
+                        </div>
+                        
+                        {/* Revenue Icon */}
+                        <div 
+                          className={`absolute top-[20%] left-[20%] transition-all duration-700 delay-1200 transform ${animateMetric ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+                        >
+                          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-md">
+                            <CircleDollarSign className="w-5 h-5 text-accent" />
+                            <span className="font-medium">4800K</span>
+                          </div>
+                        </div>
+                        
+                        {/* Growth Icon */}
+                        <div 
+                          className={`absolute top-[50%] left-[10%] transition-all duration-700 delay-1400 transform ${animateMetric ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+                        >
+                          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-md">
+                            <TrendingUp className="w-5 h-5 text-accent" />
+                            <span className="font-medium">+4700%</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Particles */}
+                      <div className="absolute inset-0 pointer-events-none">
+                        {[...Array(10)].map((_, i) => {
+                          const size = 3 + Math.random() * 5;
+                          const left = Math.random() * 100;
+                          const animDelay = Math.random() * 4;
+                          const duration = 3 + Math.random() * 3;
+                          
+                          return (
+                            <div
+                              key={i}
+                              className="absolute rounded-full bg-highlight animate-float"
+                              style={{
+                                width: `${size}px`,
+                                height: `${size}px`,
+                                left: `${left}%`,
+                                bottom: '30%',
+                                opacity: 0.7,
+                                animationDelay: `${animDelay}s`,
+                                animationDuration: `${duration}s`,
+                              }}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             
