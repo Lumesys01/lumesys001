@@ -1,7 +1,7 @@
 
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const Navigation = () => {
@@ -34,6 +34,10 @@ const Navigation = () => {
         </Link>
         
         <div className="hidden md:flex items-center space-x-8">
+          <Link to="/" className="text-black/80 hover:text-black transition-colors flex items-center gap-2">
+            <Home size={18} />
+            Home
+          </Link>
           <Link to="#features" className="text-black/80 hover:text-black transition-colors">
             Features
           </Link>
@@ -70,6 +74,14 @@ const Navigation = () => {
         <div className="md:hidden bg-white/95 backdrop-blur-lg">
           <div className="flex flex-col space-y-4 px-6 py-8">
             <Link 
+              to="/" 
+              className="text-black/80 hover:text-black py-2 transition-colors flex items-center gap-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Home size={18} />
+              Home
+            </Link>
+            <Link 
               to="#features" 
               className="text-black/80 hover:text-black py-2 transition-colors"
               onClick={() => setIsMenuOpen(false)}
@@ -97,7 +109,7 @@ const Navigation = () => {
             >
               Join Waitlist
             </Link>
-            <div className="pt-4 flex flex-col space-y-3">
+            <div className="pt-4">
               <Button variant="outline" className="glow-border bg-transparent backdrop-blur-sm text-black w-full">
                 Learn More
               </Button>
