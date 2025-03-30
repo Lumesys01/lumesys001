@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { CheckCircle, Building, Hospital, Computer, Briefcase, ShoppingBag, Building2 } from 'lucide-react';
+import { CheckCircle, HardHat, Factory, Building, Store, Gauge } from 'lucide-react';
 
 interface CustomerLogo {
   name: string;
@@ -20,66 +20,64 @@ interface SuccessMetric {
 const CustomerShowcase: React.FC = () => {
   const customerLogos: CustomerLogo[] = [
     { 
-      name: "TechGlobal", 
-      logo: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "Data Centers",
-      icon: <Computer className="h-4 w-4 text-accent/80" />
+      name: "MineralCore", 
+      logo: "https://images.unsplash.com/photo-1635272292141-86f23835c8c9?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      industry: "Mining",
+      icon: <HardHat className="h-4 w-4 text-accent/80" />
     },
     { 
-      name: "HealthCare Partners", 
-      // Updated healthcare image with a more professional medical-themed image
-      logo: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "Healthcare",
-      icon: <Hospital className="h-4 w-4 text-accent/80" />
-    },
-    { 
-      name: "Manufacturing Plus", 
+      name: "IndusTech Manufacturing", 
       logo: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
       industry: "Manufacturing",
+      icon: <Factory className="h-4 w-4 text-accent/80" />
+    },
+    { 
+      name: "GovInfra Systems", 
+      logo: "https://images.unsplash.com/photo-1523294587484-bae6cc870010?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      industry: "Government Infrastructure",
       icon: <Building className="h-4 w-4 text-accent/80" />
     },
     { 
-      name: "Edu Connect", 
-      logo: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "Education",
-      icon: <Briefcase className="h-4 w-4 text-accent/80" />
-    },
-    { 
-      name: "CommMart Group", 
+      name: "RetailMax Group", 
       logo: "https://images.unsplash.com/photo-1612103198005-b238154f4590?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "Retail",
-      icon: <ShoppingBag className="h-4 w-4 text-accent/80" />
+      industry: "Retail Chains",
+      icon: <Store className="h-4 w-4 text-accent/80" />
     },
     { 
-      name: "Real Estate One", 
-      // Updated real estate image with a modern luxury real estate image
-      logo: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "Commercial Real Estate",
-      icon: <Building2 className="h-4 w-4 text-accent/80" />
+      name: "EnergySphere", 
+      logo: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      industry: "High Energy Industry",
+      icon: <Gauge className="h-4 w-4 text-accent/80" />
+    },
+    { 
+      name: "ProcessTech Industries", 
+      logo: "https://images.unsplash.com/photo-1565715731448-558db9315362?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      industry: "Industrial Processing",
+      icon: <Factory className="h-4 w-4 text-accent/80" />
     },
   ];
 
   const successMetrics: SuccessMetric[] = [
     { 
-      customer: "TechGlobal", 
-      savingsPercentage: 22, 
-      annualSavings: "$680,000", 
-      paybackPeriod: "9 months", 
-      co2Reduction: "450 tons" 
+      customer: "MineralCore", 
+      savingsPercentage: 24, 
+      annualSavings: "$920,000", 
+      paybackPeriod: "8 months", 
+      co2Reduction: "580 tons" 
     },
     { 
-      customer: "HealthCare Partners", 
-      savingsPercentage: 18, 
-      annualSavings: "$420,000", 
-      paybackPeriod: "11 months", 
-      co2Reduction: "280 tons" 
+      customer: "GovInfra Systems", 
+      savingsPercentage: 19, 
+      annualSavings: "$650,000", 
+      paybackPeriod: "10 months", 
+      co2Reduction: "420 tons" 
     },
     { 
-      customer: "Manufacturing Plus", 
-      savingsPercentage: 25, 
-      annualSavings: "$950,000", 
-      paybackPeriod: "7 months", 
-      co2Reduction: "620 tons" 
+      customer: "EnergySphere", 
+      savingsPercentage: 27, 
+      annualSavings: "$1,200,000", 
+      paybackPeriod: "6 months", 
+      co2Reduction: "750 tons" 
     }
   ];
 
@@ -88,13 +86,13 @@ const CustomerShowcase: React.FC = () => {
       <div className="container mx-auto">
         <div className="text-center mb-12">
           <span className="inline-block px-4 py-2 mb-4 rounded-full bg-accent/10 text-accent/90 text-sm font-medium">
-            Success Stories
+            Target Markets
           </span>
           <h2 className="text-3xl md:text-5xl font-light mb-4 text-black">
-            Trusted by <span className="gradient-text font-normal">Industry Leaders</span>
+            Transforming <span className="gradient-text font-normal">Energy Management</span>
           </h2>
           <p className="text-lg text-black/70 max-w-2xl mx-auto">
-            See how companies across various industries are achieving significant energy savings with Lumesys.
+            See how high-energy-consuming industries are achieving significant cost savings and sustainability goals with Lumesys.
           </p>
         </div>
         
@@ -162,9 +160,9 @@ const CustomerShowcase: React.FC = () => {
           </div>
           
           <div className="mt-10 text-center">
-            <p className="text-lg font-medium mb-4">Ready to achieve similar results?</p>
+            <p className="text-lg font-medium mb-4">Ready to achieve similar results for your industry?</p>
             <a 
-              href="#roi-calculator" 
+              href="#roi" 
               className="glow-button inline-block px-8 py-3 rounded-full text-primary font-medium shadow-lg"
             >
               Calculate Your Potential Savings
