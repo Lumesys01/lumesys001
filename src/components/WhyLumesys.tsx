@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Check, X, Zap, BarChart, LineChart, TrendingUp, Rocket } from 'lucide-react';
+import { ArrowRight, Check, X, Zap, BarChart, LineChart, TrendingUp, Users } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
@@ -11,8 +11,6 @@ const WhyLumesys: React.FC = () => {
   const [savingsPercent, setSavingsPercent] = useState(0);
   const [activeFeature, setActiveFeature] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('features');
-  const [animate, setAnimate] = useState(false);
-  const [animationStep, setAnimationStep] = useState(0);
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,34 +23,6 @@ const WhyLumesys: React.FC = () => {
     
     return () => clearInterval(interval);
   }, []);
-
-  // Animation effects for ROI tab
-  useEffect(() => {
-    if (activeTab === 'roi') {
-      // Start animation sequence
-      setAnimate(true);
-      const animSequence = setTimeout(() => {
-        setAnimationStep(1);
-        
-        const step2 = setTimeout(() => {
-          setAnimationStep(2);
-          
-          const step3 = setTimeout(() => {
-            setAnimationStep(3);
-          }, 500);
-          
-          return () => clearTimeout(step3);
-        }, 500);
-        
-        return () => clearTimeout(step2);
-      }, 300);
-      
-      return () => clearTimeout(animSequence);
-    } else {
-      setAnimate(false);
-      setAnimationStep(0);
-    }
-  }, [activeTab]);
 
   const comparisonData = [
     {
@@ -93,20 +63,11 @@ const WhyLumesys: React.FC = () => {
   ];
 
   const marketGrowthData = [
-    { year: '2024', lumesys: 10, marketAverage: 5 },
-    { year: '2025', lumesys: 28, marketAverage: 12 },
-    { year: '2026', lumesys: 45, marketAverage: 18 },
-    { year: '2027', lumesys: 72, marketAverage: 25 },
-    { year: '2028', lumesys: 95, marketAverage: 32 }
-  ];
-
-  const roiData = [
-    { month: 3, lumesys: 5, traditional: 0 },
-    { month: 6, lumesys: 15, traditional: 2 },
-    { month: 9, lumesys: 28, traditional: 7 },
-    { month: 12, lumesys: 42, traditional: 15 },
-    { month: 15, lumesys: 58, traditional: 25 },
-    { month: 18, lumesys: 75, traditional: 35 }
+    { year: '2024', lumesys: 100, marketAverage: 50, users: 100 },
+    { year: '2025', lumesys: 800, marketAverage: 200, users: 500 },
+    { year: '2026', lumesys: 2000, marketAverage: 600, users: 1500 },
+    { year: '2027', lumesys: 3200, marketAverage: 1200, users: 3000 },
+    { year: '2028', lumesys: 4800, marketAverage: 2000, users: 5000 }
   ];
 
   return (
@@ -134,19 +95,11 @@ const WhyLumesys: React.FC = () => {
             </button>
             <button 
               onClick={() => setActiveTab('growth')}
-              className={`px-4 py-2 text-lg transition-colors ${activeTab === 'growth' 
-                ? 'text-accent border-b-2 border-accent' 
-                : 'text-black/60 hover:text-black/80'}`}
-            >
-              Market Growth
-            </button>
-            <button 
-              onClick={() => setActiveTab('roi')}
-              className={`px-4 py-2 text-lg transition-all ${activeTab === 'roi' 
+              className={`px-4 py-2 text-lg transition-all ${activeTab === 'growth' 
                 ? 'text-accent border-b-2 border-accent scale-110 font-medium' 
                 : 'text-black/60 hover:text-black/80'}`}
             >
-              ROI Timeframe
+              Growth & Adoption
             </button>
           </div>
         </div>
@@ -238,202 +191,122 @@ const WhyLumesys: React.FC = () => {
         
         {activeTab === 'growth' && (
           <div className="glass-card rounded-xl p-8 shadow-lg overflow-hidden">
-            <h3 className="font-medium text-xl mb-4">Projected Market Share Growth</h3>
-            <p className="text-black/70 mb-6">
-              Lumesys is projected to grow at a significantly faster rate than the market average 
-              for energy management systems over the next five years.
-            </p>
-            
-            <div className="h-80 w-full">
-              <ChartContainer 
-                config={{
-                  lumesys: { theme: { light: "#00bf72", dark: "#00bf72" } },
-                  marketAverage: { theme: { light: "#dddddd", dark: "#dddddd" } }
-                }}
-              >
-                <AreaChart
-                  data={marketGrowthData}
-                  margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis dataKey="year" />
-                  <YAxis label={{ value: '% Market Share', angle: -90, position: 'insideLeft' }} />
-                  <Tooltip content={<ChartTooltipContent />} />
-                  <Legend />
-                  <Area 
-                    type="monotone" 
-                    dataKey="lumesys" 
-                    name="Lumesys" 
-                    stackId="1" 
-                    stroke="#00bf72" 
-                    fill="url(#colorLumesys)" 
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="marketAverage" 
-                    name="Market Average" 
-                    stackId="2" 
-                    stroke="#bbbbbb" 
-                    fill="url(#colorMarket)" 
-                  />
-                  <defs>
-                    <linearGradient id="colorLumesys" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#00bf72" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#00bf72" stopOpacity={0.2}/>
-                    </linearGradient>
-                    <linearGradient id="colorMarket" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#dddddd" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#dddddd" stopOpacity={0.2}/>
-                    </linearGradient>
-                  </defs>
-                </AreaChart>
-              </ChartContainer>
-            </div>
-            
-            <div className="mt-6 flex flex-col gap-3">
-              <div className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
-                <div className="flex items-center gap-2">
-                  <div className="h-3 w-3 rounded-full bg-accent"></div>
-                  <span className="font-medium">Lumesys Growth Rate</span>
-                </div>
-                <span className="font-bold text-accent">+85% over 5 years</span>
-              </div>
-              <div className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
-                <div className="flex items-center gap-2">
-                  <div className="h-3 w-3 rounded-full bg-gray-400"></div>
-                  <span className="font-medium">Market Average Growth Rate</span>
-                </div>
-                <span className="font-bold text-gray-600">+27% over 5 years</span>
-              </div>
-            </div>
-          </div>
-        )}
-        
-        {activeTab === 'roi' && (
-          <div className={`glass-card rounded-xl p-8 shadow-2xl overflow-hidden transition-all duration-700 ${animate ? 'scale-105' : ''}`}>
-            <div className="relative">
-              {/* Animated heading */}
-              <h3 className={`font-bold text-3xl mb-8 text-center transition-all duration-700 ${animate ? 'text-accent scale-110' : 'text-black'}`}>
-                <span className={`transition-all inline-flex items-center duration-700 ${animate ? 'text-accent' : 'text-black'}`}>
-                  <Rocket className={`mr-2 transition-all duration-1000 transform ${animate && animationStep > 0 ? 'rotate-12 text-accent' : ''}`} />
-                  <span className="relative">
-                    ROI Comparison Over Time
-                    <span className={`absolute -bottom-2 left-0 w-full h-1 bg-accent scale-x-0 transition-transform duration-700 ${animate && animationStep > 1 ? 'scale-x-100' : ''}`}></span>
-                  </span>
-                </span>
-              </h3>
-              
-              {/* Animation elements */}
-              <div className={`absolute -top-16 -right-16 w-32 h-32 bg-highlight/30 rounded-full blur-3xl transition-opacity duration-700 ${animate && animationStep > 0 ? 'opacity-100' : 'opacity-0'}`}></div>
-              <div className={`absolute -bottom-16 -left-16 w-32 h-32 bg-accent/30 rounded-full blur-3xl transition-opacity duration-700 ${animate && animationStep > 1 ? 'opacity-100' : 'opacity-0'}`}></div>
-              
-              {/* Floating particles */}
-              {animate && animationStep > 1 && (
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                  {[...Array(10)].map((_, index) => (
-                    <div 
-                      key={index}
-                      className="absolute w-2 h-2 rounded-full bg-accent animate-ping opacity-70"
-                      style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                        animationDelay: `${Math.random() * 2}s`,
-                        animationDuration: `${1 + Math.random() * 3}s`,
-                      }}
-                    ></div>
-                  ))}
-                </div>
-              )}
-              
-              <p className={`text-black/70 mb-6 transition-all duration-700 ${animate && animationStep > 0 ? 'text-lg' : 'text-base'}`}>
-                <strong className={animate && animationStep > 1 ? 'text-accent' : ''}>Lumesys delivers <span className="text-accent">42% ROI in just 12 months</span>,</strong> compared to 
-                traditional systems that take years to see meaningful returns.
-              </p>
-            </div>
-            
-            <div className={`h-96 w-full transition-all duration-1000 ${animate ? 'transform-gpu' : ''}`}>
-              <ChartContainer 
-                config={{
-                  lumesys: { theme: { light: "#00bf72", dark: "#00bf72" } },
-                  traditional: { theme: { light: "#9b87f5", dark: "#9b87f5" } }
-                }}
-              >
-                <AreaChart
-                  data={roiData}
-                  margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis 
-                    dataKey="month" 
-                    label={{ value: 'Months After Implementation', position: 'insideBottom', offset: -5 }}
-                    tick={{ fill: '#403E43', fontSize: 12 }}
-                    stroke="#8E9196"
-                  />
-                  <YAxis 
-                    label={{ value: 'ROI (%)', angle: -90, position: 'insideLeft', offset: 10 }} 
-                    tick={{ fill: '#403E43', fontSize: 12 }}
-                    stroke="#8E9196"
-                  />
-                  <Tooltip 
-                    content={<ChartTooltipContent />}
-                    wrapperStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #E5DEFF', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-                  />
-                  <Legend 
-                    verticalAlign="top" 
-                    height={36}
-                    wrapperStyle={{ paddingTop: '10px' }}
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="lumesys" 
-                    name="Lumesys ROI" 
-                    stroke="#00bf72" 
-                    strokeWidth={2}
-                    fill="url(#colorLumesys)" 
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="traditional" 
-                    name="Traditional Systems" 
-                    stroke="#9b87f5" 
-                    strokeWidth={2}
-                    fill="url(#colorTraditional)" 
-                  />
-                  <defs>
-                    <linearGradient id="colorLumesys" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#00bf72" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#00bf72" stopOpacity={0.2}/>
-                    </linearGradient>
-                    <linearGradient id="colorTraditional" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#9b87f5" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#9b87f5" stopOpacity={0.2}/>
-                    </linearGradient>
-                  </defs>
-                </AreaChart>
-              </ChartContainer>
-            </div>
-            
-            <div className={`mt-12 grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-700 ${animate && animationStep > 2 ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-              <div className={`p-5 bg-white rounded-lg border shadow-lg transition-all duration-700 ${animate ? 'border-accent/50 shadow-accent/20' : 'border-gray-200'}`}>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <div className={`p-2 rounded-full mr-3 transition-colors duration-700 ${animate ? 'bg-accent/10' : 'bg-gray-100'}`}>
-                      <TrendingUp className={`w-6 h-6 transition-colors duration-700 ${animate ? 'text-accent' : 'text-gray-500'}`} />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
+              <div>
+                <h3 className="font-medium text-xl mb-4">Market Growth & Adoption</h3>
+                <p className="text-black/70 mb-6">
+                  Lumesys is projected to grow at a significantly faster rate than the market average 
+                  for energy management systems over the next five years.
+                </p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <div className="h-3 w-3 rounded-full bg-accent"></div>
+                      <span className="font-medium">Lumesys Growth</span>
                     </div>
-                    <span className="font-medium text-black/80">Break-even Point</span>
+                    <span className="font-bold text-accent">+4700%</span>
                   </div>
-                  <span className={`text-2xl font-bold transition-all duration-700 ${animate ? 'text-accent scale-110' : 'text-black'}`}>~6 months</span>
-                </div>
-              </div>
-              <div className={`p-5 bg-white rounded-lg border shadow-lg transition-all duration-700 delay-100 ${animate ? 'border-accent/50 shadow-accent/20' : 'border-gray-200'}`}>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <div className={`p-2 rounded-full mr-3 transition-colors duration-700 ${animate ? 'bg-accent/10' : 'bg-gray-100'}`}>
-                      <Rocket className={`w-6 h-6 transition-colors duration-700 ${animate ? 'text-accent' : 'text-gray-500'}`} />
+                  <div className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <div className="h-3 w-3 rounded-full bg-gray-400"></div>
+                      <span className="font-medium">Market Average</span>
                     </div>
-                    <span className="font-medium text-black/80">12-month ROI</span>
+                    <span className="font-bold text-gray-600">+1950%</span>
                   </div>
-                  <span className={`text-2xl font-bold transition-all duration-700 ${animate ? 'text-accent scale-110' : 'text-black'}`}>42%</span>
+                </div>
+
+                <div className="mt-6">
+                  <div className="flex items-center justify-between bg-accent/5 p-3 rounded-lg border border-accent/20">
+                    <div className="flex items-center gap-2">
+                      <div className="p-2 rounded-full bg-accent/10">
+                        <Users className="w-4 h-4 text-accent" />
+                      </div>
+                      <span className="font-medium">User Growth</span>
+                    </div>
+                    <span className="font-bold text-accent">100 → 5000 users</span>
+                  </div>
+                </div>
+
+                <p className="text-sm text-black/60 mt-6">
+                  Early adopters are experiencing immediate benefits, with our user base expanding 
+                  rapidly as word spreads about our energy optimization capabilities.
+                </p>
+              </div>
+              
+              <div className="h-80">
+                <ChartContainer 
+                  config={{
+                    lumesys: { theme: { light: "#00bf72", dark: "#00bf72" } },
+                    marketAverage: { theme: { light: "#dddddd", dark: "#dddddd" } },
+                    users: { theme: { light: "#9b87f5", dark: "#9b87f5" } }
+                  }}
+                >
+                  <AreaChart
+                    data={marketGrowthData}
+                    margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <XAxis dataKey="year" />
+                    <YAxis label={{ value: 'Growth Metrics', angle: -90, position: 'insideLeft' }} />
+                    <Tooltip content={<ChartTooltipContent />} />
+                    <Legend />
+                    <Area 
+                      type="monotone" 
+                      dataKey="lumesys" 
+                      name="Revenue ($K)" 
+                      stackId="1" 
+                      stroke="#00bf72" 
+                      fill="url(#colorLumesys)" 
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="marketAverage" 
+                      name="Market Avg ($K)" 
+                      stackId="2" 
+                      stroke="#bbbbbb" 
+                      fill="url(#colorMarket)" 
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="users" 
+                      name="Users" 
+                      stackId="3" 
+                      stroke="#9b87f5" 
+                      fill="url(#colorUsers)" 
+                    />
+                    <defs>
+                      <linearGradient id="colorLumesys" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#00bf72" stopOpacity={0.8}/>
+                        <stop offset="95%" stopColor="#00bf72" stopOpacity={0.2}/>
+                      </linearGradient>
+                      <linearGradient id="colorMarket" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#dddddd" stopOpacity={0.8}/>
+                        <stop offset="95%" stopColor="#dddddd" stopOpacity={0.2}/>
+                      </linearGradient>
+                      <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#9b87f5" stopOpacity={0.8}/>
+                        <stop offset="95%" stopColor="#9b87f5" stopOpacity={0.2}/>
+                      </linearGradient>
+                    </defs>
+                  </AreaChart>
+                </ChartContainer>
+              </div>
+            </div>
+            
+            <div className="mt-6">
+              <div className="flex flex-col sm:flex-row gap-4 bg-gray-50 p-4 rounded-lg">
+                <div className="flex-1 border-l-4 border-accent pl-3">
+                  <h4 className="font-medium">Quick Onboarding</h4>
+                  <p className="text-sm text-black/60">Users can deploy Lumesys in under 48 hours with minimal setup</p>
+                </div>
+                <div className="flex-1 border-l-4 border-accent pl-3">
+                  <h4 className="font-medium">Immediate Results</h4>
+                  <p className="text-sm text-black/60">First energy savings appear within 2 weeks of implementation</p>
+                </div>
+                <div className="flex-1 border-l-4 border-accent pl-3">
+                  <h4 className="font-medium">Referral Growth</h4>
+                  <p className="text-sm text-black/60">85% of new customers come from existing client referrals</p>
                 </div>
               </div>
             </div>
