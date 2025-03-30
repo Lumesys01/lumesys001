@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -11,13 +10,6 @@ export default {
   ],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
       colors: {
         primary: "#051937",
@@ -40,7 +32,7 @@ export default {
         },
         "muted-foreground": {
           DEFAULT: "#A3A299",
-          dark: "#C8C8C9",
+          dark: "#A0A0A5",
         },
         border: {
           DEFAULT: "#E0E0E0",
@@ -52,7 +44,7 @@ export default {
         },
         foreground: {
           DEFAULT: "#000000",
-          dark: "#F6F6F7", 
+          dark: "#E0E0E0",
         },
       },
       textColor: {
