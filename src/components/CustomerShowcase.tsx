@@ -49,9 +49,9 @@ const CustomerShowcase: React.FC = () => {
       icon: <Gauge className="h-4 w-4 text-accent/80" />
     },
     { 
-      name: "ProcessTech Industries", 
+      name: "Commercial and Industrial", 
       logo: "https://images.unsplash.com/photo-1581092160607-ee22731c9c2c?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "C&I Industries",
+      industry: "C&I Sector",
       icon: <Factory className="h-4 w-4 text-accent/80" />
     },
   ];
