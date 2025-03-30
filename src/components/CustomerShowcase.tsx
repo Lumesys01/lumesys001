@@ -50,7 +50,7 @@ const CustomerShowcase: React.FC = () => {
     },
     { 
       name: "Commercial and Industrial", 
-      logo: "https://images.unsplash.com/photo-1581092160607-ee22731c9c2c?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
+      logo: "https://images.unsplash.com/photo-1460574283810-2aab119d8511?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
       industry: "C&I Sector",
       icon: <Factory className="h-4 w-4 text-accent/80" />
     },
