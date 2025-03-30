@@ -9,6 +9,8 @@ import ROICalculator from "@/components/ROICalculator";
 import ClientContactForm from "@/components/ClientContactForm";
 import DemoCharts from "@/components/DemoCharts";
 import WhyLumesys from "@/components/WhyLumesys";
+import OurWhy from "@/components/OurWhy";
+import TeamSection from "@/components/TeamSection";
 import PageTransition from "@/components/ui/PageTransition";
 import ScrollIndicator from "@/components/ScrollIndicator";
 
@@ -109,6 +111,18 @@ const Index = () => {
         <PageTransition direction="left" delay={100}>
           <section id="why" className="bg-white py-16">
             <WhyLumesys />
+          </section>
+        </PageTransition>
+        
+        <PageTransition direction="right" delay={150}>
+          <section id="our-why" className="bg-white py-16">
+            <OurWhy />
+          </section>
+        </PageTransition>
+        
+        <PageTransition direction="left" delay={150}>
+          <section id="team" className="bg-white py-16">
+            <TeamSection />
           </section>
         </PageTransition>
         

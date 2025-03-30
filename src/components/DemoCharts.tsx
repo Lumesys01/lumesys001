@@ -71,7 +71,7 @@ const DemoCharts = () => {
   const [animate, setAnimate] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
-  const [activeTab, setActiveTab] = useState("pie");
+  const [activeTab, setActiveTab] = useState("sadc");
   const [showDescription, setShowDescription] = useState(false);
   const [marketView, setMarketView] = useState("global");
   const [sadcQuarter, setSadcQuarter] = useState("q4");
@@ -204,7 +204,7 @@ const DemoCharts = () => {
   const tabDescriptions = {
     sadc: "Regional adoption across SADC countries over quarterly periods.",
     global: "Global adoption forecast showing steady incremental growth.",
-    pie: "Market size distribution across major industry segments."
+    msd: "Market size distribution across major industry segments."
   };
 
   const getPieDataForCurrentMarket = () => {
@@ -267,11 +267,11 @@ const DemoCharts = () => {
                 Global
               </TabsTrigger>
               <TabsTrigger 
-                value="pie"
+                value="msd"
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-accent/20 data-[state=active]:to-highlight/20 rounded-full data-[state=active]:text-accent"
               >
                 <PieChartIcon className="h-4 w-4 mr-2" />
-                Pie
+                MSD
               </TabsTrigger>
             </TabsList>
             
@@ -491,7 +491,7 @@ const DemoCharts = () => {
             </div>
           </TabsContent>
           
-          <TabsContent value="pie" className="neo-card p-6 rounded-xl border-0">
+          <TabsContent value="msd" className="neo-card p-6 rounded-xl border-0">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-medium text-gray-800">Market Size Distribution</h3>
               <div className="flex items-center gap-2">
