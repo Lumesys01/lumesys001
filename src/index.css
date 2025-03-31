@@ -13,19 +13,46 @@
     @apply border-border dark:border-border-dark;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  html.changing-theme * {
+    transition-duration: 0s !important;
+  }
+
   body {
     @apply bg-white dark:bg-background-dark text-black dark:text-foreground-dark antialiased;
     font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv02" on, "cv03" on;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
+    
+    transition: background-color 0.5s ease-out, color 0.5s ease-out;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-light tracking-tight text-black dark:text-foreground-dark;
+    @apply font-light tracking-tight text-black dark:text-foreground-dark transition-colors duration-500;
   }
 
   p, span, div {
-    @apply text-black/80 dark:text-foreground-dark/90;
+    @apply text-black/80 dark:text-foreground-dark/90 transition-colors duration-500;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-600;
   }
 }
 
@@ -94,6 +121,40 @@
   .animate-fade-in {
     animation: fadeIn 0.3s ease-out forwards;
     will-change: opacity, transform;
+  }
+  
+  .skeleton {
+    @apply animate-pulse bg-gray-200 dark:bg-gray-800 rounded;
+  }
+  
+  .optimized-image-container {
+    @apply relative overflow-hidden bg-gray-100 dark:bg-gray-800;
+  }
+  
+  .page-transition-enter {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .page-transition-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  .page-transition-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .page-transition-exit-active {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  .loading-bar {
+    @apply fixed top-0 left-0 h-0.5 bg-gradient-to-r from-highlight via-accent to-highlight bg-[length:200%_auto] animate-gradient-flow z-50;
   }
 }
 

@@ -1,6 +1,11 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+
+import React, { useState, useEffect, useCallback, useMemo, lazy, Suspense } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Sparkles, MousePointerClick, CalendarClock } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
+
+// Lazy load the 3D component to improve initial load time
+const HeroScene = lazy(() => import('@/components/3D/HeroScene'));
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -63,8 +68,15 @@ const HeroSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden flex items-center bg-white">
-      <div className="absolute inset-0 bg-gradient-to-b from-white to-white"></div>
+    <section className="relative min-h-screen overflow-hidden flex items-center bg-white dark:bg-background-dark">
+      <div className="absolute inset-0 bg-gradient-to-b from-white to-white dark:from-background-dark dark:to-background-dark"></div>
+      
+      {/* 3D Scene */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <Suspense fallback={<div className="w-full h-full flex items-center justify-center"><Skeleton className="w-full h-[500px] opacity-20" /></div>}>
+          <HeroScene />
+        </Suspense>
+      </div>
       
       <div 
         className="absolute inset-0 will-change-transform"
@@ -77,7 +89,7 @@ const HeroSection: React.FC = () => {
         {particles.map((particle) => (
           <div 
             key={particle.id}
-            className="absolute rounded-full bg-highlight opacity-70 animate-pulse-glow will-change-transform"
+            className="absolute rounded-full bg-highlight dark:bg-accent opacity-70 animate-pulse-glow will-change-transform"
             style={{
               width: `${particle.size}px`,
               height: `${particle.size}px`,
