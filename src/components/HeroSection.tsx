@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo, lazy, Suspense } from
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Sparkles, MousePointerClick, CalendarClock } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { PulsingGlowText } from '@/components/ui/MicroInteractions';
+import { EnhancedText } from '@/components/ui/MicroInteractions';
 
 // Lazy load the 3D component to improve initial load time
 const HeroScene = lazy(() => import('@/components/3D/HeroScene'));
@@ -124,11 +124,8 @@ const HeroSection: React.FC = () => {
             </div>
           </div>
           
-          <div className="relative mb-4 py-2 px-6 rounded-full bg-gradient-to-r from-accent/10 to-highlight/10 dark:from-accent/20 dark:to-highlight/20 border border-accent/30 dark:border-highlight/30 shadow-lg shadow-highlight/10 animate-float" style={{ animationDelay: "0.2s" }}>
-            <PulsingGlowText className="text-lg md:text-xl font-bold tracking-wide">
-              DO, DARE; DOMINATE.
-            </PulsingGlowText>
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-accent/5 to-highlight/5 dark:from-accent/10 dark:to-highlight/10 blur-md -z-10"></div>
+          <div className="mb-4 animate-float" style={{ animationDelay: "0.2s" }}>
+            <EnhancedText>DO DARE DOMINATE</EnhancedText>
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight mb-6 leading-tight animate-float" style={{ animationDelay: "0.4s" }}>

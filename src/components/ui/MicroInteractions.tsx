@@ -1,4 +1,3 @@
-
 import React, { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
@@ -120,7 +119,41 @@ export const StaggeredChildren: React.FC<{
   );
 };
 
-// New component for pulsing highlight text effect
+export const EnhancedText: React.FC<{
+  children: ReactNode;
+  className?: string;
+}> = ({ children, className = '' }) => {
+  return (
+    <motion.span
+      className={`text-xl md:text-2xl font-extrabold tracking-widest uppercase ${className}`}
+      style={{ 
+        background: 'linear-gradient(to right, #A8EB12, #00bf72, #A8EB12)',
+        backgroundSize: '200% auto',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        textShadow: '0 2px 10px rgba(168,235,18,0.4), 0 0 30px rgba(0,191,114,0.2)',
+        letterSpacing: '0.15em'
+      }}
+      animate={{
+        backgroundPosition: ['0% center', '200% center', '0% center'],
+        textShadow: [
+          '0 2px 10px rgba(168,235,18,0.4), 0 0 30px rgba(0,191,114,0.2)',
+          '0 2px 15px rgba(168,235,18,0.7), 0 0 40px rgba(0,191,114,0.5)',
+          '0 2px 10px rgba(168,235,18,0.4), 0 0 30px rgba(0,191,114,0.2)'
+        ]
+      }}
+      transition={{
+        duration: 5,
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "easeInOut"
+      }}
+    >
+      {children}
+    </motion.span>
+  );
+};
+
 export const PulsingGlowText: React.FC<{
   children: ReactNode;
   className?: string;
