@@ -6,13 +6,13 @@ import { useTheme } from '@/components/ThemeProvider';
 import * as THREE from 'three';
 
 interface AnimatedSphereProps {
-  position?: [number, number, number];
-  color?: string;
+  position: [number, number, number];
+  color: string;
 }
 
 const AnimatedSphere: React.FC<AnimatedSphereProps> = ({ 
-  position = [0, 0, 0], 
-  color = "#00bf72" 
+  position, 
+  color 
 }) => {
   const mesh = useRef<THREE.Mesh>(null);
   
@@ -48,14 +48,11 @@ const HeroScene: React.FC<HeroSceneProps> = ({ className = '' }) => {
   return (
     <div className={`w-full h-[400px] lg:h-[500px] ${className}`}>
       <Canvas 
-        dpr={[1, 2]} 
         camera={{ position: [0, 0, 5], fov: 75 }}
         gl={{ 
           antialias: true,
           alpha: true,
-          powerPreference: 'high-performance'
         }}
-        shadows
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
