@@ -119,3 +119,35 @@ export const StaggeredChildren: React.FC<{
     </motion.div>
   );
 };
+
+// New component for pulsing highlight text effect
+export const PulsingGlowText: React.FC<{
+  children: ReactNode;
+  className?: string;
+}> = ({ children, className = '' }) => {
+  return (
+    <motion.div
+      className={`relative inline-block ${className}`}
+      initial={{ textShadow: "0 0 8px rgba(168,235,18,0.4)" }}
+      animate={{
+        textShadow: [
+          "0 0 8px rgba(168,235,18,0.4)",
+          "0 0 18px rgba(168,235,18,0.7)",
+          "0 0 8px rgba(168,235,18,0.4)"
+        ],
+        color: [
+          "rgba(168,235,18,1)",
+          "rgba(255,255,255,1)",
+          "rgba(168,235,18,1)"
+        ]
+      }}
+      transition={{
+        duration: 3,
+        repeat: Infinity,
+        repeatType: "reverse",
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};

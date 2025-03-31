@@ -5,10 +5,14 @@ import { OrbitControls } from '@react-three/drei';
 import { useTheme } from '@/components/ThemeProvider';
 import * as THREE from 'three';
 
-// Simplified sphere component that avoids using drei's Sphere 
-// which may be causing compatibility issues
-const AnimatedSphere = ({ position, color }) => {
-  const mesh = useRef();
+// Properly typed sphere component
+interface AnimatedSphereProps {
+  position: [number, number, number];
+  color: string;
+}
+
+const AnimatedSphere: React.FC<AnimatedSphereProps> = ({ position, color }) => {
+  const mesh = useRef<THREE.Mesh>(null);
   
   return (
     <mesh 
@@ -41,7 +45,7 @@ const HeroScene: React.FC<HeroSceneProps> = ({ className = '' }) => {
         }}
       >
         <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} />
+        <pointLight position={[10, 10, 10]} intensity={1.5} />
         
         <AnimatedSphere position={[0, 0, 0]} color={theme === 'dark' ? "#00bf72" : "#00bf72"} />
         <AnimatedSphere position={[-2.5, -1, -3]} color={theme === 'dark' ? "#2C065D" : "#A8EB12"} />
