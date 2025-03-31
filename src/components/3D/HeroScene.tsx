@@ -1,40 +1,26 @@
 
 import React, { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Sphere, OrbitControls, MeshDistortMaterial } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 import { useTheme } from '@/components/ThemeProvider';
 import * as THREE from 'three';
 
-interface AnimatedSphereProps {
-  position: [number, number, number];
-  color: string;
-}
-
-const AnimatedSphere: React.FC<AnimatedSphereProps> = ({ 
-  position, 
-  color 
-}) => {
-  const mesh = useRef<THREE.Mesh>(null);
+// Simplified sphere component that avoids using drei's Sphere 
+// which may be causing compatibility issues
+const AnimatedSphere = ({ position, color }) => {
+  const mesh = useRef();
   
-  useFrame(() => {
-    if (!mesh.current) return;
-    mesh.current.rotation.x = mesh.current.rotation.y += 0.01;
-  });
-
   return (
-    <Sphere 
-      args={[1, 100, 200]} 
-      position={position}
+    <mesh 
+      position={position} 
       ref={mesh}
     >
-      <MeshDistortMaterial 
+      <sphereGeometry args={[1, 64, 64]} />
+      <meshStandardMaterial 
         color={color}
-        attach="material" 
-        distort={0.4} 
-        speed={2} 
         roughness={0.2}
       />
-    </Sphere>
+    </mesh>
   );
 };
 
@@ -56,9 +42,11 @@ const HeroScene: React.FC<HeroSceneProps> = ({ className = '' }) => {
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
+        
         <AnimatedSphere position={[0, 0, 0]} color={theme === 'dark' ? "#00bf72" : "#00bf72"} />
         <AnimatedSphere position={[-2.5, -1, -3]} color={theme === 'dark' ? "#2C065D" : "#A8EB12"} />
         <AnimatedSphere position={[2.5, 1, -3]} color={theme === 'dark' ? "#004d7a" : "#051937"} />
+        
         <OrbitControls 
           enableZoom={false}
           enablePan={false}
