@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Sphere, OrbitControls, MeshDistortMaterial } from '@react-three/drei';
 import { useTheme } from '@/components/ThemeProvider';
+import * as THREE from 'three';
 
 const AnimatedSphere = ({ position = [0, 0, 0], color = "#00bf72" }) => {
   const mesh = useRef<THREE.Mesh>(null);

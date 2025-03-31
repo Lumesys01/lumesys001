@@ -26,7 +26,8 @@ export const SlideInContainer: React.FC<{
   delay?: number;
   direction?: 'left' | 'right' | 'up' | 'down';
 }> = ({ children, className = '', delay = 0, direction = 'up' }) => {
-  let initial = { opacity: 0 };
+  // Define initial state with proper typing for variants
+  let initial: { opacity: number; x?: number; y?: number } = { opacity: 0 };
   
   switch (direction) {
     case 'left':
