@@ -28,7 +28,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white py-16 px-6">
+    <footer className="bg-white py-16 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Tagline banner - Added at the top of footer */}
         <div className="mb-12 py-4 text-center">
@@ -95,10 +95,10 @@ const Footer = () => {
         </div>
         
         <div className="pt-8 border-t border-black/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-black/60 text-sm">
-            © 2024 Lumesys AI. All rights reserved.
+          <p className="text-black/60 text-sm text-center md:text-left w-full md:w-auto">
+            © 2025 Lumesys AI. All rights reserved.
           </p>
-          <div className="flex items-center space-x-6">
+          <div className="flex flex-wrap justify-center md:justify-end items-center gap-4 md:gap-6 w-full md:w-auto">
             <a href="mailto:info@golumesys.com" className="text-black/60 hover:text-black transition-colors">
               info@golumesys.com
             </a>
