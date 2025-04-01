@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Check, X, Zap, Users, Award, Shield, LineChart, BatteryCharging, Lightbulb, Rocket, TrendingUp, Star, CircleDollarSign, CircleUserRound } from 'lucide-react';
 import { Button } from './ui/button';
@@ -179,7 +178,16 @@ const WhyLumesys: React.FC = () => {
               </p>
             </div>
             
-            <Card className="shadow-lg border-highlight/20 overflow-hidden transition-all">
+            <Card className="shadow-lg border-highlight/20 overflow-hidden transition-all relative">
+              {/* Add a pulsing dot to hint at interactivity */}
+              <div className="absolute top-4 right-4 z-10">
+                <div className="relative">
+                  <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-accent animate-ping"></span>
+                  <span className="w-2 h-2 rounded-full bg-accent block"></span>
+                </div>
+                <span className="text-xs text-accent mt-1 block">Tap to explore</span>
+              </div>
+
               <div className="bg-gray-50 py-3 px-4 border-b border-gray-100">
                 <h3 className="font-medium text-lg text-black">Feature Comparison</h3>
                 <p className="text-sm text-black/60">See how Lumesys outperforms traditional systems</p>
@@ -189,18 +197,27 @@ const WhyLumesys: React.FC = () => {
                 {comparisonData.map((item, index) => (
                   <div 
                     key={index}
-                    className={`cursor-pointer transition-all duration-300 hover:bg-gray-50 
+                    className={`cursor-pointer group transition-all duration-300 hover:bg-gray-50 
                       ${activeFeature === item.feature ? 'bg-accent/5' : ''}`}
                     onClick={() => setActiveFeature(activeFeature === item.feature ? null : item.feature)}
                   >
-                    <div className="p-4">
-                      <div className="flex items-center justify-between mb-2">
+                    <div className="p-4 relative">
+                      {/* Add a subtle glow effect on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-transparent 
+                        opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                      
+                      <div className="flex items-center justify-between mb-2 relative z-10">
                         <div className="flex items-center gap-2">
-                          {item.icon}
+                          {/* Wrap icon with a hover effect */}
+                          <div className="group/icon relative">
+                            {item.icon}
+                            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full 
+                              bg-accent opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
+                          </div>
                           <h4 className="font-medium">{item.feature}</h4>
                         </div>
                         <button 
-                          className="text-xs text-accent hover:underline"
+                          className="text-xs text-accent hover:underline z-20 relative"
                           onClick={(e) => {
                             e.stopPropagation();
                             setActiveFeature(item.feature);
