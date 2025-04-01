@@ -198,7 +198,7 @@ const HeroScene: React.FC<HeroSceneProps> = ({ className = '' }) => {
           antialias: true,
           alpha: true,
           toneMapping: THREE.ACESFilmicToneMapping,
-          outputEncoding: THREE.sRGBEncoding,
+          // Remove outputEncoding: THREE.sRGBEncoding - this is outdated
         }}
         dpr={[1, 2]} // Responsive performance optimization
       >
