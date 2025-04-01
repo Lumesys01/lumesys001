@@ -1,3 +1,4 @@
+
 import React from 'react';
 import FeatureCard from './FeatureCard';
 import { Activity, AlertTriangle, BarChart3, FileSpreadsheet, Brain, Radio } from 'lucide-react';

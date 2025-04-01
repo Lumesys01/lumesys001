@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
@@ -17,19 +17,7 @@ import PageTransition from "@/components/ui/PageTransition";
 import ScrollIndicator from "@/components/ScrollIndicator";
 import { Separator } from "@/components/ui/separator";
 import { Helmet } from "react-helmet";
-
-// Only lazy load heavy components that aren't immediately visible
-const FeaturesSection = React.lazy(() => import("@/components/FeaturesSection"));
-
-const LoadingFallback = () => (
-  <div className="w-full h-64 flex flex-col items-center justify-center">
-    <div className="relative w-16 h-16">
-      <div className="absolute inset-0 border-t-4 border-accent rounded-full animate-spin"></div>
-      <div className="absolute inset-3 border-t-4 border-highlight rounded-full animate-spin-slow"></div>
-    </div>
-    <div className="mt-4 animate-pulse text-black/70 dark:text-white/70">Loading content...</div>
-  </div>
-);
+import FeaturesSection from "@/components/FeaturesSection";
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
@@ -144,9 +132,7 @@ const Index = () => {
           
           <PageTransition direction="left" delay={100}>
             <section id="features" className="bg-white dark:bg-background-dark py-16">
-              <Suspense fallback={<LoadingFallback />}>
-                <FeaturesSection />
-              </Suspense>
+              <FeaturesSection />
             </section>
           </PageTransition>
           
