@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Linkedin, Clock } from 'lucide-react';
@@ -8,6 +7,7 @@ import {
   DirectionalHint, 
   FloatingElement
 } from './ui/MicroInteractions';
+import { supabase } from '@/integrations/supabase/client';
 
 const CTASection: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -61,37 +61,43 @@ const CTASection: React.FC = () => {
     }
   }, [hasInteracted, toast]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Prepare email data for waitlist submission
-    const emailData = {
-      to: "info@golumesys.com", // Explicitly set to info@golumesys.com
-      subject: "New Waitlist Signup",
-      text: `New signup for the waitlist: ${email}`,
-      replyTo: email,
-    };
-    
-    console.log("Sending waitlist signup:", emailData);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setEmail('');
-      
-      // Save to localStorage to remember that user signed up
-      localStorage.setItem('waitlist_joined', 'true');
-      
-      toast({
-        title: "You've joined the waitlist!",
-        description: "We'll be in touch soon with exclusive updates.",
-        variant: "default",
+    try {
+      // Call the Supabase edge function
+      const response = await fetch('/functions/v1/collect-waitlist-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
       });
-      
-      // Log confirmation email
-      console.log("Sending confirmation email to:", email);
-    }, 1500);
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setEmail('');
+        localStorage.setItem('waitlist_joined', 'true');
+        
+        toast({
+          title: "You've joined the waitlist!",
+          description: "We'll be in touch soon with exclusive updates.",
+          variant: "default",
+        });
+      } else {
+        throw new Error(result.error || 'Signup failed');
+      }
+    } catch (error) {
+      toast({
+        title: "Signup Error",
+        description: error instanceof Error ? error.message : 'An unexpected error occurred',
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Format time display
