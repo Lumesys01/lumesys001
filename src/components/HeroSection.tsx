@@ -1,12 +1,8 @@
 
-import React, { useState, useEffect, useCallback, lazy, Suspense } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, MousePointerClick, CalendarClock } from 'lucide-react';
-import { Skeleton } from '@/components/ui/skeleton';
 import { EnhancedText } from '@/components/ui/MicroInteractions';
-
-// Lazy load the 3D component to improve initial load time
-const HeroScene = lazy(() => import('@/components/3D/HeroScene'));
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -57,15 +53,14 @@ const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden flex items-center bg-white dark:bg-background-dark">
-      {/* Updated background - using a gradient overlay for the 3D scene */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/30 to-white/70 dark:from-background-dark/30 dark:to-background-dark/70"></div>
+    <section className="relative min-h-screen overflow-hidden flex items-center bg-gradient-to-b from-white to-gray-50 dark:from-background-dark dark:to-black/70">
+      {/* Luxurious gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-background-dark dark:via-gray-900/50 dark:to-black/80 opacity-90"></div>
       
-      {/* 3D Scene */}
-      <div className="absolute inset-0 z-0">
-        <Suspense fallback={<div className="w-full h-full flex items-center justify-center"><Skeleton className="w-full h-[500px] opacity-20" /></div>}>
-          <HeroScene />
-        </Suspense>
+      {/* Subtle light effects */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+        <div className="absolute -top-[30%] -left-[10%] w-[80%] h-[70%] rounded-full bg-gradient-to-br from-accent/5 to-transparent blur-3xl"></div>
+        <div className="absolute -bottom-[30%] -right-[10%] w-[80%] h-[70%] rounded-full bg-gradient-to-tl from-highlight/5 to-transparent blur-3xl"></div>
       </div>
       
       {/* Subtle parallax effect on content */}
