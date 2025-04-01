@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback, useMemo, lazy, Suspense } from 'react';
+
+import React, { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, Sparkles, MousePointerClick, CalendarClock } from 'lucide-react';
+import { ArrowDown, MousePointerClick, CalendarClock } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { EnhancedText } from '@/components/ui/MicroInteractions';
 
@@ -55,54 +56,25 @@ const HeroSection: React.FC = () => {
     }
   };
 
-  const particles = useMemo(() => {
-    return Array.from({ length: 30 }).map((_, index) => ({
-      id: index,
-      size: Math.random() * 4 + 1,
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      blur: Math.random() * 2,
-      delay: Math.random() * 5,
-      duration: 4 + Math.random() * 6
-    }));
-  }, []);
-
   return (
     <section className="relative min-h-screen overflow-hidden flex items-center bg-white dark:bg-background-dark">
-      <div className="absolute inset-0 bg-gradient-to-b from-white to-white dark:from-background-dark dark:to-background-dark"></div>
+      {/* Updated background - using a gradient overlay for the 3D scene */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/30 to-white/70 dark:from-background-dark/30 dark:to-background-dark/70"></div>
       
       {/* 3D Scene */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="absolute inset-0 z-0">
         <Suspense fallback={<div className="w-full h-full flex items-center justify-center"><Skeleton className="w-full h-[500px] opacity-20" /></div>}>
           <HeroScene />
         </Suspense>
       </div>
       
+      {/* Subtle parallax effect on content */}
       <div 
         className="absolute inset-0 will-change-transform"
         style={{
           transform: `translate3d(${mousePosition.x * 10}px, ${mousePosition.y * 10}px, 0)`,
         }}
       ></div>
-      
-      <div className="absolute inset-0 overflow-hidden">
-        {particles.map((particle) => (
-          <div 
-            key={particle.id}
-            className="absolute rounded-full bg-highlight dark:bg-accent opacity-70 animate-pulse-glow will-change-transform"
-            style={{
-              width: `${particle.size}px`,
-              height: `${particle.size}px`,
-              left: particle.left,
-              top: particle.top,
-              filter: `blur(${particle.blur}px)`,
-              animationDelay: `${particle.delay}s`,
-              animationDuration: `${particle.duration}s`,
-              transform: `translate3d(${mousePosition.x * -10 * Math.random()}px, ${mousePosition.y * -10 * Math.random()}px, 0)`
-            }}
-          ></div>
-        ))}
-      </div>
 
       <div className="container mx-auto z-10 px-4 md:px-6 lg:px-8 py-16 md:py-24">
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
@@ -114,7 +86,6 @@ const HeroSection: React.FC = () => {
                   alt="Lumesys Logo" 
                   className="h-16 w-16 mr-3 filter drop-shadow-[0_0_8px_rgba(168,235,18,0.6)] transition-transform duration-300 hover:scale-110" 
                 />
-                <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-highlight animate-pulse" />
               </div>
               
               <div className="text-3xl md:text-4xl font-medium flex items-center">
@@ -189,28 +160,13 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
       
+      {/* Subtle backdrop glow effects that work on all devices */}
       <div 
         className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-accent/10 blur-3xl animate-float will-change-transform" 
         style={{ 
           animationDelay: "1.5s", 
           animationDuration: "8s",
           transform: `translate3d(${mousePosition.x * -20}px, ${mousePosition.y * -20}px, 0)` 
-        }}
-      ></div>
-      <div 
-        className="absolute top-1/4 -right-20 w-80 h-80 rounded-full bg-highlight/5 blur-3xl animate-float will-change-transform" 
-        style={{ 
-          animationDelay: "2s", 
-          animationDuration: "10s",
-          transform: `translate3d(${mousePosition.x * 30}px, ${mousePosition.y * 30}px, 0)` 
-        }}
-      ></div>
-      <div 
-        className="absolute bottom-1/3 -left-10 w-48 h-48 rounded-full bg-secondary/10 blur-3xl animate-float will-change-transform" 
-        style={{ 
-          animationDelay: "0.5s", 
-          animationDuration: "9s",
-          transform: `translate3d(${mousePosition.x * -15}px, ${mousePosition.y * -15}px, 0)` 
         }}
       ></div>
     </section>

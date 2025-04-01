@@ -1,20 +1,17 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
-import { Linkedin, Clock, Users, Award, Check } from 'lucide-react';
+import { Linkedin, Clock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { 
   AttentionPulse, 
   DirectionalHint, 
-  LimitedAvailability,
-  NotificationDot,
   FloatingElement
 } from './ui/MicroInteractions';
 
 const CTASection: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [remainingSpots, setRemainingSpots] = useState(15);
   const [timeLeft, setTimeLeft] = useState({ days: 3, hours: 12, minutes: 45 });
   const [hasInteracted, setHasInteracted] = useState(false);
   const { toast } = useToast();
@@ -54,8 +51,8 @@ const CTASection: React.FC = () => {
     if (hasInteracted && !localStorage.getItem('waitlist_joined')) {
       const timeoutId = setTimeout(() => {
         toast({
-          title: "Limited spots remaining",
-          description: "Our pilot program is filling up quickly. Secure your spot now!",
+          title: "Limited time offer",
+          description: "Our pilot program is now open for registration!",
           variant: "default",
         });
       }, 30000); // Show after 30 seconds of interaction
@@ -82,7 +79,6 @@ const CTASection: React.FC = () => {
     setTimeout(() => {
       setIsSubmitting(false);
       setEmail('');
-      setRemainingSpots(prev => Math.max(prev - 1, 1)); // Decrease spots but keep at least 1
       
       // Save to localStorage to remember that user signed up
       localStorage.setItem('waitlist_joined', 'true');
@@ -136,7 +132,6 @@ const CTASection: React.FC = () => {
               <div className="flex items-center">
                 <span className="mr-2">🚀</span>
                 Be the first to experience Lumesys
-                <NotificationDot className="ml-2" />
               </div>
             </FloatingElement>
             
@@ -167,67 +162,58 @@ const CTASection: React.FC = () => {
               </div>
             </AttentionPulse>
             
-            <p className="text-lg text-gray-800 mb-4 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-800 mb-8 max-w-2xl mx-auto">
               Get priority access to the future of energy optimization and receive exclusive updates as we prepare for launch.
             </p>
-            
-            {/* Social proof */}
-            <div className="flex items-center justify-center mb-8 text-sm text-gray-600">
-              <Users className="w-4 h-4 mr-2 text-accent" />
-              <span><span className="font-medium">{87 + 15 - remainingSpots}</span> people have already joined</span>
-            </div>
           </div>
           
-          <LimitedAvailability spots={remainingSpots}>
-            <div className="glass-card rounded-2xl p-8 shadow-xl relative overflow-hidden mb-10">
-              <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
-              <div className="absolute inset-0 border border-highlight/20 rounded-2xl glow-border"></div>
+          <div className="glass-card rounded-2xl p-8 shadow-xl relative overflow-hidden mb-10">
+            <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+            <div className="absolute inset-0 border border-highlight/20 rounded-2xl glow-border"></div>
+            
+            <form onSubmit={handleSubmit} className="relative z-10 flex flex-col space-y-6">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <input
+                  type="email"
+                  required
+                  placeholder="Enter your email address"
+                  className="flex-1 px-6 py-4 rounded-full border border-gray-200 bg-white/90 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <DirectionalHint direction="right">
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    className="glow-button text-primary font-medium px-8 py-4 rounded-full text-lg shadow-[0_0_15px_rgba(0,191,114,0.5)] hover:shadow-[0_0_25px_rgba(0,191,114,0.7)] transition-all duration-300"
+                  >
+                    {isSubmitting ? "Processing..." : "Join the Waitlist"}
+                  </Button>
+                </DirectionalHint>
+              </div>
               
-              <form onSubmit={handleSubmit} className="relative z-10 flex flex-col space-y-6">
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <input
-                    type="email"
-                    required
-                    placeholder="Enter your email address"
-                    className="flex-1 px-6 py-4 rounded-full border border-gray-200 bg-white/90 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <DirectionalHint direction="right">
-                    <Button 
-                      type="submit" 
-                      disabled={isSubmitting}
-                      className="glow-button text-primary font-medium px-8 py-4 rounded-full text-lg shadow-[0_0_15px_rgba(0,191,114,0.5)] hover:shadow-[0_0_25px_rgba(0,191,114,0.7)] transition-all duration-300"
-                    >
-                      {isSubmitting ? "Processing..." : "Join the Waitlist"}
-                    </Button>
-                  </DirectionalHint>
-                </div>
-                
-                {/* Benefits list with checkmarks */}
-                <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4 border border-accent/10">
-                  <p className="text-sm font-medium text-black mb-2">When you join, you'll get:</p>
-                  <ul className="space-y-2 text-sm">
-                    {[
-                      "Early access to our platform before public launch",
-                      "Personalized onboarding session with our team",
-                      "25% discount on the full version when released",
-                      "Direct input on future feature development"
-                    ].map((benefit, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <span className="mr-2 mt-0.5 text-accent">
-                          <Check className="w-4 h-4" />
-                        </span>
-                        <span className="text-gray-700">{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <p className="text-sm text-center text-black font-medium">By joining, you agree to receive updates about Lumesys. We respect your privacy.</p>
-              </form>
-            </div>
-          </LimitedAvailability>
+              {/* Benefits list with checkmarks - removed social proof and 25% discount */}
+              <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4 border border-accent/10">
+                <p className="text-sm font-medium text-black mb-2">When you join, you'll get:</p>
+                <ul className="space-y-2 text-sm">
+                  {[
+                    "Early access to our platform before public launch",
+                    "Personalized onboarding session with our team",
+                    "Direct input on future feature development"
+                  ].map((benefit, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <span className="mr-2 mt-0.5 text-accent">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
+                      </span>
+                      <span className="text-gray-700">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <p className="text-sm text-center text-black font-medium">By joining, you agree to receive updates about Lumesys. We respect your privacy.</p>
+            </form>
+          </div>
           
           <div className="text-center">
             <p className="text-gray-800 mb-4 font-medium">Want to learn more about our mission?</p>
@@ -249,29 +235,6 @@ const CTASection: React.FC = () => {
               >
                 Request a Demo
               </Button>
-            </div>
-            
-            {/* Team member testimonial for social proof */}
-            <div className="mt-8 bg-white/70 backdrop-blur-sm p-6 rounded-xl border border-accent/10 max-w-lg mx-auto">
-              <div className="flex items-center mb-4">
-                <div className="flex-shrink-0">
-                  <img 
-                    src="/lovable-uploads/b9fc5626-de7f-4404-afcf-fcb031f058c0.png" 
-                    alt="Team member" 
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                </div>
-                <div className="ml-3">
-                  <h4 className="text-sm font-medium text-gray-900">Dr. Sarah Johnson</h4>
-                  <p className="text-xs text-gray-500">Energy Optimization Specialist</p>
-                </div>
-                <div className="ml-auto">
-                  <Award className="w-5 h-5 text-accent" />
-                </div>
-              </div>
-              <p className="text-sm text-gray-600 italic">
-                "Our pilot program members have been instrumental in refining our platform. They've seen an average of 17% reduction in energy costs within the first three months."
-              </p>
             </div>
           </div>
         </div>
