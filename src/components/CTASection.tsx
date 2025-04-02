@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Linkedin, Clock } from 'lucide-react';
@@ -7,10 +8,9 @@ import {
   DirectionalHint, 
   FloatingElement
 } from './ui/MicroInteractions';
+import WaitlistForm from './WaitlistForm';
 
 const CTASection: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ days: 3, hours: 12, minutes: 45 });
   const [hasInteracted, setHasInteracted] = useState(false);
   const { toast } = useToast();
@@ -56,44 +56,6 @@ const CTASection: React.FC = () => {
       return () => clearTimeout(timeoutId);
     }
   }, [hasInteracted, toast]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const response = await fetch('/functions/v1/collect-waitlist-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setEmail('');
-        localStorage.setItem('waitlist_joined', 'true');
-        
-        toast({
-          title: "You've joined the waitlist!",
-          description: "We'll be in touch soon with exclusive updates.",
-          variant: "default",
-        });
-      } else {
-        throw new Error(result.error || 'Signup failed');
-      }
-    } catch (error) {
-      toast({
-        title: "Signup Error",
-        description: error instanceof Error ? error.message : 'An unexpected error occurred',
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   const formatTimeValue = (value: number) => value.toString().padStart(2, '0');
 
@@ -163,52 +125,7 @@ const CTASection: React.FC = () => {
             </p>
           </div>
           
-          <div className="glass-card rounded-2xl p-8 shadow-xl relative overflow-hidden mb-10">
-            <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
-            <div className="absolute inset-0 border border-highlight/20 rounded-2xl glow-border"></div>
-            
-            <form onSubmit={handleSubmit} className="relative z-10 flex flex-col space-y-6">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your email address"
-                  className="flex-1 px-6 py-4 rounded-full border border-gray-200 bg-white/90 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <DirectionalHint direction="right">
-                  <Button 
-                    type="submit" 
-                    disabled={isSubmitting}
-                    className="glow-button text-primary font-medium px-8 py-4 rounded-full text-lg shadow-[0_0_15px_rgba(0,191,114,0.5)] hover:shadow-[0_0_25px_rgba(0,191,114,0.7)] transition-all duration-300"
-                  >
-                    {isSubmitting ? "Processing..." : "Join the Waitlist"}
-                  </Button>
-                </DirectionalHint>
-              </div>
-              
-              <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4 border border-accent/10">
-                <p className="text-sm font-medium text-black mb-2">When you join, you'll get:</p>
-                <ul className="space-y-2 text-sm">
-                  {[
-                    "Early access to our platform before public launch",
-                    "Personalized onboarding session with our team",
-                    "Direct input on future feature development"
-                  ].map((benefit, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <span className="mr-2 mt-0.5 text-accent">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
-                      </span>
-                      <span className="text-gray-700">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              
-              <p className="text-sm text-center text-black font-medium">By joining, you agree to receive updates about Lumesys. We respect your privacy.</p>
-            </form>
-          </div>
+          <WaitlistForm />
           
           <div className="text-center">
             <p className="text-gray-800 mb-4 font-medium">Want to learn more about our mission?</p>

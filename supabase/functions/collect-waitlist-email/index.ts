@@ -28,7 +28,7 @@ serve(async (req) => {
 
   try {
     // Parse request body
-    const { email } = await req.json();
+    const { firstName, lastName, company, email } = await req.json();
 
     // Validate email
     if (!email || typeof email !== 'string' || !email.includes('@')) {
@@ -41,14 +41,19 @@ serve(async (req) => {
     // Initialize Supabase client
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-    // Insert email into waitlist
+    // Insert all information into waitlist
     const { error: insertError } = await supabase
       .from('waitlist_emails')
-      .insert({ email });
+      .insert({ 
+        email, 
+        first_name: firstName || null, 
+        last_name: lastName || null, 
+        company: company || null 
+      });
 
     if (insertError) {
       console.error('Database insert error:', insertError);
-      return new Response(JSON.stringify({ error: 'Failed to add email' }), {
+      return new Response(JSON.stringify({ error: 'Failed to add contact information' }), {
         status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
@@ -65,8 +70,10 @@ serve(async (req) => {
       html: `
         <h1>New Waitlist Signup</h1>
         <p>A new user has joined the Lumesys pilot program waitlist:</p>
+        <p><strong>Name:</strong> ${firstName || ''} ${lastName || ''}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p>Date: ${new Date().toLocaleString()}</p>
+        ${company ? `<p><strong>Company:</strong> ${company}</p>` : ''}
+        <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
       `
     });
 
@@ -77,7 +84,7 @@ serve(async (req) => {
       subject: 'Welcome to Lumesys Pilot Program Waitlist',
       html: `
         <h1>Thank You for Joining the Lumesys Pilot Program!</h1>
-        <p>Hi there,</p>
+        <p>Hi${firstName ? ' ' + firstName : ''},</p>
         <p>We're excited that you've expressed interest in the Lumesys pilot program. You'll be among the first to experience our AI-powered energy optimization solutions.</p>
         <p>We'll be in touch soon with more details about the upcoming launch.</p>
         <br>
