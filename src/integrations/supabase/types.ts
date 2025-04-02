@@ -29,19 +29,28 @@ export type Database = {
       }
       waitlist_emails: {
         Row: {
+          company: string | null
           created_at: string | null
           email: string
+          first_name: string | null
           id: string
+          last_name: string | null
         }
         Insert: {
+          company?: string | null
           created_at?: string | null
           email: string
+          first_name?: string | null
           id?: string
+          last_name?: string | null
         }
         Update: {
+          company?: string | null
           created_at?: string | null
           email?: string
+          first_name?: string | null
           id?: string
+          last_name?: string | null
         }
         Relationships: []
       }
