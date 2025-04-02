@@ -7,7 +7,6 @@ import {
   DirectionalHint, 
   FloatingElement
 } from './ui/MicroInteractions';
-import { supabase } from '@/integrations/supabase/client';
 
 const CTASection: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -16,7 +15,6 @@ const CTASection: React.FC = () => {
   const [hasInteracted, setHasInteracted] = useState(false);
   const { toast } = useToast();
 
-  // Simulate countdown
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(prev => {
@@ -29,12 +27,11 @@ const CTASection: React.FC = () => {
         }
         return prev;
       });
-    }, 60000); // Update every minute
+    }, 60000);
     
     return () => clearInterval(timer);
   }, []);
 
-  // Track user scroll and interaction
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 300 && !hasInteracted) {
@@ -46,7 +43,6 @@ const CTASection: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [hasInteracted]);
 
-  // Show "Don't miss out" if user has scrolled but not signed up
   useEffect(() => {
     if (hasInteracted && !localStorage.getItem('waitlist_joined')) {
       const timeoutId = setTimeout(() => {
@@ -55,7 +51,7 @@ const CTASection: React.FC = () => {
           description: "Our pilot program is now open for registration!",
           variant: "default",
         });
-      }, 30000); // Show after 30 seconds of interaction
+      }, 30000);
       
       return () => clearTimeout(timeoutId);
     }
@@ -66,7 +62,6 @@ const CTASection: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      // Call the Supabase edge function
       const response = await fetch('/functions/v1/collect-waitlist-email', {
         method: 'POST',
         headers: {
@@ -100,19 +95,15 @@ const CTASection: React.FC = () => {
     }
   };
 
-  // Format time display
   const formatTimeValue = (value: number) => value.toString().padStart(2, '0');
 
   return (
     <section className="py-20 px-6 relative overflow-hidden">
-      {/* Enhanced glowing background */}
       <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-white to-highlight/10 animate-gradient-flow bg-[length:200%_200%]"></div>
       
-      {/* Glowing orbs */}
       <div className="absolute top-1/4 -left-20 w-64 h-64 rounded-full bg-accent/20 blur-3xl animate-float"></div>
       <div className="absolute bottom-1/4 -right-20 w-80 h-80 rounded-full bg-highlight/20 blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
       
-      {/* Floating energy particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(15)].map((_, index) => (
           <div 
@@ -145,7 +136,6 @@ const CTASection: React.FC = () => {
               Join Our <span className="gradient-text font-normal">Exclusive</span> Pilot Program
             </h2>
             
-            {/* Limited time offer */}
             <AttentionPulse className="inline-block mb-8 py-2 px-4 bg-accent/10 rounded-md">
               <div className="flex items-center justify-center space-x-4">
                 <div className="flex items-center">
@@ -198,7 +188,6 @@ const CTASection: React.FC = () => {
                 </DirectionalHint>
               </div>
               
-              {/* Benefits list with checkmarks - removed social proof and 25% discount */}
               <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4 border border-accent/10">
                 <p className="text-sm font-medium text-black mb-2">When you join, you'll get:</p>
                 <ul className="space-y-2 text-sm">
