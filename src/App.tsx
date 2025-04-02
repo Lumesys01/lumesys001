@@ -49,6 +49,10 @@ const App = () => (
         
         {/* Add resource hints */}
         <link rel="prefetch" href="/src/components/DashboardPreview.tsx" />
+        
+        {/* SEO enhancements */}
+        <meta name="description" content="Reduce building energy costs by at least 10% with Lumesys AI-driven optimization platform. Smart, sustainable, and proven solutions for facilities management." />
+        <meta name="keywords" content="energy management, AI building solutions, HVAC optimization, energy cost reduction, smart buildings, energy efficiency, sustainability" />
       </Helmet>
       <TooltipProvider>
         <Toaster />
