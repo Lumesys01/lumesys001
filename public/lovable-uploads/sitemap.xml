@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -9,7 +10,9 @@
 
 <url>
   <loc>https://www.golumesys.com/</loc>
-  <lastmod>2025-04-02T07:39:53+00:00</lastmod>
+  <lastmod>2025-04-03T07:39:53+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>1.0</priority>
 </url>
 
 
