@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Linkedin, Mail, Shield, Award, CheckCircle, ThumbsUp } from "lucide-react";
+import { Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   const footerSections = [
@@ -25,13 +25,6 @@ const Footer = () => {
   const socialLinks = [
     { name: "LinkedIn", icon: Linkedin, url: "#" },
     { name: "Email", icon: Mail, url: "mailto:info@golumesys.com" },
-  ];
-  
-  const trustBadges = [
-    { name: "ISO 27001 Certified", icon: Shield },
-    { name: "Energy Star Partner", icon: Award },
-    { name: "LEED Accredited", icon: CheckCircle },
-    { name: "Customer Satisfaction 98%", icon: ThumbsUp },
   ];
 
   return (
@@ -98,30 +91,6 @@ const Footer = () => {
                 </ul>
               </div>
             ))}
-          </div>
-        </div>
-        
-        {/* Trust badges and credibility section */}
-        <div className="py-8 border-t border-black/10">
-          <h4 className="text-center text-lg font-medium mb-6">Trusted by Industry Leaders</h4>
-          <div className="flex flex-wrap justify-center gap-6 md:gap-10 mb-8">
-            {trustBadges.map((badge) => {
-              const BadgeIcon = badge.icon;
-              return (
-                <div key={badge.name} className="flex items-center gap-2">
-                  <BadgeIcon className="w-5 h-5 text-accent" />
-                  <span className="text-sm font-medium">{badge.name}</span>
-                </div>
-              );
-            })}
-          </div>
-          
-          {/* Industry associations */}
-          <div className="flex flex-wrap justify-center gap-6 mb-8">
-            <span className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">U.S. Green Building Council</span>
-            <span className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Energy Management Association</span>
-            <span className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">American Society of Heating, Refrigerating and Air-Conditioning Engineers</span>
-            <span className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Association of Energy Engineers</span>
           </div>
         </div>
         

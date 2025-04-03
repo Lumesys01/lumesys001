@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { toast as sonnerToast } from 'sonner';
 import { 
   Form,
   FormControl,
@@ -43,20 +44,42 @@ const WaitlistForm: React.FC = () => {
     setIsSubmitting(true);
     
     try {
+      // Add visual feedback
+      sonnerToast.loading('Submitting your information...', { 
+        id: 'waitlist-submission',
+        duration: 10000
+      });
+      
+      const requestBody = JSON.stringify(data);
+      console.log('Sending request with data:', requestBody);
+      
       const response = await fetch('/functions/v1/collect-waitlist-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: requestBody,
       });
 
-      const result = await response.json();
+      console.log('Received response:', response.status);
+      let result;
+      
+      try {
+        const responseText = await response.text();
+        console.log('Response text:', responseText);
+        result = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error('Error parsing response:', parseError);
+        throw new Error('Invalid server response');
+      }
 
+      sonnerToast.dismiss('waitlist-submission');
+      
       if (response.ok) {
         form.reset();
         localStorage.setItem('waitlist_joined', 'true');
         
+        sonnerToast.success('Joined waitlist successfully!');
         toast({
           title: "You've joined the waitlist!",
           description: "We'll be in touch soon with exclusive updates.",
@@ -66,6 +89,11 @@ const WaitlistForm: React.FC = () => {
         throw new Error(result.error || 'Signup failed');
       }
     } catch (error) {
+      sonnerToast.dismiss('waitlist-submission');
+      sonnerToast.error('Something went wrong');
+      
+      console.error('Submission error:', error);
+      
       toast({
         title: "Signup Error",
         description: error instanceof Error ? error.message : 'An unexpected error occurred',

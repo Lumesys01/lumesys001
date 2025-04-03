@@ -67,6 +67,8 @@ const App = () => (
             className: 'group',
           }}
           richColors
+          closeButton
+          expand
         />
         <BrowserRouter>
           <Routes>

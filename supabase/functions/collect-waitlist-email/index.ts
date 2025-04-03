@@ -28,7 +28,21 @@ serve(async (req) => {
 
   try {
     // Parse request body
-    const { firstName, lastName, company, email } = await req.json();
+    const requestData = await req.text();
+    let data;
+    
+    try {
+      data = JSON.parse(requestData);
+    } catch (parseError) {
+      console.error('JSON parse error:', parseError);
+      console.error('Raw request data:', requestData);
+      return new Response(JSON.stringify({ error: 'Invalid JSON data' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+    
+    const { firstName, lastName, company, email } = data;
 
     // Validate email
     if (!email || typeof email !== 'string' || !email.includes('@')) {
