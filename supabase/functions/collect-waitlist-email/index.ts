@@ -29,10 +29,13 @@ serve(async (req) => {
   try {
     // Parse request body
     const requestData = await req.text();
+    console.log('Raw request data:', requestData);
+    
     let data;
     
     try {
       data = JSON.parse(requestData);
+      console.log('Parsed data:', data);
     } catch (parseError) {
       console.error('JSON parse error:', parseError);
       console.error('Raw request data:', requestData);
@@ -43,9 +46,11 @@ serve(async (req) => {
     }
     
     const { firstName, lastName, company, email } = data;
+    console.log('Extracted data:', { firstName, lastName, company, email });
 
     // Validate email
     if (!email || typeof email !== 'string' || !email.includes('@')) {
+      console.error('Invalid email:', email);
       return new Response(JSON.stringify({ error: 'Invalid email' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -54,8 +59,10 @@ serve(async (req) => {
 
     // Initialize Supabase client
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    console.log('Supabase client initialized');
 
     // Insert all information into waitlist
+    console.log('Attempting database insert...');
     const { error: insertError } = await supabase
       .from('waitlist_emails')
       .insert({ 
@@ -72,40 +79,58 @@ serve(async (req) => {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
+    
+    console.log('Database insert successful');
 
     // Initialize Resend
     const resend = new Resend(resendApiKey);
+    console.log('Resend client initialized');
 
     // Send email to internal team
-    await resend.emails.send({
-      from: 'Lumesys Waitlist <onboarding@golumesys.com>',
-      to: 'info@golumesys.com',
-      subject: 'New Waitlist Signup',
-      html: `
-        <h1>New Waitlist Signup</h1>
-        <p>A new user has joined the Lumesys pilot program waitlist:</p>
-        <p><strong>Name:</strong> ${firstName || ''} ${lastName || ''}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        ${company ? `<p><strong>Company:</strong> ${company}</p>` : ''}
-        <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
-      `
-    });
+    try {
+      console.log('Sending internal notification email...');
+      const internalEmailResult = await resend.emails.send({
+        from: 'Lumesys Waitlist <onboarding@golumesys.com>',
+        to: 'info@golumesys.com',
+        subject: 'New Waitlist Signup',
+        html: `
+          <h1>New Waitlist Signup</h1>
+          <p>A new user has joined the Lumesys pilot program waitlist:</p>
+          <p><strong>Name:</strong> ${firstName || ''} ${lastName || ''}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          ${company ? `<p><strong>Company:</strong> ${company}</p>` : ''}
+          <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+        `
+      });
+      console.log('Internal email sent:', internalEmailResult);
+    } catch (emailError) {
+      console.error('Error sending internal email:', emailError);
+      // Continue execution even if internal email fails
+    }
 
     // Send confirmation email to subscriber
-    await resend.emails.send({
-      from: 'Lumesys <onboarding@golumesys.com>',
-      to: email,
-      subject: 'Welcome to Lumesys Pilot Program Waitlist',
-      html: `
-        <h1>Thank You for Joining the Lumesys Pilot Program!</h1>
-        <p>Hi${firstName ? ' ' + firstName : ''},</p>
-        <p>We're excited that you've expressed interest in the Lumesys pilot program. You'll be among the first to experience our AI-powered energy optimization solutions.</p>
-        <p>We'll be in touch soon with more details about the upcoming launch.</p>
-        <br>
-        <p>Best regards,<br>The Lumesys Team</p>
-      `
-    });
+    try {
+      console.log('Sending confirmation email to subscriber...');
+      const subscriberEmailResult = await resend.emails.send({
+        from: 'Lumesys <onboarding@golumesys.com>',
+        to: email,
+        subject: 'Welcome to Lumesys Pilot Program Waitlist',
+        html: `
+          <h1>Thank You for Joining the Lumesys Pilot Program!</h1>
+          <p>Hi${firstName ? ' ' + firstName : ''},</p>
+          <p>We're excited that you've expressed interest in the Lumesys pilot program. You'll be among the first to experience our AI-powered energy optimization solutions.</p>
+          <p>We'll be in touch soon with more details about the upcoming launch.</p>
+          <br>
+          <p>Best regards,<br>The Lumesys Team</p>
+        `
+      });
+      console.log('Subscriber email sent:', subscriberEmailResult);
+    } catch (emailError) {
+      console.error('Error sending subscriber email:', emailError);
+      // Continue execution even if subscriber email fails
+    }
 
+    console.log('All operations completed successfully');
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -113,7 +138,7 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Unexpected error:', error);
-    return new Response(JSON.stringify({ error: 'Unexpected error occurred' }), {
+    return new Response(JSON.stringify({ error: 'Unexpected error occurred', details: error.message }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });

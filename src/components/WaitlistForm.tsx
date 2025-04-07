@@ -50,27 +50,33 @@ const WaitlistForm: React.FC = () => {
         duration: 10000
       });
       
-      const requestBody = JSON.stringify(data);
-      console.log('Sending request with data:', requestBody);
+      // Log the data being sent
+      console.log('Preparing to submit data:', data);
       
       const response = await fetch('/functions/v1/collect-waitlist-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: requestBody,
+        body: JSON.stringify(data),
       });
 
-      console.log('Received response:', response.status);
-      let result;
+      console.log('Response status:', response.status);
       
-      try {
-        const responseText = await response.text();
-        console.log('Response text:', responseText);
-        result = JSON.parse(responseText);
-      } catch (parseError) {
-        console.error('Error parsing response:', parseError);
-        throw new Error('Invalid server response');
+      // Get the text response first
+      const responseText = await response.text();
+      console.log('Raw response:', responseText);
+      
+      // Only try to parse JSON if we have content
+      let result = {};
+      if (responseText && responseText.trim()) {
+        try {
+          result = JSON.parse(responseText);
+          console.log('Parsed response:', result);
+        } catch (parseError) {
+          console.error('Error parsing response as JSON:', parseError);
+          throw new Error('Invalid server response format');
+        }
       }
 
       sonnerToast.dismiss('waitlist-submission');
@@ -86,7 +92,8 @@ const WaitlistForm: React.FC = () => {
           variant: "default",
         });
       } else {
-        throw new Error(result.error || 'Signup failed');
+        console.error('Server returned error:', response.status, result);
+        throw new Error(result.error ? String(result.error) : 'Signup failed');
       }
     } catch (error) {
       sonnerToast.dismiss('waitlist-submission');
