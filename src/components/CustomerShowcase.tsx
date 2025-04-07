@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, HardHat, Factory, Building, Store, Gauge } from 'lucide-react';
+import CurrencySelector, { Currency, currencies } from './CurrencySelector';
 
 interface CustomerLogo {
   name: string;
@@ -15,6 +16,8 @@ interface SuccessMetric {
   annualSavings: string;
   paybackPeriod: string;
   co2Reduction: string;
+  // Store original values in USD for conversion
+  originalAnnualSavings: number;
 }
 
 const CustomerShowcase: React.FC = () => {
@@ -57,11 +60,12 @@ const CustomerShowcase: React.FC = () => {
     },
   ];
 
-  const successMetrics: SuccessMetric[] = [
+  const originalSuccessMetrics: SuccessMetric[] = [
     { 
       customer: "Projected: Mining Sector", 
       savingsPercentage: 24, 
       annualSavings: "Up to $920,000", 
+      originalAnnualSavings: 920000,
       paybackPeriod: "Estimated 8-10 months", 
       co2Reduction: "Potential 580 tons" 
     },
@@ -69,6 +73,7 @@ const CustomerShowcase: React.FC = () => {
       customer: "Projected: Government Infrastructure", 
       savingsPercentage: 19, 
       annualSavings: "Up to $650,000", 
+      originalAnnualSavings: 650000,
       paybackPeriod: "Estimated 9-12 months", 
       co2Reduction: "Potential 420 tons" 
     },
@@ -76,6 +81,7 @@ const CustomerShowcase: React.FC = () => {
       customer: "Projected: High Energy Industry", 
       savingsPercentage: 27, 
       annualSavings: "Up to $1,200,000", 
+      originalAnnualSavings: 1200000,
       paybackPeriod: "Estimated 6-9 months", 
       co2Reduction: "Potential 750 tons" 
     }
@@ -85,6 +91,31 @@ const CustomerShowcase: React.FC = () => {
   const [countUpValue, setCountUpValue] = useState(0);
   const [hoveredLogo, setHoveredLogo] = useState<number | null>(null);
   const [isInView, setIsInView] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(currencies[0]);
+  const [successMetrics, setSuccessMetrics] = useState<SuccessMetric[]>(originalSuccessMetrics);
+
+  // Update metrics when currency changes
+  useEffect(() => {
+    const updatedMetrics = originalSuccessMetrics.map(metric => {
+      const convertedValue = metric.originalAnnualSavings * selectedCurrency.conversionRate;
+      const formattedValue = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: selectedCurrency.code,
+        maximumFractionDigits: 0,
+        notation: convertedValue >= 1000000 ? 'compact' : 'standard'
+      }).format(convertedValue);
+      
+      // Remove the currency symbol as we'll add it separately
+      const valueWithoutSymbol = formattedValue.replace(/[^\d,.KMB]/g, '');
+      
+      return {
+        ...metric,
+        annualSavings: `Up to ${selectedCurrency.symbol}${valueWithoutSymbol}`
+      };
+    });
+    
+    setSuccessMetrics(updatedMetrics);
+  }, [selectedCurrency]);
 
   // Animation for counting up to 23%
   useEffect(() => {
@@ -227,13 +258,20 @@ const CustomerShowcase: React.FC = () => {
             </div>
           </div>
           
-          <div className={`mb-12 text-center transform transition-all duration-700 delay-200 
+          <div className={`mb-6 text-center transform transition-all duration-700 delay-200 
             ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
           >
-            <h3 className="text-2xl md:text-3xl font-medium mb-4 relative inline-block">
-              <span className="gradient-text font-bold">Potential Results</span>, Backed by Assumptions
-              <div className="absolute -bottom-2 left-0 right-0 h-1 bg-button-gradient rounded-full"></div>
-            </h3>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4">
+              <h3 className="text-2xl md:text-3xl font-medium relative inline-block">
+                <span className="gradient-text font-bold">Potential Results</span>, Backed by Assumptions
+                <div className="absolute -bottom-2 left-0 right-0 h-1 bg-button-gradient rounded-full"></div>
+              </h3>
+              <CurrencySelector 
+                selectedCurrency={selectedCurrency} 
+                onChange={setSelectedCurrency} 
+                className="mt-2 sm:mt-0"
+              />
+            </div>
             <p className="text-base md:text-lg text-black/70 max-w-2xl mx-auto mt-4">
               Our projections demonstrate the potential savings and sustainability improvements across different sectors.
             </p>

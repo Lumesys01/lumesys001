@@ -1,14 +1,16 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Calculator, BarChart3, ArrowRight } from 'lucide-react';
+import CurrencySelector, { Currency, currencies } from './CurrencySelector';
 
 const ROICalculator: React.FC = () => {
   const [annualEnergyCost, setAnnualEnergyCost] = useState<number>(500000);
   const [facilitySize, setFacilitySize] = useState<number>(50000);
   const [systemComplexity, setSystemComplexity] = useState<number>(3);
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(currencies[0]);
   
   // Calculate estimated savings
   const calculateSavings = () => {
@@ -18,8 +20,11 @@ const ROICalculator: React.FC = () => {
     // Adjust by facility size factor (larger facilities tend to have more optimization potential)
     const sizeFactor = Math.min(1.3, Math.max(0.9, facilitySize / 100000 + 0.8));
     
-    // Calculate potential annual savings
-    const annualSavings = annualEnergyCost * baseSavingsRate * sizeFactor;
+    // Calculate potential annual savings in USD
+    const annualSavingsUSD = annualEnergyCost * baseSavingsRate * sizeFactor;
+    
+    // Convert to selected currency
+    const annualSavings = annualSavingsUSD * selectedCurrency.conversionRate;
     
     // Calculate 5-year savings
     const fiveYearSavings = annualSavings * 5;
@@ -51,6 +56,13 @@ const ROICalculator: React.FC = () => {
           <p className="text-lg text-black/70 max-w-2xl mx-auto">
             See how Lumesys can generate significant ROI for your facility. Adjust the parameters below to get a customized estimate.
           </p>
+          <div className="flex justify-center mt-4">
+            <CurrencySelector 
+              selectedCurrency={selectedCurrency} 
+              onChange={setSelectedCurrency}
+              className="mt-2"
+            />
+          </div>
         </div>
         
         <div className="max-w-4xl mx-auto">
@@ -65,7 +77,7 @@ const ROICalculator: React.FC = () => {
               <div className="space-y-6">
                 <div className="space-y-2">
                   <label htmlFor="annual-cost" className="block text-sm font-medium text-black/70">
-                    Annual Energy Cost ($)
+                    Annual Energy Cost ({selectedCurrency.symbol})
                   </label>
                   <div className="flex items-center gap-4">
                     <Input
@@ -77,7 +89,7 @@ const ROICalculator: React.FC = () => {
                       onChange={(e) => setAnnualEnergyCost(Number(e.target.value))}
                       className="flex-1"
                     />
-                    <span className="text-xs text-black/60">$50K-$10M</span>
+                    <span className="text-xs text-black/60">{selectedCurrency.symbol}50K-{selectedCurrency.symbol}10M</span>
                   </div>
                   <Slider
                     value={[annualEnergyCost]}
@@ -154,14 +166,14 @@ const ROICalculator: React.FC = () => {
                 <div className="flex justify-between items-center p-4 bg-white/80 rounded-lg border border-gray-100">
                   <span className="text-sm font-medium text-black/70">Annual Savings</span>
                   <span className="text-2xl font-bold text-accent">
-                    ${results.annualSavings.toLocaleString()}
+                    {selectedCurrency.symbol}{results.annualSavings.toLocaleString()}
                   </span>
                 </div>
                 
                 <div className="flex justify-between items-center p-4 bg-white/80 rounded-lg border border-gray-100">
                   <span className="text-sm font-medium text-black/70">5-Year Savings</span>
                   <span className="text-2xl font-bold text-highlight">
-                    ${results.fiveYearSavings.toLocaleString()}
+                    {selectedCurrency.symbol}{results.fiveYearSavings.toLocaleString()}
                   </span>
                 </div>
                 
