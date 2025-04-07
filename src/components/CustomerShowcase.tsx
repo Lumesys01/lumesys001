@@ -26,7 +26,7 @@ const CustomerShowcase: React.FC = () => {
       icon: <HardHat className="h-4 w-4 text-accent/80" />
     },
     { 
-      name: "GlobalTech Manufacturing", 
+      name: "Manufacturing", 
       logo: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
       industry: "Manufacturing",
       icon: <Factory className="h-4 w-4 text-accent/80" />
@@ -38,15 +38,15 @@ const CustomerShowcase: React.FC = () => {
       icon: <Building className="h-4 w-4 text-accent/80" />
     },
     { 
-      name: "RetailMax Group", 
+      name: "Retail Chains", 
       logo: "https://images.unsplash.com/photo-1612103198005-b238154f4590?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
       industry: "Retail Chains",
       icon: <Store className="h-4 w-4 text-accent/80" />
     },
     { 
-      name: "EnergySphere", 
+      name: "IPP & BESS", 
       logo: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "High Energy Industry",
+      industry: "Energy Industry",
       icon: <Gauge className="h-4 w-4 text-accent/80" />
     },
     { 
