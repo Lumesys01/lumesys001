@@ -44,7 +44,7 @@ const CustomerShowcase: React.FC = () => {
       icon: <Store className="h-4 w-4 text-accent/80" />
     },
     { 
-      name: "IPP & BESS", 
+      name: "IPP's & BESS", 
       logo: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
       industry: "Energy Industry",
       icon: <Gauge className="h-4 w-4 text-accent/80" />
@@ -83,6 +83,8 @@ const CustomerShowcase: React.FC = () => {
 
   const [activeMetric, setActiveMetric] = useState<number | null>(null);
   const [countUpValue, setCountUpValue] = useState(0);
+  const [hoveredLogo, setHoveredLogo] = useState<number | null>(null);
+  const [isInView, setIsInView] = useState(false);
 
   // Animation for counting up to 23%
   useEffect(() => {
@@ -109,6 +111,34 @@ const CustomerShowcase: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Intersection Observer for animation triggers
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    const sectionElement = document.getElementById('customer-showcase');
+    if (sectionElement) {
+      observer.observe(sectionElement);
+    }
+
+    return () => {
+      if (sectionElement) {
+        observer.unobserve(sectionElement);
+      }
+    };
+  }, []);
+
+  const handleCardInteraction = (index: number) => {
+    // Touch-friendly interaction that works for both click and hover
+    setActiveMetric(activeMetric === index ? null : index);
+  };
+
   return (
     <section id="customer-showcase" className="section-padding bg-white">
       <div className="container mx-auto px-4 sm:px-6">
@@ -128,19 +158,36 @@ const CustomerShowcase: React.FC = () => {
           {customerLogos.map((customer, index) => (
             <div 
               key={index}
-              className="flex flex-col items-center p-2 sm:p-4 bg-white shadow-sm border border-gray-100 rounded-lg hover:shadow-md transition-shadow"
+              className={`flex flex-col items-center p-2 sm:p-4 bg-white 
+                shadow-sm border border-gray-100 rounded-lg transform transition-all duration-300
+                ${hoveredLogo === index ? 'shadow-lg scale-105 border-accent/20' : 'hover:shadow-md hover:scale-102'}
+              `}
+              onMouseEnter={() => setHoveredLogo(index)}
+              onMouseLeave={() => setHoveredLogo(null)}
+              onClick={() => setHoveredLogo(index === hoveredLogo ? null : index)}
             >
-              <div className="h-10 sm:h-16 w-full flex items-center justify-center mb-2">
+              <div className="h-10 sm:h-16 w-full flex items-center justify-center mb-2 relative overflow-hidden rounded-md">
                 <img 
                   src={customer.logo} 
                   alt={`${customer.name} logo`} 
-                  className="max-h-full max-w-full object-contain"
+                  className={`max-h-full max-w-full object-contain transition-transform duration-300 ${
+                    hoveredLogo === index ? 'scale-110' : ''
+                  }`}
                 />
+                {hoveredLogo === index && (
+                  <div className="absolute inset-0 bg-accent/10 backdrop-blur-[1px] flex items-center justify-center opacity-0 animate-fade-in">
+                    <span className="text-xs font-medium text-accent bg-white/80 px-2 py-1 rounded">View details</span>
+                  </div>
+                )}
               </div>
               <div className="text-center">
                 <div className="flex flex-wrap items-center justify-center gap-1 mb-1">
-                  {customer.icon}
-                  <p className="font-medium text-xs sm:text-sm">{customer.name}</p>
+                  <div className={`transition-all duration-300 ${hoveredLogo === index ? 'text-accent transform scale-110' : ''}`}>
+                    {customer.icon}
+                  </div>
+                  <p className={`font-medium text-xs sm:text-sm transition-colors duration-300 ${
+                    hoveredLogo === index ? 'text-accent' : ''
+                  }`}>{customer.name}</p>
                 </div>
                 <p className="text-[10px] sm:text-xs text-black/60">{customer.industry}</p>
               </div>
@@ -151,7 +198,9 @@ const CustomerShowcase: React.FC = () => {
         <div className="max-w-5xl mx-auto">
           {/* Industry Benchmark Card with Count Up Animation */}
           <div className="mb-10 md:mb-16">
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
+            <div className={`bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden
+              transform transition-all duration-700 ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+            >
               <div className="p-6 md:p-8 flex flex-col md:flex-row items-center">
                 <div className="w-full md:w-1/3 mb-6 md:mb-0 text-center md:text-left">
                   <h3 className="text-xl md:text-2xl font-medium mb-2 text-black">Industry Benchmark</h3>
@@ -178,7 +227,9 @@ const CustomerShowcase: React.FC = () => {
             </div>
           </div>
           
-          <div className="mb-12 text-center">
+          <div className={`mb-12 text-center transform transition-all duration-700 delay-200 
+            ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+          >
             <h3 className="text-2xl md:text-3xl font-medium mb-4 relative inline-block">
               <span className="gradient-text font-bold">Potential Results</span>, Backed by Assumptions
               <div className="absolute -bottom-2 left-0 right-0 h-1 bg-button-gradient rounded-full"></div>
@@ -189,118 +240,137 @@ const CustomerShowcase: React.FC = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-            {successMetrics.map((metric, index) => (
-              <div 
-                key={index} 
-                className={`relative perspective-container transition-all duration-300 cursor-pointer
-                  ${activeMetric === index ? 'scale-[1.03]' : 'hover:scale-[1.02]'}`}
-                onMouseEnter={() => setActiveMetric(index)}
-                onMouseLeave={() => setActiveMetric(null)}
-              >
-                <div className={`
-                  relative z-10 rounded-xl overflow-hidden transition-all duration-500
-                  ${activeMetric === index 
-                    ? 'shadow-[0_10px_40px_-10px_rgba(0,191,114,0.5)]' 
-                    : 'shadow-lg hover:shadow-[0_10px_30px_-10px_rgba(0,191,114,0.3)]'
-                  }
-                `}>
+            {successMetrics.map((metric, index) => {
+              const isActive = activeMetric === index;
+              const delay = index * 100;
+              
+              return (
+                <div 
+                  key={index} 
+                  className={`relative perspective-container cursor-pointer transform transition-all duration-500 delay-${delay}
+                    ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}
+                    ${isActive ? 'scale-[1.03] z-10' : 'hover:scale-[1.02]'}`}
+                  onClick={() => handleCardInteraction(index)}
+                  onMouseEnter={() => setActiveMetric(index)}
+                  onMouseLeave={() => setActiveMetric(null)}
+                  role="button"
+                  aria-expanded={isActive}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      handleCardInteraction(index);
+                    }
+                  }}
+                >
                   <div className={`
-                    h-2 w-full bg-button-gradient transition-all duration-300
-                    ${activeMetric === index ? 'h-3' : ''}
-                  `}></div>
-                  
-                  <div className={`
-                    absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 
-                    flex items-center justify-center rounded-full p-1
-                    transition-all duration-300 z-20
-                    ${activeMetric === index 
-                      ? 'bg-gradient-to-r from-accent to-highlight shadow-[0_0_20px_rgba(168,235,18,0.5)] scale-110' 
-                      : 'bg-gradient-to-r from-accent/90 to-highlight/90'
+                    relative z-10 rounded-xl overflow-hidden transition-all duration-500
+                    ${isActive 
+                      ? 'shadow-[0_10px_40px_-10px_rgba(0,191,114,0.5)]' 
+                      : 'shadow-lg hover:shadow-[0_10px_30px_-10px_rgba(0,191,114,0.3)]'
                     }
                   `}>
-                    <div className="bg-white rounded-full h-12 w-12 sm:h-14 sm:w-14 flex items-center justify-center">
-                      <div className="flex flex-col items-center justify-center">
-                        <span className={`
-                          text-xl font-bold leading-none bg-clip-text text-transparent bg-button-gradient transition-all duration-300
-                          ${activeMetric === index ? 'text-2xl' : ''}
+                    <div className={`
+                      h-2 w-full bg-button-gradient transition-all duration-300
+                      ${isActive ? 'h-3' : ''}
+                    `}></div>
+                    
+                    <div className={`
+                      absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 
+                      flex items-center justify-center rounded-full p-1
+                      transition-all duration-300 z-20
+                      ${isActive 
+                        ? 'bg-gradient-to-r from-accent to-highlight shadow-[0_0_20px_rgba(168,235,18,0.5)] scale-110' 
+                        : 'bg-gradient-to-r from-accent/90 to-highlight/90'
+                      }
+                    `}>
+                      <div className="bg-white rounded-full h-12 w-12 sm:h-14 sm:w-14 flex items-center justify-center">
+                        <div className="flex flex-col items-center justify-center">
+                          <span className={`
+                            text-xl font-bold leading-none bg-clip-text text-transparent bg-button-gradient transition-all duration-300
+                            ${isActive ? 'text-2xl' : ''}
+                          `}>
+                            {metric.savingsPercentage}%
+                          </span>
+                          <span className="text-[8px] sm:text-[10px] text-black/60 leading-tight">SAVINGS</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="pt-10 pb-6 px-4 sm:px-6 bg-white">
+                      <h4 className={`
+                        text-center text-base sm:text-lg md:text-xl font-medium mb-4 sm:mb-6 transition-all duration-300
+                        ${isActive ? 'text-accent' : 'text-black'}
+                      `}>
+                        {metric.customer}
+                      </h4>
+                      
+                      <div className="space-y-3 sm:space-y-4">
+                        <div className={`
+                          flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg transition-all duration-300
+                          ${isActive ? 'bg-accent/5' : 'bg-gray-50'}
                         `}>
-                          {metric.savingsPercentage}%
-                        </span>
-                        <span className="text-[8px] sm:text-[10px] text-black/60 leading-tight">SAVINGS</span>
+                          <CheckCircle className={`
+                            h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 transition-colors duration-300
+                            ${isActive ? 'text-accent' : 'text-green-500'}
+                          `} />
+                          <div>
+                            <p className="text-xs sm:text-sm text-black/60">Annual Savings</p>
+                            <p className="font-bold text-sm sm:text-base text-black">{metric.annualSavings}</p>
+                          </div>
+                        </div>
+                        
+                        <div className={`
+                          flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg transition-all duration-300
+                          ${isActive ? 'bg-accent/5' : 'bg-gray-50'}
+                        `}>
+                          <CheckCircle className={`
+                            h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 transition-colors duration-300
+                            ${isActive ? 'text-accent' : 'text-green-500'}
+                          `} />
+                          <div>
+                            <p className="text-xs sm:text-sm text-black/60">Payback Period</p>
+                            <p className="font-bold text-sm sm:text-base text-black">{metric.paybackPeriod}</p>
+                          </div>
+                        </div>
+                        
+                        <div className={`
+                          flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg transition-all duration-300
+                          ${isActive ? 'bg-accent/5' : 'bg-gray-50'}
+                        `}>
+                          <CheckCircle className={`
+                            h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 transition-colors duration-300
+                            ${isActive ? 'text-accent' : 'text-green-500'}
+                          `} />
+                          <div>
+                            <p className="text-xs sm:text-sm text-black/60">CO₂ Reduction</p>
+                            <p className="font-bold text-sm sm:text-base text-black">{metric.co2Reduction}/year</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="pt-10 pb-6 px-4 sm:px-6 bg-white">
-                    <h4 className={`
-                      text-center text-base sm:text-lg md:text-xl font-medium mb-4 sm:mb-6 transition-all duration-300
-                      ${activeMetric === index ? 'text-accent' : 'text-black'}
-                    `}>
-                      {metric.customer}
-                    </h4>
-                    
-                    <div className="space-y-3 sm:space-y-4">
-                      <div className={`
-                        flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg transition-all duration-300
-                        ${activeMetric === index ? 'bg-accent/5' : 'bg-gray-50'}
-                      `}>
-                        <CheckCircle className={`
-                          h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 transition-colors duration-300
-                          ${activeMetric === index ? 'text-accent' : 'text-green-500'}
-                        `} />
-                        <div>
-                          <p className="text-xs sm:text-sm text-black/60">Annual Savings</p>
-                          <p className="font-bold text-sm sm:text-base text-black">{metric.annualSavings}</p>
-                        </div>
-                      </div>
-                      
-                      <div className={`
-                        flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg transition-all duration-300
-                        ${activeMetric === index ? 'bg-accent/5' : 'bg-gray-50'}
-                      `}>
-                        <CheckCircle className={`
-                          h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 transition-colors duration-300
-                          ${activeMetric === index ? 'text-accent' : 'text-green-500'}
-                        `} />
-                        <div>
-                          <p className="text-xs sm:text-sm text-black/60">Payback Period</p>
-                          <p className="font-bold text-sm sm:text-base text-black">{metric.paybackPeriod}</p>
-                        </div>
-                      </div>
-                      
-                      <div className={`
-                        flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg transition-all duration-300
-                        ${activeMetric === index ? 'bg-accent/5' : 'bg-gray-50'}
-                      `}>
-                        <CheckCircle className={`
-                          h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 transition-colors duration-300
-                          ${activeMetric === index ? 'text-accent' : 'text-green-500'}
-                        `} />
-                        <div>
-                          <p className="text-xs sm:text-sm text-black/60">CO₂ Reduction</p>
-                          <p className="font-bold text-sm sm:text-base text-black">{metric.co2Reduction}/year</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <div className={`
+                    absolute -bottom-4 left-1/2 -translate-x-1/2 h-4 w-3/4 
+                    bg-accent blur-xl opacity-0 transition-opacity duration-300
+                    ${isActive ? 'opacity-30' : ''}
+                  `}></div>
                 </div>
-                
-                <div className={`
-                  absolute -bottom-4 left-1/2 -translate-x-1/2 h-4 w-3/4 
-                  bg-accent blur-xl opacity-0 transition-opacity duration-300
-                  ${activeMetric === index ? 'opacity-30' : ''}
-                `}></div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           
-          <div className="mt-10 md:mt-14 text-center">
+          <div className={`mt-10 md:mt-14 text-center transform transition-all duration-700 delay-500
+            ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+          >
             <p className="text-base md:text-lg font-medium mb-4 md:mb-6 text-black/80">
               Ready to achieve similar results for your industry?
             </p>
             <a 
               href="#roi" 
-              className="glow-button inline-block px-6 sm:px-8 py-2 sm:py-3 rounded-full text-primary font-medium shadow-[0_4px_20px_rgba(0,191,114,0.3)] hover:shadow-[0_4px_25px_rgba(0,191,114,0.5)] transition-all duration-300"
+              className="glow-button inline-block px-6 sm:px-8 py-2 sm:py-3 rounded-full text-primary font-medium 
+                shadow-[0_4px_20px_rgba(0,191,114,0.3)] hover:shadow-[0_4px_25px_rgba(0,191,114,0.5)] 
+                transition-all duration-300 hover:scale-105 animate-pulse-glow"
             >
               Calculate Your Potential Savings
             </a>
