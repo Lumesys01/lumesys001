@@ -26,6 +26,18 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+// Define the possible response types
+interface SuccessResponse {
+  success: boolean;
+}
+
+interface ErrorResponse {
+  error: string;
+  details?: string;
+}
+
+type ApiResponse = SuccessResponse | ErrorResponse;
+
 const WaitlistForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -68,10 +80,10 @@ const WaitlistForm: React.FC = () => {
       console.log('Raw response:', responseText);
       
       // Only try to parse JSON if we have content
-      let result = {};
+      let result: ApiResponse = { success: false };
       if (responseText && responseText.trim()) {
         try {
-          result = JSON.parse(responseText);
+          result = JSON.parse(responseText) as ApiResponse;
           console.log('Parsed response:', result);
         } catch (parseError) {
           console.error('Error parsing response as JSON:', parseError);
@@ -93,7 +105,8 @@ const WaitlistForm: React.FC = () => {
         });
       } else {
         console.error('Server returned error:', response.status, result);
-        throw new Error(result.error ? String(result.error) : 'Signup failed');
+        const errorMessage = 'error' in result ? result.error : 'Signup failed';
+        throw new Error(errorMessage);
       }
     } catch (error) {
       sonnerToast.dismiss('waitlist-submission');
