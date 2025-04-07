@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, HardHat, Factory, Building, Store, Gauge } from 'lucide-react';
 import CurrencySelector, { Currency, currencies } from './CurrencySelector';
@@ -49,7 +48,7 @@ const CustomerShowcase: React.FC = () => {
     { 
       name: "IPP's & BESS", 
       logo: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=120&h=60&crop=entropy", 
-      industry: "Energy Industry",
+      industry: "Renewables",
       icon: <Gauge className="h-4 w-4 text-accent/80" />
     },
     { 
@@ -94,7 +93,6 @@ const CustomerShowcase: React.FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(currencies[0]);
   const [successMetrics, setSuccessMetrics] = useState<SuccessMetric[]>(originalSuccessMetrics);
 
-  // Update metrics when currency changes
   useEffect(() => {
     const updatedMetrics = originalSuccessMetrics.map(metric => {
       const convertedValue = metric.originalAnnualSavings * selectedCurrency.conversionRate;
@@ -105,7 +103,6 @@ const CustomerShowcase: React.FC = () => {
         notation: convertedValue >= 1000000 ? 'compact' : 'standard'
       }).format(convertedValue);
       
-      // Remove the currency symbol as we'll add it separately
       const valueWithoutSymbol = formattedValue.replace(/[^\d,.KMB]/g, '');
       
       return {
@@ -117,11 +114,10 @@ const CustomerShowcase: React.FC = () => {
     setSuccessMetrics(updatedMetrics);
   }, [selectedCurrency]);
 
-  // Animation for counting up to 23%
   useEffect(() => {
     const targetValue = 23;
-    const duration = 2000; // 2 seconds
-    const frameDuration = 16; // ~60fps
+    const duration = 2000;
+    const frameDuration = 16;
     const totalFrames = Math.round(duration / frameDuration);
     const valueIncrement = targetValue / totalFrames;
     
@@ -142,7 +138,6 @@ const CustomerShowcase: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Intersection Observer for animation triggers
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -166,7 +161,6 @@ const CustomerShowcase: React.FC = () => {
   }, []);
 
   const handleCardInteraction = (index: number) => {
-    // Touch-friendly interaction that works for both click and hover
     setActiveMetric(activeMetric === index ? null : index);
   };
 
@@ -183,6 +177,11 @@ const CustomerShowcase: React.FC = () => {
           <p className="text-base md:text-lg text-black/70 max-w-2xl mx-auto">
             Explore our data-driven assumptions about potential energy optimization across high-consumption industries.
           </p>
+          <div className="mt-4 p-3 bg-accent/5 rounded-lg inline-block">
+            <p className="text-sm md:text-base font-medium text-accent">
+              We are committed to advancing the Just Energy Transition
+            </p>
+          </div>
         </div>
         
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4 mb-16">
@@ -227,8 +226,7 @@ const CustomerShowcase: React.FC = () => {
         </div>
         
         <div className="max-w-5xl mx-auto">
-          {/* Industry Benchmark Card with Count Up Animation */}
-          <div className="mb-10 md:mb-16">
+          <div className={`mb-10 md:mb-16`}>
             <div className={`bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden
               transform transition-all duration-700 ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
             >

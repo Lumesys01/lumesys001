@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DollarSign, Euro, Banknote } from 'lucide-react';
+import { DollarSign, Euro, PoundSterling, Yen, Wallet } from 'lucide-react';
 
 export interface Currency {
   code: string;
@@ -37,21 +37,42 @@ export const currencies: Currency[] = [
     symbol: 'R', 
     name: 'South African Rand', 
     conversionRate: 18.5, 
-    icon: <Banknote className="h-3.5 w-3.5" /> 
+    icon: <Wallet className="h-3.5 w-3.5" /> 
   },
   { 
     code: 'JPY', 
     symbol: '¥', 
     name: 'Japanese Yen', 
     conversionRate: 150.2, 
-    icon: <Banknote className="h-3.5 w-3.5" /> 
+    icon: <Yen className="h-3.5 w-3.5" /> 
   },
   { 
     code: 'GBP', 
     symbol: '£', 
     name: 'British Pound', 
     conversionRate: 0.79, 
-    icon: <Banknote className="h-3.5 w-3.5" /> 
+    icon: <PoundSterling className="h-3.5 w-3.5" /> 
+  },
+  { 
+    code: 'AUD', 
+    symbol: 'A$', 
+    name: 'Australian Dollar', 
+    conversionRate: 1.52, 
+    icon: <DollarSign className="h-3.5 w-3.5" /> 
+  },
+  { 
+    code: 'CAD', 
+    symbol: 'C$', 
+    name: 'Canadian Dollar', 
+    conversionRate: 1.37, 
+    icon: <DollarSign className="h-3.5 w-3.5" /> 
+  },
+  { 
+    code: 'INR', 
+    symbol: '₹', 
+    name: 'Indian Rupee', 
+    conversionRate: 83.2, 
+    icon: <Wallet className="h-3.5 w-3.5" /> 
   },
 ];
 
@@ -83,12 +104,12 @@ const CurrencySelector: React.FC<CurrencySelectorProps> = ({
             </div>
           </SelectValue>
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="min-w-[180px] bg-white z-50 shadow-lg">
           {currencies.map((currency) => (
-            <SelectItem key={currency.code} value={currency.code} className="cursor-pointer">
-              <div className="flex items-center gap-2">
+            <SelectItem key={currency.code} value={currency.code} className="cursor-pointer py-2.5">
+              <div className="flex items-center gap-2 w-full">
                 {currency.icon}
-                <span>{currency.name} ({currency.symbol})</span>
+                <span className="whitespace-nowrap overflow-hidden text-ellipsis">{currency.name} ({currency.symbol})</span>
               </div>
             </SelectItem>
           ))}

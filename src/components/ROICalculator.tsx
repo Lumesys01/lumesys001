@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -56,12 +55,15 @@ const ROICalculator: React.FC = () => {
           <p className="text-lg text-black/70 max-w-2xl mx-auto">
             See how Lumesys can generate significant ROI for your facility. Adjust the parameters below to get a customized estimate.
           </p>
-          <div className="flex justify-center mt-4">
+          <div className="flex flex-col items-center mt-4">
             <CurrencySelector 
               selectedCurrency={selectedCurrency} 
               onChange={setSelectedCurrency}
               className="mt-2"
             />
+            <p className="text-xs text-accent mt-2">
+              We are committed to advancing the Just Energy Transition
+            </p>
           </div>
         </div>
         
