@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, HardHat, Factory, Building, Store, Gauge } from 'lucide-react';
+import { CheckCircle, HardHat, Factory, Building, Store, Gauge, ArrowRight } from 'lucide-react';
 import CurrencySelector, { Currency, currencies } from './CurrencySelector';
-import ArrowRight from 'lucide-react';
 
 interface CustomerLogo {
   name: string;
