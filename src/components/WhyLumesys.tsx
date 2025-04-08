@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { Check, X, Zap, Users, Award, Shield, LineChart, BatteryCharging, Lightbulb, Rocket, TrendingUp, Star, CircleDollarSign, CircleUserRound } from 'lucide-react';
+import { Check, X, Zap, Users, Award, Shield, LineChart, BatteryCharging, Lightbulb, Rocket, TrendingUp, Star, CircleDollarSign, CircleUserRound, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
