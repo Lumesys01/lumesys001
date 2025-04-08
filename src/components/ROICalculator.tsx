@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +10,10 @@ const ROICalculator: React.FC = () => {
   const [annualEnergyCost, setAnnualEnergyCost] = useState<number>(500000);
   const [facilitySize, setFacilitySize] = useState<number>(50000);
   const [systemComplexity, setSystemComplexity] = useState<number>(3);
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(currencies[0]);
+  
+  // Find ZAR in currencies array and set as default
+  const zarCurrency = currencies.find(c => c.code === 'ZAR') || currencies[0];
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(zarCurrency);
   
   // Calculate estimated savings with updated base savings rate
   const calculateSavings = () => {

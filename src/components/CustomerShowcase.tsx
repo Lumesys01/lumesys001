@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, HardHat, Factory, Building, Store, Gauge, ArrowRight } from 'lucide-react';
 import CurrencySelector, { Currency, currencies } from './CurrencySelector';
@@ -89,7 +90,10 @@ const CustomerShowcase: React.FC = () => {
   const [countUpValue, setCountUpValue] = useState(0);
   const [hoveredLogo, setHoveredLogo] = useState<number | null>(null);
   const [isInView, setIsInView] = useState(false);
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(currencies[0]);
+  
+  // Find ZAR in currencies array
+  const zarCurrency = currencies.find(c => c.code === 'ZAR') || currencies[0];
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(zarCurrency);
   const [successMetrics, setSuccessMetrics] = useState<SuccessMetric[]>(originalSuccessMetrics);
 
   useEffect(() => {
@@ -114,7 +118,7 @@ const CustomerShowcase: React.FC = () => {
   }, [selectedCurrency]);
 
   useEffect(() => {
-    const targetValue = 15; // Updated industry average to 15%
+    const targetValue = 15; // Industry average of 15%
     const duration = 2000;
     const frameDuration = 16;
     const totalFrames = Math.round(duration / frameDuration);

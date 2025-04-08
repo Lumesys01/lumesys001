@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Check, X, Zap, Users, Award, Shield, LineChart, BatteryCharging, Lightbulb, Rocket, TrendingUp, Star, CircleDollarSign, CircleUserRound } from 'lucide-react';
+import { Check, X, Zap, Users, Award, Shield, LineChart, BatteryCharging, Lightbulb, Rocket, TrendingUp, Star, CircleDollarSign, CircleUserRound } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
@@ -15,8 +16,8 @@ const WhyLumesys: React.FC = () => {
   const [rocketLaunched, setRocketLaunched] = useState(false);
   
   useEffect(() => {
-    // Start with 0% and animate to 23%
-    const targetValue = 23;
+    // Start with 0% and animate to 15%
+    const targetValue = 15;
     const duration = 2000; // 2 seconds
     const step = 10; // Update every 10ms for smooth animation
     const increment = (targetValue / (duration / step));
@@ -171,7 +172,7 @@ const WhyLumesys: React.FC = () => {
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-highlight/20 rounded-full blur-[30px]"></div>
               </div>
               <div className="w-full mb-4">
-                <Progress value={(savingsPercent / 23) * 100} className="h-2 bg-gray-200" />
+                <Progress value={(savingsPercent / 15) * 100} className="h-2 bg-gray-200" />
               </div>
               <p className="text-black/70">
                 Potential savings based on industry benchmarks for similar AI-driven energy management solutions.
@@ -369,7 +370,7 @@ const WhyLumesys: React.FC = () => {
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
-                      <span>Higher ROI (23% vs. industry average 10%)</span>
+                      <span>Higher ROI (15% vs. industry average 10%)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
@@ -585,25 +586,7 @@ const WhyLumesys: React.FC = () => {
           </div>
         )}
         
-        <div className="mt-16 glass-card rounded-xl p-8 relative overflow-hidden group">
-          <div className="absolute inset-0 bg-glow-gradient opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
-          
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div>
-              <h3 className="text-2xl font-light mb-2 text-black">
-                Discover how <span className="gradient-text font-normal">AI-driven optimization</span> is transforming high-energy industries
-              </h3>
-              <p className="text-black/70">
-                Learn about the projected benefits of implementing our solution in manufacturing facilities.
-              </p>
-            </div>
-            
-            <Button variant="outline" className="whitespace-nowrap border-accent/20 hover:border-accent hover:bg-accent/5">
-              View Projection Model
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
-        </div>
+        {/* Card Removed as requested */}
       </div>
     </section>
   );
