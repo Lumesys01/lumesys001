@@ -11,10 +11,10 @@ const ROICalculator: React.FC = () => {
   const [systemComplexity, setSystemComplexity] = useState<number>(3);
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(currencies[0]);
   
-  // Calculate estimated savings
+  // Calculate estimated savings with updated base savings rate
   const calculateSavings = () => {
-    // Base savings percentage based on facility complexity
-    const baseSavingsRate = 0.08 + (systemComplexity * 0.02); // 8-14% savings
+    // Base savings percentage based on facility complexity (adjusted to align with 15% industry benchmark)
+    const baseSavingsRate = 0.11 + (systemComplexity * 0.01); // 12-16% savings range
     
     // Adjust by facility size factor (larger facilities tend to have more optimization potential)
     const sizeFactor = Math.min(1.3, Math.max(0.9, facilitySize / 100000 + 0.8));
@@ -201,8 +201,9 @@ const ROICalculator: React.FC = () => {
           </div>
           
           <div className="mt-6 text-center text-sm text-black/60">
-            Note: This calculator provides estimates based on industry averages and typical implementation costs. 
-            Contact us for a detailed analysis specific to your facility.
+            <p>Note: This calculator provides estimates based on industry averages and typical implementation costs.</p>
+            <p>Contact us for a detailed analysis specific to your facility.</p>
+            <p className="mt-2">Response time: Within 24 hours during business days.</p>
           </div>
         </div>
       </div>

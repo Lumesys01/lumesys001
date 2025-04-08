@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, HardHat, Factory, Building, Store, Gauge } from 'lucide-react';
 import CurrencySelector, { Currency, currencies } from './CurrencySelector';
+import ArrowRight from 'lucide-react';
 
 interface CustomerLogo {
   name: string;
@@ -15,7 +16,6 @@ interface SuccessMetric {
   annualSavings: string;
   paybackPeriod: string;
   co2Reduction: string;
-  // Store original values in USD for conversion
   originalAnnualSavings: number;
 }
 
@@ -62,7 +62,7 @@ const CustomerShowcase: React.FC = () => {
   const originalSuccessMetrics: SuccessMetric[] = [
     { 
       customer: "Projected: Mining Sector", 
-      savingsPercentage: 18, 
+      savingsPercentage: 15, 
       annualSavings: "Up to $750,000", 
       originalAnnualSavings: 750000,
       paybackPeriod: "Estimated 10-14 months", 
@@ -78,7 +78,7 @@ const CustomerShowcase: React.FC = () => {
     },
     { 
       customer: "Projected: High Energy Industry", 
-      savingsPercentage: 22, 
+      savingsPercentage: 15, 
       annualSavings: "Up to $980,000", 
       originalAnnualSavings: 980000,
       paybackPeriod: "Estimated 8-12 months", 
@@ -115,7 +115,7 @@ const CustomerShowcase: React.FC = () => {
   }, [selectedCurrency]);
 
   useEffect(() => {
-    const targetValue = 18; // Updated industry average
+    const targetValue = 15; // Updated industry average to 15%
     const duration = 2000;
     const frameDuration = 16;
     const totalFrames = Math.round(duration / frameDuration);
@@ -245,7 +245,7 @@ const CustomerShowcase: React.FC = () => {
                       <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div 
                           className="h-full bg-gradient-to-r from-accent to-highlight transition-all duration-1000 ease-out"
-                          style={{ width: `${(countUpValue / 18) * 100}%` }}
+                          style={{ width: `${(countUpValue / 15) * 100}%` }}
                         ></div>
                       </div>
                       <p className="text-xs text-center mt-1 text-black/60">Industry average potential savings</p>
@@ -261,7 +261,7 @@ const CustomerShowcase: React.FC = () => {
           >
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4">
               <h3 className="text-2xl md:text-3xl font-medium relative inline-block">
-                <span className="gradient-text font-bold">Potential Results</span>, Backed by Assumptions
+                <span className="gradient-text font-bold">Potential Results</span>, Backed by Research
                 <div className="absolute -bottom-2 left-0 right-0 h-1 bg-button-gradient rounded-full"></div>
               </h3>
               <CurrencySelector 
@@ -271,7 +271,7 @@ const CustomerShowcase: React.FC = () => {
               />
             </div>
             <p className="text-base md:text-lg text-black/70 max-w-2xl mx-auto mt-4">
-              Our projections demonstrate the potential savings and sustainability improvements across different sectors.
+              Our projections are based on industry benchmarks from similar energy management solutions.
             </p>
           </div>
           
@@ -409,6 +409,16 @@ const CustomerShowcase: React.FC = () => {
                 transition-all duration-300 hover:scale-105 animate-pulse-glow"
             >
               Calculate Your Potential Savings
+            </a>
+          </div>
+          
+          <div className="mt-10 text-center">
+            <a 
+              href="#case-studies" 
+              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium"
+            >
+              <span>View Case Studies on Energy Management Systems</span>
+              <ArrowRight className="w-4 h-4" />
             </a>
           </div>
         </div>

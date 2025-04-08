@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
-import { Linkedin, Clock } from 'lucide-react';
+import { Linkedin, Clock, ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { 
   AttentionPulse, 
@@ -151,7 +151,7 @@ const CTASection: React.FC = () => {
           
           <div className="text-center">
             <p className="text-gray-800 mb-4 font-medium">Want to learn more about our mission?</p>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-4 mb-6">
               <a 
                 href="https://www.linkedin.com/in/tarylogle-theminingmaven" 
                 target="_blank" 
@@ -169,6 +169,10 @@ const CTASection: React.FC = () => {
               >
                 Request a Demo
               </Button>
+            </div>
+            
+            <div className="mt-4 text-center text-sm text-gray-600">
+              <p>Response time: Within 24 hours during business days</p>
             </div>
           </div>
         </div>
