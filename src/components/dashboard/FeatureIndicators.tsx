@@ -5,7 +5,7 @@ import { BarChart3, Lightbulb, BadgePercent, Zap, Clock } from 'lucide-react';
 
 const FeatureIndicators: React.FC = () => {
   return (
-    <div className="mt-8 grid grid-cols-3 md:flex md:justify-center gap-3 md:gap-6 text-sm text-black/80">
+    <div className="mt-8 grid grid-cols-3 md:flex md:justify-center gap-3 md:gap-6 text-sm text-black/80 dark:text-white/90">
       <FeatureIndicator 
         color="bg-accent" 
         label="Real-time Monitoring" 

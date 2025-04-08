@@ -14,14 +14,14 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  // Initialize theme from localStorage, but default to 'light' for first-time visitors
+  // Initialize theme from localStorage, but default to 'dark' for first-time visitors
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
       const storedTheme = window.localStorage.getItem('theme') as Theme;
-      // Only use stored theme if it exists, otherwise default to light
-      return storedTheme ? storedTheme : 'light';
+      // Only use stored theme if it exists, otherwise default to dark
+      return storedTheme ? storedTheme : 'dark';
     }
-    return 'light';
+    return 'dark';
   });
   
   const [isTransitioning, setIsTransitioning] = useState(false);

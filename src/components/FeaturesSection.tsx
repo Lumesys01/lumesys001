@@ -39,29 +39,29 @@ const FeaturesSection: React.FC = () => {
   ];
 
   return (
-    <section className="section-padding relative bg-white overflow-hidden">
+    <section className="section-padding relative bg-white dark:bg-background-dark overflow-hidden">
       {/* Background subtle accent elements */}
-      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-accent/5 rounded-full blur-[100px]" style={{ animationDuration: '15s' }}></div>
-      <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-highlight/5 rounded-full blur-[100px]" style={{ animationDuration: '12s', animationDelay: '2s' }}></div>
+      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-accent/5 dark:bg-accent/10 rounded-full blur-[100px]" style={{ animationDuration: '15s' }}></div>
+      <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-highlight/5 dark:bg-highlight/10 rounded-full blur-[100px]" style={{ animationDuration: '12s', animationDelay: '2s' }}></div>
       
       <div className="container mx-auto">
         <div className="text-center mb-10 md:mb-16">
           <h2 className="text-3xl md:text-5xl font-light mb-4">
             Features <span className="gradient-text font-normal">Designed</span> for You
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
             Our AI-powered platform provides comprehensive tools to transform your energy management strategy.
           </p>
           
           {/* UVP Highlight Box */}
-          <div className="bg-gradient-to-r from-accent/10 to-highlight/10 p-4 md:p-6 rounded-xl max-w-3xl mx-auto mb-8 border border-accent/20">
+          <div className="bg-gradient-to-r from-accent/10 to-highlight/10 dark:from-accent/20 dark:to-highlight/20 p-4 md:p-6 rounded-xl max-w-3xl mx-auto mb-8 border border-accent/20 dark:border-accent/30">
             <div className="flex items-start gap-3">
               <div className="mt-1">
                 <Zap className="w-6 h-6 text-accent" />
               </div>
               <div className="text-left">
-                <h3 className="text-xl font-medium text-black mb-2">What Sets Us Apart</h3>
-                <p className="text-gray-700">
+                <h3 className="text-xl font-medium text-black dark:text-white mb-2">What Sets Us Apart</h3>
+                <p className="text-gray-700 dark:text-gray-200">
                   Unlike traditional energy systems that use <span className="font-semibold">static rules and schedules</span>, 
                   Lumesys employs <span className="text-accent font-bold">proprietary AI algorithms</span> that continuously 
                   learn and adapt to your building's unique energy needs. This dynamic approach delivers 
@@ -72,7 +72,7 @@ const FeaturesSection: React.FC = () => {
             </div>
           </div>
           
-          <p className="text-sm text-accent font-medium">Click on icons to learn more about each feature!</p>
+          <p className="text-sm text-accent font-medium dark:text-accent/90">Click on icons to learn more about each feature!</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
