@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -31,7 +30,7 @@ const ClientContactForm: React.FC = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [responseTime, setResponseTime] = useState(24); // hours to respond
+  const [responseTime, setResponseTime] = useState(24); // fixed at 24 hours
   const [formStarted, setFormStarted] = useState(false);
   const [exitIntent, setExitIntent] = useState(false);
 
@@ -45,7 +44,6 @@ const ClientContactForm: React.FC = () => {
     },
   });
 
-  // Track when user starts filling out the form
   useEffect(() => {
     const values = form.getValues();
     if (values.fullName || values.companyName || values.email || values.message) {
@@ -53,7 +51,6 @@ const ClientContactForm: React.FC = () => {
     }
   }, [form.watch(), form]);
 
-  // Track exit intent
   useEffect(() => {
     const handleMouseLeave = (e: MouseEvent) => {
       if (formStarted && !isSubmitted && e.clientY <= 0) {
@@ -61,28 +58,18 @@ const ClientContactForm: React.FC = () => {
       }
     };
 
-    // Decrease response time to create subtle urgency
-    const timer = setInterval(() => {
-      setResponseTime(prev => {
-        if (prev > 1) return prev - 1;
-        return 1; // Minimum of 1 hour
-      });
-    }, 120000); // Every 2 minutes
-
     window.addEventListener('mouseleave', handleMouseLeave);
     
     return () => {
       window.removeEventListener('mouseleave', handleMouseLeave);
-      clearInterval(timer);
     };
   }, [formStarted, isSubmitted]);
 
-  // Show exit intent message
   useEffect(() => {
     if (exitIntent) {
       toast({
         title: "Before you go...",
-        description: "We'll respond within 24 hours. Complete the form to get started with energy optimization.",
+        description: "We'll respond within 24 hours during business days. Complete the form to get started with energy optimization.",
       });
       setExitIntent(false);
     }
@@ -91,7 +78,6 @@ const ClientContactForm: React.FC = () => {
   function onSubmit(data: FormValues) {
     setIsSubmitting(true);
     
-    // Prepare email data
     const emailData = {
       to: "info@golumesys.com",
       from: data.email,
@@ -103,14 +89,10 @@ Email: ${data.email}
 Message: ${data.message || "No message provided"}
       `,
       replyTo: data.email,
-      // In a real implementation, you would include user confirmation email logic
     };
     
-    // Simulate API call to send email
     console.log("Sending email data:", emailData);
     
-    // In a real implementation, you would use a service like EmailJS, SendGrid, etc.
-    // For now, we'll simulate a successful email send
     setTimeout(() => {
       console.log("Email sent successfully");
       setIsSubmitting(false);
@@ -121,9 +103,6 @@ Message: ${data.message || "No message provided"}
       });
 
       setIsSubmitted(true);
-      
-      // Log confirmation email
-      console.log("Sending confirmation email to:", data.email);
     }, 1500);
   }
 
@@ -144,7 +123,7 @@ Message: ${data.message || "No message provided"}
           <div className="mt-4 mx-auto max-w-md flex items-center justify-center bg-accent/5 rounded-lg p-3">
             <Clock className="text-accent w-5 h-5 mr-2" />
             <p className="text-sm font-medium text-gray-700">
-              Average response time: <span className="text-accent">{responseTime} hours</span>
+              Response time: <span className="text-accent">24 hours during business days</span>
             </p>
           </div>
         </div>
@@ -276,7 +255,6 @@ Message: ${data.message || "No message provided"}
                       )}
                     />
                     
-                    {/* Progress indicator */}
                     <div className="pt-2">
                       <p className="text-sm text-gray-600 flex items-center justify-between">
                         <span>Form completion</span>
@@ -319,7 +297,7 @@ Message: ${data.message || "No message provided"}
                     </AttentionPulse>
                     
                     <p className="text-xs text-center text-gray-500">
-                      We'll respond within {responseTime} hours during business days
+                      We'll respond within 24 hours during business days
                     </p>
                   </form>
                 </Form>

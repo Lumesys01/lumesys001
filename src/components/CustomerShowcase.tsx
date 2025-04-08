@@ -62,27 +62,27 @@ const CustomerShowcase: React.FC = () => {
   const originalSuccessMetrics: SuccessMetric[] = [
     { 
       customer: "Projected: Mining Sector", 
-      savingsPercentage: 24, 
-      annualSavings: "Up to $920,000", 
-      originalAnnualSavings: 920000,
-      paybackPeriod: "Estimated 8-10 months", 
-      co2Reduction: "Potential 580 tons" 
+      savingsPercentage: 18, 
+      annualSavings: "Up to $750,000", 
+      originalAnnualSavings: 750000,
+      paybackPeriod: "Estimated 10-14 months", 
+      co2Reduction: "Potential 480 tons" 
     },
     { 
       customer: "Projected: Government Infrastructure", 
-      savingsPercentage: 19, 
-      annualSavings: "Up to $650,000", 
-      originalAnnualSavings: 650000,
-      paybackPeriod: "Estimated 9-12 months", 
-      co2Reduction: "Potential 420 tons" 
+      savingsPercentage: 15, 
+      annualSavings: "Up to $520,000", 
+      originalAnnualSavings: 520000,
+      paybackPeriod: "Estimated 12-16 months", 
+      co2Reduction: "Potential 350 tons" 
     },
     { 
       customer: "Projected: High Energy Industry", 
-      savingsPercentage: 27, 
-      annualSavings: "Up to $1,200,000", 
-      originalAnnualSavings: 1200000,
-      paybackPeriod: "Estimated 6-9 months", 
-      co2Reduction: "Potential 750 tons" 
+      savingsPercentage: 22, 
+      annualSavings: "Up to $980,000", 
+      originalAnnualSavings: 980000,
+      paybackPeriod: "Estimated 8-12 months", 
+      co2Reduction: "Potential 620 tons" 
     }
   ];
 
@@ -115,7 +115,7 @@ const CustomerShowcase: React.FC = () => {
   }, [selectedCurrency]);
 
   useEffect(() => {
-    const targetValue = 23;
+    const targetValue = 18; // Updated industry average
     const duration = 2000;
     const frameDuration = 16;
     const totalFrames = Math.round(duration / frameDuration);
@@ -245,7 +245,7 @@ const CustomerShowcase: React.FC = () => {
                       <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div 
                           className="h-full bg-gradient-to-r from-accent to-highlight transition-all duration-1000 ease-out"
-                          style={{ width: `${(countUpValue / 23) * 100}%` }}
+                          style={{ width: `${(countUpValue / 18) * 100}%` }}
                         ></div>
                       </div>
                       <p className="text-xs text-center mt-1 text-black/60">Industry average potential savings</p>

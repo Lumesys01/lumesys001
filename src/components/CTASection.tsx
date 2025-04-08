@@ -11,22 +11,38 @@ import {
 import WaitlistForm from './WaitlistForm';
 
 const CTASection: React.FC = () => {
-  const [timeLeft, setTimeLeft] = useState({ days: 3, hours: 12, minutes: 45 });
+  const [timeLeft, setTimeLeft] = useState({ days: 30, hours: 0, minutes: 0 });
   const [hasInteracted, setHasInteracted] = useState(false);
   const { toast } = useToast();
 
+  // Set the countdown based on a real 30-day period from now
   useEffect(() => {
+    // Set end date to 30 days from when the site goes live
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + 30);
+    
+    const calculateTimeLeft = () => {
+      const now = new Date();
+      const difference = endDate.getTime() - now.getTime();
+      
+      if (difference <= 0) {
+        // Time's up
+        return { days: 0, hours: 0, minutes: 0 };
+      }
+      
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      
+      return { days, hours, minutes };
+    };
+    
+    // Initial calculation
+    setTimeLeft(calculateTimeLeft());
+    
+    // Update every minute
     const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1 };
-        } else if (prev.hours > 0) {
-          return { ...prev, hours: prev.hours - 1, minutes: 59 };
-        } else if (prev.days > 0) {
-          return { ...prev, days: prev.days - 1, hours: 23, minutes: 59 };
-        }
-        return prev;
-      });
+      setTimeLeft(calculateTimeLeft());
     }, 60000);
     
     return () => clearInterval(timer);
@@ -123,6 +139,12 @@ const CTASection: React.FC = () => {
             <p className="text-lg text-gray-800 mb-8 max-w-2xl mx-auto">
               Get priority access to the future of energy optimization and receive exclusive updates as we prepare for launch.
             </p>
+            
+            <div className="mb-6 p-3 bg-accent/10 rounded-lg inline-block">
+              <p className="text-sm md:text-base font-medium text-accent">
+                We are committed to advancing the Just Energy Transition
+              </p>
+            </div>
           </div>
           
           <WaitlistForm />
