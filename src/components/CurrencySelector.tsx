@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DollarSign, Euro, PoundSterling, Yen, Wallet } from 'lucide-react';
+import { DollarSign, Euro, PoundSterling, BadgeJapaneseYen, Wallet } from 'lucide-react';
 
 export interface Currency {
   code: string;
@@ -44,7 +44,7 @@ export const currencies: Currency[] = [
     symbol: '¥', 
     name: 'Japanese Yen', 
     conversionRate: 150.2, 
-    icon: <Yen className="h-3.5 w-3.5" /> 
+    icon: <BadgeJapaneseYen className="h-3.5 w-3.5" /> 
   },
   { 
     code: 'GBP', 
