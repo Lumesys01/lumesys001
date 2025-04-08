@@ -1,7 +1,7 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, MousePointerClick, CalendarClock } from 'lucide-react';
+import { ArrowDown, MousePointerClick, CalendarClock, ShieldCheck } from 'lucide-react';
 import { EnhancedText } from '@/components/ui/MicroInteractions';
 
 const HeroSection: React.FC = () => {
@@ -98,9 +98,17 @@ const HeroSection: React.FC = () => {
             The Brain for <span className="gradient-text font-normal filter drop-shadow-[0_0_20px_rgba(168,235,18,0.3)]">Energy Optimization</span> & Efficiency
           </h1>
           
-          <p className="text-lg md:text-xl text-black/80 max-w-3xl mb-10 animate-float" style={{ animationDelay: "0.6s" }}>
-            Reduce operational costs by a minimum of <span className="text-highlight font-medium">10%</span> with our AI-powered solutions.
+          <p className="text-lg md:text-xl text-black/80 max-w-3xl mb-6 animate-float" style={{ animationDelay: "0.6s" }}>
+            Reduce operational costs by a minimum of <span className="text-highlight font-medium">15%</span> with our AI-powered solutions.
           </p>
+          
+          {/* UVP Highlight */}
+          <div className="flex items-center gap-2 mb-8 animate-float bg-accent/10 px-4 py-2 rounded-full" style={{ animationDelay: "0.5s" }}>
+            <ShieldCheck className="w-5 h-5 text-accent" />
+            <p className="text-sm md:text-base font-medium">
+              <span className="text-accent">Unique:</span> 48-hour deployment & self-learning AI that competitors can't match
+            </p>
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 animate-float" style={{ animationDelay: "0.8s" }}>
             <div 

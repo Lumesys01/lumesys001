@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { ArrowRightIcon, Sun, LineChart, Users } from "lucide-react";
+import { ArrowRightIcon, Sun, LineChart, Users, Zap, Award, ShieldCheck } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import PageTransition from "@/components/ui/PageTransition";
@@ -47,6 +47,50 @@ const OurWhy = () => {
         <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
           The inspiration behind Lumesys and the values that drive our mission forward
         </p>
+      </div>
+
+      {/* New UVP Highlight Section */}
+      <div className="mb-12 bg-gradient-to-r from-accent/5 to-highlight/5 p-6 rounded-xl border border-accent/20">
+        <div className="flex flex-col md:flex-row md:items-center gap-6">
+          <div className="flex-shrink-0 flex justify-center">
+            <div className="relative">
+              <div className="absolute inset-0 bg-accent/20 rounded-full blur-xl"></div>
+              <Award className="w-16 h-16 text-accent relative z-10" />
+            </div>
+          </div>
+          <div>
+            <h3 className="text-2xl font-medium mb-2 text-center md:text-left">Our Competitive Edge</h3>
+            <div className="grid md:grid-cols-3 gap-4 mt-4">
+              <div className="flex items-start gap-2">
+                <div className="mt-1">
+                  <Zap className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <p className="font-medium">48-Hour Deployment</p>
+                  <p className="text-sm text-gray-600">vs. industry standard 4-6 weeks</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="mt-1">
+                  <LineChart className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <p className="font-medium">15% Savings Guarantee</p>
+                  <p className="text-sm text-gray-600">vs. industry average of 8-10%</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="mt-1">
+                  <ShieldCheck className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <p className="font-medium">Self-Improving AI</p>
+                  <p className="text-sm text-gray-600">vs. static rule-based systems</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="grid md:grid-cols-3 gap-8 mb-16">
