@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Check, X, Zap, Users, Award, Shield, LineChart, BatteryCharging, Lightbulb, Rocket, TrendingUp, Star, CircleDollarSign, CircleUserRound, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
@@ -15,8 +16,8 @@ const WhyLumesys: React.FC = () => {
   const [rocketLaunched, setRocketLaunched] = useState(false);
   
   useEffect(() => {
-    // Start with 0% and animate to 15%
-    const targetValue = 15;
+    // Start with 0% and animate to 10% (more realistic savings percentage)
+    const targetValue = 10;
     const duration = 2000; // 2 seconds
     const step = 10; // Update every 10ms for smooth animation
     const increment = (targetValue / (duration / step));
@@ -52,60 +53,62 @@ const WhyLumesys: React.FC = () => {
     }
   }, [activeTab]);
 
+  // Updated with more realistic comparisons
   const comparisonData = [
     {
       feature: "Energy Analysis",
       lumesys: "AI-powered, Real-time",
       traditional: "Manual, Periodic",
-      benefit: "Immediate insights to prevent waste",
+      benefit: "Faster insights to reduce waste",
       icon: <LineChart className="w-5 h-5 text-accent" />,
-      lumesysRating: 95,
-      traditionalRating: 40,
+      lumesysRating: 85,
+      traditionalRating: 55,
     },
     {
       feature: "Anomaly Detection",
-      lumesys: "Predictive, Automated",
+      lumesys: "Early Detection, Automated",
       traditional: "Reactive, Manual",
-      benefit: "Prevent issues before they occur",
+      benefit: "Identify issues earlier",
       icon: <Shield className="w-5 h-5 text-accent" />,
-      lumesysRating: 90,
-      traditionalRating: 30,
+      lumesysRating: 80,
+      traditionalRating: 45,
     },
     {
       feature: "Optimization",
       lumesys: "Continuous, Adaptive",
       traditional: "Static, Scheduled",
-      benefit: "24/7 optimization for maximum savings",
+      benefit: "More consistent optimization",
       icon: <BatteryCharging className="w-5 h-5 text-accent" />,
-      lumesysRating: 98,
-      traditionalRating: 45,
+      lumesysRating: 88,
+      traditionalRating: 60,
     },
     {
       feature: "Maintenance",
       lumesys: "Proactive, Preventive",
       traditional: "Reactive, Repairs",
-      benefit: "Reduce downtime and extend equipment life",
+      benefit: "Reduced maintenance costs",
       icon: <Award className="w-5 h-5 text-accent" />,
-      lumesysRating: 92,
-      traditionalRating: 38,
+      lumesysRating: 82,
+      traditionalRating: 58,
     },
     {
       feature: "Data Insights",
-      lumesys: "Deep Learning Patterns",
-      traditional: "Basic Historical Data",
-      benefit: "Discover hidden opportunities for savings",
+      lumesys: "Machine Learning",
+      traditional: "Historical Data",
+      benefit: "Identify new saving opportunities",
       icon: <Lightbulb className="w-5 h-5 text-accent" />,
-      lumesysRating: 96,
-      traditionalRating: 35,
+      lumesysRating: 86,
+      traditionalRating: 50,
     }
   ];
 
+  // More realistic market growth data
   const marketGrowthData = [
-    { year: '2024', lumesys: 100, marketAverage: 50, users: 100 },
-    { year: '2025', lumesys: 800, marketAverage: 200, users: 500 },
-    { year: '2026', lumesys: 2000, marketAverage: 600, users: 1500 },
-    { year: '2027', lumesys: 3200, marketAverage: 1200, users: 3000 },
-    { year: '2028', lumesys: 4800, marketAverage: 2000, users: 5000 }
+    { year: '2024', lumesys: 100, marketAverage: 70, users: 100 },
+    { year: '2025', lumesys: 250, marketAverage: 150, users: 300 },
+    { year: '2026', lumesys: 500, marketAverage: 280, users: 800 },
+    { year: '2027', lumesys: 900, marketAverage: 450, users: 1500 },
+    { year: '2028', lumesys: 1300, marketAverage: 700, users: 2500 }
   ];
 
   // Helper function to render rating stars
@@ -126,25 +129,25 @@ const WhyLumesys: React.FC = () => {
   };
 
   return (
-    <section className="section-padding relative bg-white">
-      <div className="absolute top-1/3 right-0 w-1/2 h-1/2 bg-accent/5 rounded-full blur-[120px]"></div>
-      <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-neonpurple/5 rounded-full blur-[150px]"></div>
+    <section className="section-padding relative bg-white dark:bg-background-dark">
+      <div className="absolute top-1/3 right-0 w-1/2 h-1/2 bg-accent/5 dark:bg-accent/10 rounded-full blur-[120px]"></div>
+      <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-neonpurple/5 dark:bg-neonpurple/10 rounded-full blur-[150px]"></div>
       
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-light mb-4 text-black">
+          <h2 className="text-3xl md:text-5xl font-light mb-4 text-black dark:text-white">
             Why <span className="gradient-text font-normal">Lumesys</span>?
           </h2>
-          <p className="text-lg text-black/70 max-w-2xl mx-auto">
-            See how our AI-driven approach delivers superior results compared to traditional energy management systems.
+          <p className="text-lg text-black/70 dark:text-white/70 max-w-2xl mx-auto">
+            See how our AI-driven approach delivers better results compared to traditional energy management systems.
           </p>
           
-          <div className="flex justify-center gap-4 mt-8 mb-8 border-b border-gray-200">
+          <div className="flex justify-center gap-4 mt-8 mb-8 border-b border-gray-200 dark:border-gray-700">
             <button 
               onClick={() => setActiveTab('features')}
               className={`px-4 py-2 text-lg transition-colors ${activeTab === 'features' 
                 ? 'text-accent border-b-2 border-accent' 
-                : 'text-black/60 hover:text-black/80'}`}
+                : 'text-black/60 dark:text-white/60 hover:text-black/80 dark:hover:text-white/80'}`}
             >
               Feature Comparison
             </button>
@@ -152,17 +155,24 @@ const WhyLumesys: React.FC = () => {
               onClick={() => setActiveTab('growth')}
               className={`px-4 py-2 text-lg transition-all ${activeTab === 'growth' 
                 ? 'text-accent border-b-2 border-accent scale-110 font-medium' 
-                : 'text-black/60 hover:text-black/80'}`}
+                : 'text-black/60 dark:text-white/60 hover:text-black/80 dark:hover:text-white/80'}`}
             >
               Growth & Adoption
             </button>
+          </div>
+          
+          {/* Disclaimer added */}
+          <div className="bg-gray-50 dark:bg-gray-800/30 text-sm text-black/70 dark:text-white/70 p-3 rounded-lg mb-6 max-w-2xl mx-auto border border-gray-100 dark:border-gray-700">
+            <p className="italic">
+              <strong>Disclaimer:</strong> This comparison is based on predictions from our AI models using industry data and benchmarks. Actual results may vary as more real-world data is collected.
+            </p>
           </div>
         </div>
         
         {activeTab === 'features' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="glass-card rounded-xl p-8 md:p-10 text-center">
-              <h3 className="text-xl font-medium mb-2 text-black">Industry Benchmark Energy Savings</h3>
+            <div className="glass-card rounded-xl p-8 md:p-10 text-center bg-white dark:bg-gray-800/40 dark:text-white border border-gray-100 dark:border-gray-700 shadow-sm">
+              <h3 className="text-xl font-medium mb-2 text-black dark:text-white">Average Energy Savings</h3>
               <div className="relative mb-6">
                 <div className="text-7xl md:text-8xl font-light gradient-text transition-all duration-300">
                   {savingsPercent.toFixed(1)}
@@ -171,14 +181,14 @@ const WhyLumesys: React.FC = () => {
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-highlight/20 rounded-full blur-[30px]"></div>
               </div>
               <div className="w-full mb-4">
-                <Progress value={(savingsPercent / 15) * 100} className="h-2 bg-gray-200" />
+                <Progress value={(savingsPercent / 10) * 100} className="h-2 bg-gray-200 dark:bg-gray-700" />
               </div>
-              <p className="text-black/70">
-                Potential savings based on industry benchmarks for similar AI-driven energy management solutions.
+              <p className="text-black/70 dark:text-white/70">
+                Average savings based on data from similar AI-driven energy management deployments.
               </p>
             </div>
             
-            <Card className="shadow-lg border-highlight/20 overflow-hidden transition-all relative">
+            <Card className="shadow-lg border-highlight/20 overflow-hidden transition-all relative dark:bg-gray-800/40 dark:text-white dark:border-gray-700">
               {/* Add a pulsing dot to hint at interactivity */}
               <div className="absolute top-4 right-4 z-10">
                 <div className="relative">
@@ -188,17 +198,17 @@ const WhyLumesys: React.FC = () => {
                 <span className="text-xs text-accent mt-1 block">Tap to explore</span>
               </div>
 
-              <div className="bg-gray-50 py-3 px-4 border-b border-gray-100">
-                <h3 className="font-medium text-lg text-black">Feature Comparison</h3>
-                <p className="text-sm text-black/60">See how Lumesys outperforms traditional systems</p>
+              <div className="bg-gray-50 dark:bg-gray-800 py-3 px-4 border-b border-gray-100 dark:border-gray-700">
+                <h3 className="font-medium text-lg text-black dark:text-white">Feature Comparison</h3>
+                <p className="text-sm text-black/60 dark:text-white/60">How Lumesys compares to traditional systems</p>
               </div>
               
-              <div className="divide-y divide-gray-100">
+              <div className="divide-y divide-gray-100 dark:divide-gray-700">
                 {comparisonData.map((item, index) => (
                   <div 
                     key={index}
-                    className={`cursor-pointer group transition-all duration-300 hover:bg-gray-50 
-                      ${activeFeature === item.feature ? 'bg-accent/5' : ''}`}
+                    className={`cursor-pointer group transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700/50
+                      ${activeFeature === item.feature ? 'bg-accent/5 dark:bg-accent/10' : ''}`}
                     onClick={() => setActiveFeature(activeFeature === item.feature ? null : item.feature)}
                   >
                     <div className="p-4 relative">
@@ -228,7 +238,7 @@ const WhyLumesys: React.FC = () => {
                       </div>
                       
                       <div className="grid grid-cols-2 gap-4 mt-2">
-                        <div className="bg-accent/5 p-2 rounded-md">
+                        <div className="bg-accent/5 dark:bg-accent/10 p-2 rounded-md">
                           <div className="flex items-center gap-1.5 mb-1">
                             <Check className="w-4 h-4 text-accent" />
                             <span className="text-sm font-medium">Lumesys</span>
@@ -236,10 +246,10 @@ const WhyLumesys: React.FC = () => {
                           <p className="text-xs mb-2">{item.lumesys}</p>
                           {renderRatingDots(item.lumesysRating)}
                         </div>
-                        <div className="bg-gray-100 p-2 rounded-md">
+                        <div className="bg-gray-100 dark:bg-gray-700/50 p-2 rounded-md">
                           <div className="flex items-center gap-1.5 mb-1">
-                            <X className="w-4 h-4 text-black/40" />
-                            <span className="text-sm font-medium text-black/70">Traditional</span>
+                            <X className="w-4 h-4 text-black/40 dark:text-white/40" />
+                            <span className="text-sm font-medium text-black/70 dark:text-white/70">Traditional</span>
                           </div>
                           <p className="text-xs mb-2">{item.traditional}</p>
                           {renderRatingDots(item.traditionalRating)}
@@ -248,16 +258,16 @@ const WhyLumesys: React.FC = () => {
                     </div>
 
                     {activeFeature === item.feature && (
-                      <div className="bg-accent/10 p-4 border-t border-accent/20 animate-fade-in">
+                      <div className="bg-accent/10 dark:bg-accent/20 p-4 border-t border-accent/20 dark:border-accent/30 animate-fade-in">
                         <div className="flex items-start gap-3">
-                          <div className="bg-accent/20 p-1.5 rounded-full mt-0.5">
+                          <div className="bg-accent/20 dark:bg-accent/30 p-1.5 rounded-full mt-0.5">
                             <Zap className="w-4 h-4 text-accent" />
                           </div>
                           <div>
                             <p className="font-medium text-accent mb-1">Lumesys Advantage:</p>
                             <p className="text-sm">{item.benefit}</p>
                             
-                            <div className="mt-3 bg-white/60 rounded-lg p-3 border border-accent/20">
+                            <div className="mt-3 bg-white/60 dark:bg-gray-800/60 rounded-lg p-3 border border-accent/20 dark:border-accent/30">
                               <h5 className="font-medium text-sm mb-2">Performance Comparison</h5>
                               <div className="relative pt-1">
                                 <div className="flex items-center justify-between mb-1">
@@ -268,7 +278,7 @@ const WhyLumesys: React.FC = () => {
                                     {item.lumesysRating}%
                                   </span>
                                 </div>
-                                <div className="overflow-hidden h-2 text-xs flex rounded bg-gray-200">
+                                <div className="overflow-hidden h-2 text-xs flex rounded bg-gray-200 dark:bg-gray-700">
                                   <div 
                                     style={{ width: `${item.lumesysRating}%` }} 
                                     className="animate-slide-in shadow-none flex flex-col text-center whitespace-nowrap justify-center bg-accent"
@@ -277,17 +287,17 @@ const WhyLumesys: React.FC = () => {
                               </div>
                               <div className="relative pt-3">
                                 <div className="flex items-center justify-between mb-1">
-                                  <span className="text-xs font-semibold inline-block text-gray-600">
+                                  <span className="text-xs font-semibold inline-block text-gray-600 dark:text-gray-400">
                                     Traditional
                                   </span>
-                                  <span className="text-xs font-semibold inline-block text-gray-600">
+                                  <span className="text-xs font-semibold inline-block text-gray-600 dark:text-gray-400">
                                     {item.traditionalRating}%
                                   </span>
                                 </div>
-                                <div className="overflow-hidden h-2 text-xs flex rounded bg-gray-200">
+                                <div className="overflow-hidden h-2 text-xs flex rounded bg-gray-200 dark:bg-gray-700">
                                   <div 
                                     style={{ width: `${item.traditionalRating}%` }} 
-                                    className="animate-slide-in shadow-none flex flex-col text-center whitespace-nowrap justify-center bg-gray-400"
+                                    className="animate-slide-in shadow-none flex flex-col text-center whitespace-nowrap justify-center bg-gray-400 dark:bg-gray-500"
                                   />
                                 </div>
                               </div>
