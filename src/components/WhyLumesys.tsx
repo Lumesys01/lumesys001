@@ -15,10 +15,9 @@ const WhyLumesys: React.FC = () => {
   const [rocketLaunched, setRocketLaunched] = useState(false);
   
   useEffect(() => {
-    // Start with 0% and animate to 10% (more realistic savings percentage)
     const targetValue = 10;
-    const duration = 2000; // 2 seconds
-    const step = 10; // Update every 10ms for smooth animation
+    const duration = 2000;
+    const step = 10;
     const increment = (targetValue / (duration / step));
     let currentValue = 0;
     
@@ -35,7 +34,6 @@ const WhyLumesys: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Updated with more realistic comparisons
   const comparisonData = [
     {
       feature: "Energy Analysis",
@@ -84,7 +82,6 @@ const WhyLumesys: React.FC = () => {
     }
   ];
 
-  // Helper function to render rating stars
   const renderRatingDots = (rating: number, maxRating: number = 100, maxDots: number = 5) => {
     const filledDots = Math.round((rating / maxRating) * maxDots);
     
@@ -121,7 +118,6 @@ const WhyLumesys: React.FC = () => {
             </h3>
           </div>
           
-          {/* Disclaimer added */}
           <div className="bg-gray-50 dark:bg-gray-800/30 text-sm text-black/70 dark:text-white/70 p-3 rounded-lg mb-6 max-w-2xl mx-auto border border-gray-100 dark:border-gray-700">
             <p className="italic">
               <strong>Disclaimer:</strong> This comparison is based on predictions from our AI models using industry data and benchmarks. Actual results may vary as more real-world data is collected.
@@ -153,7 +149,6 @@ const WhyLumesys: React.FC = () => {
           </div>
           
           <Card className="shadow-lg border-highlight/20 overflow-hidden transition-all relative dark:bg-gray-800/40 dark:text-white dark:border-gray-700">
-            {/* Add a pulsing dot to hint at interactivity */}
             <div className="absolute top-4 right-4 z-10">
               <div className="relative">
                 <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-accent animate-ping"></span>
@@ -176,13 +171,11 @@ const WhyLumesys: React.FC = () => {
                   onClick={() => setActiveFeature(activeFeature === item.feature ? null : item.feature)}
                 >
                   <div className="p-4 relative">
-                    {/* Add a subtle glow effect on hover */}
                     <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-transparent 
                       opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                     
                     <div className="flex items-center justify-between mb-2 relative z-10">
                       <div className="flex items-center gap-2">
-                        {/* Wrap icon with a hover effect */}
                         <div className="group/icon relative">
                           {item.icon}
                           <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full 
