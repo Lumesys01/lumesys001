@@ -65,7 +65,7 @@ const FeaturesSection: React.FC = () => {
                   Unlike traditional energy systems that use <span className="font-semibold">static rules and schedules</span>, 
                   Lumesys employs <span className="text-accent font-bold">proprietary AI algorithms</span> that continuously 
                   learn and adapt to your building's unique energy needs. This dynamic approach delivers 
-                  <span className="text-highlight font-bold"> 48-hour implementation</span> and <span className="text-highlight font-bold">30% more savings</span> than 
+                  <span className="text-highlight font-bold"> 48-hour implementation</span> and <span className="text-highlight font-bold">significant more savings</span> than 
                   conventional solutions.
                 </p>
               </div>
