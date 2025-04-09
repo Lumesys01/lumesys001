@@ -269,6 +269,61 @@ const WhyLumesys: React.FC = () => {
           </Card>
         </div>
       </div>
+
+      <div className="mb-12 bg-gradient-to-r from-accent/5 to-highlight/5 p-6 rounded-xl border border-accent/20">
+        <div className="flex flex-col md:flex-row md:items-center gap-6">
+          <div>
+            <h3 className="text-2xl font-medium mb-2 text-center md:text-left">Our Competitive Edge</h3>
+            <div className="grid md:grid-cols-3 gap-4 mt-4">
+              <div className="flex items-start gap-2">
+                <div className="mt-1">
+                  <Zap className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <p className="font-medium">48-Hour Deployment</p>
+                  <p className="text-sm text-gray-600">vs. industry standard 4-6 weeks</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="mt-1">
+                  <LineChart className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <p className="font-medium">>10% Savings Guarantee</p>
+                  <p className="text-sm text-gray-600">vs. industry average</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="mt-1">
+                  <Rocket className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <p className="font-medium">24/7 Support</p>
+                  <p className="text-sm text-gray-600">vs. limited hours</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="mt-1">
+                  <TrendingUp className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <p className="font-medium">Real-time Analytics</p>
+                  <p className="text-sm text-gray-600">vs. historical data</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="mt-1">
+                  <Star className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <p className="font-medium">Customer Support</p>
+                  <p className="text-sm text-gray-600">vs. limited options</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

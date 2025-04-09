@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, CalendarClock, ShieldCheck } from 'lucide-react';
@@ -46,16 +45,13 @@ const HeroSection: React.FC = () => {
 
   return (
     <section className="relative min-h-screen overflow-hidden flex items-center bg-gradient-to-b from-white to-gray-50 dark:from-background-dark dark:to-black/70">
-      {/* Luxurious gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-background-dark dark:via-gray-900/50 dark:to-black/80 opacity-90"></div>
       
-      {/* Subtle light effects */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
         <div className="absolute -top-[30%] -left-[10%] w-[80%] h-[70%] rounded-full bg-gradient-to-br from-accent/5 to-transparent blur-3xl"></div>
         <div className="absolute -bottom-[30%] -right-[10%] w-[80%] h-[70%] rounded-full bg-gradient-to-tl from-highlight/5 to-transparent blur-3xl"></div>
       </div>
       
-      {/* Subtle parallax effect on content */}
       <div 
         className="absolute inset-0 will-change-transform"
         style={{
@@ -94,11 +90,10 @@ const HeroSection: React.FC = () => {
             Reduce operational costs by <span className="text-highlight font-medium">&gt;15%</span> with our AI-powered solutions.
           </p>
           
-          {/* UVP Highlight */}
           <div className="flex items-center gap-2 mb-8 animate-float bg-accent/10 px-4 py-2 rounded-full" style={{ animationDelay: "0.5s" }}>
             <ShieldCheck className="w-5 h-5 text-accent" />
             <p className="text-sm md:text-base font-medium">
-              <span className="text-accent">Unique:</span> 48-hour deployment & self-learning AI that competitors can't match
+              <span className="text-accent">Unique:</span> 48-hour deployment & self-learning AI
             </p>
           </div>
           
@@ -139,7 +134,6 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
       
-      {/* Subtle backdrop glow effects that work on all devices */}
       <div 
         className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-accent/10 blur-3xl animate-float will-change-transform" 
         style={{ 
