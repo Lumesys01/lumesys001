@@ -7,13 +7,8 @@ import { ChevronRight, Info } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const DashboardPreview: React.FC = () => {
-  // Dashboard slide data
+  // Dashboard slide data - removed the first slide
   const dashboardImages = [
-    {
-      src: "/lovable-uploads/51807d5e-b88f-41ff-a045-66b3a4af445f.png",
-      alt: "Lumesys Dashboard - Energy Sources Performance",
-      caption: "Energy Sources Performance Analysis"
-    },
     {
       isInteractive: true,
       caption: "Interactive Building Management System"
@@ -134,7 +129,7 @@ const DashboardPreview: React.FC = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-light mb-4 text-black">
-            Our <span className="gradient-text font-normal">Dashboard</span> in Action
+            <span className="gradient-text font-normal">Dashboard</span> in Action
           </h2>
           <p className="text-lg text-black/70 max-w-2xl mx-auto">
             Get a glimpse into our powerful energy management platform and discover how it can transform your operations.
@@ -143,7 +138,7 @@ const DashboardPreview: React.FC = () => {
           <div className="flex items-center justify-center mt-4 mb-8 text-sm">
             <div className="flex items-center bg-accent/5 rounded-full px-4 py-1.5">
               <span className="animate-pulse inline-block w-2 h-2 rounded-full bg-accent mr-2"></span>
-              <span>Browse through the slides to see different dashboard views</span>
+              <span>Browse through the simulation of different dashboard views</span>
               <ChevronRight className="w-4 h-4 ml-1 text-accent" />
             </div>
           </div>
@@ -160,7 +155,7 @@ const DashboardPreview: React.FC = () => {
                 </TooltipTrigger>
                 <TooltipContent side="left" className="bg-black/90 text-white border-highlight/30 max-w-xs">
                   <p className="text-sm">
-                    The second slide features an interactive dashboard where you can select different buildings to view their real-time metrics.
+                    This interactive dashboard allows you to select different buildings to view their real-time metrics.
                   </p>
                 </TooltipContent>
               </Tooltip>

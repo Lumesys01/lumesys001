@@ -73,9 +73,12 @@ const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ slides, buildingD
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nextSlide, prevSlide]);
 
+  // Determine if navigation controls should be shown
+  const showNavigation = slides.length > 1;
+
   return (
     <>
-      <div className="relative aspect-[16/9] bg-black">
+      <div className="relative aspect-[16/9] bg-black w-full">
         {slides.map((slide, index) => {
           const isActive = activeSlide === index;
           
@@ -121,39 +124,45 @@ const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ slides, buildingD
           );
         })}
         
-        <button 
-          onClick={prevSlide} 
-          className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/10 hover:bg-white/30 rounded-full p-2 backdrop-blur-sm transition-all hover:scale-105 border border-white/20 z-20"
-          aria-label="Previous slide"
-        >
-          <ChevronLeft className="w-6 h-6 text-white" />
-        </button>
-        
-        <button 
-          onClick={nextSlide} 
-          className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/10 hover:bg-white/30 rounded-full p-2 backdrop-blur-sm transition-all hover:scale-105 border border-white/20 z-20"
-          aria-label="Next slide"
-        >
-          <ChevronRight className="w-6 h-6 text-white" />
-        </button>
+        {showNavigation && (
+          <>
+            <button 
+              onClick={prevSlide} 
+              className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/10 hover:bg-white/30 rounded-full p-2 backdrop-blur-sm transition-all hover:scale-105 border border-white/20 z-20"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </button>
+            
+            <button 
+              onClick={nextSlide} 
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/10 hover:bg-white/30 rounded-full p-2 backdrop-blur-sm transition-all hover:scale-105 border border-white/20 z-20"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </button>
+          </>
+        )}
       </div>
 
-      <div className="flex justify-center gap-2 mt-4">
-        {slides.map((slide, index) => (
-          <button
-            key={index}
-            onClick={() => setActiveSlide(index)}
-            className={`transition-all ${
-              activeSlide === index 
-                ? 'bg-highlight w-8 h-2 shadow-md shadow-highlight/30 glow-border' 
-                : 'bg-gray-300/40 w-2 h-2'
-            } rounded-full`}
-            aria-label={`Go to slide ${index + 1}`}
-            aria-current={activeSlide === index ? 'true' : 'false'}
-            title={slide.isInteractive ? "Interactive Dashboard" : slide.caption}
-          />
-        ))}
-      </div>
+      {showNavigation && (
+        <div className="flex justify-center gap-2 mt-4">
+          {slides.map((slide, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveSlide(index)}
+              className={`transition-all ${
+                activeSlide === index 
+                  ? 'bg-highlight w-8 h-2 shadow-md shadow-highlight/30 glow-border' 
+                  : 'bg-gray-300/40 w-2 h-2'
+              } rounded-full`}
+              aria-label={`Go to slide ${index + 1}`}
+              aria-current={activeSlide === index ? 'true' : 'false'}
+              title={slide.isInteractive ? "Interactive Dashboard" : slide.caption}
+            />
+          ))}
+        </div>
+      )}
     </>
   );
 };

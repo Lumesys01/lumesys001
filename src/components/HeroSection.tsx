@@ -1,12 +1,11 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, MousePointerClick, CalendarClock, ShieldCheck } from 'lucide-react';
+import { ArrowDown, CalendarClock, ShieldCheck } from 'lucide-react';
 import { EnhancedText } from '@/components/ui/MicroInteractions';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [hoverCTA, setHoverCTA] = useState(false);
   const [hoverDemo, setHoverDemo] = useState(false);
   
   const handleMouseMove = useCallback((e: MouseEvent) => {
@@ -37,13 +36,6 @@ const HeroSection: React.FC = () => {
       }
     };
   }, [handleMouseMove]);
-
-  const scrollToDashboard = () => {
-    const dashboardSection = document.getElementById('dashboard-preview');
-    if (dashboardSection) {
-      dashboardSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
 
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact');
@@ -99,7 +91,7 @@ const HeroSection: React.FC = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-black/80 max-w-3xl mb-6 animate-float" style={{ animationDelay: "0.6s" }}>
-            Reduce operational costs by a minimum of <span className="text-highlight font-medium">15%</span> with our AI-powered solutions.
+            Reduce operational costs by <span className="text-highlight font-medium">&gt;15%</span> with our AI-powered solutions.
           </p>
           
           {/* UVP Highlight */}
@@ -111,27 +103,6 @@ const HeroSection: React.FC = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 animate-float" style={{ animationDelay: "0.8s" }}>
-            <div 
-              className="relative group"
-              onMouseEnter={() => setHoverCTA(true)}
-              onMouseLeave={() => setHoverCTA(false)}
-            >
-              <Button 
-                onClick={scrollToDashboard}
-                className="glow-button text-primary font-medium px-8 py-6 rounded-full text-lg hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(0,191,114,0.4)] relative z-10 overflow-hidden"
-                aria-label="View our live dashboard"
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  View Live Dashboard
-                  <MousePointerClick className={`w-4 h-4 transition-opacity duration-300 ${hoverCTA ? 'opacity-100' : 'opacity-0'}`} />
-                </span>
-                
-                <span className={`absolute inset-0 bg-gradient-to-r from-accent to-accent/60 transform transition-transform duration-500 ${hoverCTA ? 'translate-x-0' : '-translate-x-full'}`}></span>
-              </Button>
-              
-              <div className={`absolute inset-0 rounded-full transition-opacity duration-300 ${hoverCTA ? 'opacity-100' : 'opacity-0'}`}></div>
-            </div>
-            
             <div 
               className="relative group"
               onMouseEnter={() => setHoverDemo(true)}
@@ -152,7 +123,12 @@ const HeroSection: React.FC = () => {
           
           <div className="mt-16 animate-bounce">
             <button 
-              onClick={scrollToDashboard}
+              onClick={() => {
+                const dashboardSection = document.getElementById('dashboard-preview');
+                if (dashboardSection) {
+                  dashboardSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               className="flex flex-col items-center text-black/60 hover:text-highlight transition-colors"
               aria-label="View dashboard preview"
             >
