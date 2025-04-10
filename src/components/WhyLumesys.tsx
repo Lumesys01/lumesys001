@@ -289,7 +289,7 @@ const WhyLumesys: React.FC = () => {
                   <LineChart className="w-5 h-5 text-accent" />
                 </div>
                 <div>
-                  <p className="font-medium">>10% Savings Guarantee</p>
+                  <p className="font-medium">{'>'}10% Savings Guarantee</p>
                   <p className="text-sm text-gray-600">vs. industry average</p>
                 </div>
               </div>
