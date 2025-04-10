@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Linkedin, Mail } from "lucide-react";
 
@@ -46,8 +45,7 @@ const Footer = () => {
                 className="h-10 w-10 mr-2" 
               />
               <div className="text-2xl font-medium flex items-center">
-                <span className="gradient-text mr-2">LUME</span>
-                <span className="text-black">SYS</span>
+                <span className="gradient-text mr-2">Lumesys</span>
               </div>
             </Link>
             <p className="text-black/60 max-w-xs">
