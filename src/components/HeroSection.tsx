@@ -71,8 +71,8 @@ const HeroSection: React.FC = () => {
                 />
               </div>
               
-              <div className="text-3xl md:text-4xl font-medium flex items-center">
-                <span className="gradient-text mr-2 filter drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]">Lumesys</span>
+              <div className="text-3xl md:text-4xl font-bold flex items-center">
+                <span className="gradient-text mr-2 font-extrabold filter drop-shadow-[0_0_10px_rgba(255,255,255,0.4)] tracking-tighter">Lumesys</span>
               </div>
             </div>
           </div>
