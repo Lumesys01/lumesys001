@@ -323,8 +323,11 @@ const BrainVisualization: React.FC = () => {
       if (sceneRef.current) {
         // Dispose of all geometries and materials
         sceneRef.current.traverse((object) => {
+          // Check if the object is a Mesh before accessing geometry and material
           if (object instanceof THREE.Mesh) {
-            if (object.geometry) object.geometry.dispose();
+            if (object.geometry) {
+              object.geometry.dispose();
+            }
             
             if (object.material) {
               if (Array.isArray(object.material)) {
@@ -364,12 +367,17 @@ const BrainVisualization: React.FC = () => {
     
     objectsToRemove.forEach(obj => {
       sceneRef.current?.remove(obj);
-      if (obj.geometry) obj.geometry.dispose();
-      if (obj.material) {
-        if (Array.isArray(obj.material)) {
-          obj.material.forEach(material => material.dispose());
-        } else {
-          obj.material.dispose();
+      // Check if the object is a Mesh before accessing geometry and material
+      if (obj instanceof THREE.Mesh) {
+        if (obj.geometry) {
+          obj.geometry.dispose();
+        }
+        if (obj.material) {
+          if (Array.isArray(obj.material)) {
+            obj.material.forEach(material => material.dispose());
+          } else {
+            obj.material.dispose();
+          }
         }
       }
     });
