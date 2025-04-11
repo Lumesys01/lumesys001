@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -19,7 +18,6 @@ import ScrollIndicator from "@/components/ScrollIndicator";
 import { Separator } from "@/components/ui/separator";
 import { Helmet } from "react-helmet";
 import FeaturesSection from "@/components/FeaturesSection";
-import BrainVisualization from "@/components/BrainVisualization";
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
@@ -127,20 +125,6 @@ const Index = () => {
           <PageTransition direction="left" delay={100}>
             <section id="features" className="bg-white dark:bg-background-dark py-16">
               <FeaturesSection />
-            </section>
-          </PageTransition>
-          
-          <SectionDivider label="EXPLORE THE BRAIN" />
-          
-          <PageTransition direction="up" delay={100}>
-            <BrainVisualization />
-          </PageTransition>
-          
-          <SectionDivider />
-          
-          <PageTransition direction="left" delay={100}>
-            <section id="why" className="bg-white dark:bg-background-dark py-16">
-              <WhyLumesys />
             </section>
           </PageTransition>
           
