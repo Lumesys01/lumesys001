@@ -19,8 +19,8 @@ const HoverCardContent = React.forwardRef<
   
   const variants = {
     default: "border bg-popover",
-    premium: "border border-gold/20 bg-white/95 dark:bg-black/90 backdrop-blur-md shadow-lg relative",
-    exclusive: "border border-gold/40 bg-white/95 dark:bg-black/90 backdrop-blur-md shadow-gold/10 relative"
+    premium: "border border-gold/20 bg-white/95 dark:bg-black/90 backdrop-blur-md shadow-lg",
+    exclusive: "border border-gold/40 bg-white/95 dark:bg-black/90 backdrop-blur-md shadow-gold/10"
   };
 
   return (
@@ -35,25 +35,10 @@ const HoverCardContent = React.forwardRef<
       )}
       {...props}
     >
-      {(variant === 'premium' || variant === 'exclusive') && (
-        <motion.div 
-          className="absolute inset-0 rounded-md opacity-5 bg-luxury-pattern pointer-events-none"
-          animate={{
-            backgroundPosition: ['0% 0%', '100% 100%'],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: 'reverse',
-          }}
-        />
-      )}
-      
       {variant === 'exclusive' && (
         <div className="absolute -top-px left-4 right-4 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
       )}
       
-      {/* Content wrapper with subtle animation */}
       <motion.div
         initial={{ opacity: 0, y: 5 }}
         animate={{ opacity: 1, y: 0 }}

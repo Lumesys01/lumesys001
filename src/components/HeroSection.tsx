@@ -1,11 +1,10 @@
 
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, ArrowRight, CalendarClock, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowDown, ArrowRight, CalendarClock } from 'lucide-react';
 import { EnhancedText } from '@/components/ui/MicroInteractions';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTheme } from '@/components/ThemeProvider';
-import HeroScene from './3D/HeroScene';
 
 const HeroSection: React.FC = () => {
   const { theme } = useTheme();
@@ -87,65 +86,6 @@ const HeroSection: React.FC = () => {
     }
   };
 
-  // Neural sparkle animation
-  const Sparkle = ({ delay = 0, x, y, size = 3 }: { delay?: number, x: number, y: number, size?: number }) => (
-    <motion.div 
-      className={`absolute rounded-full ${theme === 'dark' ? 'bg-highlight' : 'bg-accent'}`}
-      style={{ 
-        left: `${x}%`, 
-        top: `${y}%`, 
-        width: size, 
-        height: size,
-      }}
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ 
-        opacity: [0, 1, 0],
-        scale: [0, 1.5, 0],
-      }}
-      transition={{ 
-        duration: 2, 
-        repeat: Infinity, 
-        delay: delay,
-        repeatDelay: Math.random() * 3 + 1
-      }}
-    />
-  );
-
-  // Brain pulse animation
-  const BrainPulse = () => (
-    <div className="relative w-16 h-16">
-      <img 
-        src="/lovable-uploads/27f5da26-b388-4950-8f4b-3cc7bbf89a05.png" 
-        alt="Lumesys Logo" 
-        className="h-16 w-16 filter drop-shadow-[0_0_8px_rgba(168,235,18,0.6)] transition-transform duration-300 hover:scale-110 relative z-10" 
-      />
-      
-      <motion.div 
-        className={`absolute inset-0 rounded-full ${theme === 'dark' ? 'bg-accent' : 'bg-highlight'} z-0`}
-        animate={{ 
-          opacity: [0.2, 0.5, 0.2],
-          scale: [0.8, 1.1, 0.8],
-        }}
-        transition={{ 
-          duration: 3, 
-          repeat: Infinity,
-          ease: "easeInOut" 
-        }}
-      />
-      
-      {/* Neural sparkles */}
-      {Array.from({ length: 12 }).map((_, i) => (
-        <Sparkle 
-          key={i} 
-          delay={i * 0.2} 
-          x={50 + Math.cos(i / 12 * Math.PI * 2) * 80}
-          y={50 + Math.sin(i / 12 * Math.PI * 2) * 80}
-          size={Math.random() * 3 + 1}
-        />
-      ))}
-    </div>
-  );
-
   return (
     <section ref={heroRef} className="relative min-h-screen overflow-hidden flex items-center bg-gradient-to-b from-white to-gray-50 dark:from-background-dark dark:to-black/70">
       <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-background-dark dark:via-gray-900/50 dark:to-black/80 opacity-90"></div>
@@ -187,13 +127,6 @@ const HeroSection: React.FC = () => {
         }}
       />
 
-      {/* 3D Scene for dark mode only */}
-      {theme === 'dark' && (
-        <div className="absolute inset-0 z-0 opacity-70">
-          <HeroScene className="w-full h-full" />
-        </div>
-      )}
-
       <div className="container mx-auto z-10 px-4 md:px-6 lg:px-8 py-16 md:py-24">
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
           <motion.div 
@@ -204,7 +137,11 @@ const HeroSection: React.FC = () => {
           >
             <div className="flex items-center justify-center">
               <div className="relative">
-                <BrainPulse />
+                <img 
+                  src="/lovable-uploads/27f5da26-b388-4950-8f4b-3cc7bbf89a05.png" 
+                  alt="Lumesys Logo" 
+                  className="h-16 w-16 filter drop-shadow-[0_0_8px_rgba(168,235,18,0.6)] transition-transform duration-300 hover:scale-110 relative z-10" 
+                />
               </div>
               
               <motion.div 
@@ -260,7 +197,6 @@ const HeroSection: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 1.8 }}
           >
-            <ShieldCheck className="w-5 h-5 text-accent" />
             <p className="text-sm md:text-base font-medium">
               <span className="text-accent">Elite:</span> Go live in 48 hours. Think faster than the competition.
             </p>
@@ -302,36 +238,7 @@ const HeroSection: React.FC = () => {
                     {hoverDemo ? <ArrowRight className="w-4 h-4" /> : <CalendarClock className="w-4 h-4" />}
                   </motion.span>
                 </span>
-                
-                {/* Button ripple effect */}
-                <motion.div
-                  className="absolute inset-0 z-0"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={hoverDemo ? 
-                    { scale: 1.5, opacity: 0 } : 
-                    { scale: 0, opacity: 0 }
-                  }
-                  transition={{ duration: 0.6 }}
-                  style={{ 
-                    background: `radial-gradient(circle, ${theme === 'dark' ? 'rgba(168,235,18,0.4)' : 'rgba(0,191,114,0.4)'} 0%, transparent 70%)`,
-                    borderRadius: 'inherit'
-                  }}
-                />
               </Button>
-              
-              {/* Energy pulse around button */}
-              <motion.div
-                className={`absolute inset-0 rounded-full ${theme === 'dark' ? 'bg-highlight/20' : 'bg-accent/20'}`}
-                animate={{ 
-                  scale: hoverDemo ? [1, 1.1, 1] : 1,
-                  opacity: hoverDemo ? [0.2, 0.4, 0.2] : 0,
-                }}
-                transition={{ 
-                  duration: 1.5, 
-                  repeat: hoverDemo ? Infinity : 0,
-                  repeatType: "reverse"
-                }}
-              />
             </div>
           </motion.div>
           

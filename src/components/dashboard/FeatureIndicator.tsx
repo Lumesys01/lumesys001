@@ -29,18 +29,6 @@ const FeatureIndicator: React.FC<FeatureIndicatorProps> = ({
           }}
         >
           <div className="flex items-center justify-center mb-3 relative">
-            <motion.div 
-              className={`absolute w-8 h-8 rounded-full ${color} opacity-20 blur-md`}
-              animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.1, 0.3, 0.1]
-              }}
-              transition={{ 
-                duration: 3, 
-                repeat: Infinity,
-                repeatType: "reverse" 
-              }}
-            />
             {icon ? (
               <motion.div 
                 className="z-10"
