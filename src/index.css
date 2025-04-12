@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -147,7 +148,6 @@
     @apply relative overflow-hidden bg-gray-100 dark:bg-gray-800;
   }
   
-  /* Improved responsive classes */
   .responsive-container {
     @apply w-full px-4 sm:px-6 md:px-8 lg:px-12 mx-auto max-w-7xl;
   }
@@ -160,7 +160,6 @@
     @apply flex flex-col sm:flex-row items-center gap-4;
   }
   
-  /* Button states */
   .btn-primary {
     @apply bg-accent text-white hover:bg-accent/90 active:bg-accent/80 
            dark:bg-accent dark:text-white dark:hover:bg-accent/90 dark:active:bg-accent/80
@@ -173,7 +172,6 @@
            transition-colors duration-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600;
   }
   
-  /* Improved accessibility */
   .sr-only {
     @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
   }
@@ -181,9 +179,71 @@
   .focus-visible-outline {
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-accent dark:focus-visible:ring-offset-background-dark;
   }
+  
+  .legacy-card {
+    @apply neo-card border border-gray-200/80 dark:border-gray-700/80 bg-white/95 dark:bg-card-dark/95 shadow-md;
+    background-image: linear-gradient(to bottom right, rgba(255,255,255,0.01), rgba(212,175,55,0.05));
+  }
+  
+  .exclusive-heading {
+    @apply font-serif font-medium tracking-wide;
+    letter-spacing: 0.02em;
+  }
+  
+  .premium-accent {
+    @apply border-l-4 border-gold/30 pl-4 italic;
+  }
+  
+  .embossed-text {
+    @apply font-semibold tracking-wider;
+    text-shadow: 0px 1px 1px rgba(255,255,255,0.5), 0px -1px 1px rgba(0,0,0,0.1);
+  }
+  
+  .luxury-badge {
+    @apply inline-block py-1 px-3 text-xs font-medium rounded-full;
+    background: linear-gradient(135deg, #D4AF37 0%, #E5C664 50%, #D4AF37 100%);
+    color: #000;
+    letter-spacing: 0.05em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .limited-access-tag {
+    @apply inline-flex items-center gap-1 py-0.5 px-2 text-xs font-medium rounded-md bg-richpurple/10 text-richpurple dark:bg-richpurple/20 dark:text-white/90 border border-richpurple/20;
+  }
+  
+  .heritage-divider {
+    @apply relative h-px w-full my-8 bg-gradient-to-r from-transparent via-gold/30 to-transparent;
+  }
+  
+  .heritage-divider::before {
+    content: "";
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-gold/40;
+  }
+  
+  .neo-card {
+    @apply bg-card dark:bg-card-dark backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-[0_8px_32px_rgba(0,0,0,0.07)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)] rounded-xl relative;
+    will-change: transform, opacity;
+  }
+  
+  .neo-card::after {
+    content: "";
+    @apply absolute inset-0 rounded-xl bg-luxury-pattern opacity-30 pointer-events-none;
+  }
+  
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+    transform-style: preserve-3d;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-5px) translateZ(0);
+    box-shadow: 0 8px 20px -6px rgba(0,0,0,0.15);
+  }
+  
+  .hover-gold-accent {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gold/60 after:transition-all after:duration-300 hover:after:w-full;
+  }
 }
-
-/* ... keep existing code (animations, keyframes, and additional utility classes) */
 
 .section-padding {
   @apply py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-8 lg:px-12;
@@ -193,9 +253,83 @@
   @apply bg-clip-text text-transparent bg-glow-gradient animate-gradient-flow bg-[length:200%_auto];
 }
 
-/* ... keep existing code (animation definitions, keyframes, and additional utilities) */
+.gold-gradient-text {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7);
+  background-size: 200% auto;
+  animation: subtle-shimmer 3s ease-in-out infinite;
+}
 
-/* Improved dark mode specific styles */
+@layer animations {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@layer keyframes {
+  @keyframes subtle-shimmer {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
+  }
+}
+
+@layer utilities {
+  .animate-pulse {
+    animation: pulse 1s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .animate-ping {
+    animation: ping 1s infinite cubic-bezier(0.25, 0.45, 0.45, 0.95);
+  }
+
+  .animate-gradient-flow {
+    animation: gradient-flow 10s infinite linear;
+  }
+
+  @keyframes gradient-flow {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 1s infinite linear;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
+  }
+}
+
 .dark .glass-card {
   @apply bg-background-dark/70 border-gray-700;
 }
@@ -208,12 +342,14 @@
   @apply shadow-[0_8px_32px_rgba(0,0,0,0.2)];
 }
 
-/* Improved accessibility for focus states */
+.dark .gold-gradient-text {
+  filter: brightness(1.1) drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
+
 :focus-visible {
   @apply outline-2 outline-offset-2 outline-accent dark:outline-accent;
 }
 
-/* Media queries for responsive design */
 @media (max-width: 640px) {
   h1 {
     @apply text-2xl;
@@ -226,7 +362,6 @@
   }
 }
 
-/* Additional high contrast helpers */
 .high-contrast-text {
   @apply text-foreground dark:text-foreground-dark;
 }
