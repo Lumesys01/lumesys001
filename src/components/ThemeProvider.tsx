@@ -14,12 +14,16 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  // Initialize theme from localStorage, but default to 'light' for first-time visitors
+  // Initialize theme from localStorage, user preference or system setting
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
       const storedTheme = window.localStorage.getItem('theme') as Theme;
-      // Only use stored theme if it exists, otherwise default to light
-      return storedTheme ? storedTheme : 'light';
+      if (storedTheme) return storedTheme;
+      
+      // Check for user system preference if no stored theme
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+      }
     }
     return 'light';
   });
@@ -34,6 +38,9 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     if (theme) {
       setIsTransitioning(true);
       
+      // Add transition class to smooth all transitions
+      root.classList.add('changing-theme');
+      
       // Remove old theme class and add new one
       root.classList.remove('light', 'dark');
       root.classList.add(theme);
@@ -41,14 +48,38 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       // Store theme preference in localStorage
       localStorage.setItem('theme', theme);
       
-      // Reset transition state after animation completes
+      // Remove transition class and reset transition state after animation completes
       const timer = setTimeout(() => {
+        root.classList.remove('changing-theme');
         setIsTransitioning(false);
       }, 600); // Match this with the CSS transition duration
       
       return () => clearTimeout(timer);
     }
   }, [theme]);
+
+  // Listen for system preference changes
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      // Only change theme if user hasn't set a preference
+      if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'dark' : 'light');
+      }
+    };
+    
+    // Modern browsers
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    } 
+    // Fallback for older browsers
+    else if (mediaQuery.addListener) {
+      mediaQuery.addListener(handleChange);
+      return () => mediaQuery.removeListener(handleChange);
+    }
+  }, []);
 
   // Toggle between light and dark themes with transition
   const toggleTheme = () => {

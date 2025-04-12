@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -22,7 +23,7 @@
   }
 
   body {
-    @apply bg-white dark:bg-background-dark text-black dark:text-foreground-dark antialiased;
+    @apply bg-white dark:bg-background-dark text-foreground dark:text-foreground-dark antialiased;
     font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv02" on, "cv03" on;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
@@ -31,16 +32,24 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-light tracking-tight text-black dark:text-foreground-dark transition-colors duration-500;
+    @apply font-light tracking-tight text-foreground dark:text-foreground-dark transition-colors duration-500;
   }
 
   p, span, div {
-    @apply text-black/80 dark:text-foreground-dark/90 transition-colors duration-500;
+    @apply text-foreground/90 dark:text-foreground-dark/90 transition-colors duration-500;
+  }
+  
+  a {
+    @apply text-accent hover:text-accent/80 dark:text-accent-dark dark:hover:text-accent-dark/80 transition-colors duration-300;
+  }
+  
+  button {
+    @apply transition-all duration-300;
   }
   
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
   }
   
   ::-webkit-scrollbar-track {
@@ -54,6 +63,14 @@
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-gray-400 dark:bg-gray-600;
   }
+  
+  ::selection {
+    @apply bg-accent/20 dark:bg-accent/30 text-foreground dark:text-foreground-dark;
+  }
+  
+  .no-tap-highlight {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 @layer components {
@@ -63,7 +80,7 @@
   }
 
   .glow-text {
-    @apply bg-glow-gradient bg-clip-text text-transparent animate-gradient-flow bg-[length:200%_auto];
+    @apply bg-glow-gradient bg-clip-text text-transparent animate-gradient-flow bg-[length:200%_auto] dark:text-glow;
   }
 
   .glow-button {
@@ -81,7 +98,7 @@
   }
   
   .neo-card {
-    @apply bg-white dark:bg-background-dark backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] rounded-xl;
+    @apply bg-card dark:bg-card-dark backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-[0_8px_32px_rgba(0,0,0,0.07)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)] rounded-xl;
     will-change: transform, opacity;
   }
   
@@ -90,17 +107,17 @@
   }
   
   .frosted-glass {
-    @apply backdrop-blur-md bg-white/90 dark:bg-background-dark/70 border border-gray-100 dark:border-gray-800 shadow-[0_4px_24px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)];
+    @apply backdrop-blur-md bg-white/90 dark:bg-background-dark/70 border border-gray-100 dark:border-gray-800 shadow-[0_4px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)];
     will-change: transform, opacity;
   }
   
   .clickable-icon {
     @apply relative inline-flex items-center justify-center p-3 rounded-lg transition-all duration-300 cursor-pointer
-    bg-gradient-to-br from-accent/20 to-highlight/20 
-    hover:from-accent hover:to-highlight 
-    hover:scale-110 hover:shadow-lg hover:shadow-accent/20
+    bg-gradient-to-br from-accent/10 to-highlight/10 dark:from-accent/5 dark:to-highlight/5
+    hover:from-accent/20 hover:to-highlight/20 dark:hover:from-accent/15 dark:hover:to-highlight/15
+    hover:scale-105 hover:shadow-lg hover:shadow-accent/10 dark:hover:shadow-accent/5
     after:content-[''] after:absolute after:inset-0 after:rounded-lg 
-    after:border-2 after:border-dashed after:border-accent/40 
+    after:border-2 after:border-dashed after:border-accent/40 dark:after:border-accent/30
     after:animate-pulse-glow after:opacity-70;
   }
   
@@ -131,189 +148,90 @@
     @apply relative overflow-hidden bg-gray-100 dark:bg-gray-800;
   }
   
-  .page-transition-enter {
-    opacity: 0;
-    transform: translateY(20px);
+  /* Improved responsive classes */
+  .responsive-container {
+    @apply w-full px-4 sm:px-6 md:px-8 lg:px-12 mx-auto max-w-7xl;
   }
   
-  .page-transition-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+  .responsive-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6;
   }
   
-  .page-transition-exit {
-    opacity: 1;
-    transform: translateY(0);
+  .responsive-flex {
+    @apply flex flex-col sm:flex-row items-center gap-4;
   }
   
-  .page-transition-exit-active {
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+  /* Button states */
+  .btn-primary {
+    @apply bg-accent text-white hover:bg-accent/90 active:bg-accent/80 
+           dark:bg-accent dark:text-white dark:hover:bg-accent/90 dark:active:bg-accent/80
+           transition-colors duration-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50 dark:focus:ring-accent/40;
   }
   
-  .loading-bar {
-    @apply fixed top-0 left-0 h-0.5 bg-gradient-to-r from-highlight via-accent to-highlight bg-[length:200%_auto] animate-gradient-flow z-50;
+  .btn-secondary {
+    @apply bg-white text-foreground hover:bg-gray-100 active:bg-gray-200 border border-gray-300
+           dark:bg-gray-800 dark:text-foreground-dark dark:hover:bg-gray-700 dark:active:bg-gray-600 dark:border-gray-700
+           transition-colors duration-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600;
+  }
+  
+  /* Improved accessibility */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+  }
+  
+  .focus-visible-outline {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-accent dark:focus-visible:ring-offset-background-dark;
   }
 }
 
+/* ... keep existing code (animations, keyframes, and additional utility classes) */
+
 .section-padding {
-  @apply py-16 md:py-24 px-6 md:px-8 lg:px-12;
+  @apply py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-8 lg:px-12;
 }
 
 .gradient-text {
-  @apply bg-clip-text text-transparent bg-glow-gradient animate-gradient-flow bg-[length:200%_auto];
+  @apply bg-clip-text text-transparent bg-glow-gradient animate-gradient-flow bg-[length:200%_auto] dark:text-shadow-sm dark:text-shadow-accent/30;
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
+/* ... keep existing code (animation definitions, keyframes, and additional utilities) */
 
-.animated-gradient-background {
-  background: linear-gradient(-45deg, #051937, #004d7a, #0089A7, #00bf72, #A8EB12);
-  background-size: 400% 400%;
-  animation: gradient-flow 15s ease infinite;
-}
-
-.ping-badge {
-  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-.animate-slide-in {
-  animation: slideIn 1s ease-out forwards;
-}
-
-.animate-leaf-fall {
-  animation: leafFall 3s ease-out forwards;
-  position: absolute;
-  z-index: 1;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes leafFall {
-  0% {
-    transform: translateY(-20px) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(80px) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes gradient-flow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes scale-pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-.perspective-container {
-  perspective: 1000px;
-  transform-style: preserve-3d;
-}
-
-.parallax-element {
-  transform: translateZ(0);
-  transition: transform 0.2s ease-out;
-}
-
-.text-glow {
-  text-shadow: 0 0 8px rgba(255,255,255,0.5);
-}
-
-.neon-glow {
-  filter: drop-shadow(0 0 8px rgba(168,235,18,0.7));
-}
-
-a, button, input, select, textarea {
-  @apply transition-all duration-300;
-}
-
-:focus-visible {
-  @apply outline-2 outline-offset-2 outline-accent;
-}
-
-/* Dark mode specific styles */
+/* Improved dark mode specific styles */
 .dark .glass-card {
-  @apply bg-background-dark/50 border-gray-700;
+  @apply bg-background-dark/70 border-gray-700;
 }
 
 .dark .gradient-text {
-  @apply text-glow;
+  @apply text-shadow-sm text-shadow-accent/30;
 }
 
 .dark .neo-card {
-  @apply shadow-[0_8px_32px_rgba(0,0,0,0.3)];
+  @apply shadow-[0_8px_32px_rgba(0,0,0,0.2)];
+}
+
+/* Improved accessibility for focus states */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-accent dark:outline-accent;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 640px) {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  .section-padding {
+    @apply py-8 px-4;
+  }
+}
+
+/* Additional high contrast helpers */
+.high-contrast-text {
+  @apply text-foreground dark:text-foreground-dark;
+}
+
+.high-contrast-bg {
+  @apply bg-white dark:bg-background-dark;
 }

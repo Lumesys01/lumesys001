@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -12,45 +13,74 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Main brand colors - kept the same for brand consistency
         primary: "#051937",
         secondary: "#004d7a",
         accent: "#00bf72",
         highlight: "#A8EB12",
         neonpurple: "#2C065D",
         darkblue: "#010B28",
+        
+        // Enhanced color system for better light/dark mode transitions
         background: {
           DEFAULT: "#FFFFFF", 
           dark: "#1A1F2C",
         },
         surface: {
-          DEFAULT: "#F5F5F5",
-          dark: "#221F26",
+          DEFAULT: "#F8F9FA",
+          dark: "#252836",
+        },
+        card: {
+          DEFAULT: "#FFFFFF",
+          dark: "#1E2235", 
         },
         muted: {
           DEFAULT: "#C4C3BB",
           dark: "#88888B",
         },
         "muted-foreground": {
-          DEFAULT: "#A3A299",
-          dark: "#A0A0A5",
+          DEFAULT: "#6B7280",
+          dark: "#9CA3AF",
         },
         border: {
-          DEFAULT: "#E0E0E0",
-          dark: "#333340",
+          DEFAULT: "#E5E7EB",
+          dark: "#2D3348",
         },
         input: {
-          DEFAULT: "#F0F0F0",
-          dark: "#2D2D36",
+          DEFAULT: "#F3F4F6",
+          dark: "#2D2D3A",
         },
         foreground: {
-          DEFAULT: "#000000",
-          dark: "#E0E0E0",
+          DEFAULT: "#111827",
+          dark: "#F3F4F6",
         },
       },
       textColor: {
         foreground: {
-          DEFAULT: "#000000",
-          dark: "#F6F6F7",
+          DEFAULT: "#111827",
+          dark: "#F3F4F6",
+        },
+        muted: {
+          DEFAULT: "#6B7280",
+          dark: "#9CA3AF",
+        },
+        accent: {
+          DEFAULT: "#00bf72",
+          dark: "#1DF396",
+        },
+        highlight: {
+          DEFAULT: "#A8EB12",
+          dark: "#BCFA4C",
+        }
+      },
+      backgroundColor: {
+        card: {
+          DEFAULT: "#FFFFFF",
+          dark: "#1E2235",
+        },
+        input: {
+          DEFAULT: "#F3F4F6",
+          dark: "#2D2D3A",
         },
       },
       fontFamily: {
