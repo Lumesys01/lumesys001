@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, ArrowRight, CalendarClock } from 'lucide-react';
@@ -13,7 +12,6 @@ const HeroSection: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   
-  // Handle mouse movement for parallax effect
   const handleMouseMove = useCallback((e: MouseEvent) => {
     requestAnimationFrame(() => {
       setMousePosition({
@@ -43,7 +41,6 @@ const HeroSection: React.FC = () => {
     };
   }, [handleMouseMove]);
 
-  // Animation on mount
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -58,7 +55,6 @@ const HeroSection: React.FC = () => {
     }
   };
 
-  // Typewriter effect text variants
   const titleVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -90,7 +86,6 @@ const HeroSection: React.FC = () => {
     <section ref={heroRef} className="relative min-h-screen overflow-hidden flex items-center bg-gradient-to-b from-white to-gray-50 dark:from-background-dark dark:to-black/70">
       <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-background-dark dark:via-gray-900/50 dark:to-black/80 opacity-90"></div>
       
-      {/* Dynamic background elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
         <motion.div 
           className="absolute -top-[30%] -left-[10%] w-[80%] h-[70%] rounded-full bg-gradient-to-br from-accent/5 to-transparent blur-3xl"
@@ -119,7 +114,6 @@ const HeroSection: React.FC = () => {
         />
       </div>
       
-      {/* Mouse parallax effect */}
       <div 
         className="absolute inset-0 will-change-transform"
         style={{
@@ -170,13 +164,12 @@ const HeroSection: React.FC = () => {
             initial="hidden"
             animate="visible"
           >
-            {/* Animated text with staggered letters */}
             <span className="inline-block">The</span>{' '}
             <span className="inline-block">Brain</span>{' '}
             <span className="inline-block">for</span>{' '}
             <span className="gradient-text font-normal filter drop-shadow-[0_0_20px_rgba(168,235,18,0.3)]">
-              <span className="inline-block">Energy</span>{' '}
-              <span className="inline-block">Optimization</span>
+              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-accent to-highlight">Energy</span>{' '}
+              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-accent to-highlight">Optimization</span>
             </span>{' '}
             <span className="inline-block">&</span>{' '}
             <span className="inline-block">Efficiency</span>
@@ -188,7 +181,7 @@ const HeroSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.5 }}
           >
-            <span className="text-highlight font-medium">&gt;15% off your energy bill</span>—or your AI isn't thinking hard enough.
+            <span className="text-highlight font-medium">15% off your energy bill</span> or your AI isn't thinking hard enough.
           </motion.p>
           
           <motion.div 
