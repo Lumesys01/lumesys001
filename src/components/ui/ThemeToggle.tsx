@@ -29,14 +29,12 @@ export const ThemeToggle = ({ variant = 'icon' }: { variant?: 'icon' | 'switch' 
           aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
           disabled={isTransitioning}
         >
-          {/* Enhanced transition effect */}
           <motion.div 
             className="absolute inset-0 rounded-full bg-gradient-to-r from-highlight to-accent opacity-30"
             animate={{ 
               opacity: isTransitioning ? 0.8 : 0,
-              scale: isTransitioning ? 1.2 : 1,
             }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             aria-hidden="true"
           />
         </Switch>
@@ -69,7 +67,7 @@ export const ThemeToggle = ({ variant = 'icon' }: { variant?: 'icon' | 'switch' 
             initial={{ y: -30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 30, opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
             className="absolute inset-0 flex items-center justify-center"
             aria-hidden="true"
           >
@@ -81,7 +79,7 @@ export const ThemeToggle = ({ variant = 'icon' }: { variant?: 'icon' | 'switch' 
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -30, opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
             className="absolute inset-0 flex items-center justify-center"
             aria-hidden="true"
           >
@@ -90,42 +88,16 @@ export const ThemeToggle = ({ variant = 'icon' }: { variant?: 'icon' | 'switch' 
         )}
       </AnimatePresence>
       
-      {/* Enhanced transition effect with ripple */}
+      {/* Additional pulse effect when transitioning */}
       <motion.div 
         className="absolute inset-0 rounded-full bg-gradient-to-r from-highlight to-accent"
         animate={{ 
-          opacity: isTransitioning ? 0.3 : 0,
-          scale: isTransitioning ? 1.8 : 1
+          opacity: isTransitioning ? 0.2 : 0,
+          scale: isTransitioning ? 1.5 : 1
         }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.6 }}
         aria-hidden="true"
       />
-      
-      {/* Added sparkle effects during transition */}
-      {isTransitioning && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(5)].map((_, index) => (
-            <motion.div 
-              key={index}
-              className="absolute w-1 h-1 rounded-full bg-highlight/80"
-              initial={{ 
-                top: `${50 + (Math.random() * 30 - 15)}%`, 
-                left: `${50 + (Math.random() * 30 - 15)}%`,
-                scale: 0,
-                opacity: 0
-              }}
-              animate={{ 
-                scale: [0, 1, 0],
-                opacity: [0, 1, 0],
-              }}
-              transition={{ 
-                duration: 0.8,
-                delay: Math.random() * 0.5,
-              }}
-            />
-          ))}
-        </div>
-      )}
     </Button>
   );
 };
