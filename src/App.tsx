@@ -39,7 +39,8 @@ const App = () => (
         <meta charSet="utf-8" />
         <title>Lumesys - AI-Powered Energy Optimization Solutions</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1A1F2C" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -51,9 +52,10 @@ const App = () => (
         <link rel="prefetch" href="/src/components/DashboardPreview.tsx" />
         
         {/* SEO enhancements */}
-        <meta name="description" content="Reduce building energy costs by at least 10% with Lumesys AI-driven optimization platform. Smart, sustainable, and proven solutions for facilities management." />
+        <meta name="description" content="Reduce building energy costs by at least 15% with Lumesys AI-driven optimization platform. Smart, sustainable, and proven solutions for facilities management." />
         <meta name="keywords" content="energy management, AI building solutions, HVAC optimization, energy cost reduction, smart buildings, energy efficiency, sustainability" />
       </Helmet>
+
       <TooltipProvider>
         <Toaster />
         <Sonner 
