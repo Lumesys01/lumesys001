@@ -86,6 +86,15 @@ export default {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
       },
+      dropShadow: {
+        'DEFAULT': '0 1px 1px rgba(0, 191, 114, 0.3)'
+      },
+      textShadow: {
+        'sm': '0 1px 2px rgba(0, 191, 114, 0.3)',
+        'DEFAULT': '0 2px 4px rgba(0, 191, 114, 0.3)',
+        'lg': '0 4px 8px rgba(0, 191, 114, 0.3)',
+        'accent': '0 2px 4px rgba(0, 191, 114, 0.5)',
+      },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
@@ -174,5 +183,25 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    // Add a plugin for text-shadow utilities
+    function({ addUtilities, theme, variants }) {
+      const textShadows = theme('textShadow', {});
+      const textShadowUtilities = Object.entries(textShadows).reduce(
+        (utilities, [key, value]) => {
+          const className = key === 'DEFAULT' ? 'text-shadow' : `text-shadow-${key}`;
+          return {
+            ...utilities,
+            [`.${className}`]: {
+              textShadow: value,
+            },
+          };
+        },
+        {}
+      );
+      
+      addUtilities(textShadowUtilities);
+    }
+  ],
 } satisfies Config;
