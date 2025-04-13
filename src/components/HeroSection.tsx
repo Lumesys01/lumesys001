@@ -1,7 +1,7 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, CalendarClock, ShieldCheck } from 'lucide-react';
+import { ArrowDown, CalendarClock, ShieldCheck, ArrowRight } from 'lucide-react';
 import { EnhancedText } from '@/components/ui/MicroInteractions';
 
 const HeroSection: React.FC = () => {
@@ -87,13 +87,13 @@ const HeroSection: React.FC = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-black/80 max-w-3xl mb-6 animate-float" style={{ animationDelay: "0.6s" }}>
-            Reduce operational costs by <span className="text-highlight font-medium">&gt;15%</span> with our AI-powered solutions.
+            <span className="text-highlight font-medium">&gt;15%</span> off your energy bill or your AI isn't thinking hard enough.
           </p>
           
           <div className="flex items-center gap-2 mb-4 animate-float bg-accent/10 px-4 py-2 rounded-full" style={{ animationDelay: "0.5s" }}>
             <ShieldCheck className="w-5 h-5 text-accent" />
             <p className="text-sm md:text-base font-medium">
-              <span className="text-accent">Unique:</span> 48-hour deployment & self-learning AI
+              <span className="text-accent">Go live in 48 hours.</span> Think faster than the competition.
             </p>
           </div>
           
@@ -111,13 +111,15 @@ const HeroSection: React.FC = () => {
             >
               <Button 
                 onClick={scrollToContact}
-                className="bg-gradient-to-r from-accent to-highlight text-white font-medium px-8 py-6 rounded-full text-lg hover:scale-105 transition-all duration-300 hover:brightness-110 shadow-lg relative z-10 overflow-hidden"
+                className="cta-button relative bg-gradient-to-r from-accent to-highlight text-white font-medium px-8 py-6 rounded-full text-lg transform-gpu transition-all duration-300 overflow-hidden"
                 aria-label="Request a product demo"
               >
-                <span className="relative z-10 flex items-center gap-2">
+                <span className="relative z-10 flex items-center gap-2 group-hover:gap-4 transition-all duration-300">
                   Request Demo
-                  <CalendarClock className={`w-4 h-4 transition-opacity duration-300 ${hoverDemo ? 'opacity-100' : 'opacity-0'}`} />
+                  <ArrowRight className={`w-4 h-4 transition-all duration-300 transform ${hoverDemo ? 'translate-x-1 opacity-100' : 'opacity-70'}`} />
                 </span>
+                <span className="absolute inset-0 bg-gradient-to-r from-highlight to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                <span className="absolute inset-0 -z-10 transform scale-x-0 group-hover:scale-x-100 bg-white/20 origin-left transition-transform duration-500 rounded-full"></span>
               </Button>
             </div>
           </div>

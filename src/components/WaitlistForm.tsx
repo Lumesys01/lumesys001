@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { DirectionalHint } from './ui/MicroInteractions';
+import { ArrowRight, CheckCircle2, Loader2 } from 'lucide-react';
 
 const formSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
@@ -40,6 +41,7 @@ type ApiResponse = SuccessResponse | ErrorResponse;
 
 const WaitlistForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
@@ -54,6 +56,7 @@ const WaitlistForm: React.FC = () => {
 
   const handleSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
+    setSubmitStatus('submitting');
     
     try {
       // Add visual feedback
@@ -94,23 +97,32 @@ const WaitlistForm: React.FC = () => {
       sonnerToast.dismiss('waitlist-submission');
       
       if (response.ok) {
+        setSubmitStatus('success');
         form.reset();
         localStorage.setItem('waitlist_joined', 'true');
         
-        sonnerToast.success('Joined waitlist successfully!');
+        sonnerToast.success('Joined waitlist successfully!', {
+          description: 'We\'ve sent you a confirmation email with details.',
+          icon: <CheckCircle2 className="text-green-500" />
+        });
+        
         toast({
           title: "You've joined the waitlist!",
           description: "We'll be in touch soon with exclusive updates.",
           variant: "default",
         });
       } else {
+        setSubmitStatus('error');
         console.error('Server returned error:', response.status, result);
         const errorMessage = 'error' in result ? result.error : 'Signup failed';
         throw new Error(errorMessage);
       }
     } catch (error) {
+      setSubmitStatus('error');
       sonnerToast.dismiss('waitlist-submission');
-      sonnerToast.error('Something went wrong');
+      sonnerToast.error('Something went wrong', {
+        description: error instanceof Error ? error.message : 'An unexpected error occurred'
+      });
       
       console.error('Submission error:', error);
       
@@ -143,6 +155,7 @@ const WaitlistForm: React.FC = () => {
                       {...field}
                       placeholder="John"
                       className="px-4 py-3 rounded-full border border-gray-200 bg-white/90 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
+                      disabled={isSubmitting || submitStatus === 'success'}
                     />
                   </FormControl>
                   <FormMessage />
@@ -161,6 +174,7 @@ const WaitlistForm: React.FC = () => {
                       {...field}
                       placeholder="Doe"
                       className="px-4 py-3 rounded-full border border-gray-200 bg-white/90 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
+                      disabled={isSubmitting || submitStatus === 'success'}
                     />
                   </FormControl>
                   <FormMessage />
@@ -180,6 +194,7 @@ const WaitlistForm: React.FC = () => {
                     {...field}
                     placeholder="Acme Corp"
                     className="px-4 py-3 rounded-full border border-gray-200 bg-white/90 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
+                    disabled={isSubmitting || submitStatus === 'success'}
                   />
                 </FormControl>
                 <FormMessage />
@@ -199,6 +214,7 @@ const WaitlistForm: React.FC = () => {
                     type="email"
                     placeholder="john@example.com"
                     className="px-4 py-3 rounded-full border border-gray-200 bg-white/90 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
+                    disabled={isSubmitting || submitStatus === 'success'}
                   />
                 </FormControl>
                 <FormMessage />
@@ -206,15 +222,64 @@ const WaitlistForm: React.FC = () => {
             )}
           />
           
-          <DirectionalHint direction="right" className="self-end mt-2">
-            <Button 
-              type="submit" 
-              disabled={isSubmitting}
-              className="glow-button text-primary font-medium px-8 py-4 rounded-full text-lg shadow-[0_0_15px_rgba(0,191,114,0.5)] hover:shadow-[0_0_25px_rgba(0,191,114,0.7)] transition-all duration-300"
-            >
-              {isSubmitting ? "Processing..." : "Join the Waitlist"}
-            </Button>
-          </DirectionalHint>
+          {submitStatus !== 'success' && (
+            <>
+              <div className="pt-2">
+                <p className="text-sm text-gray-600 flex items-center justify-between">
+                  <span>Form completion</span>
+                  <span className="font-medium">
+                    {Object.keys(form.formState.dirtyFields).length}/3 completed
+                  </span>
+                </p>
+                <div className="w-full h-2 bg-gray-100 rounded-full mt-2 overflow-hidden">
+                  <div 
+                    className="h-full bg-accent transition-all duration-500"
+                    style={{ width: `${(Object.keys(form.formState.dirtyFields).length / 3) * 100}%` }}
+                  ></div>
+                </div>
+              </div>
+              
+              <DirectionalHint direction="right" className="self-end mt-2">
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting || submitStatus === 'success'}
+                  className="cta-button glow-button text-primary font-medium px-8 py-4 rounded-full text-lg shadow-[0_0_15px_rgba(0,191,114,0.5)] hover:shadow-[0_0_25px_rgba(0,191,114,0.7)] transition-all duration-300 group"
+                >
+                  <span className="flex items-center justify-center gap-2 group-hover:gap-4 transition-all duration-300">
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        <span>Processing...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Join the Waitlist</span>
+                        <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      </>
+                    )}
+                  </span>
+                </Button>
+              </DirectionalHint>
+            </>
+          )}
+          
+          {submitStatus === 'success' && (
+            <div className="my-6 py-8 text-center">
+              <div className="flex justify-center mb-6">
+                <div className="relative">
+                  <CheckCircle2 className="h-16 w-16 text-green-500 animate-pulse" />
+                  <div className="absolute inset-0 bg-green-400 rounded-full opacity-20 animate-ping"></div>
+                </div>
+              </div>
+              <h3 className="text-xl font-medium mb-2 animate-fade-in text-black">Registration Successful!</h3>
+              <p className="text-black/80 mb-4">
+                Thank you for joining our exclusive pilot program. You're now on our waitlist!
+              </p>
+              <p className="text-accent font-medium animate-fade-in" style={{ animationDelay: '300ms' }}>
+                Check your inbox for a confirmation email.
+              </p>
+            </div>
+          )}
           
           <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4 border border-accent/10 mt-6">
             <p className="text-sm font-medium text-black mb-2">When you join, you'll get:</p>
