@@ -37,9 +37,11 @@ interface ErrorResponse {
 }
 
 type ApiResponse = SuccessResponse | ErrorResponse;
+type SubmitStatus = 'idle' | 'submitting' | 'error' | 'success';
 
 const WaitlistForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
@@ -54,6 +56,7 @@ const WaitlistForm: React.FC = () => {
 
   const handleSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
+    setSubmitStatus('submitting');
     
     try {
       // Add visual feedback
@@ -96,6 +99,7 @@ const WaitlistForm: React.FC = () => {
       if (response.ok) {
         form.reset();
         localStorage.setItem('waitlist_joined', 'true');
+        setSubmitStatus('success');
         
         sonnerToast.success('Joined waitlist successfully!');
         toast({
@@ -106,11 +110,13 @@ const WaitlistForm: React.FC = () => {
       } else {
         console.error('Server returned error:', response.status, result);
         const errorMessage = 'error' in result ? result.error : 'Signup failed';
+        setSubmitStatus('error');
         throw new Error(errorMessage);
       }
     } catch (error) {
       sonnerToast.dismiss('waitlist-submission');
       sonnerToast.error('Something went wrong');
+      setSubmitStatus('error');
       
       console.error('Submission error:', error);
       

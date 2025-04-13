@@ -1,23 +1,44 @@
+
 import { Link } from "react-router-dom";
 import { Linkedin, Mail } from "lucide-react";
+import { HashLink } from "react-router-hash-link";
 
 const Footer = () => {
   const footerSections = [
     {
       title: "Product",
-      links: ["Features", "Security", "Updates"],
+      links: [
+        { name: "Features", path: "/#features" },
+        { name: "Security", path: "/#security" },
+        { name: "Updates", path: "/#updates" }
+      ],
     },
     {
       title: "Company", 
-      links: ["About", "Blog", "Careers", "Press"],
+      links: [
+        { name: "About", path: "/#about" },
+        { name: "Blog", path: "/blog" },
+        { name: "Careers", path: "/careers" },
+        { name: "Press", path: "/press" }
+      ],
     },
     {
       title: "Resources",
-      links: ["Documentation", "Help Center", "Contact", "Status"],
+      links: [
+        { name: "Documentation", path: "/documentation" },
+        { name: "Help Center", path: "/help" },
+        { name: "Contact", path: "/#contact" },
+        { name: "Status", path: "/status" }
+      ],
     },
     {
       title: "Legal",
-      links: ["Privacy Policy", "Terms of Service", "Security", "Cookies"],
+      links: [
+        { name: "Privacy Policy", path: "/privacy-policy" },
+        { name: "Terms of Service", path: "/terms" },
+        { name: "Security", path: "/security" },
+        { name: "Cookies", path: "/cookies" }
+      ],
     },
   ];
 
@@ -76,13 +97,22 @@ const Footer = () => {
                 <h3 className="font-medium mb-4 text-black">{section.title}</h3>
                 <ul className="space-y-2">
                   {section.links.map((link) => (
-                    <li key={link}>
-                      <Link
-                        to={`/${link.toLowerCase().replace(/\s+/g, '-')}`}
-                        className="text-black/60 hover:text-black transition-colors"
-                      >
-                        {link}
-                      </Link>
+                    <li key={link.name}>
+                      {link.path.startsWith("/#") ? (
+                        <a
+                          href={link.path}
+                          className="text-black/60 hover:text-black transition-colors"
+                        >
+                          {link.name}
+                        </a>
+                      ) : (
+                        <Link
+                          to={link.path}
+                          className="text-black/60 hover:text-black transition-colors"
+                        >
+                          {link.name}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
