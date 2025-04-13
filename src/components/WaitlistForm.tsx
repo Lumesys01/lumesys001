@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -41,6 +40,7 @@ type ApiResponse = SuccessResponse | ErrorResponse;
 
 const WaitlistForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // Fix: Add 'success' to the possible submitStatus values
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const { toast } = useToast();
 

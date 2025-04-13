@@ -4,7 +4,8 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 interface FeatureIndicatorProps {
   color: string;
-  label: string;
+  // Fix: Update the label type to allow React nodes
+  label: React.ReactNode;
   icon?: React.ReactNode;
   description?: string;
 }
