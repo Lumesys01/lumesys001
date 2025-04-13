@@ -12,12 +12,11 @@ export const ThemeToggle = ({ variant = 'icon' }: { variant?: 'icon' | 'switch' 
 
   if (variant === 'switch') {
     return (
-      <div className="flex items-center gap-2" role="group" aria-label="Toggle color theme">
+      <div className="flex items-center gap-2">
         <motion.div
           initial={{ opacity: 1 }}
           animate={{ opacity: isDark ? 0.5 : 1 }}
           transition={{ duration: 0.3 }}
-          aria-hidden="true"
         >
           <Sun size={16} className="text-foreground dark:text-foreground-dark" />
         </motion.div>
@@ -25,8 +24,8 @@ export const ThemeToggle = ({ variant = 'icon' }: { variant?: 'icon' | 'switch' 
         <Switch 
           checked={isDark}
           onCheckedChange={toggleTheme}
-          className="data-[state=checked]:bg-accent relative focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-          aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+          className="data-[state=checked]:bg-accent relative"
+          aria-label="Toggle theme"
           disabled={isTransitioning}
         >
           <motion.div 
@@ -35,7 +34,6 @@ export const ThemeToggle = ({ variant = 'icon' }: { variant?: 'icon' | 'switch' 
               opacity: isTransitioning ? 0.8 : 0,
             }}
             transition={{ duration: 0.6 }}
-            aria-hidden="true"
           />
         </Switch>
         
@@ -43,7 +41,6 @@ export const ThemeToggle = ({ variant = 'icon' }: { variant?: 'icon' | 'switch' 
           initial={{ opacity: 1 }}
           animate={{ opacity: isDark ? 1 : 0.5 }}
           transition={{ duration: 0.3 }}
-          aria-hidden="true"
         >
           <Moon size={16} className="text-foreground dark:text-foreground-dark" />
         </motion.div>
@@ -56,8 +53,8 @@ export const ThemeToggle = ({ variant = 'icon' }: { variant?: 'icon' | 'switch' 
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 relative overflow-hidden focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      className="rounded-full hover:bg-black/5 dark:hover:bg-white/10 relative overflow-hidden"
+      aria-label="Toggle theme"
       disabled={isTransitioning}
     >
       <AnimatePresence mode="wait">
@@ -69,7 +66,6 @@ export const ThemeToggle = ({ variant = 'icon' }: { variant?: 'icon' | 'switch' 
             exit={{ y: 30, opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="absolute inset-0 flex items-center justify-center"
-            aria-hidden="true"
           >
             <Sun className="h-5 w-5 text-foreground-dark" />
           </motion.div>
@@ -81,7 +77,6 @@ export const ThemeToggle = ({ variant = 'icon' }: { variant?: 'icon' | 'switch' 
             exit={{ y: -30, opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="absolute inset-0 flex items-center justify-center"
-            aria-hidden="true"
           >
             <Moon className="h-5 w-5 text-foreground" />
           </motion.div>
@@ -96,7 +91,6 @@ export const ThemeToggle = ({ variant = 'icon' }: { variant?: 'icon' | 'switch' 
           scale: isTransitioning ? 1.5 : 1
         }}
         transition={{ duration: 0.6 }}
-        aria-hidden="true"
       />
     </Button>
   );
