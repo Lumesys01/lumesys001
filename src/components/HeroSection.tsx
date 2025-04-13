@@ -73,17 +73,19 @@ const HeroSection: React.FC = () => {
               </div>
               
               <div className="text-3xl md:text-4xl font-bold flex items-center">
-                <span className="gradient-text mr-2 font-extrabold filter drop-shadow-[0_0_10px_rgba(255,255,255,0.4)] tracking-tighter">Lumesys</span>
+                <span className="text-accent font-extrabold filter drop-shadow-[0_0_10px_rgba(255,255,255,0.4)] tracking-tighter">Lumesys</span>
               </div>
             </div>
           </div>
           
           <div className="mb-4 animate-float" style={{ animationDelay: "0.2s" }}>
-            <EnhancedText>DO DARE DOMINATE</EnhancedText>
+            <EnhancedText className="text-highlight font-bold">DO DARE DOMINATE</EnhancedText>
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight mb-6 leading-tight animate-float" style={{ animationDelay: "0.4s" }}>
-            The Brain for <span className="gradient-text font-normal filter drop-shadow-[0_0_20px_rgba(168,235,18,0.3)]">Energy Optimization</span> & Efficiency
+            The Brain for <span className="text-accent font-normal">Energy</span> 
+            <span className="text-darkblue font-normal">Optimization</span> & 
+            <span className="font-normal">Efficiency</span>
           </h1>
           
           <p className="text-lg md:text-xl text-black/80 max-w-3xl mb-6 animate-float" style={{ animationDelay: "0.6s" }}>
