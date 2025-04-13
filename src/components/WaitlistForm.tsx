@@ -1,7 +1,3 @@
-
-// Let's fix the submitStatus check where the TypeScript error was occurring
-// The error was in a conditional check comparing submitStatus to 'success'
-
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -13,7 +9,6 @@ import { Check, Loader2, Send } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Define the schema for form validation
 const formSchema = z.object({
   fullName: z.string().min(2, { message: "Name must be at least 2 characters" }),
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -22,14 +17,11 @@ const formSchema = z.object({
   message: z.string().optional(),
 });
 
-// Define the form data type
 type FormData = z.infer<typeof formSchema>;
 
-// Mock API call function
 const submitToWaitlist = async (data: FormData) => {
   return new Promise<void>((resolve, reject) => {
     setTimeout(() => {
-      // Simulate API success (90% of the time)
       if (Math.random() > 0.1) {
         resolve();
       } else {
@@ -39,19 +31,13 @@ const submitToWaitlist = async (data: FormData) => {
   });
 };
 
-// Send notification email to team
 const sendTeamNotification = async (data: FormData) => {
   console.log("Sending notification email to team at info@golumesys.com", data);
-  // In a real implementation, you would make an API call to a backend endpoint
-  // that sends an email to the team with the form data
   return Promise.resolve();
 };
 
-// Send confirmation email to user
 const sendUserConfirmation = async (email: string, name: string) => {
   console.log(`Sending confirmation email to ${name} at ${email}`);
-  // In a real implementation, you would make an API call to a backend endpoint
-  // that sends a confirmation email to the user
   return Promise.resolve();
 };
 
@@ -60,7 +46,6 @@ const WaitlistForm: React.FC = () => {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const { toast } = useToast();
 
-  // Form data state
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     email: '',
@@ -69,10 +54,8 @@ const WaitlistForm: React.FC = () => {
     message: '',
   });
 
-  // Form validation errors
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
 
-  // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -80,7 +63,6 @@ const WaitlistForm: React.FC = () => {
       [name]: value,
     }));
     
-    // Clear error for this field when user starts typing
     if (errors[name as keyof FormData]) {
       setErrors(prev => ({
         ...prev,
@@ -89,11 +71,9 @@ const WaitlistForm: React.FC = () => {
     }
   };
 
-  // Form submission handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate form
     try {
       formSchema.parse(formData);
     } catch (error) {
@@ -109,28 +89,23 @@ const WaitlistForm: React.FC = () => {
       }
     }
     
-    // If we got here, validation passed
     setIsSubmitting(true);
     setSubmitStatus('submitting');
     
     try {
-      // Submit form data to waitlist
       await submitToWaitlist(formData);
       
-      // Send notifications
       await Promise.all([
         sendTeamNotification(formData),
         sendUserConfirmation(formData.email, formData.fullName)
       ]);
       
-      // Show success message
       toast({
         title: "Success! 🎉",
         description: "You've been added to our waitlist. We'll be in touch soon!",
         variant: "default",
       });
       
-      // Reset form
       setFormData({
         fullName: '',
         email: '',
@@ -141,7 +116,6 @@ const WaitlistForm: React.FC = () => {
       
       setSubmitStatus('success');
       
-      // After 3 seconds, reset status to idle
       setTimeout(() => {
         setSubmitStatus('idle');
       }, 3000);
