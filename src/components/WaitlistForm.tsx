@@ -1,282 +1,242 @@
+
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
-import { Label } from './ui/label';
-import { useToast } from './ui/use-toast';
-import { z } from 'zod';
-import { Check, Loader2, Send } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useToast } from '@/hooks/use-toast';
+import { toast as sonnerToast } from 'sonner';
+import { 
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { DirectionalHint } from './ui/MicroInteractions';
 
 const formSchema = z.object({
-  fullName: z.string().min(2, { message: "Name must be at least 2 characters" }),
-  email: z.string().email({ message: "Please enter a valid email address" }),
-  company: z.string().min(2, { message: "Company name is required" }),
-  role: z.string().min(2, { message: "Role is required" }),
-  message: z.string().optional(),
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
+  company: z.string().optional(),
+  email: z.string().email('Please enter a valid email address'),
 });
 
-type FormData = z.infer<typeof formSchema>;
+type FormValues = z.infer<typeof formSchema>;
 
-const submitToWaitlist = async (data: FormData) => {
-  return new Promise<void>((resolve, reject) => {
-    setTimeout(() => {
-      if (Math.random() > 0.1) {
-        resolve();
-      } else {
-        reject(new Error("Failed to submit. Please try again."));
-      }
-    }, 1500);
-  });
-};
+// Define the possible response types
+interface SuccessResponse {
+  success: boolean;
+}
 
-const sendTeamNotification = async (data: FormData) => {
-  console.log("Sending notification email to team at info@golumesys.com", data);
-  return Promise.resolve();
-};
+interface ErrorResponse {
+  error: string;
+  details?: string;
+}
 
-const sendUserConfirmation = async (email: string, name: string) => {
-  console.log(`Sending confirmation email to ${name} at ${email}`);
-  return Promise.resolve();
-};
+type ApiResponse = SuccessResponse | ErrorResponse;
 
 const WaitlistForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const { toast } = useToast();
 
-  const [formData, setFormData] = useState<FormData>({
-    fullName: '',
-    email: '',
-    company: '',
-    role: '',
-    message: '',
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      company: '',
+      email: '',
+    },
   });
 
-  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-    
-    if (errors[name as keyof FormData]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: undefined,
-      }));
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    try {
-      formSchema.parse(formData);
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const newErrors: Partial<Record<keyof FormData, string>> = {};
-        error.errors.forEach(err => {
-          if (err.path[0]) {
-            newErrors[err.path[0] as keyof FormData] = err.message;
-          }
-        });
-        setErrors(newErrors);
-        return;
-      }
-    }
-    
+  const handleSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
-    setSubmitStatus('submitting');
     
     try {
-      await submitToWaitlist(formData);
-      
-      await Promise.all([
-        sendTeamNotification(formData),
-        sendUserConfirmation(formData.email, formData.fullName)
-      ]);
-      
-      toast({
-        title: "Success! 🎉",
-        description: "You've been added to our waitlist. We'll be in touch soon!",
-        variant: "default",
+      // Add visual feedback
+      sonnerToast.loading('Submitting your information...', { 
+        id: 'waitlist-submission',
+        duration: 10000
       });
       
-      setFormData({
-        fullName: '',
-        email: '',
-        company: '',
-        role: '',
-        message: '',
+      // Log the data being sent
+      console.log('Preparing to submit data:', data);
+      
+      const response = await fetch('/functions/v1/collect-waitlist-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
+
+      console.log('Response status:', response.status);
       
-      setSubmitStatus('success');
+      // Get the text response first
+      const responseText = await response.text();
+      console.log('Raw response:', responseText);
       
-      setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 3000);
+      // Only try to parse JSON if we have content
+      let result: ApiResponse = { success: false };
+      if (responseText && responseText.trim()) {
+        try {
+          result = JSON.parse(responseText) as ApiResponse;
+          console.log('Parsed response:', result);
+        } catch (parseError) {
+          console.error('Error parsing response as JSON:', parseError);
+          throw new Error('Invalid server response format');
+        }
+      }
+
+      sonnerToast.dismiss('waitlist-submission');
       
+      if (response.ok) {
+        form.reset();
+        localStorage.setItem('waitlist_joined', 'true');
+        
+        sonnerToast.success('Joined waitlist successfully!');
+        toast({
+          title: "You've joined the waitlist!",
+          description: "We'll be in touch soon with exclusive updates.",
+          variant: "default",
+        });
+      } else {
+        console.error('Server returned error:', response.status, result);
+        const errorMessage = 'error' in result ? result.error : 'Signup failed';
+        throw new Error(errorMessage);
+      }
     } catch (error) {
-      console.error("Form submission error:", error);
+      sonnerToast.dismiss('waitlist-submission');
+      sonnerToast.error('Something went wrong');
+      
+      console.error('Submission error:', error);
+      
       toast({
-        title: "Something went wrong",
-        description: "Please try again or contact us directly.",
+        title: "Signup Error",
+        description: error instanceof Error ? error.message : 'An unexpected error occurred',
         variant: "destructive",
       });
-      setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div id="contact" className="max-w-3xl mx-auto px-4 sm:px-6 md:px-8">
-      <div className="text-center mb-10">
-        <motion.h2 
-          className="text-3xl font-bold mb-3"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          Join Our <span className="text-accent">Exclusive</span> Pilot Program
-        </motion.h2>
-        <motion.p 
-          className="text-muted-foreground max-w-xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          Be among the first to experience the future of energy management. Limited spots available.
-        </motion.p>
-      </div>
+    <div className="glass-card rounded-2xl p-8 shadow-xl relative overflow-hidden mb-10">
+      <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+      <div className="absolute inset-0 border border-highlight/20 rounded-2xl glow-border"></div>
       
-      <motion.div
-        className="bg-white dark:bg-gray-900/50 shadow-lg rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-800"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="fullName">Full Name</Label>
-              <Input 
-                id="fullName" 
-                name="fullName" 
-                placeholder="John Doe" 
-                value={formData.fullName}
-                onChange={handleChange}
-                className={cn(errors.fullName && "border-red-500")}
-                disabled={submitStatus === 'submitting' || submitStatus === 'success'}
-              />
-              {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName}</p>}
-            </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="relative z-10 flex flex-col space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-black text-sm font-medium">First Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="John"
+                      className="px-4 py-3 rounded-full border border-gray-200 bg-white/90 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             
-            <div className="space-y-2">
-              <Label htmlFor="email">Work Email</Label>
-              <Input 
-                id="email" 
-                name="email" 
-                type="email" 
-                placeholder="you@company.com" 
-                value={formData.email}
-                onChange={handleChange}
-                className={cn(errors.email && "border-red-500")}
-                disabled={submitStatus === 'submitting' || submitStatus === 'success'}
-              />
-              {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="company">Company</Label>
-              <Input 
-                id="company" 
-                name="company" 
-                placeholder="Your Company" 
-                value={formData.company}
-                onChange={handleChange}
-                className={cn(errors.company && "border-red-500")}
-                disabled={submitStatus === 'submitting' || submitStatus === 'success'}
-              />
-              {errors.company && <p className="text-red-500 text-sm">{errors.company}</p>}
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="role">Your Role</Label>
-              <Input 
-                id="role" 
-                name="role" 
-                placeholder="e.g. Facility Manager, CFO" 
-                value={formData.role}
-                onChange={handleChange}
-                className={cn(errors.role && "border-red-500")}
-                disabled={submitStatus === 'submitting' || submitStatus === 'success'}
-              />
-              {errors.role && <p className="text-red-500 text-sm">{errors.role}</p>}
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="message">Why are you interested in Lumesys? (Optional)</Label>
-            <Textarea 
-              id="message" 
-              name="message" 
-              placeholder="Tell us about your energy management challenges..."
-              value={formData.message}
-              onChange={handleChange}
-              disabled={submitStatus === 'submitting' || submitStatus === 'success'}
-              className="resize-none min-h-[120px]"
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-black text-sm font-medium">Last Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Doe"
+                      className="px-4 py-3 rounded-full border border-gray-200 bg-white/90 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
           </div>
           
-          <div className="pt-2">
-            <AnimatePresence mode="wait">
-              {submitStatus === 'success' ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex items-center justify-center py-2 text-accent"
-                >
-                  <Check className="mr-2 h-5 w-5" />
-                  <span>Your application has been submitted!</span>
-                </motion.div>
-              ) : (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex justify-end"
-                >
-                  <Button 
-                    type="submit" 
-                    className="px-8 py-6 bg-gradient-to-r from-accent to-highlight hover:from-highlight hover:to-accent text-white transition-all duration-300 rounded-full flex items-center group"
-                    disabled={submitStatus === 'submitting' || submitStatus === 'success'}
-                  >
-                    {submitStatus === 'submitting' ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Processing...
-                      </>
-                    ) : (
-                      <>
-                        <span>Apply for Pilot Program</span>
-                        <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </>
-                    )}
-                  </Button>
-                </motion.div>
-              )}
-            </AnimatePresence>
+          <FormField
+            control={form.control}
+            name="company"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-black text-sm font-medium">Company (Optional)</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    placeholder="Acme Corp"
+                    className="px-4 py-3 rounded-full border border-gray-200 bg-white/90 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-black text-sm font-medium">Email Address</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="email"
+                    placeholder="john@example.com"
+                    className="px-4 py-3 rounded-full border border-gray-200 bg-white/90 backdrop-blur-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all text-black"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          <DirectionalHint direction="right" className="self-end mt-2">
+            <Button 
+              type="submit" 
+              disabled={isSubmitting}
+              className="glow-button text-primary font-medium px-8 py-4 rounded-full text-lg shadow-[0_0_15px_rgba(0,191,114,0.5)] hover:shadow-[0_0_25px_rgba(0,191,114,0.7)] transition-all duration-300"
+            >
+              {isSubmitting ? "Processing..." : "Join the Waitlist"}
+            </Button>
+          </DirectionalHint>
+          
+          <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4 border border-accent/10 mt-6">
+            <p className="text-sm font-medium text-black mb-2">When you join, you'll get:</p>
+            <ul className="space-y-2 text-sm">
+              {[
+                "Early access to our platform before public launch",
+                "Personalized onboarding session with our team",
+                "Direct input on future feature development"
+              ].map((benefit, idx) => (
+                <li key={idx} className="flex items-start">
+                  <span className="mr-2 mt-0.5 text-accent">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
+                  </span>
+                  <span className="text-gray-700">{benefit}</span>
+                </li>
+              ))}
+            </ul>
           </div>
+          
+          <p className="text-sm text-center text-black font-medium">By joining, you agree to receive updates about Lumesys. We respect your privacy.</p>
         </form>
-      </motion.div>
+      </Form>
     </div>
   );
 };

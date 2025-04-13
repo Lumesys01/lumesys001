@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Linkedin, Mail } from "lucide-react";
 
@@ -45,7 +44,7 @@ const Footer = () => {
                 className="h-10 w-10 mr-2" 
               />
               <div className="text-2xl font-bold flex items-center">
-                <span className="text-accent font-extrabold">Lumesys</span>
+                <span className="gradient-text tracking-tighter font-extrabold">Lumesys</span>
               </div>
             </Link>
             <p className="text-black/60 max-w-xs">

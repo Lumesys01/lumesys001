@@ -1,7 +1,7 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, CalendarClock, ShieldCheck, ArrowRight } from 'lucide-react';
+import { ArrowDown, CalendarClock, ShieldCheck } from 'lucide-react';
 import { EnhancedText } from '@/components/ui/MicroInteractions';
 
 const HeroSection: React.FC = () => {
@@ -73,29 +73,27 @@ const HeroSection: React.FC = () => {
               </div>
               
               <div className="text-3xl md:text-4xl font-bold flex items-center">
-                <span className="text-accent font-extrabold filter drop-shadow-[0_0_10px_rgba(255,255,255,0.4)] tracking-tighter">Lumesys</span>
+                <span className="gradient-text mr-2 font-extrabold filter drop-shadow-[0_0_10px_rgba(255,255,255,0.4)] tracking-tighter">Lumesys</span>
               </div>
             </div>
           </div>
           
           <div className="mb-4 animate-float" style={{ animationDelay: "0.2s" }}>
-            <EnhancedText className="text-highlight font-bold">DO DARE DOMINATE</EnhancedText>
+            <EnhancedText>DO DARE DOMINATE</EnhancedText>
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight mb-6 leading-tight animate-float" style={{ animationDelay: "0.4s" }}>
-            The Brain for <span className="text-accent font-normal">Energy</span> 
-            <span className="text-darkblue font-normal">Optimization</span> & 
-            <span className="font-normal">Efficiency</span>
+            The Brain for <span className="gradient-text font-normal filter drop-shadow-[0_0_20px_rgba(168,235,18,0.3)]">Energy Optimization</span> & Efficiency
           </h1>
           
           <p className="text-lg md:text-xl text-black/80 max-w-3xl mb-6 animate-float" style={{ animationDelay: "0.6s" }}>
-            <span className="text-highlight font-medium">&gt;15%</span> off your energy bill or your AI isn't thinking hard enough.
+            Reduce operational costs by <span className="text-highlight font-medium">&gt;15%</span> with our AI-powered solutions.
           </p>
           
           <div className="flex items-center gap-2 mb-4 animate-float bg-accent/10 px-4 py-2 rounded-full" style={{ animationDelay: "0.5s" }}>
             <ShieldCheck className="w-5 h-5 text-accent" />
             <p className="text-sm md:text-base font-medium">
-              <span className="text-accent">Go live in 48 hours.</span> Think faster than the competition.
+              <span className="text-accent">Unique:</span> 48-hour deployment & self-learning AI
             </p>
           </div>
           
@@ -113,15 +111,13 @@ const HeroSection: React.FC = () => {
             >
               <Button 
                 onClick={scrollToContact}
-                className="cta-button relative bg-gradient-to-r from-accent to-highlight text-white font-medium px-8 py-6 rounded-full text-lg transform-gpu transition-all duration-300 overflow-hidden"
+                className="bg-gradient-to-r from-accent to-highlight text-white font-medium px-8 py-6 rounded-full text-lg hover:scale-105 transition-all duration-300 hover:brightness-110 shadow-lg relative z-10 overflow-hidden"
                 aria-label="Request a product demo"
               >
-                <span className="relative z-10 flex items-center gap-2 group-hover:gap-4 transition-all duration-300">
+                <span className="relative z-10 flex items-center gap-2">
                   Request Demo
-                  <ArrowRight className={`w-4 h-4 transition-all duration-300 transform ${hoverDemo ? 'translate-x-1 opacity-100' : 'opacity-70'}`} />
+                  <CalendarClock className={`w-4 h-4 transition-opacity duration-300 ${hoverDemo ? 'opacity-100' : 'opacity-0'}`} />
                 </span>
-                <span className="absolute inset-0 bg-gradient-to-r from-highlight to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                <span className="absolute inset-0 -z-10 transform scale-x-0 group-hover:scale-x-100 bg-white/20 origin-left transition-transform duration-500 rounded-full"></span>
               </Button>
             </div>
           </div>

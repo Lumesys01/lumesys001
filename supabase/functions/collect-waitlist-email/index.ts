@@ -69,8 +69,7 @@ serve(async (req) => {
         email, 
         first_name: firstName || null, 
         last_name: lastName || null, 
-        company: company || null,
-        registered_at: new Date().toISOString() 
+        company: company || null 
       });
 
     if (insertError) {
@@ -95,16 +94,12 @@ serve(async (req) => {
         to: 'info@golumesys.com',
         subject: 'New Waitlist Signup',
         html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
-            <h1 style="color: #00bf72; text-align: center;">New Waitlist Signup</h1>
-            <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-              <p style="margin: 5px 0;"><strong>Name:</strong> ${firstName || ''} ${lastName || ''}</p>
-              <p style="margin: 5px 0;"><strong>Email:</strong> ${email}</p>
-              ${company ? `<p style="margin: 5px 0;"><strong>Company:</strong> ${company}</p>` : ''}
-              <p style="margin: 5px 0;"><strong>Date:</strong> ${new Date().toLocaleString()}</p>
-            </div>
-            <p style="text-align: center; color: #666;">This lead has been added to your Lumesys waitlist database.</p>
-          </div>
+          <h1>New Waitlist Signup</h1>
+          <p>A new user has joined the Lumesys pilot program waitlist:</p>
+          <p><strong>Name:</strong> ${firstName || ''} ${lastName || ''}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          ${company ? `<p><strong>Company:</strong> ${company}</p>` : ''}
+          <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
         `
       });
       console.log('Internal email sent:', internalEmailResult);
@@ -121,27 +116,12 @@ serve(async (req) => {
         to: email,
         subject: 'Welcome to Lumesys Pilot Program Waitlist',
         html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
-            <div style="text-align: center; margin-bottom: 20px;">
-              <img src="https://www.golumesys.com/lovable-uploads/27f5da26-b388-4950-8f4b-3cc7bbf89a05.png" alt="Lumesys Logo" style="width: 80px; height: auto;">
-            </div>
-            <h1 style="color: #00bf72; text-align: center;">Thank You for Joining the Lumesys Pilot Program!</h1>
-            <p>Hi${firstName ? ' ' + firstName : ''},</p>
-            <p>We're excited that you've expressed interest in the Lumesys pilot program. You'll be among the first to experience our AI-powered energy optimization solutions.</p>
-            <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; margin: 20px 0;">
-              <p style="color: #00bf72; font-weight: bold; margin: 0 0 10px 0;">What happens next?</p>
-              <ul style="padding-left: 20px; margin: 0;">
-                <li>You're now on our priority list for the pilot program</li>
-                <li>We'll send you exclusive updates as we prepare for launch</li>
-                <li>Our team will reach out personally when your spot becomes available</li>
-              </ul>
-            </div>
-            <p>In the meantime, if you have any questions or would like more information, feel free to reply to this email.</p>
-            <p>Best regards,<br>The Lumesys Team</p>
-            <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0; font-size: 12px; color: #666;">
-              <p>© 2025 Lumesys | <a href="https://www.golumesys.com" style="color: #00bf72; text-decoration: none;">www.golumesys.com</a></p>
-            </div>
-          </div>
+          <h1>Thank You for Joining the Lumesys Pilot Program!</h1>
+          <p>Hi${firstName ? ' ' + firstName : ''},</p>
+          <p>We're excited that you've expressed interest in the Lumesys pilot program. You'll be among the first to experience our AI-powered energy optimization solutions.</p>
+          <p>We'll be in touch soon with more details about the upcoming launch.</p>
+          <br>
+          <p>Best regards,<br>The Lumesys Team</p>
         `
       });
       console.log('Subscriber email sent:', subscriberEmailResult);

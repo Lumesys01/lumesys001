@@ -71,7 +71,7 @@ const Navigation = () => {
               className="h-10 w-10 sm:h-12 sm:w-12 mr-2" 
             />
             <div className="text-xl sm:text-2xl font-medium flex items-center">
-              <span className="text-accent font-bold">Lumesys</span>
+              <span className="gradient-text">Lumesys</span>
             </div>
           </Link>
           

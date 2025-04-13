@@ -12,17 +12,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Main brand colors - updated to match the reference image
+        // Main brand colors - kept the same for brand consistency
         primary: "#051937",
         secondary: "#004d7a",
-        accent: "#00bf72",  // Mint green color for "Lumesys" brand text
-        highlight: "#DBFF50", // Bright yellow color for "DO DARE DOMINATE"
+        accent: "#00bf72",
+        highlight: "#A8EB12",
         neonpurple: "#2C065D",
-        darkblue: "#00477B", // Dark navy blue for "Optimization" text
+        darkblue: "#010B28",
         
         // Legacy/Exclusive color additions
         burgundy: "#800020",
-        navy: "#0A1C3F", 
+        navy: "#0A1C3F",
         gold: "#D4AF37",
         richpurple: "#4A154B",
         jade: "#00A86B",
@@ -200,9 +200,9 @@ export default {
         xs: "2px",
       },
       backgroundImage: {
-        "hero-gradient": "linear-gradient(135deg, #051937 0%, #004d7a 25%, #0089A7 50%, #00bf72 75%, #DBFF50 100%)",
-        "glow-gradient": "linear-gradient(90deg, #DBFF50, #00bf72, #004d7a, #2C065D)",
-        "button-gradient": "linear-gradient(90deg, #00bf72, #DBFF50)",
+        "hero-gradient": "linear-gradient(135deg, #051937 0%, #004d7a 25%, #0089A7 50%, #00bf72 75%, #A8EB12 100%)",
+        "glow-gradient": "linear-gradient(90deg, #A8EB12, #00bf72, #004d7a, #2C065D)",
+        "button-gradient": "linear-gradient(90deg, #00bf72, #A8EB12)",
         "card-gradient": "linear-gradient(135deg, rgba(12, 41, 100, 0.5) 0%, rgba(5, 25, 55, 0.8) 100%)",
         "luxury-pattern": "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4AF37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
         "subtle-grid": "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.03'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
