@@ -1,8 +1,9 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, CalendarClock, ShieldCheck } from 'lucide-react';
+import { ArrowDown, CalendarClock, ShieldCheck, ArrowRight } from 'lucide-react';
 import { EnhancedText } from '@/components/ui/MicroInteractions';
+import { motion } from 'framer-motion';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -87,13 +88,13 @@ const HeroSection: React.FC = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-black/80 max-w-3xl mb-6 animate-float" style={{ animationDelay: "0.6s" }}>
-            Reduce operational costs by <span className="text-highlight font-medium">&gt;15%</span> with our AI-powered solutions.
+            <span className="text-highlight font-medium">&gt;15% off your energy bill</span> — or your AI isn't thinking hard enough.
           </p>
           
           <div className="flex items-center gap-2 mb-4 animate-float bg-accent/10 px-4 py-2 rounded-full" style={{ animationDelay: "0.5s" }}>
             <ShieldCheck className="w-5 h-5 text-accent" />
             <p className="text-sm md:text-base font-medium">
-              <span className="text-accent">Unique:</span> 48-hour deployment & self-learning AI
+              <span className="text-accent">Go live in 48 hours.</span> Think faster than the competition.
             </p>
           </div>
           
@@ -109,16 +110,48 @@ const HeroSection: React.FC = () => {
               onMouseEnter={() => setHoverDemo(true)}
               onMouseLeave={() => setHoverDemo(false)}
             >
-              <Button 
-                onClick={scrollToContact}
-                className="bg-gradient-to-r from-accent to-highlight text-white font-medium px-8 py-6 rounded-full text-lg hover:scale-105 transition-all duration-300 hover:brightness-110 shadow-lg relative z-10 overflow-hidden"
-                aria-label="Request a product demo"
+              <motion.div
+                whileHover={{ 
+                  scale: 1.05,
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ 
+                  scale: 0.98,
+                  transition: { duration: 0.2 }
+                }}
               >
-                <span className="relative z-10 flex items-center gap-2">
-                  Request Demo
-                  <CalendarClock className={`w-4 h-4 transition-opacity duration-300 ${hoverDemo ? 'opacity-100' : 'opacity-0'}`} />
-                </span>
-              </Button>
+                <Button 
+                  onClick={scrollToContact}
+                  className="relative bg-gradient-to-r from-accent to-highlight text-white font-medium px-8 py-6 rounded-full text-lg transition-all duration-300 hover:brightness-110 shadow-lg overflow-hidden group"
+                  aria-label="Request a product demo"
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    Request Demo
+                    <motion.div
+                      animate={{
+                        x: hoverDemo ? [0, 5, 0] : 0
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        repeat: hoverDemo ? Infinity : 0,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <CalendarClock className="w-4 h-4 transition-opacity duration-300" />
+                    </motion.div>
+                  </span>
+                  <motion.div 
+                    className="absolute inset-0 bg-white rounded-full opacity-0 group-hover:opacity-20"
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileHover={{ 
+                      scale: 1.5, 
+                      opacity: 0.15,
+                      transition: { duration: 0.5 }
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  />
+                </Button>
+              </motion.div>
             </div>
           </div>
           
