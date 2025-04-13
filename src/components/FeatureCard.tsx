@@ -45,8 +45,8 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, icon: Ico
         }}
       >
         <Icon 
-          className={`w-8 h-8 text-accent transition-all duration-300 
-            ${isIconAnimating ? 'animate-bounce text-highlight' : ''}`} 
+          className={`w-8 h-8 text-white transition-all duration-300 
+            ${isIconAnimating ? 'animate-bounce text-white' : ''}`} 
         />
         <span className="absolute -top-1 -right-1 w-3 h-3 bg-highlight rounded-full ping-badge"></span>
         
