@@ -1,11 +1,13 @@
+
 import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const BrainVisualization: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const modelRef = useRef<THREE.Group | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
 
   useEffect(() => {
     let scene: THREE.Scene,
@@ -28,6 +30,7 @@ const BrainVisualization: React.FC = () => {
       renderer.setSize(containerRef.current.offsetWidth, containerRef.current.offsetHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
       containerRef.current.appendChild(renderer.domElement);
+      rendererRef.current = renderer;
 
       // Controls
       controls = new OrbitControls(camera, renderer.domElement);
@@ -97,10 +100,10 @@ const BrainVisualization: React.FC = () => {
     };
 
     const handleResize = () => {
-      if (!containerRef.current) return;
+      if (!containerRef.current || !rendererRef.current) return;
       camera.aspect = containerRef.current.offsetWidth / containerRef.current.offsetHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(containerRef.current.offsetWidth, containerRef.current.offsetHeight);
+      rendererRef.current.setSize(containerRef.current.offsetWidth, containerRef.current.offsetHeight);
     };
 
     init();
@@ -108,14 +111,30 @@ const BrainVisualization: React.FC = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      if (containerRef.current && renderer) {
-        containerRef.current.removeChild(renderer.domElement);
+      if (containerRef.current && rendererRef.current) {
+        containerRef.current.removeChild(rendererRef.current.domElement);
       }
+      // Properly dispose of Three.js resources
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+      }
+      // Scene doesn't have a dispose method, but we can clear it
       if (scene) {
-        scene.dispose();
-      }
-      if (renderer) {
-        renderer.dispose();
+        // Clean up any objects in the scene
+        scene.children.forEach(child => {
+          if (child instanceof THREE.Mesh) {
+            child.geometry.dispose();
+            if (child.material instanceof THREE.Material) {
+              child.material.dispose();
+            } else if (Array.isArray(child.material)) {
+              child.material.forEach(material => material.dispose());
+            }
+          }
+        });
+        // Remove all children
+        while(scene.children.length > 0) {
+          scene.remove(scene.children[0]);
+        }
       }
     };
   }, []);
