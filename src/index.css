@@ -194,56 +194,12 @@
   }
 }
 
-/* ... keep existing code (animations, keyframes, and additional utility classes) */
-
 .section-padding {
   @apply py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-8 lg:px-12;
 }
 
 .gradient-text {
   @apply bg-clip-text text-transparent bg-glow-gradient animate-gradient-flow bg-[length:200%_auto] dark:text-shadow-sm dark:text-shadow-accent/30;
-}
-
-/* ... keep existing code (animation definitions, keyframes, and additional utilities) */
-
-/* Improved dark mode specific styles */
-.dark .glass-card {
-  @apply bg-background-dark/70 border-gray-700;
-}
-
-.dark .gradient-text {
-  @apply text-shadow-sm text-shadow-accent/30;
-}
-
-.dark .neo-card {
-  @apply shadow-[0_8px_32px_rgba(0,0,0,0.2)];
-}
-
-/* Improved accessibility for focus states */
-:focus-visible {
-  @apply outline-2 outline-offset-2 outline-accent dark:outline-accent;
-}
-
-/* Media queries for responsive design */
-@media (max-width: 640px) {
-  h1 {
-    @apply text-2xl;
-  }
-  h2 {
-    @apply text-xl;
-  }
-  .section-padding {
-    @apply py-8 px-4;
-  }
-}
-
-/* Additional high contrast helpers */
-.high-contrast-text {
-  @apply text-foreground dark:text-foreground-dark;
-}
-
-.high-contrast-bg {
-  @apply bg-white dark:bg-background-dark;
 }
 
 @keyframes float {
@@ -289,12 +245,12 @@
 
 @keyframes bounce {
   '0%, 100%': { 
-    transform: 'translateY(0)',
-    animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)'
+    transform: 'translateY(0)';
+    animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)';
   },
   '50%': { 
-    transform: 'translateY(-25%)',
-    animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)'
+    transform: 'translateY(-25%)';
+    animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)';
   },
 }
 
@@ -328,4 +284,40 @@
     transform: 'translateY(80px) rotate(360deg)',
     opacity: '0'
   },
+}
+
+.dark .glass-card {
+  @apply bg-background-dark/70 border-gray-700;
+}
+
+.dark .gradient-text {
+  @apply text-shadow-sm text-shadow-accent/30;
+}
+
+.dark .neo-card {
+  @apply shadow-[0_8px_32px_rgba(0,0,0,0.2)];
+}
+
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-accent dark:outline-accent;
+}
+
+@media (max-width: 640px) {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  .section-padding {
+    @apply py-8 px-4;
+  }
+}
+
+.high-contrast-text {
+  @apply text-foreground dark:text-foreground-dark;
+}
+
+.high-contrast-bg {
+  @apply bg-white dark:bg-background-dark;
 }
