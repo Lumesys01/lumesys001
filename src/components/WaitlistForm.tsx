@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -25,6 +26,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+// Define the possible response types
 interface SuccessResponse {
   success: boolean;
 }
@@ -54,11 +56,13 @@ const WaitlistForm: React.FC = () => {
     setIsSubmitting(true);
     
     try {
+      // Add visual feedback
       sonnerToast.loading('Submitting your information...', { 
         id: 'waitlist-submission',
         duration: 10000
       });
       
+      // Log the data being sent
       console.log('Preparing to submit data:', data);
       
       const response = await fetch('/functions/v1/collect-waitlist-email', {
@@ -71,9 +75,11 @@ const WaitlistForm: React.FC = () => {
 
       console.log('Response status:', response.status);
       
+      // Get the text response first
       const responseText = await response.text();
       console.log('Raw response:', responseText);
       
+      // Only try to parse JSON if we have content
       let result: ApiResponse = { success: false };
       if (responseText && responseText.trim()) {
         try {
@@ -206,7 +212,7 @@ const WaitlistForm: React.FC = () => {
               disabled={isSubmitting}
               className="glow-button text-primary font-medium px-8 py-4 rounded-full text-lg shadow-[0_0_15px_rgba(0,191,114,0.5)] hover:shadow-[0_0_25px_rgba(0,191,114,0.7)] transition-all duration-300"
             >
-              {isSubmitting ? "Processing..." : "Join Now!"}
+              {isSubmitting ? "Processing..." : "Join the Waitlist"}
             </Button>
           </DirectionalHint>
           
