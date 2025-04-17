@@ -8,7 +8,7 @@ const Footer = () => {
       links: ["Features", "Security", "Updates"],
     },
     {
-      title: "Company", 
+      title: "Company",
       links: ["About", "Blog", "Careers", "Press"],
     },
     {
@@ -29,6 +29,7 @@ const Footer = () => {
   return (
     <footer className="bg-white py-16 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
+        {/* Tagline banner - Added at the top of footer */}
         <div className="mb-12 py-4 text-center">
           <div className="inline-block px-6 py-3 bg-green-50 rounded-full text-green-700 font-medium">
             Powering Efficiency, Leading Sustainability
@@ -43,8 +44,8 @@ const Footer = () => {
                 alt="Lumesys Logo" 
                 className="h-10 w-10 mr-2" 
               />
-              <div className="text-2xl font-bold flex items-center">
-                <span className="gradient-text tracking-tighter font-extrabold">Lumesys</span>
+              <div className="text-2xl font-medium flex items-center">
+                <span className="gradient-text mr-2">Lumesys</span>
               </div>
             </Link>
             <p className="text-black/60 max-w-xs">

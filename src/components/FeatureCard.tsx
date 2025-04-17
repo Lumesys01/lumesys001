@@ -26,18 +26,18 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, icon: Ico
     <div 
       className={`neo-card p-6 sm:p-8 relative group hover:shadow-lg transition-all duration-500 
         ${!hasInteracted && 'animate-pulse-subtle'}
-        ${showPopup ? 'transform scale-[1.01] bg-card dark:bg-card-dark shadow-xl border-accent/20' : ''}`}
+        ${showPopup ? 'transform scale-[1.01] bg-white shadow-xl border-accent/20' : ''}`}
       onMouseLeave={() => setShowPopup(false)}
     >
       {/* Subtle highlight gradient when hovered */}
-      <div className={`absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent dark:from-accent/10 dark:to-transparent rounded-xl transition-opacity duration-500 ${showPopup ? 'opacity-100' : 'opacity-0'}`}></div>
+      <div className={`absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent rounded-xl transition-opacity duration-500 ${showPopup ? 'opacity-100' : 'opacity-0'}`}></div>
       
       <div 
         className="clickable-icon mb-6 inline-block"
         onClick={handleIconClick}
         role="button"
         tabIndex={0}
-        aria-label={`${title} icon - click for more information`}
+        aria-label={`${title} icon`}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             handleIconClick();
@@ -45,42 +45,40 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, icon: Ico
         }}
       >
         <Icon 
-          className={`w-8 h-8 text-accent dark:text-accent-dark transition-all duration-300 
-            ${isIconAnimating ? 'animate-bounce text-highlight dark:text-highlight-dark' : ''}`} 
+          className={`w-8 h-8 text-accent transition-all duration-300 
+            ${isIconAnimating ? 'animate-bounce text-highlight' : ''}`} 
         />
-        <span className="absolute -top-1 -right-1 w-3 h-3 bg-highlight dark:bg-highlight-dark rounded-full ping-badge"></span>
+        <span className="absolute -top-1 -right-1 w-3 h-3 bg-highlight rounded-full ping-badge"></span>
         
         {!hasInteracted && (
-          <span className="absolute -top-2 -right-2 text-xs bg-highlight/90 dark:bg-highlight-dark/90 text-foreground dark:text-background-dark px-1.5 py-0.5 rounded-full flex items-center gap-0.5 animate-pulse-slow">
+          <span className="absolute -top-2 -right-2 text-xs bg-highlight/90 text-white px-1.5 py-0.5 rounded-full flex items-center gap-0.5 animate-pulse-slow">
             <Zap className="w-3 h-3" /> 
             <span className="font-medium">Click me</span>
           </span>
         )}
       </div>
       
-      <h3 className="text-xl sm:text-2xl font-medium mb-3 text-foreground dark:text-foreground-dark">{title}</h3>
-      <p className="text-foreground/80 dark:text-foreground-dark/80">{description}</p>
+      <h3 className="text-xl sm:text-2xl font-medium mb-3 text-gray-800">{title}</h3>
+      <p className="text-gray-600">{description}</p>
       
       {/* Interactive popup with enhanced design */}
       <div 
-        className={`absolute inset-x-4 -top-2 bg-card dark:bg-card-dark frosted-glass p-5 rounded-lg shadow-xl transform transition-all duration-500 z-10 text-sm border-2 border-accent/30 dark:border-accent/20
+        className={`absolute inset-x-4 -top-2 bg-white frosted-glass p-5 rounded-lg shadow-xl transform transition-all duration-500 z-10 text-sm border-2 border-accent/30
         ${showPopup ? 'opacity-100 -translate-y-full' : 'opacity-0 -translate-y-3/4 pointer-events-none'}`}
-        role="tooltip"
-        aria-hidden={!showPopup}
       >
         <div className="relative">
           {/* Accent bar at top */}
           <div className="absolute -top-5 left-0 right-0 h-1 bg-gradient-to-r from-accent/80 to-highlight/80 rounded-t-lg"></div>
           
-          <p className="leading-relaxed text-foreground dark:text-foreground-dark">{popupContent}</p>
+          <p className="leading-relaxed">{popupContent}</p>
           
           {/* Bottom tag */}
-          <div className="mt-2 text-xs bg-accent/10 dark:bg-accent/20 text-accent dark:text-accent-dark px-2 py-1 rounded-full w-fit">
+          <div className="mt-2 text-xs bg-accent/10 text-accent px-2 py-1 rounded-full w-fit">
             Feature insight
           </div>
         </div>
         
-        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 rotate-45 bg-card dark:bg-card-dark border-r border-b border-accent/30 dark:border-accent/20"></div>
+        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 rotate-45 bg-white border-r border-b border-accent/30"></div>
       </div>
     </div>
   );

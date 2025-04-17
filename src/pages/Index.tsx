@@ -123,12 +123,20 @@ const Index = () => {
           <SectionDivider />
           
           <PageTransition direction="left" delay={100}>
+            <section id="why" className="bg-white dark:bg-background-dark py-16">
+              <WhyLumesys />
+            </section>
+          </PageTransition>
+          
+          <SectionDivider label="FEATURES" />
+          
+          <PageTransition direction="left" delay={100}>
             <section id="features" className="bg-white dark:bg-background-dark py-16">
               <FeaturesSection />
             </section>
           </PageTransition>
           
-          <SectionDivider label="OUR WHY" />
+          <SectionDivider />
           
           <PageTransition direction="right" delay={150}>
             <section id="our-why" className="bg-white dark:bg-background-dark py-16">

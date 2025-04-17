@@ -102,12 +102,6 @@ const CTASection: React.FC = () => {
       
       <div className="container mx-auto relative z-10">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-8">
-            <p className="text-xl md:text-2xl font-medium text-black/90 italic mb-6">
-              "AI-Powered Foresight. Real-Time Control."
-            </p>
-          </div>
-          
           <div className="text-center mb-12">
             <FloatingElement className="inline-block mb-6 bg-green-50 text-green-700 px-4 py-2 rounded-full text-sm font-medium">
               <div className="flex items-center">
