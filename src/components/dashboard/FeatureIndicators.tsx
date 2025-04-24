@@ -8,9 +8,9 @@ const FeatureIndicators: React.FC = () => {
     <div className="mt-8 grid grid-cols-3 md:flex md:justify-center gap-3 md:gap-6 text-sm text-black/80 dark:text-white/90">
       <FeatureIndicator 
         color="bg-accent" 
-        label="Forensic Analysis" 
+        label="AI-Powered Analysis" 
         icon={<BarChart3 className="w-5 h-5 text-accent" />}
-        description="Advanced forensic energy pattern analysis with unprecedented depth and accuracy"
+        description="Advanced energy pattern analysis with unprecedented depth and accuracy"
       />
       <FeatureIndicator 
         color="bg-highlight" 
@@ -20,9 +20,9 @@ const FeatureIndicators: React.FC = () => {
       />
       <FeatureIndicator 
         color="bg-secondary" 
-        label="20% Cost Recovery" 
+        label="Cost Recovery" 
         icon={<BadgePercent className="w-5 h-5 text-secondary" />}
-        description="Our forensic analysis helps recover up to 20% in hidden energy costs"
+        description="Our analysis helps recover up to 20% in hidden energy costs"
       />
       <FeatureIndicator 
         color="bg-highlight" 
