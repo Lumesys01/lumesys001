@@ -1,7 +1,7 @@
 
 import React from 'react';
 import FeatureIndicator from './FeatureIndicator';
-import { BarChart3, Lightbulb, BadgePercent, Zap, Clock } from 'lucide-react';
+import { BarChart3, Lightbulb, BadgePercent, Zap } from 'lucide-react';
 
 const FeatureIndicators: React.FC = () => {
   return (
@@ -23,12 +23,6 @@ const FeatureIndicators: React.FC = () => {
         label="20% Cost Recovery" 
         icon={<BadgePercent className="w-5 h-5 text-secondary" />}
         description="Our forensic analysis helps recover up to 20% in hidden energy costs"
-      />
-      <FeatureIndicator 
-        color="bg-accent" 
-        label="24hr Analysis" 
-        icon={<Clock className="w-5 h-5 text-accent" />}
-        description="Complete forensic energy analysis in 24 hours vs. industry standard of 2 weeks"
       />
       <FeatureIndicator 
         color="bg-highlight" 
