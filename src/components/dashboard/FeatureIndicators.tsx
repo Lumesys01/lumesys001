@@ -8,33 +8,33 @@ const FeatureIndicators: React.FC = () => {
     <div className="mt-8 grid grid-cols-3 md:flex md:justify-center gap-3 md:gap-6 text-sm text-black/80 dark:text-white/90">
       <FeatureIndicator 
         color="bg-accent" 
-        label="Real-time Monitoring" 
+        label="Forensic Analysis" 
         icon={<BarChart3 className="w-5 h-5 text-accent" />}
-        description="View live building performance metrics as they happen - no delays like other platforms"
+        description="Advanced forensic energy pattern analysis with unprecedented depth and accuracy"
       />
       <FeatureIndicator 
         color="bg-highlight" 
-        label="AI-Powered Analytics" 
+        label="AI Investigation" 
         icon={<Lightbulb className="w-5 h-5 text-highlight" />}
-        description="Our proprietary AI analyzes patterns other systems simply can't detect"
+        description="Our AI investigates energy anomalies other systems simply can't detect"
       />
       <FeatureIndicator 
         color="bg-secondary" 
-        label="15% Cost Savings" 
+        label="20% Cost Recovery" 
         icon={<BadgePercent className="w-5 h-5 text-secondary" />}
-        description="Our customers achieve minimum 15% savings vs. industry average of 8-10%"
+        description="Our forensic analysis helps recover up to 20% in hidden energy costs"
       />
       <FeatureIndicator 
         color="bg-accent" 
-        label="48hr Deployment" 
+        label="24hr Analysis" 
         icon={<Clock className="w-5 h-5 text-accent" />}
-        description="Deploy in just 48 hours vs. competitors' 4-6 week implementation"
+        description="Complete forensic energy analysis in 24 hours vs. industry standard of 2 weeks"
       />
       <FeatureIndicator 
         color="bg-highlight" 
-        label="Adaptive Learning" 
+        label="Predictive Intelligence" 
         icon={<Zap className="w-5 h-5 text-highlight" />}
-        description="Our system continuously improves - unlike static solutions from competitors"
+        description="Our system predicts energy anomalies before they impact your bottom line"
       />
     </div>
   );

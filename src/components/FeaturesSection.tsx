@@ -7,34 +7,34 @@ import { Button } from './ui/button';
 const FeaturesSection: React.FC = () => {
   const features = [
     {
-      title: "AI-Powered Energy Optimization",
-      description: "Lumesys acts as the brain for energy management, optimizing consumption and reducing operational costs by at least 10%.",
+      title: "AI-Powered Forensic Analysis",
+      description: "Lumesys acts as your forensic investigator, uncovering hidden energy inefficiencies and recovering operational costs.",
       icon: Brain,
-      popupContent: "Our proprietary AI algorithms continuously learn from your energy usage patterns to provide optimizations that lead to significant cost savings - unlike competitors' static solutions."
+      popupContent: "Our advanced AI algorithms conduct deep forensic analysis of your energy usage patterns to uncover hidden inefficiencies and opportunities for cost recovery."
     },
     {
-      title: "Anomaly Detection & Proactive Monitoring",
-      description: "Advanced anomaly detection algorithms and centralized, multi-site remote monitoring ensure proactive maintenance.",
+      title: "Predictive Anomaly Detection",
+      description: "Advanced forensic algorithms detect patterns of energy waste and inefficiency before they impact your bottom line.",
       icon: AlertTriangle,
-      popupContent: "While others react to problems, our machine learning algorithms detect unusual patterns before they become critical issues, preventing equipment damage and energy waste."
+      popupContent: "While others simply monitor, our forensic AI predicts and identifies unusual patterns that indicate potential energy waste or system inefficiencies."
     },
     {
-      title: "Centralized Multi-Site Monitoring",
-      description: "Monitor and control multiple sites remotely from a single, intuitive dashboard interface with real-time updates.",
+      title: "Multi-Site Forensic Analysis",
+      description: "Conduct comprehensive forensic investigations across multiple sites from a centralized intelligence dashboard.",
       icon: Radio,
-      popupContent: "Access all your facilities from one unified platform, enabling seamless management and comparative analytics across your entire operation - a capability few competitors offer."
+      popupContent: "Compare forensic energy data across all your facilities to identify systemic issues and optimization opportunities others miss."
     },
     {
-      title: "Comprehensive Compliance Tracking",
-      description: "Stay ahead of industry standards with automated compliance tracking and detailed reporting in both PDF and CSV formats.",
+      title: "Forensic Evidence Tracking",
+      description: "Generate detailed forensic reports with comprehensive evidence of energy inefficiencies and waste.",
       icon: FileSpreadsheet,
-      popupContent: "Generate custom reports for regulatory compliance in seconds, with PDF and CSV export options to streamline your reporting workflow - far more flexible than traditional systems."
+      popupContent: "Export detailed forensic analysis reports with evidence-backed recommendations for immediate cost recovery."
     },
     {
-      title: "AI-Powered Real-Time Data Analytics",
-      description: "Gain deep insights with real-time analytics that help you make informed decisions to enhance operational efficiency.",
+      title: "Real-Time Intelligence",
+      description: "Get instant forensic insights that help you make informed decisions to eliminate energy waste.",
       icon: BarChart3,
-      popupContent: "Our advanced AI continuously analyzes your energy data to identify patterns, predict usage, and recommend optimizations in real-time - outperforming static analysis from competitors."
+      popupContent: "Our AI continuously analyzes your energy data to provide real-time forensic insights and actionable intelligence."
     }
   ];
 
@@ -47,10 +47,10 @@ const FeaturesSection: React.FC = () => {
       <div className="container mx-auto">
         <div className="text-center mb-10 md:mb-16">
           <h2 className="text-3xl md:text-5xl font-light mb-4">
-            Features <span className="gradient-text font-normal">Designed</span> for You
+            Features <span className="gradient-text font-normal">Designed</span> for Intelligence
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
-            Our AI-powered platform provides comprehensive tools to transform your energy management strategy.
+            Our AI-powered platform provides comprehensive forensic tools to transform your energy intelligence strategy.
           </p>
           
           {/* UVP Highlight Box */}
@@ -62,11 +62,9 @@ const FeaturesSection: React.FC = () => {
               <div className="text-left">
                 <h3 className="text-xl font-medium text-black dark:text-white mb-2">What Sets Us Apart</h3>
                 <p className="text-gray-700 dark:text-gray-200">
-                  Unlike traditional energy systems that use <span className="font-semibold">static rules and schedules</span>, 
-                  Lumesys employs <span className="text-accent font-bold">proprietary AI algorithms</span> that continuously 
-                  learn and adapt to your building's unique energy needs. This dynamic approach delivers 
-                  <span className="text-highlight font-bold"> 48-hour implementation</span> and <span className="text-highlight font-bold">significant more savings</span> than 
-                  conventional solutions.
+                  Unlike traditional energy monitoring systems that use <span className="font-semibold">basic analytics</span>, 
+                  Lumesys employs <span className="text-accent font-bold">advanced forensic AI</span> that investigates and uncovers hidden energy inefficiencies. This forensic approach enables 
+                  <span className="text-highlight font-bold"> 24-hour analysis</span> and <span className="text-highlight font-bold">up to 20% cost recovery</span> from previously undetected issues.
                 </p>
               </div>
             </div>
@@ -98,7 +96,7 @@ const FeaturesSection: React.FC = () => {
               }
             }}
           >
-            See How We Compare to Competitors
+            See How We Compare to Traditional Systems
             <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Button>
         </div>
