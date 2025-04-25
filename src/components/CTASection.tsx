@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Linkedin, Clock, ArrowRight } from 'lucide-react';
@@ -15,9 +14,7 @@ const CTASection: React.FC = () => {
   const [hasInteracted, setHasInteracted] = useState(false);
   const { toast } = useToast();
 
-  // Set the countdown based on a real 30-day period from now
   useEffect(() => {
-    // Set end date to 30 days from when the site goes live
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + 30);
     
@@ -26,7 +23,6 @@ const CTASection: React.FC = () => {
       const difference = endDate.getTime() - now.getTime();
       
       if (difference <= 0) {
-        // Time's up
         return { days: 0, hours: 0, minutes: 0 };
       }
       
@@ -37,10 +33,8 @@ const CTASection: React.FC = () => {
       return { days, hours, minutes };
     };
     
-    // Initial calculation
     setTimeLeft(calculateTimeLeft());
     
-    // Update every minute
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 60000);
@@ -145,34 +139,34 @@ const CTASection: React.FC = () => {
                 We are committed to advancing the Just Energy Transition
               </p>
             </div>
-          </div>
-          
-          <WaitlistForm />
-          
-          <div className="text-center">
-            <p className="text-gray-800 mb-4 font-medium">Want to learn more about our mission?</p>
-            <div className="flex flex-wrap justify-center gap-4 mb-6">
-              <a 
-                href="https://www.linkedin.com/in/tarylogle-theminingmaven" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-white border border-gray-200 hover:border-accent py-3 px-6 rounded-full text-gray-700 hover:text-accent transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-                <span>Connect with our Founder</span>
-              </a>
-              
-              <Button 
-                variant="outline" 
-                className="rounded-full bg-white text-gray-800"
-                onClick={() => window.location.href = "mailto:info@golumesys.com"}
-              >
-                Request a Demo
-              </Button>
-            </div>
             
-            <div className="mt-4 text-center text-sm text-gray-600">
-              <p>Response time: Within 24 hours during business days</p>
+            <WaitlistForm />
+            
+            <div className="text-center">
+              <p className="text-gray-800 mb-4 font-medium">Want to learn more about our mission?</p>
+              <div className="flex flex-wrap justify-center gap-4 mb-6">
+                <a 
+                  href="https://www.linkedin.com/in/tarylogle-theminingmaven" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-white border border-gray-200 hover:border-accent py-3 px-6 rounded-full text-gray-700 hover:text-accent transition-colors"
+                >
+                  <Linkedin className="w-5 h-5" />
+                  <span>Connect with our Founder</span>
+                </a>
+                
+                <Button 
+                  variant="outline" 
+                  className="rounded-full bg-white text-gray-800"
+                  onClick={() => window.location.href = "mailto:info@golumesys.com"}
+                >
+                  Join the Pilot
+                </Button>
+              </div>
+              
+              <div className="mt-4 text-center text-sm text-gray-600">
+                <p>Response time: Within 24 hours during business days</p>
+              </div>
             </div>
           </div>
         </div>

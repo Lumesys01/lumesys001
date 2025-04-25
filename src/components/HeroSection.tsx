@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, CalendarClock, ShieldCheck } from 'lucide-react';
@@ -92,7 +93,7 @@ const HeroSection: React.FC = () => {
           <div className="flex items-center gap-2 mb-8 animate-float bg-accent/10 px-4 py-2 rounded-full" style={{ animationDelay: "0.5s" }}>
             <ShieldCheck className="w-5 h-5 text-accent" />
             <p className="text-sm md:text-base font-medium">
-              <span className="text-accent">Unique:</span> 48-hour deployment & self-learning AI
+              <span className="text-accent">Unique:</span> Designed to Think, Built to Optimize
             </p>
           </div>
           
