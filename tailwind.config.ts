@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -12,19 +13,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#051937",
-        secondary: "#004d7a",
-        accent: "#00bf72",
-        highlight: "#A8EB12",
+        primary: "#004d4d", // Deep teal
+        secondary: "#006666", // Medium teal
+        accent: "#00bf72", // Bright green
+        highlight: "#A8EB12", // Neon green
         neonpurple: "#2C065D",
-        darkblue: "#010B28",
+        darkblue: "#010B28", // Dark navy
+        cyan: "#00ffff", // Bright cyan
         background: {
-          DEFAULT: "#FFFFFF", 
-          dark: "#1A1F2C",
+          DEFAULT: "#FFFFFF",
+          dark: "#001a1a", // Darker teal for dark mode
         },
         surface: {
           DEFAULT: "#F5F5F5",
-          dark: "#221F26",
+          dark: "#002929", // Deep teal for dark mode surfaces
         },
         muted: {
           DEFAULT: "#C4C3BB",
@@ -36,11 +38,11 @@ export default {
         },
         border: {
           DEFAULT: "#E0E0E0",
-          dark: "#333340",
+          dark: "#003333", // Teal border for dark mode
         },
         input: {
           DEFAULT: "#F0F0F0",
-          dark: "#2D2D36",
+          dark: "#002626", // Deep teal for dark mode inputs
         },
         foreground: {
           DEFAULT: "#000000",

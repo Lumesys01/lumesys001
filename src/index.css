@@ -71,7 +71,7 @@
   }
 
   .glass-card {
-    @apply bg-white/90 dark:bg-background-dark/80 backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-lg;
+    @apply bg-white/90 dark:bg-background-dark/80 backdrop-blur-md border border-primary/20 dark:border-primary/30 shadow-lg shadow-primary/5 dark:shadow-primary/10;
     will-change: transform, opacity;
   }
 
@@ -81,12 +81,12 @@
   }
   
   .neo-card {
-    @apply bg-white dark:bg-background-dark backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] rounded-xl;
+    @apply bg-white dark:bg-background-dark backdrop-blur-md border border-primary/20 dark:border-primary/30 shadow-[0_8px_32px_rgba(0,77,77,0.1)] dark:shadow-[0_8px_32px_rgba(0,77,77,0.2)] rounded-xl;
     will-change: transform, opacity;
   }
   
   .luxury-gradient {
-    @apply bg-gradient-to-br from-accent/80 via-highlight/50 to-neonpurple/80;
+    @apply bg-gradient-to-br from-primary via-accent to-highlight;
   }
   
   .frosted-glass {
@@ -163,7 +163,7 @@
 }
 
 .gradient-text {
-  @apply bg-clip-text text-transparent bg-glow-gradient animate-gradient-flow bg-[length:200%_auto];
+  @apply bg-gradient-to-r from-primary via-accent to-highlight bg-clip-text text-transparent animate-gradient-flow;
 }
 
 .animate-float {
@@ -171,7 +171,7 @@
 }
 
 .animated-gradient-background {
-  background: linear-gradient(-45deg, #051937, #004d7a, #0089A7, #00bf72, #A8EB12);
+  background: linear-gradient(-45deg, #004d4d, #006666, #00bf72, #A8EB12);
   background-size: 400% 400%;
   animation: gradient-flow 15s ease infinite;
 }
@@ -317,3 +317,4 @@ a, button, input, select, textarea {
 .dark .neo-card {
   @apply shadow-[0_8px_32px_rgba(0,0,0,0.3)];
 }
+
