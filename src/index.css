@@ -166,6 +166,16 @@
       #FFD700
     );
   }
+  
+  .gradient-gold {
+    @apply bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-flow;
+    background-image: linear-gradient(
+      to right,
+      #FFD700,
+      #FFA500,
+      #FFD700
+    );
+  }
 }
 
 .section-padding {
