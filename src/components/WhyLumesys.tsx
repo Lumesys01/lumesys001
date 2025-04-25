@@ -36,7 +36,7 @@ const WhyLumesys: React.FC = () => {
 
   const comparisonData = [
     {
-      feature: "Energy Analysis",
+      feature: "Analysis",
       lumesys: "AI-powered, Real-time",
       traditional: "Manual, Periodic",
       benefit: "Faster insights to reduce waste",

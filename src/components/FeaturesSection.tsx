@@ -1,4 +1,3 @@
-
 import React from 'react';
 import FeatureCard from './FeatureCard';
 import { Activity, AlertTriangle, BarChart3, FileSpreadsheet, Brain, Radio, Zap, ArrowRight } from 'lucide-react';
@@ -7,34 +6,34 @@ import { Button } from './ui/button';
 const FeaturesSection: React.FC = () => {
   const features = [
     {
-      title: "AI-Powered Forensic Analysis",
-      description: "Lumesys acts as your forensic investigator, uncovering hidden energy inefficiencies and recovering operational costs.",
+      title: "AI-Powered Analysis",
+      description: "Lumesys acts as your investigator, uncovering hidden inefficiencies and recovering operational costs.",
       icon: Brain,
-      popupContent: "Our advanced AI algorithms conduct deep forensic analysis of your energy usage patterns to uncover hidden inefficiencies and opportunities for cost recovery."
+      popupContent: "Our advanced AI algorithms conduct deep analysis of usage patterns to uncover hidden inefficiencies and opportunities for cost recovery."
     },
     {
       title: "Predictive Anomaly Detection",
-      description: "Advanced forensic algorithms detect patterns of energy waste and inefficiency before they impact your bottom line.",
+      description: "Advanced algorithms detect patterns of waste and inefficiency before they impact your bottom line.",
       icon: AlertTriangle,
-      popupContent: "While others simply monitor, our forensic AI predicts and identifies unusual patterns that indicate potential energy waste or system inefficiencies."
+      popupContent: "While others simply monitor, our AI predicts and identifies unusual patterns that indicate potential waste or system inefficiencies."
     },
     {
-      title: "Multi-Site Forensic Analysis",
-      description: "Conduct comprehensive forensic investigations across multiple sites from a centralized intelligence dashboard.",
+      title: "Multi-Site Analysis",
+      description: "Conduct comprehensive investigations across multiple sites from a centralized intelligence dashboard.",
       icon: Radio,
-      popupContent: "Compare forensic energy data across all your facilities to identify systemic issues and optimization opportunities others miss."
+      popupContent: "Compare data across all your facilities to identify systemic issues and optimization opportunities others miss."
     },
     {
-      title: "Forensic Evidence Tracking",
-      description: "Generate detailed forensic reports with comprehensive evidence of energy inefficiencies and waste.",
+      title: "Evidence Tracking",
+      description: "Generate detailed reports with comprehensive evidence of inefficiencies and waste.",
       icon: FileSpreadsheet,
-      popupContent: "Export detailed forensic analysis reports with evidence-backed recommendations for immediate cost recovery."
+      popupContent: "Export detailed analysis reports with evidence-backed recommendations for immediate cost recovery."
     },
     {
       title: "Real-Time Intelligence",
-      description: "Get instant forensic insights that help you make informed decisions to eliminate energy waste.",
+      description: "Get instant insights that help you make informed decisions to eliminate waste.",
       icon: BarChart3,
-      popupContent: "Our AI continuously analyzes your energy data to provide real-time forensic insights and actionable intelligence."
+      popupContent: "Our AI continuously analyzes your data to provide real-time insights and actionable intelligence."
     }
   ];
 
@@ -50,7 +49,7 @@ const FeaturesSection: React.FC = () => {
             Features <span className="gradient-text font-normal">Designed</span> for Intelligence
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
-            Our AI-powered platform provides comprehensive forensic tools to transform your energy intelligence strategy.
+            Our AI-powered platform provides comprehensive tools to transform your intelligence strategy.
           </p>
           
           {/* UVP Highlight Box */}
@@ -62,9 +61,9 @@ const FeaturesSection: React.FC = () => {
               <div className="text-left">
                 <h3 className="text-xl font-medium text-black dark:text-white mb-2">What Sets Us Apart</h3>
                 <p className="text-gray-700 dark:text-gray-200">
-                  Unlike traditional energy monitoring systems that use <span className="font-semibold">basic analytics</span>, 
-                  Lumesys employs <span className="text-accent font-bold">advanced forensic AI</span> that investigates and uncovers hidden energy inefficiencies. This forensic approach enables 
-                  <span className="text-highlight font-bold"> 24-hour analysis</span> and <span className="text-highlight font-bold">up to 20% cost recovery</span> from previously undetected issues.
+                  Unlike traditional systems that use <span className="font-semibold">basic analytics</span>, 
+                  Lumesys employs <span className="text-accent font-bold">advanced AI</span> that investigates and uncovers hidden inefficiencies. This approach enables 
+                  <span className="text-highlight font-bold"> 24-hour analysis</span> and <span className="text-highlight font-bold">cost recovery</span> from previously undetected issues.
                 </p>
               </div>
             </div>
