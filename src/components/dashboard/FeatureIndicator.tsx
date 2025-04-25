@@ -4,7 +4,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 interface FeatureIndicatorProps {
   color: string;
-  label: string;
+  label: React.ReactNode;
   icon?: React.ReactNode;
   description?: string;
 }

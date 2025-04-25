@@ -96,7 +96,7 @@ const HeroSection: React.FC = () => {
             </p>
           </div>
           
-          <p className="text-lg md:text-xl text-black/70 max-w-3xl mb-8 animate-float" style={{ animationDelay: "0.7s" }}>
+          <p className="text-base md:text-lg text-black/70 max-w-3xl mb-8 animate-float italic font-bold" style={{ animationDelay: "0.7s" }}>
             Designed to Think, Built to Optimize
           </p>
 

@@ -156,6 +156,16 @@
   .loading-bar {
     @apply fixed top-0 left-0 h-0.5 bg-gradient-to-r from-highlight via-accent to-highlight bg-[length:200%_auto] animate-gradient-flow z-50;
   }
+  
+  .gradient-animated {
+    @apply bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-flow;
+    background-image: linear-gradient(
+      to right,
+      #FFD700,
+      #FFA500,
+      #FFD700
+    );
+  }
 }
 
 .section-padding {
